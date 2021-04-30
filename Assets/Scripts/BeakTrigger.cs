@@ -30,17 +30,18 @@ public class BeakTrigger : MonoBehaviour
 				if(rb != null)
 				{
 					rb.isKinematic = false;
-					rb.detectCollisions = false;
-					//otherCollider.detectCollisions = false;
+					
+					rb.AddForce(Camera.main.transform.forward, UnityEngine.ForceMode.Impulse);
+					otherCollider.gameObject.GetComponent<Rigidbody>().detectCollisions = false;
 					//gameObject.GetComponent<Collider>().enabled = false;
 					gameObject.transform.GetChild(0).parent = null;
+					rb.detectCollisions = true;
 					
 				}	
 			}
 		}
 		else if(otherCollider.gameObject.name.StartsWith("rock"))
 		{
-			//attach sphere to beak...
 			if(gameObject.transform.childCount == 0)
 			{
 				otherCollider.gameObject.transform.parent = gameObject.transform;
@@ -48,11 +49,13 @@ public class BeakTrigger : MonoBehaviour
 				if(rb != null)
 				{
 					rb.isKinematic = true;
+					rb.detectCollisions = false;
 				}
-				//enable the navigationtrigger collider...
+				//enable the navigationtrigger collider... so that we can drop the rock..
 				if(navigationTrigger != null)
 				{
 					navigationTrigger.GetComponent<Collider>().enabled = true;
+					navigationTrigger.GetComponent<Rigidbody>().detectCollisions = true;
 				}
 			}
 			Debug.Log(otherCollider.gameObject.name);
