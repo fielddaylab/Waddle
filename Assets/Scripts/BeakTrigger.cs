@@ -30,6 +30,8 @@ public class BeakTrigger : MonoBehaviour
 				if(rb != null)
 				{
 					rb.isKinematic = false;
+					rb.detectCollisions = false;
+					//otherCollider.detectCollisions = false;
 					//gameObject.GetComponent<Collider>().enabled = false;
 					gameObject.transform.GetChild(0).parent = null;
 					
