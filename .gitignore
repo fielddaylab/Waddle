@@ -9,6 +9,9 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Mm]emoryCaptures/
+/Assets/Oculus/Samples
+/Assets/Oculus/Platform/Samples
+/Assets/Oculus/SampleFramework
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
