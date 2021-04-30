@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BeakTrigger : MonoBehaviour
 {
+	public GameObject navigationTrigger;
+	
     // Start is called before the first frame update
     void Start()
     {
@@ -22,12 +24,36 @@ public class BeakTrigger : MonoBehaviour
 		{
 			Debug.Log("Beak collided with " + otherCollider.gameObject.name);
 			//try navigation technique here, or drop rocks if we're not in the water...
-			
+			if(gameObject.transform.childCount == 1)
+			{
+				Rigidbody rb = gameObject.transform.GetChild(0).GetComponent<Rigidbody>();
+				if(rb != null)
+				{
+					rb.isKinematic = false;
+					//gameObject.GetComponent<Collider>().enabled = false;
+					gameObject.transform.GetChild(0).parent = null;
+					
+				}	
+			}
 		}
-		else if(otherCollider.gameObject.name.StartsWith("Sphere"))
+		else if(otherCollider.gameObject.name.StartsWith("rock"))
 		{
 			//attach sphere to beak...
-			otherCollider.gameObject.transform.parent = gameObject.transform;
+			if(gameObject.transform.childCount == 0)
+			{
+				otherCollider.gameObject.transform.parent = gameObject.transform;
+				Rigidbody rb = otherCollider.gameObject.GetComponent<Rigidbody>();
+				if(rb != null)
+				{
+					rb.isKinematic = true;
+				}
+				//enable the navigationtrigger collider...
+				if(navigationTrigger != null)
+				{
+					navigationTrigger.GetComponent<Collider>().enabled = true;
+				}
+			}
+			Debug.Log(otherCollider.gameObject.name);
 		}
 	}
 }
