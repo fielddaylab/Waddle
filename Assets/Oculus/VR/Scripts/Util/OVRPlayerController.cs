@@ -130,6 +130,8 @@ public class OVRPlayerController : MonoBehaviour
 	/// </summary>
 	public bool RotationEitherThumbstick = false;
 
+	public bool OverrideOculusForward = false;
+	
 	protected CharacterController Controller = null;
 	protected OVRCameraRig CameraRig = null;
 
@@ -350,6 +352,11 @@ public class OVRPlayerController : MonoBehaviour
 
 			bool dpad_move = false;
 
+			if(OverrideOculusForward)
+			{
+				moveForward = true;
+			}
+			
 			if (OVRInput.Get(OVRInput.Button.DpadUp))
 			{
 				moveForward = true;
