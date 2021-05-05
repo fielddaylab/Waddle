@@ -76,7 +76,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: android_${{ env.VERSION }}
-        path: Android.apk
+        path: build/Android/Android.apk
     
     # - name: Upload to web server via rsync
       # uses: burnett01/rsync-deployments@4.1
