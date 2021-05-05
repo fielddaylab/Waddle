@@ -72,10 +72,11 @@ jobs:
     
     # Deploy Steps
     # 
+    #android_${{ env.VERSION }}
     - name: Upload build as artifact
       uses: actions/upload-artifact@v2
       with:
-        name: android_${{ env.VERSION }}
+        name: AndroidBuild
         path: build/Android/Android.apk
     
     # - name: Upload to web server via rsync
