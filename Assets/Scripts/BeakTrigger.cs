@@ -35,12 +35,15 @@ public class BeakTrigger : MonoBehaviour
 		{
 			//trigger a constant forward navigation motion..
 			Debug.Log("Beak hit navigation trigger");
-			_isInNav = true;
-			if(_playerObject != null)
+			if(gameObject.transform.childCount == 0)
 			{
-				OVRPlayerController ovrPC = _playerObject.GetComponent<OVRPlayerController>();
-				ovrPC.OverrideOculusForward = true;
-				StartCoroutine(MoveForward());
+				_isInNav = true;
+				if(_playerObject != null)
+				{
+					OVRPlayerController ovrPC = _playerObject.GetComponent<OVRPlayerController>();
+					ovrPC.OverrideOculusForward = true;
+					StartCoroutine(MoveForward());
+				}
 			}
 		}
 		else if(otherCollider.gameObject.name.StartsWith("rock"))
