@@ -67,6 +67,7 @@ jobs:
       with:
         unityVersion: ${{ env.UNITY_VERSION }}
         targetPlatform: Android
+        #buildName: PenguinsVR
         #customParameters: '-myParameter myValue -myBoolean -ThirdParameter andItsValue'
     
     

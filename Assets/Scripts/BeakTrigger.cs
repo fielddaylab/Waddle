@@ -34,8 +34,8 @@ public class BeakTrigger : MonoBehaviour
 		if(otherCollider.gameObject.name == "NavigationTrigger")
 		{
 			//trigger a constant forward navigation motion..
-			Debug.Log("Beak hit navigation trigger");
-			if(gameObject.transform.childCount == 0)
+			//Debug.Log("Beak hit navigation trigger");
+			//if(gameObject.transform.childCount == 0)
 			{
 				_isInNav = true;
 				if(_playerObject != null)
@@ -73,7 +73,7 @@ public class BeakTrigger : MonoBehaviour
 	{
 		if(otherCollider.gameObject.name == "NavigationTrigger")
 		{
-			Debug.Log("Beak left navigation trigger");
+			//Debug.Log("Beak left navigation trigger");
 			_isInNav = false;
 			if(_playerObject != null)
 			{
