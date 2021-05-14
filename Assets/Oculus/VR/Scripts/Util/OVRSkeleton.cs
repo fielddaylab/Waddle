@@ -113,6 +113,9 @@ public class OVRSkeleton : MonoBehaviour
 	public SkeletonType GetSkeletonType() { return _skeletonType; }
 	public int SkeletonChangedCount { get; private set; }
 
+	public Vector3 _constrainRotMin = new Vector3(-90.0f, -90.0f, -90.0f);
+	public Vector3 _constrainRotMax = new Vector3(90.0f, 90.0f, 90.0f);
+	
 	private void Awake()
 	{
 		if (_dataProvider == null)
@@ -378,6 +381,19 @@ public class OVRSkeleton : MonoBehaviour
 						{
 							_bones[i].Transform.localRotation *= wristFixupRotation;
 						}
+						/*else if(_bones[i].Id == BoneId.Hand_ForearmStub)
+						{
+
+							Vector3 v = _bones[i].Transform.localRotation.eulerAngles;
+							//Debug.Log(v);
+							v.x = Mathf.Clamp(v.x, _constrainRotMin.x, _constrainRotMax.x);
+							v.y = Mathf.Clamp(v.y, _constrainRotMin.y, _constrainRotMax.y);
+							v.z = Mathf.Clamp(v.z, _constrainRotMin.z, _constrainRotMax.z);
+							Quaternion q = _bones[i].Transform.localRotation;
+							q.eulerAngles = v;
+							_bones[i].Transform.localRotation = q;
+						
+						}*/
 					}
 					else
 					{

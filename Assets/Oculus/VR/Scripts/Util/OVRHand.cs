@@ -60,7 +60,13 @@ public class OVRHand : MonoBehaviour,
 	public float HandScale { get; private set; }
 	public TrackingConfidence HandConfidence { get; private set; }
 	public bool IsDominantHand { get; private set; }
-
+	
+	public Vector3 _constrainRotMin;
+	public Vector3 _constrainRotMax;
+	
+	public Vector3 _constrainPosMin;
+	public Vector3 _constrainPosMax;
+	
 	private void Awake()
 	{
 		_pointerPoseGO = new GameObject();
@@ -76,6 +82,15 @@ public class OVRHand : MonoBehaviour,
 	private void Update()
 	{
 		GetHandState(OVRPlugin.Step.Render);
+		
+		if(IsDataHighConfidence)
+		{
+			transform.GetChild(0).gameObject.SetActive(true);
+		}
+		else
+		{
+			transform.GetChild(0).gameObject.SetActive(false);
+		}
 	}
 
 	private void FixedUpdate()
@@ -96,6 +111,16 @@ public class OVRHand : MonoBehaviour,
 			IsDominantHand = (_handState.Status & OVRPlugin.HandStatus.DominantHand) != 0;
 			PointerPose.localPosition = _handState.PointerPose.Position.FromFlippedZVector3f();
 			PointerPose.localRotation = _handState.PointerPose.Orientation.FromFlippedZQuatf();
+			
+			/*Vector3 v = PointerPose.localRotation.eulerAngles;
+			//Debug.Log(v);
+			v.x = Mathf.Clamp(v.x, _constrainRotMin.x, _constrainRotMax.x);
+			v.y = Mathf.Clamp(v.y, _constrainRotMin.y, _constrainRotMax.y);
+			v.z = Mathf.Clamp(v.z, _constrainRotMin.z, _constrainRotMax.z);
+			Quaternion q = PointerPose.localRotation;
+			q.eulerAngles = v;
+			PointerPose.localRotation = q;*/
+			
 			HandScale = _handState.HandScale;
 			HandConfidence = (TrackingConfidence)_handState.HandConfidence;
 
@@ -167,6 +192,7 @@ public class OVRHand : MonoBehaviour,
 		data.IsDataValid = IsDataValid;
 		if (IsDataValid)
 		{
+			//Debug.Log(_handState.RootPose);
 			data.RootPose = _handState.RootPose;
 			data.RootScale = _handState.HandScale;
 			data.BoneRotations = _handState.BoneRotations;
