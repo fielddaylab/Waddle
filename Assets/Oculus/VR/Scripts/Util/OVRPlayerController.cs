@@ -56,6 +56,16 @@ public class OVRPlayerController : MonoBehaviour
 	public bool SnapRotation = true;
 
 	/// <summary>
+	/// [Deprecated] When enabled, snap rotation will happen about the guardian rather
+	/// than the player/camera viewpoint.
+	/// </summary>
+	[Tooltip("[Deprecated] When enabled, snap rotation will happen about the center of the " +
+		"guardian rather than the center of the player/camera viewpoint. This (legacy) " +
+		"option should be left off except for edge cases that require extreme behavioral " +
+		"backwards compatibility.")]
+	public bool RotateAroundGuardianCenter = false;
+
+	/// <summary>
 	/// How many fixed speeds to use with linear movement? 0=linear control
 	/// </summary>
 	[Tooltip("How many fixed speeds to use with linear movement? 0=linear control")]
@@ -151,6 +161,7 @@ public class OVRPlayerController : MonoBehaviour
 	private bool ReadyToSnapTurn; // Set to true when a snap turn has occurred, code requires one frame of centered thumbstick to enable another snap turn.
 	private bool playerControllerEnabled = false;
 
+	
 	void Start()
 	{
 		// Add eye-depth as a camera offset from the player controller
@@ -188,10 +199,7 @@ public class OVRPlayerController : MonoBehaviour
 	{
 		if (playerControllerEnabled)
 		{
-			if(OVRManager.display != null)
-			{
-				OVRManager.display.RecenteredPose -= ResetOrientation;
-			}
+			OVRManager.display.RecenteredPose -= ResetOrientation;
 
 			if (CameraRig != null)
 			{
@@ -207,11 +215,7 @@ public class OVRPlayerController : MonoBehaviour
 		{
 			if (OVRManager.OVRManagerinitialized)
 			{
-				
-				if(OVRManager.display != null)
-				{
-					OVRManager.display.RecenteredPose += ResetOrientation;
-				}
+				OVRManager.display.RecenteredPose += ResetOrientation;
 
 				if (CameraRig != null)
 				{
@@ -231,6 +235,7 @@ public class OVRPlayerController : MonoBehaviour
 				
 				UpdateTransform(CameraRig);
 #endif
+				
 				return;
 			}
 		}
@@ -240,12 +245,10 @@ public class OVRPlayerController : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.E))
 			buttonRotation += RotationRatchet;
-		
 	}
 
 	protected virtual void UpdateController()
 	{
-		
 		if (useProfileData)
 		{
 			if (InitialPose == null)
@@ -287,7 +290,7 @@ public class OVRPlayerController : MonoBehaviour
 		{
 			CameraUpdated();
 		}
-		
+
 		UpdateMovement();
 
 		Vector3 moveDirection = Vector3.zero;
@@ -338,20 +341,18 @@ public class OVRPlayerController : MonoBehaviour
 
 	public virtual void UpdateMovement()
 	{
-		
 		if (HaltUpdateMovement)
 			return;
 
 		if (EnableLinearMovement)
 		{
-			
 			bool moveForward = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
 			bool moveLeft = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
 			bool moveRight = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
 			bool moveBack = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
 
 			bool dpad_move = false;
-
+			
 			if(OverrideOculusForward)
 			{
 				moveForward = true;
@@ -438,7 +439,7 @@ public class OVRPlayerController : MonoBehaviour
 
 		if (EnableRotation)
 		{
-			Vector3 euler = transform.rotation.eulerAngles;
+			Vector3 euler = RotateAroundGuardianCenter ? transform.rotation.eulerAngles : Vector3.zero;
 			float rotateInfluence = SimulationRate * Time.deltaTime * RotationAmount * RotationScaleMultiplier;
 
 			bool curHatLeft = OVRInput.Get(OVRInput.Button.PrimaryShoulder);
@@ -503,7 +504,14 @@ public class OVRPlayerController : MonoBehaviour
 				euler.y += secondaryAxis.x * rotateInfluence;
 			}
 
-			transform.rotation = Quaternion.Euler(euler);
+			if (RotateAroundGuardianCenter)
+			{
+				transform.rotation = Quaternion.Euler(euler);
+			}
+			else
+			{
+				transform.RotateAround(CameraRig.centerEyeAnchor.position, Vector3.up, euler.y);
+			}
 		}
 	}
 
@@ -513,7 +521,6 @@ public class OVRPlayerController : MonoBehaviour
 	/// </summary>
 	public void UpdateTransform(OVRCameraRig rig)
 	{
-		
 		Transform root = CameraRig.trackingSpace;
 		Transform centerEye = CameraRig.centerEyeAnchor;
 
@@ -527,7 +534,7 @@ public class OVRPlayerController : MonoBehaviour
 			root.position = prevPos;
 			root.rotation = prevRot;
 		}
-		
+
 		UpdateController();
 		if (TransformUpdated != null)
 		{
