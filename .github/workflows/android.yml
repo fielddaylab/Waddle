@@ -88,6 +88,8 @@ jobs:
 
     - name: GitHub Commit & Push
       uses: actions-js/push@v1.2
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
           
     # - name: Upload to web server via rsync
       # uses: burnett01/rsync-deployments@4.1
