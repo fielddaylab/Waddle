@@ -81,7 +81,7 @@ jobs:
         path: build/Android/Android.apk
         
     - name: Make directory
-        run: mkdir /github/workspace/Assets/release
+       run: mkdir "/github/workspace/Assets/release/"
         
     - name: Copy file
       uses: canastro/copy-action@0.0.2
