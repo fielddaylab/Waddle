@@ -82,7 +82,7 @@ jobs:
         
     - name: Make directory
     shell: bash
-    run: echo "mkdir /github/workspace/Assets/release"
+    run: mkdir /github/workspace/Assets/release
     
     - name: Copy file
       uses: canastro/copy-action@0.0.2
