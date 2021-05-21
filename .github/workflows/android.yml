@@ -85,7 +85,13 @@ jobs:
       with:
         source: build/Android/Android.apk
         target: /github/workspace/./Release/PenguinsVR.apk
-
+        
+    - name: Github Pull
+      uses: actions/checkout@master
+      with:
+        fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
+        #persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
+        
     - name: GitHub Commit & Push
       uses: actions-js/push@v1.2
       with:

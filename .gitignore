@@ -13,6 +13,7 @@
 /Assets/Oculus/Platform/Samples
 /Assets/Oculus/SampleFramework
 /UserSettings/
+/Assets/Editor/Editor
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
