@@ -79,7 +79,16 @@ jobs:
       with:
         name: AndroidBuild
         path: build/Android/Android.apk
-    
+        
+    - name: Copy file
+      uses: canastro/copy-action@0.0.2
+      with:
+        source: build/Android/Android.apk
+        target: Release/PenguinsVR.apk
+
+    - name: GitHub Commit & Push
+      uses: actions-js/push@v1.2
+          
     # - name: Upload to web server via rsync
       # uses: burnett01/rsync-deployments@4.1
       # with:
