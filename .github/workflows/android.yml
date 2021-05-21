@@ -96,7 +96,7 @@ jobs:
       uses: actions-js/push@v1.2
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-          
+        force: true
     # - name: Upload to web server via rsync
       # uses: burnett01/rsync-deployments@4.1
       # with:
