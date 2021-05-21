@@ -84,7 +84,7 @@ jobs:
       uses: canastro/copy-action@0.0.2
       with:
         source: build/Android/Android.apk
-        target: /github/workspace/./Release/PenguinsVR.apk
+        target: /github/workspace/./Assets/release/PenguinsVR.apk
         
     #- name: Github Pull
     #  uses: actions/checkout@master
