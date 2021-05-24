@@ -74,11 +74,11 @@ jobs:
     # Deploy Steps
     # 
     #android_${{ env.VERSION }}
-    - name: Upload build as artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: AndroidBuild
-        path: build/Android/Android.apk
+    #- name: Upload build as artifact
+    #  uses: actions/upload-artifact@v2
+    #  with:
+    #    name: AndroidBuild
+    #    path: build/Android/Android.apk
         
     #- name: Make directory
     #  shell: bash
@@ -101,6 +101,7 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         force: true
+        branch: 'main'
     
     # - name: Upload to web server via rsync
       # uses: burnett01/rsync-deployments@4.1
