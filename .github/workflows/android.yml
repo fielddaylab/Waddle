@@ -80,15 +80,15 @@ jobs:
         name: AndroidBuild
         path: build/Android/Android.apk
         
-    - name: Make directory
-      shell: bash
-      run: mkdir -p /github/workspace/Assets/release
+    #- name: Make directory
+    #  shell: bash
+    #  run: mkdir -p /github/workspace/Assets/release
     
     - name: Copy file
       uses: canastro/copy-action@0.0.2
       with:
         source: build/Android/Android.apk
-        target: /github/workspace/Assets/release/PenguinsVR.apk
+        target: /github/workspace/Release/PenguinsVR.apk
         
     #- name: Github Pull
     #  uses: actions/checkout@master
