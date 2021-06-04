@@ -277,7 +277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.416
+      value: 0.325
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -456,7 +456,24 @@ MonoBehaviour:
   _leftHand: {fileID: 1409167166}
   _rightHand: {fileID: 1866321706}
   _forwardDirection: {fileID: 945239655}
-  _speed: 20
+  _speed: 40
+--- !u!114 &303675686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303675684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f1028c5123dcf74382b043319ec9895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _centerEye: {fileID: 1949877350}
+  _ovrPlayer: {fileID: 303675684}
+  _speed: 500
+  _threshold: 0.005
+  _lastSidePositive: 0
 --- !u!1001 &322583016
 PrefabInstance:
   m_ObjectHideFlags: 0
