@@ -62,7 +62,7 @@ public class Waddle : MonoBehaviour
 			if(_debugPlane != null)
 			{
 				_debugPlane.transform.position = _centerEye.transform.position;
-				_debugPlane.transform.rotation = Quaternion.LookRotation(_ovrPlayer.transform.forward, lrVec);
+				_debugPlane.transform.rotation = Quaternion.LookRotation(_centerEye.transform.forward, lrVec);
 			}
 			return;
 		}
@@ -155,7 +155,7 @@ public class Waddle : MonoBehaviour
 				if(_debugPlane != null)
 				{
 					_debugPlane.transform.position = _centerEye.transform.position;
-					_debugPlane.transform.rotation = Quaternion.LookRotation(_ovrPlayer.transform.forward, lrVec);
+					_debugPlane.transform.rotation = Quaternion.LookRotation(_centerEye.transform.forward, lrVec);
 				}
 				
 				_lastSidePositive = -1;
