@@ -31,7 +31,7 @@ public class Waddle : MonoBehaviour
         SetLastPositions();
     }
 
-	IEnumerator MoveForward(Vector3 targetPosition, float duration)
+	/*IEnumerator MoveForward(Vector3 targetPosition, float duration)
 	{
 		float t = 0f;
 		
@@ -49,7 +49,7 @@ public class Waddle : MonoBehaviour
 		_movementDone = true;
 		
 		transform.position = targetPosition;
-	}
+	}*/
 	
     // Update is called once per frame
     void Update()
