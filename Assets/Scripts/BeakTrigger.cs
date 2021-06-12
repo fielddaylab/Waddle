@@ -173,5 +173,7 @@ public class BeakTrigger : MonoBehaviour
 				ovrPC.OverrideOculusForward = false;
 			}
 		}
+		
+		//have on trigger exit cause movement?
 	}
 }

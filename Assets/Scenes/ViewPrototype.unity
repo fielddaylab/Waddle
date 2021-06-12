@@ -435,6 +435,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400008, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
   m_PrefabInstance: {fileID: 179669440}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &298405836 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6637983380937650204, guid: 909baf701e2605b428c36664d0bb5a14, type: 3}
+  m_PrefabInstance: {fileID: 1574628929}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &303675684 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100008, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
@@ -471,7 +476,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _centerEye: {fileID: 1949877350}
   _ovrPlayer: {fileID: 303675684}
-  _debugPlane: {fileID: 0}
+  _debugPlane: {fileID: 298405836}
   _speed: 3
   _threshold: 0.003
   _timeThreshold: 1.2
@@ -2658,7 +2663,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6637983380937650204, guid: 909baf701e2605b428c36664d0bb5a14, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 909baf701e2605b428c36664d0bb5a14, type: 3}
