@@ -49,7 +49,7 @@ jobs:
       shell: bash
       run: echo "VERSION=$(echo ${GITHUB_REF#refs/tags/} | sed 's/\//_/g')" >> $GITHUB_ENV
       
-- name: Free disk space
+    - name: Free disk space
       run: |
         sudo apt-get remove aria2 ansible azure-cli shellcheck rpm xorriso zsync \
           clang-6.0 lldb-6.0 lld-6.0 clang-format-6.0 clang-8 lldb-8 lld-8 clang-format-8 \
