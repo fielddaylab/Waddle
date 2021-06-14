@@ -49,6 +49,15 @@ jobs:
       shell: bash
       run: echo "VERSION=$(echo ${GITHUB_REF#refs/tags/} | sed 's/\//_/g')" >> $GITHUB_ENV
       
+# Free up disk space
+    - name: Free Disk Space for Android
+      run: |
+        sudo swapoff -a
+        sudo rm -f /swapfile
+        sudo apt clean
+        docker rmi $(docker images -q)
+        df -h
+        
     # Unity Build Steps
 
     - name: Cache Library folder
