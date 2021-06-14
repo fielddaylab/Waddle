@@ -49,10 +49,13 @@ jobs:
       shell: bash
       run: echo "VERSION=$(echo ${GITHUB_REF#refs/tags/} | sed 's/\//_/g')" >> $GITHUB_ENV
       
-    - name: Free disk space
+    - name: free disk space
       run: |
-        sudo swapoff /swapfile
-        sudo rm -rf /swapfile /usr/share/dotnet /usr/local/lib/android /opt/ghc
+        sudo swapoff -a
+        sudo rm -f /swapfile
+        sudo apt clean
+        docker rmi $(docker image ls -aq)
+        df -h
         
     # Unity Build Steps
 
