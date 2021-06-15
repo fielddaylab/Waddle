@@ -127,10 +127,8 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.0.48
-  preloadedAssets:
-  - {fileID: 11400000, guid: cd8e3d83f36e1df4d858d3c879efb61c, type: 2}
-  - {fileID: -3208588905040856867, guid: 17be9d7f94ee23446962b53d42a20d24, type: 2}
+  bundleVersion: 0.0.59
+  preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -151,11 +149,11 @@ PlayerSettings:
     Android: com.DefaultCompany.PenguinsVR
     Standalone: com.DefaultCompany.PenguinsVR
   buildNumber:
-    Standalone: 0.0.48
+    Standalone: 0.0.59
     iPhone: 0
     tvOS: 0
   overrideDefaultApplicationIdentifier: 0
-  AndroidBundleVersionCode: 48
+  AndroidBundleVersionCode: 59
   AndroidMinSdkVersion: 23
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 0
