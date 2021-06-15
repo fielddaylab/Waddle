@@ -49,13 +49,8 @@ jobs:
       shell: bash
       run: echo "VERSION=$(echo ${GITHUB_REF#refs/tags/} | sed 's/\//_/g')" >> $GITHUB_ENV
       
-    - name: free disk space
-      run: |
-        sudo swapoff -a
-        sudo rm -f /swapfile
-        sudo apt clean
-        docker rmi $(docker image ls -aq)
-        df -h
+    - name: Free up 24GB of disk space
+      run: sudo rm -rf /usr/share/dotnet
         
     # Unity Build Steps
 
