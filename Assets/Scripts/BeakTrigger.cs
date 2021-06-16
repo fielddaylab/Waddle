@@ -77,7 +77,7 @@ public class BeakTrigger : MonoBehaviour
 	
 	void OnTriggerEnter(Collider otherCollider)
 	{
-		if(otherCollider.gameObject.name == "NavigationTrigger")
+		/*if(otherCollider.gameObject.name == "NavigationTrigger")
 		{
 			//trigger a constant forward navigation motion..
 			//Debug.Log("Beak hit navigation trigger");
@@ -91,8 +91,8 @@ public class BeakTrigger : MonoBehaviour
 					StartCoroutine(MoveForward());
 				}
 			}
-		}
-		else if(otherCollider.gameObject.name == "WaddleTriggerLeft")
+		}*/
+		/*else if(otherCollider.gameObject.name == "WaddleTriggerLeft")
 		{
 			if(_leftWaddleTimer == 0f)
 			{
@@ -137,8 +137,8 @@ public class BeakTrigger : MonoBehaviour
 					_leftWaddleTimer = 0f;
 				}
 			}
-		}
-		else if(otherCollider.gameObject.name.StartsWith("rock"))
+		}*/
+		if(otherCollider.gameObject.name.StartsWith("rock"))
 		{
 			//pick up a rock with your beak
 			if(gameObject.transform.childCount == 0)
@@ -163,7 +163,7 @@ public class BeakTrigger : MonoBehaviour
 	
 	void OnTriggerExit(Collider otherCollider)
 	{
-		if(otherCollider.gameObject.name == "NavigationTrigger")
+		/*if(otherCollider.gameObject.name == "NavigationTrigger")
 		{
 			//Debug.Log("Beak left navigation trigger");
 			_isInNav = false;
@@ -172,7 +172,7 @@ public class BeakTrigger : MonoBehaviour
 				OVRPlayerController ovrPC = _playerObject.GetComponent<OVRPlayerController>();
 				ovrPC.OverrideOculusForward = false;
 			}
-		}
+		}*/
 		
 		//have on trigger exit cause movement?
 	}
