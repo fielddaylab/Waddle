@@ -1,0 +1,222 @@
+fileFormatVersion: 2
+guid: bfb193cdaa2464b96bb5669046b4e3be
+ModelImporter:
+  serializedVersion: 21100
+  internalIDToNameTable: []
+  externalObjects: {}
+  materials:
+    materialImportMode: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 1
+    maxBonesPerVertex: 2
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 0
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: AdelieBody00(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Armature
+      parentName: AdelieBody00(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Spine
+      parentName: Armature
+      position: {x: -0, y: -0.032795392, z: 0.054795623}
+      rotation: {x: 0.6629486, y: -0.00000008924784, z: -0.000000079029654, w: 0.7486649}
+      scale: {x: 1, y: 1.0000002, z: 1}
+    - name: Shoulder_Right
+      parentName: Spine
+      position: {x: -0, y: 0.27103972, z: 0}
+      rotation: {x: 0.4148624, y: 0.51709837, z: 0.58395624, w: -0.46850136}
+      scale: {x: 1.0000005, y: 1.0000004, z: 1.0000004}
+    - name: Flipper0_Right
+      parentName: Shoulder_Right
+      position: {x: -0.000000011175873, y: 0.12498581, z: 0.00000003073354}
+      rotation: {x: -0.0023502412, y: 0.0041031544, z: -0.30422834, w: 0.9525874}
+      scale: {x: 1, y: 0.99999976, z: 1.0000002}
+    - name: Flipper1_Right
+      parentName: Flipper0_Right
+      position: {x: -0.00000002142042, y: 0.06038056, z: -0.000000023806933}
+      rotation: {x: 0.1617063, y: -0.1482966, z: 0.02306532, w: -0.97536004}
+      scale: {x: 1.0000002, y: 1.0000006, z: 1.0000001}
+    - name: Flipper2_Right
+      parentName: Flipper1_Right
+      position: {x: 0.000000014901161, y: 0.07341585, z: 0.000000020489097}
+      rotation: {x: -0.22034271, y: 0.20066752, z: -0.026835036, w: 0.9541811}
+      scale: {x: 1.0000001, y: 0.9999997, z: 1.0000006}
+    - name: Flipper2_Right_end
+      parentName: Flipper2_Right
+      position: {x: -0, y: 0.05313419, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Shoulder_Left
+      parentName: Spine
+      position: {x: -0, y: 0.27103972, z: 0}
+      rotation: {x: -0.46877527, y: 0.4687755, z: 0.5293861, w: 0.5293861}
+      scale: {x: 1.0000007, y: 1.0000008, z: 1.0000004}
+    - name: Flipper0_Left
+      parentName: Shoulder_Left
+      position: {x: -3.5527137e-15, y: 0.12498581, z: -0.00000003073354}
+      rotation: {x: 0.00021539629, y: 0.0043055415, z: -0.027838394, w: -0.99960315}
+      scale: {x: 1.000001, y: 1.0000006, z: 1.0000007}
+    - name: Flipper1_Left
+      parentName: Flipper0_Left
+      position: {x: 0.0000000034924597, y: 0.06038053, z: 0.000000030733645}
+      rotation: {x: 0.078431115, y: 0.14960101, z: -0.009679598, w: -0.9855833}
+      scale: {x: 0.99999994, y: 1.0000004, z: 1.0000002}
+    - name: Flipper2_Left
+      parentName: Flipper1_Left
+      position: {x: 0.000000007450581, y: 0.0734158, z: 0.000000067055225}
+      rotation: {x: -0.2203428, y: -0.2006676, z: 0.026835224, w: 0.954181}
+      scale: {x: 1.0000005, y: 1.0000004, z: 1.0000004}
+    - name: Flipper2_Left_end
+      parentName: Flipper2_Left
+      position: {x: -0, y: 0.05313419, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: IK_Right
+      parentName: Armature
+      position: {x: -0.275886, y: -0.057998773, z: 0.2634817}
+      rotation: {x: 0.00000008940697, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: IK_Right_end
+      parentName: IK_Right
+      position: {x: -0, y: 0.0586945, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: IK_Left
+      parentName: Armature
+      position: {x: 0.275886, y: -0.057998773, z: 0.2634817}
+      rotation: {x: 0.00000008940697, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: IK_Left_end
+      parentName: IK_Left
+      position: {x: -0, y: 0.0586945, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Leg_Left
+      parentName: Armature
+      position: {x: -0, y: -0.032795392, z: 0.054795623}
+      rotation: {x: 0.5968935, y: -0.2529623, z: 0.58865786, w: -0.48291838}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: Foot_Left
+      parentName: Leg_Left
+      position: {x: -0.0000000025510678, y: 0.07344817, z: -0.0000000020867148}
+      rotation: {x: -0.2300327, y: 0.252478, z: -0.66049594, w: -0.6686442}
+      scale: {x: 1, y: 1.0000002, z: 1.0000004}
+    - name: Foot_Left_end
+      parentName: Foot_Left
+      position: {x: -0, y: 0.048792817, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Leg_Right
+      parentName: Armature
+      position: {x: -0, y: -0.032795392, z: 0.054795623}
+      rotation: {x: 0.5968935, y: 0.2529623, z: -0.58865786, w: -0.48291838}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: Foot_Right
+      parentName: Leg_Right
+      position: {x: 0.0000000025510678, y: 0.07344817, z: -0.0000000020867148}
+      rotation: {x: -0.2300327, y: -0.252478, z: 0.66049594, w: -0.6686442}
+      scale: {x: 1, y: 1.0000002, z: 1.0000004}
+    - name: Foot_Right_end
+      parentName: Foot_Right
+      position: {x: -0, y: 0.048792817, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: AdelieBody
+      parentName: AdelieBody00(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.0000018099951, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: Spine
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
