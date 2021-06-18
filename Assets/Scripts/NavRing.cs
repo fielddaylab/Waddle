@@ -4,24 +4,26 @@ using UnityEngine;
 
 public class NavRing : MonoBehaviour
 {
-	public GameObject _ovrPlayer;
+	//public GameObject _ovrPlayer;
 	public GameObject _centerEye;
 	
 	bool _needsUpdate = false;
-	float _colliderRadius = 0.1f;
+	int _lr = -1;
+	
+	public float _colliderRadius = 0.06f;
 	
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = _ovrPlayer.transform.position;
-		transform.rotation = _ovrPlayer.transform.rotation;
-		_colliderRadius = GetComponent<CapsuleCollider>().radius;
+        transform.position = _centerEye.transform.position;
+		transform.rotation = _centerEye.transform.rotation;
 		//Debug.Log(_colliderRadius);
     }
 
-	public void ForceUpdate()
+	public void ForceUpdate(int lr)
 	{
 		_needsUpdate = true;
+		_lr = lr;
 	}
 	
     void Update()
@@ -49,6 +51,22 @@ public class NavRing : MonoBehaviour
 		if(_needsUpdate)
 		{
 			transform.position = _centerEye.transform.position;
+			if(_lr != -1)
+			{
+				if(_lr == 0)
+				{
+					//Debug.Log("Right");
+					transform.position = transform.position - _centerEye.transform.right * _colliderRadius * 1.1f;
+				}
+				else
+				{
+					//Debug.Log("Left");
+					transform.position = transform.position + _centerEye.transform.right * _colliderRadius * 1.1f;
+				}
+				
+				_lr = -1;
+			}
+			
 			_needsUpdate = false;
 		}
 		else

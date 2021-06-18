@@ -27,7 +27,18 @@ public class WaddleTrigger : MonoBehaviour
 			//Debug.Log("Left nav ring");
 			//transform.position = otherCollider.gameObject.transform.position;
 			_needsUpdate = true;
-			transform.parent.GetComponent<NavRing>().ForceUpdate();
+			int lr = -1;
+			if(gameObject.name.EndsWith("Right"))
+			{
+				lr = 0;
+			}
+			else if(gameObject.name.EndsWith("Left"))
+			{
+				lr = 1;
+			}
+			
+			//Debug.Log(gameObject.name);
+			transform.parent.GetComponent<NavRing>().ForceUpdate(lr);
 		}
 	}
 	
