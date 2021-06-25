@@ -33,12 +33,12 @@ public class WaddleTrigger : MonoBehaviour
 			if(gameObject.name.EndsWith("Right"))
 			{
 				lr = 0;
-				Debug.Log("Right nav ring");
+				//Debug.Log("Right nav ring");
 			}
 			else if(gameObject.name.EndsWith("Left"))
 			{
 				lr = 1;
-				Debug.Log("Left nav ring");
+				//Debug.Log("Left nav ring");
 			}
 			
 			//Debug.Log(gameObject.name);
@@ -51,9 +51,9 @@ public class WaddleTrigger : MonoBehaviour
 	{
 		if(_needsUpdate)
 		{
-			Debug.Log("Updating: " + updateCount);
+			//Debug.Log("Updating: " + updateCount);
 			//this moves the entire player
-			_ovrPlayer.transform.position -= _ovrPlayer.transform.forward * _speed; 
+			_ovrPlayer.transform.position -= _ovrPlayer.transform.forward * _speed * Time.deltaTime; 
 			_needsUpdate = false;
 			updateCount++;
 		}

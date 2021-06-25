@@ -2002,7 +2002,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ovrPlayer: {fileID: 303675684}
-  _speed: 0.025
+  _speed: 3
 --- !u!1001 &991186709
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3884,7 +3884,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ovrPlayer: {fileID: 303675684}
-  _speed: 0.025
+  _speed: 3
 --- !u!1 &1938824795
 GameObject:
   m_ObjectHideFlags: 0
