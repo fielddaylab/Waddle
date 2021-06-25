@@ -7,6 +7,7 @@ public class WaddleTrigger : MonoBehaviour
 	public GameObject _ovrPlayer;
 	public float _speed;
 	
+	int updateCount = 0;
 	bool _needsUpdate = false;
     // Start is called before the first frame update
     void Start()
@@ -22,22 +23,26 @@ public class WaddleTrigger : MonoBehaviour
 	
 	void OnTriggerEnter(Collider otherCollider)
 	{
+		//happens in physics thread...
 		if(otherCollider.gameObject.name == "BeakRight")
 		{
-			//Debug.Log("Left nav ring");
+			
 			//transform.position = otherCollider.gameObject.transform.position;
 			_needsUpdate = true;
 			int lr = -1;
 			if(gameObject.name.EndsWith("Right"))
 			{
 				lr = 0;
+				Debug.Log("Right nav ring");
 			}
 			else if(gameObject.name.EndsWith("Left"))
 			{
 				lr = 1;
+				Debug.Log("Left nav ring");
 			}
 			
 			//Debug.Log(gameObject.name);
+			//_ovrPlayer.transform.position -= _ovrPlayer.transform.forward * _speed * Time.deltaTime;
 			transform.parent.GetComponent<NavRing>().ForceUpdate(lr);
 		}
 	}
@@ -46,9 +51,11 @@ public class WaddleTrigger : MonoBehaviour
 	{
 		if(_needsUpdate)
 		{
+			Debug.Log("Updating: " + updateCount);
 			//this moves the entire player
-			_ovrPlayer.transform.position -= _ovrPlayer.transform.forward * _speed * Time.deltaTime; 
+			_ovrPlayer.transform.position -= _ovrPlayer.transform.forward * _speed; 
 			_needsUpdate = false;
+			updateCount++;
 		}
 	}
 }

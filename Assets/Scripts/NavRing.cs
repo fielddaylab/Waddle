@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class NavRing : MonoBehaviour
 {
-	//public GameObject _ovrPlayer;
+	public GameObject _ovrPlayer;
 	public GameObject _centerEye;
 	
 	bool _needsUpdate = false;
 	int _lr = -1;
 	
-	public float _colliderRadius = 0.06f;
+	//let's make the radius based on the distance between the two children...
+	//public float _colliderRadius = 0.06f;
 	
     // Start is called before the first frame update
     void Start()
@@ -46,8 +47,9 @@ public class NavRing : MonoBehaviour
 	
 	void LateUpdate()
 	{
-		transform.rotation = _centerEye.transform.rotation;
-		
+		transform.rotation = _ovrPlayer.transform.rotation;
+		float radius = Vector3.Distance(transform.GetChild(0).transform.position, transform.GetChild(1).transform.position) * 0.25f;
+		//Debug.Log(radius);
 		if(_needsUpdate)
 		{
 			transform.position = _centerEye.transform.position;
@@ -56,12 +58,12 @@ public class NavRing : MonoBehaviour
 				if(_lr == 0)
 				{
 					//Debug.Log("Right");
-					transform.position = transform.position - _centerEye.transform.right * _colliderRadius * 1.1f;
+					transform.position = transform.position - _centerEye.transform.right * radius;
 				}
 				else
 				{
 					//Debug.Log("Left");
-					transform.position = transform.position + _centerEye.transform.right * _colliderRadius * 1.1f;
+					transform.position = transform.position + _centerEye.transform.right * radius;
 				}
 				
 				_lr = -1;
@@ -71,10 +73,12 @@ public class NavRing : MonoBehaviour
 		}
 		else
 		{
+			//the problem - this sometimes gets hit instead of the trigger first...
+			
 			//this updates the ring only if we move outside of it's radius, and only if we haven't triggered a waddle collider.
 			float fLen = (_centerEye.transform.position - transform.position).magnitude;
-			//Debug.Log(fLen);
-			if(fLen > _colliderRadius)
+			//Debug.Log(fLen + " " + radius);
+			if(fLen > radius*2f)
 			{
 				transform.position = _centerEye.transform.position;
 			}
