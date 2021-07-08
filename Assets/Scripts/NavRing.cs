@@ -76,9 +76,13 @@ public class NavRing : MonoBehaviour
 			//the problem - this sometimes gets hit instead of the trigger first...
 			
 			//this updates the ring only if we move outside of it's radius, and only if we haven't triggered a waddle collider.
-			float fLen = (_centerEye.transform.position - transform.position).magnitude;
+			Vector3 flatEye = _centerEye.transform.position;
+			flatEye.y = 0f;
+			Vector3 flatPos = transform.position;
+			flatPos.y = 0f;
+			float fLen = (flatEye - flatPos).magnitude;
 			//Debug.Log(fLen + " " + radius);
-			if(fLen > radius*2f)
+			if(fLen > radius*3f)
 			{
 				transform.position = _centerEye.transform.position;
 			}
