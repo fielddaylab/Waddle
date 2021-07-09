@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BeakTrigger : MonoBehaviour
 {
-	public GameObject _playerObject;
+	/*public GameObject _playerObject;
 	
 	bool _isInNav = false;
 	
@@ -15,7 +15,9 @@ public class BeakTrigger : MonoBehaviour
 	public float _waddleMovementThreshold = 5f;
 	//bool _waddleInThreshold = false;
 	public int _whenToWaddle = 2;
-	public int _waddleCount = 0;
+	public int _waddleCount = 0;*/
+	
+	public float _gackTimer = 1.5f;
 	
     // Start is called before the first frame update
     void Start()
@@ -26,7 +28,7 @@ public class BeakTrigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(_leftWaddleTimer != 0f)
+        /*if(_leftWaddleTimer != 0f)
 		{
 			_leftWaddleTimer += UnityEngine.Time.deltaTime;
 			if(_leftWaddleTimer - _leftWaddleStart > _waddleMovementThreshold)
@@ -63,17 +65,17 @@ public class BeakTrigger : MonoBehaviour
 				OVRPlayerController ovrPC = _playerObject.GetComponent<OVRPlayerController>();
 				ovrPC.OverrideOculusForward = false;
 			}
-		}
+		}*/
     }
 	
-	IEnumerator MoveForward()
+	/*IEnumerator MoveForward()
 	{
 		while(_isInNav)
 		{
 			_playerObject.GetComponent<OVRPlayerController>().UpdateMovement();
 			yield return null;
 		}
-	}
+	}*/
 	
 	void OnTriggerEnter(Collider otherCollider)
 	{
@@ -157,7 +159,22 @@ public class BeakTrigger : MonoBehaviour
 					navigationTrigger.GetComponent<Rigidbody>().detectCollisions = true;
 				}*/
 			}
-			Debug.Log(otherCollider.gameObject.name);
+			//Debug.Log(otherCollider.gameObject.name);
+		}
+		
+	}
+	
+	void OnTriggerStay(Collider otherCollider)
+	{
+		if(otherCollider.gameObject.name == "GackBox")
+		{
+			_gackTimer += UnityEngine.Time.deltaTime;
+			if(_gackTimer > 1.5f)
+			{
+				//play gack sound.
+				otherCollider.gameObject.GetComponent<AudioSource>().Play();
+				_gackTimer = 0f;
+			}
 		}
 	}
 	
@@ -173,6 +190,10 @@ public class BeakTrigger : MonoBehaviour
 				ovrPC.OverrideOculusForward = false;
 			}
 		}*/
+		if(otherCollider.gameObject.name == "GackBox")
+		{
+			_gackTimer = 0f;
+		}
 		
 		//have on trigger exit cause movement?
 	}
