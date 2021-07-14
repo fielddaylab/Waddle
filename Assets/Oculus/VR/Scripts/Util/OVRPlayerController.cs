@@ -268,6 +268,7 @@ public class OVRPlayerController : MonoBehaviour
 				if (OVRManager.instance.trackingOriginType == OVRManager.TrackingOrigin.EyeLevel)
 				{
 					p.y = OVRManager.profile.eyeHeight - (0.5f * Controller.height) + Controller.center.y;
+					p.y = p.y * transform.localScale.y;
 				}
 				else if (OVRManager.instance.trackingOriginType == OVRManager.TrackingOrigin.FloorLevel)
 				{

@@ -26,7 +26,6 @@ public class WaddleTrigger : MonoBehaviour
 		//happens in physics thread...
 		if(otherCollider.gameObject.name == "BeakRight")
 		{
-			
 			//transform.position = otherCollider.gameObject.transform.position;
 			_needsUpdate = true;
 			int lr = -1;
@@ -56,6 +55,12 @@ public class WaddleTrigger : MonoBehaviour
 			_ovrPlayer.transform.position -= _ovrPlayer.transform.forward * _speed * Time.deltaTime; 
 			_needsUpdate = false;
 			updateCount++;
+			
+			AudioSource audioClip = GetComponent<AudioSource>();
+			if(audioClip != null)
+			{
+				audioClip.Play();
+			}
 		}
 	}
 }

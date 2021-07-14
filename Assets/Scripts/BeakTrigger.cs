@@ -17,7 +17,11 @@ public class BeakTrigger : MonoBehaviour
 	public int _whenToWaddle = 2;
 	public int _waddleCount = 0;*/
 	
-	public float _gackTimer = 1.5f;
+	float _gackTimer = 0.0f;
+
+	[SerializeField]
+	float _gackTimerLimit = 1.5f;
+	float GackTimerLimit => _gackTimerLimit;
 	
     // Start is called before the first frame update
     void Start()
@@ -166,10 +170,10 @@ public class BeakTrigger : MonoBehaviour
 	
 	void OnTriggerStay(Collider otherCollider)
 	{
-		if(otherCollider.gameObject.name == "GackBox")
+		if(otherCollider.gameObject.name == "SqwaukBox")
 		{
 			_gackTimer += UnityEngine.Time.deltaTime;
-			if(_gackTimer > 1.5f)
+			if(_gackTimer > _gackTimerLimit)
 			{
 				//play gack sound.
 				otherCollider.gameObject.GetComponent<AudioSource>().Play();

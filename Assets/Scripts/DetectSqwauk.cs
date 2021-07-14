@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DetectGack : MonoBehaviour
+public class DetectSqwauk : MonoBehaviour
 {
 	public GameObject _headRef;
 	public Vector3 _upOffset;

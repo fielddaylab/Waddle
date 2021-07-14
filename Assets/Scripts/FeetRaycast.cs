@@ -7,6 +7,14 @@ public class FeetRaycast : MonoBehaviour
 	public GameObject _eyeObject;
 	public LayerMask _layerMask;
 	
+	[SerializeField]
+	GameObject _rotationTransform;
+	GameObject RotationTransform => _rotationTransform;
+	
+	[SerializeField]
+	Vector3 _rotationToApply;
+	Vector3 RotationToApply => _rotationToApply;
+	
     // Start is called before the first frame update
     void Start()
     {
@@ -18,8 +26,8 @@ public class FeetRaycast : MonoBehaviour
     {
 		
     }*/
-	
-	void Update()
+		
+	void LateUpdate()
 	{
 		RaycastHit hitInfo;
 		
@@ -30,7 +38,12 @@ public class FeetRaycast : MonoBehaviour
 			Vector3 flatForward = _eyeObject.transform.forward;
 			flatForward.y = 0f;
 			flatForward = flatForward.normalized;
-			transform.position -= (flatForward * 0.1f);
+			transform.position -= (flatForward * 0.05f);
+			
+			Quaternion q = Quaternion.identity;
+			q.eulerAngles = _rotationToApply;
+			transform.rotation = _rotationTransform.transform.rotation;
+			transform.rotation *= q;
 			//to-do, need to back this up some...
 		}
 	}
