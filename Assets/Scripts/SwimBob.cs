@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class SwimBob : MonoBehaviour
 {
-	//Vector3 _lastFramePos;
-	//Vector3 _lastOrientation;
-	
 	bool _swimBobComplete = false;
 	bool _checkingSwimBob = false;
 	bool _checkingLookDown = false;
+	bool _swimMoveDone = true;
 	
 	float _checkLookDownFrameLimit = 120;
-	
-	float _swimBobTimeLimit = 2.0f;
+	float _swimMoveTimeLimit = 1.0f;
+	float _swimBobTimeLimit = 5.0f;
 	
 	Camera _mainCam;
 	
@@ -34,19 +32,24 @@ public class SwimBob : MonoBehaviour
 		{
 			Vector3 lastFramePos = _mainCam.transform.position;
 			Vector3 lastOrientation = _mainCam.transform.rotation.eulerAngles;
-			if((thisOrientation.x - lastOrientation.x > 5.0f) && (thisFramePos.y - lastFramePos.y) > 0.1f)
+			//Debug.Log("Angle: " + ((thisOrientation.x + 360.0f) - (lastOrientation.x + 360.0f)).ToString("F4"));
+			//Debug.Log((thisFramePos.y - lastFramePos.y).ToString("F4"));
+			if((Mathf.Abs(((thisOrientation.x + 360.0f) - (lastOrientation.x + 360.0f))) > 12.0f) && (thisFramePos.y - lastFramePos.y) < -0.03f)
 			{
 				if(!_checkingSwimBob)
 				{
-					Debug.Log("Starting swim bob!");
+					//Debug.Log("Starting swim bob!");
 					_swimBobComplete = false;
 					StartCoroutine(CheckLookMoveForward());
+					_checkingLookDown = false;
+					yield break;
 				}
 			}
 			lookDownFrameCount += 1.0f;
 			yield return null;
 		}
 		
+		//Debug.Log("Reset");
 		_checkingLookDown = false;
 	}
 	
@@ -54,14 +57,50 @@ public class SwimBob : MonoBehaviour
 	{
 		_checkingSwimBob = true;
 		float swimBobTime = 0f;
+		Vector3 thisOrientation = _mainCam.transform.rotation.eulerAngles;
+		Vector3 thisFramePos = _mainCam.transform.position;
 		
 		while(swimBobTime < _swimBobTimeLimit)
 		{
+			Vector3 lastFramePos = _mainCam.transform.position;
+			Vector3 lastOrientation = _mainCam.transform.rotation.eulerAngles;
+			//Debug.Log("Angle: " + ((thisOrientation.x + 360.0f) - (lastOrientation.x + 360.0f)).ToString("F4"));
+			//Debug.Log((thisFramePos.y - lastFramePos.y).ToString("F4"));
+			
+			if((Mathf.Abs(((thisOrientation.x + 360.0f) - (lastOrientation.x + 360.0f))) > 10.0f) && (thisFramePos.y - lastFramePos.y) < -0.02f)
+			{
+				_swimBobComplete = true;
+				_checkingSwimBob = false;
+				yield break;
+			}
 			swimBobTime += UnityEngine.Time.deltaTime;
 			
 			yield return null;
 		}
 		
+		_checkingSwimBob = false;
+	}
+	
+	IEnumerator PerformSwimMove()
+	{
+		float swimMoveTime = 0f;
+		
+		_swimMoveDone = false;
+			
+		GetComponent<OVRPlayerController>().OverrideOculusForward = true;
+		GetComponent<OVRPlayerController>().Acceleration = 0.2f;
+		
+		while(swimMoveTime < _swimMoveTimeLimit)
+		{
+			swimMoveTime += UnityEngine.Time.deltaTime;
+			yield return null;
+		}
+		
+		GetComponent<OVRPlayerController>().OverrideOculusForward = false;
+		GetComponent<OVRPlayerController>().Acceleration = 0.02f;
+		
+		_swimMoveDone = true;
+		_checkingLookDown = false;
 		_checkingSwimBob = false;
 	}
 	
@@ -72,10 +111,10 @@ public class SwimBob : MonoBehaviour
 		//all over a couple of seconds time...
 		//change in local x rotation, change in y down, change in local x rotation up, change in z forward...
 		
-		/*if(!_checkingLookDown)
+		if(!_checkingLookDown && !_checkingSwimBob && _swimMoveDone && !_swimBobComplete)
 		{
 			StartCoroutine(CheckLookMoveDown());
-		}*/
+		}
 		
 		//_lastOrientation = thisOrientation;
 		//_lastFramePos = thisFramePos;
@@ -85,7 +124,13 @@ public class SwimBob : MonoBehaviour
 	{
 		if(_swimBobComplete)
 		{
-			
+			if(_swimMoveDone)
+			{
+				GetComponent<AudioSource>().Play();
+				StartCoroutine(PerformSwimMove());
+			}
+			//Debug.Log("Did a swim bob!");
+			_swimBobComplete = false;
 		}
 	}
 }
