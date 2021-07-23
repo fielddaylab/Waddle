@@ -1,3 +1,6 @@
+//NSF Penguins VR Experience
+//Ross Tredinnick - WID Virtual Environments Group / Field Day Lab - 2021
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

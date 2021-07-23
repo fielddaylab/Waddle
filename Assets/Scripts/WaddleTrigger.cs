@@ -1,3 +1,6 @@
+//NSF Penguins VR Experience
+//Ross Tredinnick - WID Virtual Environments Group / Field Day Lab - 2021
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +10,7 @@ public class WaddleTrigger : MonoBehaviour
 	public GameObject _ovrPlayer;
 	public float _speed;
 	
-	int updateCount = 0;
+	//int updateCount = 0;
 	bool _needsUpdate = false;
     // Start is called before the first frame update
     void Start()
@@ -54,7 +57,7 @@ public class WaddleTrigger : MonoBehaviour
 			//this moves the entire player
 			_ovrPlayer.transform.position -= _ovrPlayer.transform.forward * _speed * Time.deltaTime; 
 			_needsUpdate = false;
-			updateCount++;
+			//updateCount++;
 			
 			AudioSource audioClip = GetComponent<AudioSource>();
 			if(audioClip != null)
