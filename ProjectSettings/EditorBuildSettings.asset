@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/ViewPrototype.unity
-    guid: 5529a9eedd3513746b1c9fb0b122e520
+    path: Assets/Scenes/ProtectTheNest.unity
+    guid: 9552ffdaa399f074484068af6d7d5b93
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: cd8e3d83f36e1df4d858d3c879efb61c, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 17be9d7f94ee23446962b53d42a20d24, type: 2}
