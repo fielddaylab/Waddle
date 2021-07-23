@@ -23,21 +23,29 @@ public class SkuaSpawner : MonoBehaviour
 	
 	List<GameObject> _currentSkuas = new List<GameObject>();
 	
+	//should move 85 times / minute...
+	const float UPDATE_FREQ = 0.70588235f;
+	
+	float _updateTime;
+	
     // Start is called before the first frame update
     void Start()
     {
         _startTime = Time.time;
+		_updateTime = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
+		float currTime = Time.time;
+		
 		if(_waveTimes.Count > 0)
 		{
-			float currTime = Time.time - _startTime;
+			float spawnTime = currTime - _startTime;
 			for(int i = 0; i < _waveTimes.Count; ++i)
 			{
-				if(currTime > _waveTimes[i])
+				if(spawnTime > _waveTimes[i])
 				{
 					int spawnLocation = -1;
 
@@ -59,7 +67,22 @@ public class SkuaSpawner : MonoBehaviour
 				}
 			}
 		}
+
+		
+		if(currTime - _updateTime > UPDATE_FREQ)
+		{
+			MoveSkuas();
+			_updateTime = currTime;
+		}
     }
+	
+	void MoveSkuas()
+	{
+		foreach(GameObject g in _currentSkuas)
+		{
+			g.GetComponent<SkuaState>().MoveSkua();
+		}
+	}
 	
 	void SpawnSkua(int spawnLocation)
 	{

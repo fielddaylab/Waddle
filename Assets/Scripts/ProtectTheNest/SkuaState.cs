@@ -16,33 +16,27 @@ public class SkuaState : MonoBehaviour
 		set { _currentSpot = value; }
 	}
 	
-	const float UPDATE_FREQ = 0.70588235f;
-	
-	float _updateTime;
-	
     // Start is called before the first frame update
     void Start()
     {
-        _updateTime = Time.time;
+      
     }
 
     // Update is called once per frame
     void Update()
     {
-		float currTime = Time.time;
-		//should move 85 times / minute...
-		if(currTime - _updateTime < UPDATE_FREQ)
-		{
-			return;
-		}
 		
-        float r = Random.value;
+    }
+	
+	public void MoveSkua()
+	{
+		float r = Random.value;
 		if(r < 0.1)
 		{
 			//move out
 			if(_currentSpot != null)
 			{
-				if(_currentSpot.SpotOut != null)
+				if(_currentSpot.SpotOut != null && _currentSpot.SpotOut.CurrentSkua == null)
 				{
 					MoveToNewSpot(_currentSpot.SpotOut);
 				}
@@ -57,7 +51,7 @@ public class SkuaState : MonoBehaviour
 			//move left
 			if(_currentSpot != null)
 			{
-				if(_currentSpot.SpotLeft != null)
+				if(_currentSpot.SpotLeft != null && _currentSpot.SpotLeft.CurrentSkua == null)
 				{
 					MoveToNewSpot(_currentSpot.SpotLeft);
 				}
@@ -68,7 +62,7 @@ public class SkuaState : MonoBehaviour
 			//move right
 			if(_currentSpot != null)
 			{
-				if(_currentSpot.SpotRight != null)
+				if(_currentSpot.SpotRight != null && _currentSpot.SpotRight.CurrentSkua == null)
 				{
 					MoveToNewSpot(_currentSpot.SpotRight);
 				}
@@ -79,15 +73,34 @@ public class SkuaState : MonoBehaviour
 			//move in
 			if(_currentSpot != null)
 			{
-				if(_currentSpot.SpotIn != null)
+				if(_currentSpot.SpotIn != null && _currentSpot.SpotIn.CurrentSkua == null)
 				{
 					MoveToNewSpot(_currentSpot.SpotIn);
 				}
 			}
 		}
+	}
+	
+	IEnumerator StartMove(Vector3 newSpot, Quaternion newRot, float duration)
+	{
+		float t = 0f;
 		
-		_updateTime = currTime;
-    }
+		Vector3 startPosition = transform.position;
+		Quaternion startRot = transform.rotation;
+		
+		while(t < duration)
+		{
+			transform.position = Vector3.Lerp(startPosition, newSpot, (t/duration));
+			transform.rotation = Quaternion.Slerp(startRot, newRot, (t/duration));
+			
+			t += (Time.deltaTime);	
+			
+			yield return null;
+		}
+		
+		transform.position = newSpot;
+		transform.rotation = newRot;
+	}
 	
 	void MoveToNewSpot(SkuaSpot newSpot)
 	{
@@ -97,11 +110,13 @@ public class SkuaState : MonoBehaviour
 		//todo - eventually lerp, or something along those lines...
 		Vector3 p = newSpot.gameObject.transform.position;
 		p.y += 0.5f;
-		gameObject.transform.position = p;
+		//gameObject.transform.position = p;
 		
 		Vector3 e = newSpot.gameObject.transform.rotation.eulerAngles;
 		e.y -= 90.0f;//due to skua model's local rotation.
-		gameObject.transform.rotation = Quaternion.Euler(e);
+		//gameObject.transform.rotation = Quaternion.Euler(e);
+		
+		StartCoroutine(StartMove(p, Quaternion.Euler(e), 0.70588235f));
 		
 		newSpot.CurrentSkua = gameObject;
 		

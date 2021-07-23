@@ -5186,7 +5186,7 @@ PrefabInstance:
     - target: {fileID: 2366527734196853252, guid: c40cfbaa07b2f1b468dcf9a08c229daf, type: 3}
       propertyPath: _spotOut
       value: 
-      objectReference: {fileID: 539406030}
+      objectReference: {fileID: 0}
     - target: {fileID: 2366527734196853252, guid: c40cfbaa07b2f1b468dcf9a08c229daf, type: 3}
       propertyPath: _spotLeft
       value: 
