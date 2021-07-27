@@ -16,6 +16,15 @@ public class SkuaState : MonoBehaviour
 		set { _currentSpot = value; }
 	}
 	
+	bool _hasEgg = false;
+	
+	SkuaSpawner _skuaSpawner;
+	
+	public SkuaSpawner Spawner
+	{
+		get { return _skuaSpawner; }
+		set { _skuaSpawner = value; }
+	}
     // Start is called before the first frame update
     void Start()
     {
@@ -25,57 +34,82 @@ public class SkuaState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		
+		if((_currentSpot.gameObject.name == "SkuaSpot0") && !_hasEgg && !_skuaSpawner.EggIsTaken())
+		{
+			//have skua grab the egg and move it to a random outer location...
+			GameObject parentObject = _currentSpot.gameObject.transform.parent.gameObject;
+			SkuaSpot[] spots = parentObject.GetComponentsInChildren<SkuaSpot>();
+			List<SkuaSpot> outerSpots = new List<SkuaSpot>();
+			foreach(SkuaSpot s in spots)
+			{
+				if(s.IsOuter)
+				{
+					outerSpots.Add(s);
+				}
+			}
+			
+			int randomIndex = UnityEngine.Random.Range(0, outerSpots.Count-1);
+			
+			Debug.Log("Grabbing egg");
+			_skuaSpawner.TheEgg.transform.parent = gameObject.transform.GetChild(0).transform;
+			_skuaSpawner.TheEgg.GetComponent<Egg>().IsTaken = true;
+			
+			MoveToNewSpot(outerSpots[randomIndex]);
+			_hasEgg = true;
+		}
     }
 	
 	public void MoveSkua()
 	{
-		float r = Random.value;
-		if(r < 0.1)
+		if(!_hasEgg)
 		{
-			//move out
-			if(_currentSpot != null)
+			float r = Random.value;
+			if(r < 0.1)
 			{
-				if(_currentSpot.SpotOut != null && _currentSpot.SpotOut.CurrentSkua == null)
+				//move out
+				if(_currentSpot != null)
 				{
-					MoveToNewSpot(_currentSpot.SpotOut);
+					if(_currentSpot.SpotOut != null && _currentSpot.SpotOut.CurrentSkua == null)
+					{
+						MoveToNewSpot(_currentSpot.SpotOut);
+					}
 				}
 			}
-		}
-		else if (r >= 0.1 && r < 0.2)
-		{
-			//stay
-		}
-		else if(r >= 0.2 && r < 0.5)
-		{
-			//move left
-			if(_currentSpot != null)
+			else if (r >= 0.1 && r < 0.2)
 			{
-				if(_currentSpot.SpotLeft != null && _currentSpot.SpotLeft.CurrentSkua == null)
+				//stay
+			}
+			else if(r >= 0.2 && r < 0.5)
+			{
+				//move left
+				if(_currentSpot != null)
 				{
-					MoveToNewSpot(_currentSpot.SpotLeft);
+					if(_currentSpot.SpotLeft != null && _currentSpot.SpotLeft.CurrentSkua == null)
+					{
+						MoveToNewSpot(_currentSpot.SpotLeft);
+					}
 				}
 			}
-		}
-		else if( r >= 0.5 && r < 0.8)
-		{
-			//move right
-			if(_currentSpot != null)
+			else if( r >= 0.5 && r < 0.8)
 			{
-				if(_currentSpot.SpotRight != null && _currentSpot.SpotRight.CurrentSkua == null)
+				//move right
+				if(_currentSpot != null)
 				{
-					MoveToNewSpot(_currentSpot.SpotRight);
+					if(_currentSpot.SpotRight != null && _currentSpot.SpotRight.CurrentSkua == null)
+					{
+						MoveToNewSpot(_currentSpot.SpotRight);
+					}
 				}
 			}
-		}
-		else
-		{
-			//move in
-			if(_currentSpot != null)
+			else
 			{
-				if(_currentSpot.SpotIn != null && _currentSpot.SpotIn.CurrentSkua == null)
+				//move in
+				if(_currentSpot != null)
 				{
-					MoveToNewSpot(_currentSpot.SpotIn);
+					if(_currentSpot.SpotIn != null && _currentSpot.SpotIn.CurrentSkua == null)
+					{
+						MoveToNewSpot(_currentSpot.SpotIn);
+					}
 				}
 			}
 		}

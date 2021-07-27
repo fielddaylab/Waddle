@@ -25,6 +25,11 @@ public class SkuaSpot : MonoBehaviour
 	public SkuaSpot SpotOut => _spotOut;
 	
 	[SerializeField]
+	bool _isOuter;
+	
+	public bool IsOuter => _isOuter;
+	
+	[SerializeField]
 	GameObject _currentSkua;
 	
 	public GameObject CurrentSkua

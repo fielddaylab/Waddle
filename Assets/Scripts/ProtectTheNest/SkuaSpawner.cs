@@ -28,6 +28,14 @@ public class SkuaSpawner : MonoBehaviour
 	
 	float _updateTime;
 	
+	[SerializeField]
+	GameObject _eggTimer;
+	
+	[SerializeField]
+	GameObject _theEgg;
+	
+	public GameObject TheEgg => _theEgg;
+	
     // Start is called before the first frame update
     void Start()
     {
@@ -74,7 +82,25 @@ public class SkuaSpawner : MonoBehaviour
 			MoveSkuas();
 			_updateTime = currTime;
 		}
+		
+		if(currTime - _startTime > _totalGameTime)
+		{
+			//game is over...
+		}
+		
+		if(_eggTimer != null)
+		{
+			float t = currTime - _startTime;
+			float timeLeft = _totalGameTime - t;
+			System.TimeSpan ts = System.TimeSpan.FromSeconds(timeLeft);
+			_eggTimer.GetComponent<TMPro.TextMeshPro>().text = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
+		}
     }
+	
+	public bool EggIsTaken()
+	{
+		return _theEgg.GetComponent<Egg>().IsTaken;
+	}
 	
 	void MoveSkuas()
 	{
@@ -109,6 +135,8 @@ public class SkuaSpawner : MonoBehaviour
 		{
 			_spawnLocations[spawnLocation].OtherPenguin.GetComponent<AudioSource>().Play();
 		}
+		
+		newSkua.GetComponent<SkuaState>().Spawner = this;
 		
 		_currentSkuas.Add(newSkua);
 	}
