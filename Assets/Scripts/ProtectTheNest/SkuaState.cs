@@ -51,7 +51,7 @@ public class SkuaState : MonoBehaviour
 			int randomIndex = UnityEngine.Random.Range(0, outerSpots.Count-1);
 			
 			Debug.Log("Grabbing egg");
-			_skuaSpawner.TheEgg.transform.parent = gameObject.transform.GetChild(0).transform;
+			_skuaSpawner.TheEgg.transform.SetParent(gameObject.transform.GetChild(0).transform, false);
 			_skuaSpawner.TheEgg.GetComponent<Egg>().IsTaken = true;
 			
 			MoveToNewSpot(outerSpots[randomIndex]);
@@ -143,14 +143,14 @@ public class SkuaState : MonoBehaviour
 		
 		//todo - eventually lerp, or something along those lines...
 		Vector3 p = newSpot.gameObject.transform.position;
-		p.y += 0.5f;
+		p.y += 0.1f;
 		//gameObject.transform.position = p;
 		
 		Vector3 e = newSpot.gameObject.transform.rotation.eulerAngles;
 		e.y -= 90.0f;//due to skua model's local rotation.
 		//gameObject.transform.rotation = Quaternion.Euler(e);
 		
-		StartCoroutine(StartMove(p, Quaternion.Euler(e), 0.70588235f));
+		StartCoroutine(StartMove(p, Quaternion.Euler(e), _skuaSpawner.MoveFrequency));
 		
 		newSpot.CurrentSkua = gameObject;
 		

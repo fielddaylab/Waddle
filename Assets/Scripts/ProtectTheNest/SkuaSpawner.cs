@@ -24,7 +24,10 @@ public class SkuaSpawner : MonoBehaviour
 	List<GameObject> _currentSkuas = new List<GameObject>();
 	
 	//should move 85 times / minute...
-	const float UPDATE_FREQ = 0.70588235f;
+	[SerializeField]
+	float _moveFrequency = 0.70588235f;
+	
+	public float MoveFrequency => _moveFrequency;
 	
 	float _updateTime;
 	
@@ -77,7 +80,7 @@ public class SkuaSpawner : MonoBehaviour
 		}
 
 		
-		if(currTime - _updateTime > UPDATE_FREQ)
+		if(currTime - _updateTime > _moveFrequency)
 		{
 			MoveSkuas();
 			_updateTime = currTime;
@@ -114,8 +117,10 @@ public class SkuaSpawner : MonoBehaviour
 	{
 		GameObject newSkua = Instantiate(_skuaPrefab);
 		
+		newSkua.GetComponent<Skua>().FlyIn();
+		
 		Vector3 spawnSpot = _spawnLocations[spawnLocation].gameObject.transform.position;
-		spawnSpot.y += 0.5f;
+		spawnSpot.y += 0.1f;
 		Vector3 spawnRot = _spawnLocations[spawnLocation].gameObject.transform.rotation.eulerAngles;
 		spawnRot.y += newSkua.transform.rotation.eulerAngles.y;//due to skua model's local rotation.
 		
