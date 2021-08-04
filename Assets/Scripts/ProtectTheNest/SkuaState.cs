@@ -25,6 +25,10 @@ public class SkuaState : MonoBehaviour
 		get { return _skuaSpawner; }
 		set { _skuaSpawner = value; }
 	}
+	
+	Vector3 _lastPosition;
+	Quaternion _lastRotation;
+	
     // Start is called before the first frame update
     void Start()
     {
@@ -57,11 +61,14 @@ public class SkuaState : MonoBehaviour
 			MoveToNewSpot(outerSpots[randomIndex]);
 			_hasEgg = true;
 		}
+		
+		_lastPosition = transform.position;
+		_lastRotation = transform.rotation;
     }
 	
 	public void MoveSkua()
 	{
-		if(!_hasEgg)
+		if(!_hasEgg && !gameObject.GetComponent<Skua>().IsHit)
 		{
 			float r = Random.value;
 			if(r < 0.1)
@@ -127,14 +134,66 @@ public class SkuaState : MonoBehaviour
 			transform.position = Vector3.Lerp(startPosition, newSpot, (t/duration));
 			transform.rotation = Quaternion.Slerp(startRot, newRot, (t/duration));
 			
+			/*float heading = Vector3.Dot(Vector3.Normalize(newSpot - transform.position), transform.forward);
+			Debug.Log(heading);
+			if(heading > 0.5 && heading < 0.9)
+			{
+				gameObject.GetComponent<Skua>().WalkLeft();
+			}
+			else if(heading < 0.5 && heading > 0.1)
+			{
+				gameObject.GetComponent<Skua>().WalkRight();
+			}
+			else
+			{
+				
+			}*/
+			
+			gameObject.GetComponent<Skua>().WalkForward();
+			
 			t += (Time.deltaTime);	
 			
 			yield return null;
 		}
 		
+		gameObject.GetComponent<Skua>().GoIdle();
+		
 		transform.position = newSpot;
 		transform.rotation = newRot;
 	}
+	
+	/*IEnumerator StartTurn(Vector3 newSpot, Quaternion newRot, float duration)
+	{
+		float t = 0f;
+		
+		Quaternion startRot = transform.rotation;
+		
+		while(t < duration)
+		{
+			transform.rotation = Quaternion.Slerp(startRot, newRot, (t/duration));
+			
+			float heading = Vector3.Dot(Vector3.Normalize(newSpot - transform.position), transform.forward);
+			Debug.Log(heading);
+			if(heading > 0.5 && heading < 0.9)
+			{
+				gameObject.GetComponent<Skua>().WalkLeft();
+			}
+			else if(heading < 0.5 && heading > 0.1)
+			{
+				gameObject.GetComponent<Skua>().WalkRight();
+			}
+			else
+			{
+				//gameObject.GetComponent<Skua>().WalkForward();
+			}
+			
+			t += (Time.deltaTime);	
+			
+			yield return null;
+		}
+		
+		transform.rotation = newRot;	
+	}*/
 	
 	void MoveToNewSpot(SkuaSpot newSpot)
 	{
@@ -143,14 +202,18 @@ public class SkuaState : MonoBehaviour
 		
 		//todo - eventually lerp, or something along those lines...
 		Vector3 p = newSpot.gameObject.transform.position;
-		p.y += 0.1f;
+		//p.y += 0.05f;
 		//gameObject.transform.position = p;
 		
 		Vector3 e = newSpot.gameObject.transform.rotation.eulerAngles;
+		//Quaternion q = Quaternion.identity;
+		//q.SetFromToRotation(gameObject.transform.forward, Vector3.Normalize(p - gameObject.transform.position));
+		//Vector3 e = q.eulerAngles;
 		e.y -= 90.0f;//due to skua model's local rotation.
 		//gameObject.transform.rotation = Quaternion.Euler(e);
 		
 		StartCoroutine(StartMove(p, Quaternion.Euler(e), _skuaSpawner.MoveFrequency));
+		//StartCoroutine(StartTurn(p, Quaternion.Euler(e), _skuaSpawner.MoveFrequency));
 		
 		newSpot.CurrentSkua = gameObject;
 		

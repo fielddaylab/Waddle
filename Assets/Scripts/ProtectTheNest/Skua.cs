@@ -6,6 +6,12 @@ public class Skua : MonoBehaviour
 {
 	Animator _skuaController;
 	
+	bool _isHit;
+	
+	public bool IsHit => _isHit;
+	
+
+	
     // Start is called before the first frame update
     void Start()
     {
@@ -15,17 +21,42 @@ public class Skua : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+		
     }
 	
 	void OnCollisionEnter(Collision otherCollision)
 	{
 		//Debug.Log("Skua collided");
+		//Debug.Log("Impulse: " + otherCollision.impulse);
+		//Debug.Log("Relative Velocity: " + otherCollision.relativeVelocity);
 		if(otherCollision.gameObject.name.StartsWith("Flipper"))
 		{
+			_isHit = true;
+			
 			GetComponent<Rigidbody>().useGravity = true;
 			GetComponent<Rigidbody>().isKinematic = false;
-			GetComponent<Rigidbody>().AddForce(Vector3.up*500.0f);
+			//GoIdle();
+			_skuaController.enabled = false;
+			GetComponent<Rigidbody>().AddForce(-transform.forward*10.0f);
+		}
+	}
+	
+	public void GoIdle()
+	{
+		if(_skuaController == null)
+		{
+			_skuaController = GetComponent<Animator>();
+		}
+		
+		if(_skuaController != null)
+		{
+			//Debug.Log("Setting fly");
+			_skuaController.SetBool("takeoff", false);
+			_skuaController.SetBool("fly", false);
+			_skuaController.SetBool("walkleft", false);
+			_skuaController.SetBool("walkright", false);
+			_skuaController.SetBool("walk", false);
+			_skuaController.SetBool("idle", true);
 		}
 	}
 	
@@ -43,10 +74,10 @@ public class Skua : MonoBehaviour
 			_skuaController.SetBool("takeoff", true);
 			_skuaController.SetBool("fly", true);
 		}
-		else
+		/*else
 		{
 			Debug.Log("Couldn't set fly");
-		}
+		}*/
 	}
 	
 	public void WalkForward()
@@ -56,14 +87,46 @@ public class Skua : MonoBehaviour
 			_skuaController = GetComponent<Animator>();
 		}
 		
+		if(_skuaController != null && !_skuaController.GetCurrentAnimatorStateInfo(0).IsName("walk"))
+		{
+			_skuaController.SetBool("idle", false);
+			_skuaController.SetBool("walkleft", false);
+			_skuaController.SetBool("walkright", false);
+			_skuaController.SetBool("walk", true);
+		}
+		/*else
+		{
+			Debug.Log("Couldn't set walk");
+		}*/
+	}
+	
+	public void WalkLeft()
+	{
+		if(_skuaController == null)
+		{
+			_skuaController = GetComponent<Animator>();
+		}
+		
 		if(_skuaController != null)
 		{
 			_skuaController.SetBool("idle", false);
-			_skuaController.SetBool("walk", true);
+			_skuaController.SetBool("walk", false);
+			_skuaController.SetBool("walkleft", true);
 		}
-		else
+	}
+	
+	public void WalkRight()
+	{
+		if(_skuaController == null)
 		{
-			Debug.Log("Couldn't set walk");
+			_skuaController = GetComponent<Animator>();
+		}
+		
+		if(_skuaController != null)
+		{
+			_skuaController.SetBool("idle", false);
+			_skuaController.SetBool("walk", false);
+			_skuaController.SetBool("walkright", true);
 		}
 	}
 }

@@ -71,7 +71,10 @@ public class SkuaSpawner : MonoBehaviour
 					
 					if(spawnLocation != -1)
 					{
-						SpawnSkua(spawnLocation);
+						if(_waveTimes.Count == 6)
+						{
+							SpawnSkua(spawnLocation);
+						}
 						_waveTimes.RemoveAt(i);
 						break;
 					}
@@ -89,6 +92,8 @@ public class SkuaSpawner : MonoBehaviour
 		if(currTime - _startTime > _totalGameTime)
 		{
 			//game is over...
+			//do a fade out...
+			Camera.main.gameObject.GetComponent<OVRScreenFade>().FadeOut();
 		}
 		
 		if(_eggTimer != null)
@@ -117,10 +122,11 @@ public class SkuaSpawner : MonoBehaviour
 	{
 		GameObject newSkua = Instantiate(_skuaPrefab);
 		
-		newSkua.GetComponent<Skua>().FlyIn();
+		//newSkua.GetComponent<Skua>().FlyIn();
+		//newSkua.GetComponent<Skua>().WalkForward();
 		
 		Vector3 spawnSpot = _spawnLocations[spawnLocation].gameObject.transform.position;
-		spawnSpot.y += 0.1f;
+		//spawnSpot.y += 0.05f;
 		Vector3 spawnRot = _spawnLocations[spawnLocation].gameObject.transform.rotation.eulerAngles;
 		spawnRot.y += newSkua.transform.rotation.eulerAngles.y;//due to skua model's local rotation.
 		
