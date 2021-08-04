@@ -71,7 +71,7 @@ public class SkuaSpawner : MonoBehaviour
 					
 					if(spawnLocation != -1)
 					{
-						if(_waveTimes.Count == 6)
+						//if(_waveTimes.Count == 6)
 						{
 							SpawnSkua(spawnLocation);
 						}
