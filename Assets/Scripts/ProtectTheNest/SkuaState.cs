@@ -127,12 +127,12 @@ public class SkuaState : MonoBehaviour
 		float t = 0f;
 		
 		Vector3 startPosition = transform.position;
-		Quaternion startRot = transform.rotation;
+		//Quaternion startRot = transform.rotation;
 		
 		while(t < duration)
 		{
 			transform.position = Vector3.Lerp(startPosition, newSpot, (t/duration));
-			transform.rotation = Quaternion.Slerp(startRot, newRot, (t/duration));
+			//transform.rotation = Quaternion.Slerp(startRot, newRot, (t/duration));
 			
 			/*float heading = Vector3.Dot(Vector3.Normalize(newSpot - transform.position), transform.forward);
 			Debug.Log(heading);
@@ -206,11 +206,11 @@ public class SkuaState : MonoBehaviour
 		//gameObject.transform.position = p;
 		
 		Vector3 e = newSpot.gameObject.transform.rotation.eulerAngles;
-		//Quaternion q = Quaternion.identity;
-		//q.SetFromToRotation(gameObject.transform.forward, Vector3.Normalize(p - gameObject.transform.position));
+		Quaternion q = Quaternion.LookRotation(Vector3.Normalize(p - gameObject.transform.position), Vector3.up);
+		//q.SetFromToRotation(gameObject.transform.forward, );
 		//Vector3 e = q.eulerAngles;
 		e.y -= 90.0f;//due to skua model's local rotation.
-		//gameObject.transform.rotation = Quaternion.Euler(e);
+		gameObject.transform.rotation = q;
 		
 		StartCoroutine(StartMove(p, Quaternion.Euler(e), _skuaSpawner.MoveFrequency));
 		//StartCoroutine(StartTurn(p, Quaternion.Euler(e), _skuaSpawner.MoveFrequency));

@@ -37,7 +37,8 @@ public class Skua : MonoBehaviour
 			GetComponent<Rigidbody>().isKinematic = false;
 			//GoIdle();
 			_skuaController.enabled = false;
-			GetComponent<Rigidbody>().AddForce(-transform.forward*10.0f);
+			GetComponent<AudioSource>().Play();
+			GetComponent<Rigidbody>().AddForce((-transform.forward + transform.up)*5.0f);
 		}
 	}
 	
