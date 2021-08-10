@@ -21,7 +21,7 @@ public class NavRing : MonoBehaviour
     void Start()
     {
         transform.position = _centerEye.transform.position;
-		transform.rotation = _centerEye.transform.rotation;
+		transform.rotation = _ovrPlayer.transform.rotation;
 		//Debug.Log(_colliderRadius);
     }
 
@@ -56,22 +56,24 @@ public class NavRing : MonoBehaviour
 		//Debug.Log(radius);
 		if(_needsUpdate)
 		{
-			transform.position = _centerEye.transform.position;
-			if(_lr != -1)
+			Vector3 flatEye = _centerEye.transform.position;
+			flatEye.y = transform.position.y;
+			transform.position = flatEye;
+			/*if(_lr != -1)
 			{
 				if(_lr == 0)
 				{
-					//Debug.Log("Right");
-					transform.position = transform.position - _centerEye.transform.right * radius;
+					Debug.Log("Right");
+					transform.position = transform.position - _centerEye.transform.right * radius * 2.0f;
 				}
 				else
 				{
-					//Debug.Log("Left");
-					transform.position = transform.position + _centerEye.transform.right * radius;
+					Debug.Log("Left");
+					transform.position = transform.position + _centerEye.transform.right * radius * 2.0f;
 				}
 				
 				_lr = -1;
-			}
+			}*/
 			
 			_needsUpdate = false;
 		}

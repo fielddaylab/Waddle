@@ -5,6 +5,8 @@ using UnityEngine;
 public class Egg : MonoBehaviour
 {
 	bool _isTaken;
+	Vector3 _startPosition;
+	Quaternion _startRotation;
 	
 	public bool IsTaken
 	{
@@ -16,6 +18,8 @@ public class Egg : MonoBehaviour
     void Start()
     {
         _isTaken = false;
+		_startPosition = transform.position;
+		_startRotation = transform.rotation;
     }
 
     // Update is called once per frame
@@ -23,4 +27,11 @@ public class Egg : MonoBehaviour
     {
         
     }
+	
+	public void Reset()
+	{
+		transform.position = _startPosition;
+		transform.rotation = _startRotation;
+		_isTaken = false;
+	}
 }

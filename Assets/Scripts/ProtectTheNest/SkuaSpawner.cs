@@ -30,6 +30,7 @@ public class SkuaSpawner : MonoBehaviour
 	public float MoveFrequency => _moveFrequency;
 	
 	float _updateTime;
+	float _eggTime;
 	
 	[SerializeField]
 	GameObject _eggTimer;
@@ -43,7 +44,8 @@ public class SkuaSpawner : MonoBehaviour
     void Start()
     {
         _startTime = Time.time;
-		_updateTime = Time.time;
+		_updateTime = _startTime;
+		_eggTime = _startTime;
     }
 
     // Update is called once per frame
@@ -89,7 +91,7 @@ public class SkuaSpawner : MonoBehaviour
 			_updateTime = currTime;
 		}
 		
-		if(currTime - _startTime > _totalGameTime)
+		if(_eggTime - _startTime > _totalGameTime)
 		{
 			//game is over...
 			//do a fade out...
@@ -98,10 +100,14 @@ public class SkuaSpawner : MonoBehaviour
 		
 		if(_eggTimer != null)
 		{
-			float t = currTime - _startTime;
-			float timeLeft = _totalGameTime - t;
-			System.TimeSpan ts = System.TimeSpan.FromSeconds(timeLeft);
-			_eggTimer.GetComponent<TMPro.TextMeshPro>().text = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
+			if(!EggIsTaken())
+			{
+				_eggTime += Time.deltaTime;
+				float t = _eggTime - _startTime;
+				float timeLeft = _totalGameTime - t;
+				System.TimeSpan ts = System.TimeSpan.FromSeconds(timeLeft);
+				_eggTimer.GetComponent<TMPro.TextMeshPro>().text = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
+			}
 		}
     }
 	

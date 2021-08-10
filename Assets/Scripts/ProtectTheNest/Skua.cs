@@ -10,8 +10,6 @@ public class Skua : MonoBehaviour
 	
 	public bool IsHit => _isHit;
 	
-
-	
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +30,13 @@ public class Skua : MonoBehaviour
 		if(otherCollision.gameObject.name.StartsWith("Flipper"))
 		{
 			_isHit = true;
+			
+			SkuaState skuaState = GetComponent<SkuaState>();
+			if(skuaState != null && skuaState.HasEgg)
+			{
+				//reset egg to middle...
+				skuaState.ResetEgg();
+			}
 			
 			GetComponent<Rigidbody>().useGravity = true;
 			GetComponent<Rigidbody>().isKinematic = false;
@@ -79,6 +84,23 @@ public class Skua : MonoBehaviour
 		{
 			Debug.Log("Couldn't set fly");
 		}*/
+	}
+	
+	public void Eat()
+	{
+		if(_skuaController == null)
+		{
+			_skuaController = GetComponent<Animator>();
+		}
+		
+		if(_skuaController != null && !_skuaController.GetCurrentAnimatorStateInfo(0).IsName("eat"))
+		{
+			_skuaController.SetBool("idle", false);
+			_skuaController.SetBool("walkleft", false);
+			_skuaController.SetBool("walkright", false);
+			_skuaController.SetBool("walk", false);
+			_skuaController.SetBool("eat", true);
+		}
 	}
 	
 	public void WalkForward()

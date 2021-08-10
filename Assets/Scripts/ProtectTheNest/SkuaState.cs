@@ -18,6 +18,8 @@ public class SkuaState : MonoBehaviour
 	
 	bool _hasEgg = false;
 	
+	public bool HasEgg => _hasEgg;
+	
 	SkuaSpawner _skuaSpawner;
 	
 	public SkuaSpawner Spawner
@@ -58,13 +60,24 @@ public class SkuaState : MonoBehaviour
 			_skuaSpawner.TheEgg.transform.SetParent(gameObject.transform.GetChild(0).transform, false);
 			_skuaSpawner.TheEgg.GetComponent<Egg>().IsTaken = true;
 			
-			MoveToNewSpot(outerSpots[randomIndex]);
 			_hasEgg = true;
+			
+			MoveToNewSpot(outerSpots[randomIndex]);
+			
 		}
 		
 		_lastPosition = transform.position;
 		_lastRotation = transform.rotation;
     }
+	
+	public void ResetEgg()
+	{
+		_hasEgg = false;
+		_skuaSpawner.TheEgg.GetComponent<Egg>().Reset();
+		_skuaSpawner.TheEgg.transform.SetParent(null, false);
+		//move all skuas back one ring...
+		
+	}
 	
 	public void MoveSkua()
 	{
@@ -156,7 +169,14 @@ public class SkuaState : MonoBehaviour
 			yield return null;
 		}
 		
-		gameObject.GetComponent<Skua>().GoIdle();
+		if(_hasEgg)
+		{
+			gameObject.GetComponent<Skua>().Eat();
+		}
+		else
+		{
+			gameObject.GetComponent<Skua>().GoIdle();
+		}
 		
 		transform.position = newSpot;
 		transform.rotation = newRot;

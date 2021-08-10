@@ -5623,10 +5623,34 @@ PrefabInstance:
       propertyPath: _ovrPlayer
       value: 
       objectReference: {fileID: 1330897581}
+    - target: {fileID: 9182614964994305710, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
+      propertyPath: m_Size.x
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9182614964994305710, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
+      propertyPath: m_Center.x
+      value: -0.46
+      objectReference: {fileID: 0}
     - target: {fileID: 9182614965972183996, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
       propertyPath: _ovrPlayer
       value: 
       objectReference: {fileID: 1330897581}
+    - target: {fileID: 9182614965972183997, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
+      propertyPath: m_Size.x
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9182614965972183997, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
+      propertyPath: m_Size.z
+      value: 0.577301
+      objectReference: {fileID: 0}
+    - target: {fileID: 9182614965972183997, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
+      propertyPath: m_Center.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9182614965972183997, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
+      propertyPath: m_Center.z
+      value: -0.12815884
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
 --- !u!1001 &2022279471
