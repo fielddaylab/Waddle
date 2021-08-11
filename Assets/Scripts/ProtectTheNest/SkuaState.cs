@@ -16,9 +16,13 @@ public class SkuaState : MonoBehaviour
 		set { _currentSpot = value; }
 	}
 	
+	[SerializeField]
 	bool _hasEgg = false;
 	
 	public bool HasEgg => _hasEgg;
+	
+	[SerializeField]
+	bool _eatingEgg = false;
 	
 	SkuaSpawner _skuaSpawner;
 	
@@ -28,107 +32,252 @@ public class SkuaState : MonoBehaviour
 		set { _skuaSpawner = value; }
 	}
 	
-	Vector3 _lastPosition;
-	Quaternion _lastRotation;
+	Animator _skuaController;
+	
+	bool _isHit;
+	bool _isMoving = false;
+	
+	public bool IsHit => _isHit;
+	
+	//Vector3 _lastPosition;
+	//Quaternion _lastRotation;
 	
     // Start is called before the first frame update
     void Start()
     {
       
     }
-
+	
+	void OnCollisionEnter(Collision otherCollision)
+	{
+		//Debug.Log("Skua collided");
+		//Debug.Log("Impulse: " + otherCollision.impulse);
+		//Debug.Log("Relative Velocity: " + otherCollision.relativeVelocity);
+		if(otherCollision.gameObject.name.StartsWith("Flipper"))
+		{
+			_isHit = true;
+			
+			SkuaState skuaState = GetComponent<SkuaState>();
+			if(skuaState != null && skuaState.HasEgg)
+			{
+				//reset egg to middle...
+				skuaState.ResetEgg();
+			}
+			
+			GetComponent<Rigidbody>().useGravity = true;
+			GetComponent<Rigidbody>().isKinematic = false;
+			//GoIdle();
+			_skuaController.enabled = false;
+			GetComponent<AudioSource>().Play();
+			GetComponent<Rigidbody>().AddForce((-transform.forward + transform.up)*5.0f);
+		}
+	}
+	
+	public void GoIdle()
+	{
+		if(_skuaController == null)
+		{
+			_skuaController = GetComponent<Animator>();
+		}
+		
+		if(_skuaController != null)
+		{
+			//Debug.Log("Setting fly");
+			_skuaController.SetBool("takeoff", false);
+			_skuaController.SetBool("fly", false);
+			_skuaController.SetBool("walkleft", false);
+			_skuaController.SetBool("walkright", false);
+			_skuaController.SetBool("walk", false);
+			_skuaController.SetBool("idle", true);
+		}
+	}
+	
+	public void FlyIn()
+	{	
+		if(_skuaController == null)
+		{
+			_skuaController = GetComponent<Animator>();
+		}
+		
+		if(_skuaController != null)
+		{
+			//Debug.Log("Setting fly");
+			_skuaController.SetBool("idle", false);
+			_skuaController.SetBool("takeoff", true);
+			_skuaController.SetBool("fly", true);
+		}
+		/*else
+		{
+			Debug.Log("Couldn't set fly");
+		}*/
+	}
+	
+	public void Eat()
+	{
+		if(_skuaController == null)
+		{
+			_skuaController = GetComponent<Animator>();
+		}
+		
+		if(_skuaController != null && !_skuaController.GetCurrentAnimatorStateInfo(0).IsName("eat"))
+		{
+			_skuaController.SetBool("idle", false);
+			_skuaController.SetBool("walkleft", false);
+			_skuaController.SetBool("walkright", false);
+			_skuaController.SetBool("walk", false);
+			_skuaController.SetBool("eat", true);
+		}
+	}
+	
+	public void WalkForward()
+	{
+		if(_skuaController == null)
+		{
+			_skuaController = GetComponent<Animator>();
+		}
+		
+		if(_skuaController != null && !_skuaController.GetCurrentAnimatorStateInfo(0).IsName("walk"))
+		{
+			_skuaController.SetBool("idle", false);
+			_skuaController.SetBool("walkleft", false);
+			_skuaController.SetBool("walkright", false);
+			_skuaController.SetBool("walk", true);
+		}
+		/*else
+		{
+			Debug.Log("Couldn't set walk");
+		}*/
+	}
+	
+	public void WalkLeft()
+	{
+		if(_skuaController == null)
+		{
+			_skuaController = GetComponent<Animator>();
+		}
+		
+		if(_skuaController != null)
+		{
+			_skuaController.SetBool("idle", false);
+			_skuaController.SetBool("walk", false);
+			_skuaController.SetBool("walkleft", true);
+		}
+	}
+	
+	public void WalkRight()
+	{
+		if(_skuaController == null)
+		{
+			_skuaController = GetComponent<Animator>();
+		}
+		
+		if(_skuaController != null)
+		{
+			_skuaController.SetBool("idle", false);
+			_skuaController.SetBool("walk", false);
+			_skuaController.SetBool("walkright", true);
+		}
+	}
+	
     // Update is called once per frame
     void Update()
     {
-		if((_currentSpot.gameObject.name == "SkuaSpot0") && !_hasEgg && !_skuaSpawner.EggIsTaken())
-		{
-			//have skua grab the egg and move it to a random outer location...
-			GameObject parentObject = _currentSpot.gameObject.transform.parent.gameObject;
-			SkuaSpot[] spots = parentObject.GetComponentsInChildren<SkuaSpot>();
-			List<SkuaSpot> outerSpots = new List<SkuaSpot>();
-			foreach(SkuaSpot s in spots)
-			{
-				if(s.IsOuter)
-				{
-					outerSpots.Add(s);
-				}
-			}
-			
-			int randomIndex = UnityEngine.Random.Range(0, outerSpots.Count-1);
-			
-			Debug.Log("Grabbing egg");
-			_skuaSpawner.TheEgg.transform.SetParent(gameObject.transform.GetChild(0).transform, false);
-			_skuaSpawner.TheEgg.GetComponent<Egg>().IsTaken = true;
-			
-			_hasEgg = true;
-			
-			MoveToNewSpot(outerSpots[randomIndex]);
-			
-		}
-		
-		_lastPosition = transform.position;
-		_lastRotation = transform.rotation;
+		//_lastPosition = transform.position;
+		//_lastRotation = transform.rotation;
     }
 	
 	public void ResetEgg()
 	{
 		_hasEgg = false;
-		_skuaSpawner.TheEgg.GetComponent<Egg>().Reset();
 		_skuaSpawner.TheEgg.transform.SetParent(null, false);
+		_skuaSpawner.TheEgg.GetComponent<Egg>().Reset();
 		//move all skuas back one ring...
 		
 	}
 	
 	public void MoveSkua()
 	{
-		if(!_hasEgg && !gameObject.GetComponent<Skua>().IsHit)
+		if(!_isMoving)
 		{
-			float r = Random.value;
-			if(r < 0.1)
+			if(!_isHit)
 			{
-				//move out
-				if(_currentSpot != null)
+				if(!_hasEgg)
 				{
-					if(_currentSpot.SpotOut != null && _currentSpot.SpotOut.CurrentSkua == null)
+					float r = Random.value;
+					if(r < 0.1)
 					{
-						MoveToNewSpot(_currentSpot.SpotOut);
+						//move out
+						if(_currentSpot != null)
+						{
+							if(_currentSpot.SpotOut != null && _currentSpot.SpotOut.CurrentSkua == null)
+							{
+								MoveToNewSpot(_currentSpot.SpotOut);
+							}
+						}
+					}
+					else if (r >= 0.1 && r < 0.2)
+					{
+						//stay
+					}
+					else if(r >= 0.2 && r < 0.5)
+					{
+						//move left
+						if(_currentSpot != null)
+						{
+							if(_currentSpot.SpotLeft != null && _currentSpot.SpotLeft.CurrentSkua == null)
+							{
+								MoveToNewSpot(_currentSpot.SpotLeft);
+							}
+						}
+					}
+					else if( r >= 0.5 && r < 0.8)
+					{
+						//move right
+						if(_currentSpot != null)
+						{
+							if(_currentSpot.SpotRight != null && _currentSpot.SpotRight.CurrentSkua == null)
+							{
+								MoveToNewSpot(_currentSpot.SpotRight);
+							}
+						}
+					}
+					else
+					{
+						//move in
+						if(_currentSpot != null)
+						{
+							if(_currentSpot.SpotIn != null && _currentSpot.SpotIn.CurrentSkua == null)
+							{
+								MoveToNewSpot(_currentSpot.SpotIn);
+							}
+						}
 					}
 				}
-			}
-			else if (r >= 0.1 && r < 0.2)
-			{
-				//stay
-			}
-			else if(r >= 0.2 && r < 0.5)
-			{
-				//move left
-				if(_currentSpot != null)
+				else
 				{
-					if(_currentSpot.SpotLeft != null && _currentSpot.SpotLeft.CurrentSkua == null)
+					if(!_eatingEgg)
 					{
-						MoveToNewSpot(_currentSpot.SpotLeft);
+						//only do this once...
+						GameObject parentObject = _currentSpot.gameObject.transform.parent.gameObject;
+						SkuaSpot[] spots = parentObject.GetComponentsInChildren<SkuaSpot>();
+						List<SkuaSpot> outerSpots = new List<SkuaSpot>();
+						foreach(SkuaSpot s in spots)
+						{
+							if(s.IsOuter)
+							{
+								outerSpots.Add(s);
+							}
+						}
+						
+						int randomIndex = UnityEngine.Random.Range(0, outerSpots.Count-1);
+						
+						MoveToNewSpot(outerSpots[randomIndex]);
+						
+						_eatingEgg = true;
 					}
-				}
-			}
-			else if( r >= 0.5 && r < 0.8)
-			{
-				//move right
-				if(_currentSpot != null)
-				{
-					if(_currentSpot.SpotRight != null && _currentSpot.SpotRight.CurrentSkua == null)
+					else
 					{
-						MoveToNewSpot(_currentSpot.SpotRight);
-					}
-				}
-			}
-			else
-			{
-				//move in
-				if(_currentSpot != null)
-				{
-					if(_currentSpot.SpotIn != null && _currentSpot.SpotIn.CurrentSkua == null)
-					{
-						MoveToNewSpot(_currentSpot.SpotIn);
+						Eat();
 					}
 				}
 			}
@@ -137,10 +286,23 @@ public class SkuaState : MonoBehaviour
 	
 	IEnumerator StartMove(Vector3 newSpot, Quaternion newRot, float duration)
 	{
+		_isMoving = true;
 		float t = 0f;
 		
 		Vector3 startPosition = transform.position;
 		//Quaternion startRot = transform.rotation;
+		
+		WalkForward();
+		
+		bool grabbedEgg = false;
+		
+
+		if((_currentSpot.gameObject.name == "SkuaSpot0") && !_hasEgg && !_skuaSpawner.EggIsTaken() && !_isHit)
+		{
+			Debug.Log("Grabbing egg");
+			_hasEgg = true;
+			grabbedEgg = true;
+		}
 		
 		while(t < duration)
 		{
@@ -161,25 +323,28 @@ public class SkuaState : MonoBehaviour
 			{
 				
 			}*/
-			
-			gameObject.GetComponent<Skua>().WalkForward();
+			/*if(_hasEgg)
+			{
+				Debug.Log(t);
+			}*/
 			
 			t += (Time.deltaTime);	
 			
 			yield return null;
 		}
 		
-		if(_hasEgg)
+		if(grabbedEgg)
 		{
-			gameObject.GetComponent<Skua>().Eat();
+			_skuaSpawner.TheEgg.transform.SetParent(gameObject.transform.GetChild(0).transform, false);
+			_skuaSpawner.TheEgg.GetComponent<Egg>().IsTaken = true;
 		}
-		else
-		{
-			gameObject.GetComponent<Skua>().GoIdle();
-		}
+
+		GoIdle();
 		
 		transform.position = newSpot;
-		transform.rotation = newRot;
+		transform.rotation = newRot;	
+		
+		_isMoving = false;
 	}
 	
 	/*IEnumerator StartTurn(Vector3 newSpot, Quaternion newRot, float duration)
@@ -217,8 +382,13 @@ public class SkuaState : MonoBehaviour
 	
 	void MoveToNewSpot(SkuaSpot newSpot)
 	{
+		
 		//set old spot's current skua to null to indicate it's open
 		_currentSpot.CurrentSkua = null;
+		
+		newSpot.CurrentSkua = gameObject;
+		
+		_currentSpot = newSpot;
 		
 		//todo - eventually lerp, or something along those lines...
 		Vector3 p = newSpot.gameObject.transform.position;
@@ -235,8 +405,6 @@ public class SkuaState : MonoBehaviour
 		StartCoroutine(StartMove(p, Quaternion.Euler(e), _skuaSpawner.MoveFrequency));
 		//StartCoroutine(StartTurn(p, Quaternion.Euler(e), _skuaSpawner.MoveFrequency));
 		
-		newSpot.CurrentSkua = gameObject;
-		
-		_currentSpot = newSpot;
+
 	}
 }

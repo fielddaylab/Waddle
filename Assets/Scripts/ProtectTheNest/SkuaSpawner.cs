@@ -128,7 +128,7 @@ public class SkuaSpawner : MonoBehaviour
 	{
 		GameObject newSkua = Instantiate(_skuaPrefab);
 		
-		//newSkua.GetComponent<Skua>().FlyIn();
+		
 		//newSkua.GetComponent<Skua>().WalkForward();
 		
 		Vector3 spawnSpot = _spawnLocations[spawnLocation].gameObject.transform.position;
@@ -154,6 +154,8 @@ public class SkuaSpawner : MonoBehaviour
 		}
 		
 		newSkua.GetComponent<SkuaState>().Spawner = this;
+		
+		newSkua.GetComponent<SkuaState>().GoIdle();
 		
 		_currentSkuas.Add(newSkua);
 	}
