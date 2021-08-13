@@ -24,6 +24,20 @@ public class SkuaState : MonoBehaviour
 	[SerializeField]
 	bool _eatingEgg = false;
 	
+	[SerializeField]
+	bool _isHit = false;
+	
+	public bool IsHit => _isHit;
+	
+	[SerializeField]
+	bool _isMoving = false;
+	
+	[SerializeField]
+	bool _isRecovering = false;
+	
+	[SerializeField]
+	bool _isRecovered = true;
+	
 	SkuaSpawner _skuaSpawner;
 	
 	public SkuaSpawner Spawner
@@ -34,19 +48,52 @@ public class SkuaState : MonoBehaviour
 	
 	Animator _skuaController;
 	
-	bool _isHit;
-	bool _isMoving = false;
-	
-	public bool IsHit => _isHit;
-	
-	//Vector3 _lastPosition;
-	//Quaternion _lastRotation;
-	
     // Start is called before the first frame update
     void Start()
     {
       
     }
+	
+	IEnumerator Recover(float recoverTime)
+	{
+		
+		yield return new WaitForSeconds(recoverTime);
+		
+		GetComponent<Rigidbody>().useGravity = false;
+		GetComponent<Rigidbody>().isKinematic = true;
+		_skuaController.enabled = true;
+		
+		GoIdle();
+		
+		transform.rotation = Quaternion.LookRotation(transform.forward, Vector3.up);
+		
+		GameObject parentObject = _currentSpot.gameObject.transform.parent.gameObject;
+		SkuaSpot[] spots = parentObject.GetComponentsInChildren<SkuaSpot>();
+		List<SkuaSpot> outerSpots = new List<SkuaSpot>();
+		float minDist = 9999f;
+		
+		SkuaSpot closestSpot = null;
+		
+		foreach(SkuaSpot s in spots)
+		{
+			if(s.IsOuter)
+			{
+				float dist = Vector3.Distance(transform.position, s.gameObject.transform.position);
+				if(dist < minDist)
+				{
+					closestSpot = s;
+					minDist = dist;
+				}
+				outerSpots.Add(s);
+			}
+		}
+		
+		//int randomIndex = UnityEngine.Random.Range(0, outerSpots.Count-1);
+		
+		_isRecovered = false;
+		
+		MoveToNewSpot(closestSpot);
+	}
 	
 	void OnCollisionEnter(Collision otherCollision)
 	{
@@ -57,11 +104,10 @@ public class SkuaState : MonoBehaviour
 		{
 			_isHit = true;
 			
-			SkuaState skuaState = GetComponent<SkuaState>();
-			if(skuaState != null && skuaState.HasEgg)
+			if(_hasEgg)
 			{
 				//reset egg to middle...
-				skuaState.ResetEgg();
+				ResetEgg();
 			}
 			
 			GetComponent<Rigidbody>().useGravity = true;
@@ -70,6 +116,12 @@ public class SkuaState : MonoBehaviour
 			_skuaController.enabled = false;
 			GetComponent<AudioSource>().Play();
 			GetComponent<Rigidbody>().AddForce((-transform.forward + transform.up)*5.0f);
+			if(!_isRecovering)
+			{
+				_isRecovering = true;
+		
+				StartCoroutine(Recover(3f));
+			}
 		}
 	}
 	
@@ -129,14 +181,14 @@ public class SkuaState : MonoBehaviour
 		}
 	}
 	
-	public void WalkForward()
+	public void WalkForward(bool bForce=false)
 	{
 		if(_skuaController == null)
 		{
 			_skuaController = GetComponent<Animator>();
 		}
 		
-		if(_skuaController != null && !_skuaController.GetCurrentAnimatorStateInfo(0).IsName("walk"))
+		if(_skuaController != null && (!_skuaController.GetCurrentAnimatorStateInfo(0).IsName("walk") || bForce))
 		{
 			_skuaController.SetBool("idle", false);
 			_skuaController.SetBool("walkleft", false);
@@ -197,7 +249,7 @@ public class SkuaState : MonoBehaviour
 	
 	public void MoveSkua()
 	{
-		if(!_isMoving)
+		if(!_isMoving && !_isRecovering)
 		{
 			if(!_isHit)
 			{
@@ -290,13 +342,11 @@ public class SkuaState : MonoBehaviour
 		float t = 0f;
 		
 		Vector3 startPosition = transform.position;
-		//Quaternion startRot = transform.rotation;
-		
-		WalkForward();
+
+		WalkForward(!_isRecovered);
 		
 		bool grabbedEgg = false;
 		
-
 		if((_currentSpot.gameObject.name == "SkuaSpot0") && !_hasEgg && !_skuaSpawner.EggIsTaken() && !_isHit)
 		{
 			Debug.Log("Grabbing egg");
@@ -339,6 +389,13 @@ public class SkuaState : MonoBehaviour
 			_skuaSpawner.TheEgg.GetComponent<Egg>().IsTaken = true;
 		}
 
+		if(!_isRecovered)
+		{
+			_isHit = false;
+			_isRecovering = false;
+			_isRecovered = true;
+		}
+		
 		GoIdle();
 		
 		transform.position = newSpot;
