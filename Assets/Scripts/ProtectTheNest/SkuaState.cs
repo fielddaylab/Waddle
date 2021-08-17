@@ -65,14 +65,14 @@ public class SkuaState : MonoBehaviour
 		
 		GoIdle();
 		
-		transform.rotation = Quaternion.LookRotation(transform.forward, Vector3.up);
-		
 		GameObject parentObject = _currentSpot.gameObject.transform.parent.gameObject;
 		SkuaSpot[] spots = parentObject.GetComponentsInChildren<SkuaSpot>();
-		List<SkuaSpot> outerSpots = new List<SkuaSpot>();
+		//List<SkuaSpot> outerSpots = new List<SkuaSpot>();
 		float minDist = 9999f;
 		
 		SkuaSpot closestSpot = null;
+		
+		Vector3 toNewSpot = Vector3.zero;
 		
 		foreach(SkuaSpot s in spots)
 		{
@@ -83,10 +83,16 @@ public class SkuaState : MonoBehaviour
 				{
 					closestSpot = s;
 					minDist = dist;
+					toNewSpot = transform.position - s.gameObject.transform.position;
+					toNewSpot.y = 0f;
+					toNewSpot = Vector3.Normalize(toNewSpot);
 				}
-				outerSpots.Add(s);
+				//outerSpots.Add(s);
 			}
 		}
+		
+		
+		transform.rotation = Quaternion.LookRotation(toNewSpot, Vector3.up);
 		
 		//int randomIndex = UnityEngine.Random.Range(0, outerSpots.Count-1);
 		
@@ -110,14 +116,15 @@ public class SkuaState : MonoBehaviour
 				ResetEgg();
 			}
 			
-			GetComponent<Rigidbody>().useGravity = true;
-			GetComponent<Rigidbody>().isKinematic = false;
-			//GoIdle();
-			_skuaController.enabled = false;
-			GetComponent<AudioSource>().Play();
-			GetComponent<Rigidbody>().AddForce((-transform.forward + transform.up)*5.0f);
 			if(!_isRecovering)
 			{
+				GetComponent<Rigidbody>().useGravity = true;
+				GetComponent<Rigidbody>().isKinematic = false;
+				//GoIdle();
+				_skuaController.enabled = false;
+				GetComponent<AudioSource>().Play();
+				GetComponent<Rigidbody>().AddForce((-transform.forward + transform.up)*5.0f);
+				
 				_isRecovering = true;
 		
 				StartCoroutine(Recover(3f));
@@ -241,6 +248,10 @@ public class SkuaState : MonoBehaviour
 	public void ResetEgg()
 	{
 		_hasEgg = false;
+		_eatingEgg = false;
+		
+		GoIdle();
+		
 		_skuaSpawner.TheEgg.transform.SetParent(null, false);
 		_skuaSpawner.TheEgg.GetComponent<Egg>().Reset();
 		//move all skuas back one ring...
@@ -249,88 +260,87 @@ public class SkuaState : MonoBehaviour
 	
 	public void MoveSkua()
 	{
-		if(!_isMoving && !_isRecovering)
+		if(!_isMoving && !_isRecovering && !_isHit)
 		{
-			if(!_isHit)
+			if(!_hasEgg)
 			{
-				if(!_hasEgg)
+				//todo - make it so we don't go to a spot that already has a skua...
+				
+				float r = Random.value;
+				if(r < 0.1)
 				{
-					float r = Random.value;
-					if(r < 0.1)
+					//move out
+					if(_currentSpot != null)
 					{
-						//move out
-						if(_currentSpot != null)
+						if(_currentSpot.SpotOut != null && _currentSpot.SpotOut.CurrentSkua == null)
 						{
-							if(_currentSpot.SpotOut != null && _currentSpot.SpotOut.CurrentSkua == null)
-							{
-								MoveToNewSpot(_currentSpot.SpotOut);
-							}
+							MoveToNewSpot(_currentSpot.SpotOut);
 						}
 					}
-					else if (r >= 0.1 && r < 0.2)
+				}
+				else if (r >= 0.1 && r < 0.2)
+				{
+					//stay
+				}
+				else if(r >= 0.2 && r < 0.5)
+				{
+					//move left
+					if(_currentSpot != null)
 					{
-						//stay
-					}
-					else if(r >= 0.2 && r < 0.5)
-					{
-						//move left
-						if(_currentSpot != null)
+						if(_currentSpot.SpotLeft != null && _currentSpot.SpotLeft.CurrentSkua == null)
 						{
-							if(_currentSpot.SpotLeft != null && _currentSpot.SpotLeft.CurrentSkua == null)
-							{
-								MoveToNewSpot(_currentSpot.SpotLeft);
-							}
+							MoveToNewSpot(_currentSpot.SpotLeft);
 						}
 					}
-					else if( r >= 0.5 && r < 0.8)
+				}
+				else if( r >= 0.5 && r < 0.8)
+				{
+					//move right
+					if(_currentSpot != null)
 					{
-						//move right
-						if(_currentSpot != null)
+						if(_currentSpot.SpotRight != null && _currentSpot.SpotRight.CurrentSkua == null)
 						{
-							if(_currentSpot.SpotRight != null && _currentSpot.SpotRight.CurrentSkua == null)
-							{
-								MoveToNewSpot(_currentSpot.SpotRight);
-							}
-						}
-					}
-					else
-					{
-						//move in
-						if(_currentSpot != null)
-						{
-							if(_currentSpot.SpotIn != null && _currentSpot.SpotIn.CurrentSkua == null)
-							{
-								MoveToNewSpot(_currentSpot.SpotIn);
-							}
+							MoveToNewSpot(_currentSpot.SpotRight);
 						}
 					}
 				}
 				else
 				{
-					if(!_eatingEgg)
+					//move in
+					if(_currentSpot != null)
 					{
-						//only do this once...
-						GameObject parentObject = _currentSpot.gameObject.transform.parent.gameObject;
-						SkuaSpot[] spots = parentObject.GetComponentsInChildren<SkuaSpot>();
-						List<SkuaSpot> outerSpots = new List<SkuaSpot>();
-						foreach(SkuaSpot s in spots)
+						if(_currentSpot.SpotIn != null && _currentSpot.SpotIn.CurrentSkua == null)
 						{
-							if(s.IsOuter)
-							{
-								outerSpots.Add(s);
-							}
+							MoveToNewSpot(_currentSpot.SpotIn);
 						}
-						
-						int randomIndex = UnityEngine.Random.Range(0, outerSpots.Count-1);
-						
-						MoveToNewSpot(outerSpots[randomIndex]);
-						
-						_eatingEgg = true;
 					}
-					else
+				}
+			}
+			else
+			{
+				if(!_eatingEgg)
+				{
+					//only do this once...
+					GameObject parentObject = _currentSpot.gameObject.transform.parent.gameObject;
+					SkuaSpot[] spots = parentObject.GetComponentsInChildren<SkuaSpot>();
+					List<SkuaSpot> outerSpots = new List<SkuaSpot>();
+					foreach(SkuaSpot s in spots)
 					{
-						Eat();
+						if(s.IsOuter)
+						{
+							outerSpots.Add(s);
+						}
 					}
+					
+					int randomIndex = UnityEngine.Random.Range(0, outerSpots.Count-1);
+					
+					MoveToNewSpot(outerSpots[randomIndex]);
+					
+					_eatingEgg = true;
+				}
+				else
+				{
+					Eat();
 				}
 			}
 		}
