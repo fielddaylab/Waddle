@@ -7,7 +7,12 @@ using UnityEngine;
 
 public class WaddleTrigger : MonoBehaviour
 {
-	public GameObject _ovrPlayer;
+	[SerializeField]
+	GameObject _ovrPlayer;
+	
+	[SerializeField]
+	GameObject _centerEye;
+	
 	public float _speed;
 	
 	//int updateCount = 0;
@@ -53,16 +58,19 @@ public class WaddleTrigger : MonoBehaviour
 	{
 		if(_needsUpdate)
 		{
-			//Debug.Log("Updating: " + updateCount);
-			//this moves the entire player
-			_ovrPlayer.transform.position -= _ovrPlayer.transform.forward * _speed * Time.deltaTime; 
-			_needsUpdate = false;
-			//updateCount++;
-			
-			AudioSource audioClip = GetComponent<AudioSource>();
-			if(audioClip != null)
+			if(_centerEye.transform.forward.y > -0.5f)
 			{
-				audioClip.Play();
+				//Debug.Log("Updating: " + updateCount);
+				//this moves the entire player
+				_ovrPlayer.transform.position -= _ovrPlayer.transform.forward * _speed * Time.deltaTime; 
+				_needsUpdate = false;
+				//updateCount++;
+				
+				AudioSource audioClip = GetComponent<AudioSource>();
+				if(audioClip != null)
+				{
+					audioClip.Play();
+				}
 			}
 		}
 	}

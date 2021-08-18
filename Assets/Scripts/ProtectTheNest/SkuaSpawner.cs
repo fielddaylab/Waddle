@@ -105,8 +105,16 @@ public class SkuaSpawner : MonoBehaviour
 				_eggTime += Time.deltaTime;
 				float t = _eggTime - _startTime;
 				float timeLeft = _totalGameTime - t;
-				System.TimeSpan ts = System.TimeSpan.FromSeconds(timeLeft);
-				_eggTimer.GetComponent<TMPro.TextMeshPro>().text = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
+				if(timeLeft > 0f)
+				{
+					System.TimeSpan ts = System.TimeSpan.FromSeconds(timeLeft);
+					_eggTimer.GetComponent<TMPro.TextMeshPro>().text = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
+				}
+				else
+				{
+					System.TimeSpan ts = System.TimeSpan.FromSeconds(0);
+					_eggTimer.GetComponent<TMPro.TextMeshPro>().text = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
+				}
 			}
 		}
     }
