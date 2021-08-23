@@ -235,6 +235,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Survey
       objectReference: {fileID: 0}
+    - target: {fileID: 3852549697214201323, guid: 81cf92935e5d17146b89dd315e67020b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3852549697214201326, guid: 81cf92935e5d17146b89dd315e67020b, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1

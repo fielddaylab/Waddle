@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "475789684664",
+    "project_id": "penguinsvr",
+    "storage_bucket": "penguinsvr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:475789684664:android:094d7f74cbbbbcf312294d",
+        "android_client_info": {
+          "package_name": "com.DefaultCompany.PenguinsVR"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "475789684664-35unff1esas4eqi25knh3uodho9mdjno.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1DQLXse7185EFf6Yw43uIc9jKo2i0P9Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "475789684664-35unff1esas4eqi25knh3uodho9mdjno.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
