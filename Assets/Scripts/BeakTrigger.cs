@@ -37,7 +37,7 @@ public class BeakTrigger : MonoBehaviour
 	
 	void OnTriggerEnter(Collider otherCollider)
 	{
-		Debug.Log(otherCollider.gameObject.name);
+		//Debug.Log(otherCollider.gameObject.name);
 		if(otherCollider.gameObject.name.StartsWith("Rocks"))
 		{
 			//pick up a rock with your beak

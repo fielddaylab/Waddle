@@ -175,7 +175,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 152c8599b027a1f4fbfd31850820e89e, type: 2}
+  - {fileID: 2100000, guid: d17e8f814b05b4144b541514c3179e03, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -896,6 +896,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1584424003}
     - target: {fileID: 2366527734196853252, guid: c40cfbaa07b2f1b468dcf9a08c229daf, type: 3}
+      propertyPath: _isBlocked
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366527734196853252, guid: c40cfbaa07b2f1b468dcf9a08c229daf, type: 3}
       propertyPath: _spotRight
       value: 
       objectReference: {fileID: 757502434}
@@ -1179,6 +1183,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 519291757}
     - target: {fileID: 2366527734196853252, guid: c40cfbaa07b2f1b468dcf9a08c229daf, type: 3}
+      propertyPath: _isInner
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366527734196853252, guid: c40cfbaa07b2f1b468dcf9a08c229daf, type: 3}
       propertyPath: _spotLeft
       value: 
       objectReference: {fileID: 1416567194}
@@ -1260,8 +1268,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 1658538975}
     m_Modifications:
     - target: {fileID: 2366527734196853252, guid: c40cfbaa07b2f1b468dcf9a08c229daf, type: 3}
+      propertyPath: _isInner
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366527734196853252, guid: c40cfbaa07b2f1b468dcf9a08c229daf, type: 3}
       propertyPath: _spotOut
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366527734196853252, guid: c40cfbaa07b2f1b468dcf9a08c229daf, type: 3}
+      propertyPath: _isCenter
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2366527734196853252, guid: c40cfbaa07b2f1b468dcf9a08c229daf, type: 3}
       propertyPath: _spotLeft
@@ -1608,6 +1624,10 @@ PrefabInstance:
       propertyPath: _spotLeft
       value: 
       objectReference: {fileID: 2075437900}
+    - target: {fileID: 2366527734196853252, guid: c40cfbaa07b2f1b468dcf9a08c229daf, type: 3}
+      propertyPath: _isBlocked
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2366527734196853252, guid: c40cfbaa07b2f1b468dcf9a08c229daf, type: 3}
       propertyPath: _spotRight
       value: 
@@ -2101,7 +2121,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 152c8599b027a1f4fbfd31850820e89e, type: 2}
+  - {fileID: 2100000, guid: d17e8f814b05b4144b541514c3179e03, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2656,6 +2676,10 @@ PrefabInstance:
       propertyPath: _spotLeft
       value: 
       objectReference: {fileID: 1959918912}
+    - target: {fileID: 2366527734196853252, guid: c40cfbaa07b2f1b468dcf9a08c229daf, type: 3}
+      propertyPath: _isBlocked
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2366527734196853252, guid: c40cfbaa07b2f1b468dcf9a08c229daf, type: 3}
       propertyPath: _spotRight
       value: 
@@ -3288,6 +3312,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 519291757}
     - target: {fileID: 2366527734196853252, guid: c40cfbaa07b2f1b468dcf9a08c229daf, type: 3}
+      propertyPath: _isInner
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366527734196853252, guid: c40cfbaa07b2f1b468dcf9a08c229daf, type: 3}
       propertyPath: _spotLeft
       value: 
       objectReference: {fileID: 1877191865}
@@ -3715,7 +3743,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1270731896
 Transform:
   m_ObjectHideFlags: 0
@@ -4754,6 +4782,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 519291757}
     - target: {fileID: 2366527734196853252, guid: c40cfbaa07b2f1b468dcf9a08c229daf, type: 3}
+      propertyPath: _isInner
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366527734196853252, guid: c40cfbaa07b2f1b468dcf9a08c229daf, type: 3}
       propertyPath: _spotOut
       value: 
       objectReference: {fileID: 1449886283}
@@ -5428,7 +5460,7 @@ BoxCollider:
   m_GameObject: {fileID: 1637245600}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.13260967, y: 0.11266523, z: 0.12442131}
   m_Center: {x: 0.00984551, y: 0.036706436, z: 0.01091551}
@@ -5439,7 +5471,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1637245600}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa111c8d856bc09429fef0a76fac72f0, type: 3}
   m_Name: 
@@ -5744,6 +5776,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 519291757}
     - target: {fileID: 2366527734196853252, guid: c40cfbaa07b2f1b468dcf9a08c229daf, type: 3}
+      propertyPath: _isInner
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366527734196853252, guid: c40cfbaa07b2f1b468dcf9a08c229daf, type: 3}
       propertyPath: _spotOut
       value: 
       objectReference: {fileID: 1621314044}
@@ -5832,6 +5868,10 @@ PrefabInstance:
       propertyPath: _spotIn
       value: 
       objectReference: {fileID: 519291757}
+    - target: {fileID: 2366527734196853252, guid: c40cfbaa07b2f1b468dcf9a08c229daf, type: 3}
+      propertyPath: _isInner
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2366527734196853252, guid: c40cfbaa07b2f1b468dcf9a08c229daf, type: 3}
       propertyPath: _spotOut
       value: 
@@ -6153,7 +6193,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 152c8599b027a1f4fbfd31850820e89e, type: 2}
+  - {fileID: 2100000, guid: d17e8f814b05b4144b541514c3179e03, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6817,6 +6857,10 @@ PrefabInstance:
       propertyPath: _spotIn
       value: 
       objectReference: {fileID: 519291757}
+    - target: {fileID: 2366527734196853252, guid: c40cfbaa07b2f1b468dcf9a08c229daf, type: 3}
+      propertyPath: _isInner
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2366527734196853252, guid: c40cfbaa07b2f1b468dcf9a08c229daf, type: 3}
       propertyPath: _spotOut
       value: 

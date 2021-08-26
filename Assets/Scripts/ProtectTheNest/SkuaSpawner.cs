@@ -30,6 +30,7 @@ public class SkuaSpawner : MonoBehaviour
 	public float MoveFrequency => _moveFrequency;
 	
 	float _updateTime;
+	
 	float _eggTime;
 	
 	[SerializeField]
@@ -39,6 +40,8 @@ public class SkuaSpawner : MonoBehaviour
 	GameObject _theEgg;
 	
 	public GameObject TheEgg => _theEgg;
+	
+	List<SkuaSpot> _takenSpotList = new List<SkuaSpot>();
 	
     // Start is called before the first frame update
     void Start()
@@ -126,16 +129,135 @@ public class SkuaSpawner : MonoBehaviour
 	
 	void MoveSkuas()
 	{
+		_takenSpotList.Clear();
+		
 		foreach(GameObject g in _currentSkuas)
 		{
-			g.GetComponent<SkuaState>().MoveSkua();
+			SkuaSpot potentialSpot = null;
+			int numIterations = 0;
+			SkuaController sc = g.GetComponent<SkuaController>();
+			
+			if(sc.GetEgg != null)
+			{
+				//if this skua has the egg, and it hasn't retreated to an outer spot yet, do so...
+				if(!sc.CurrentSpot.IsOuter)
+				{
+					while(potentialSpot == null && numIterations < 10)
+					{
+						potentialSpot = sc.SearchForOuterSpot();
+						//if the egg is currently taken, don't allow spot0 to be valid...
+						
+						if(potentialSpot != null)
+						{
+							if(!_takenSpotList.Contains(potentialSpot))
+							{
+								_takenSpotList.Add(potentialSpot);
+								break;
+							}
+							else
+							{
+								potentialSpot = null;
+							}
+						}
+						numIterations++;
+					}
+					
+					sc.SetNewSpot(potentialSpot);
+					sc.WalkToSpot();
+				}
+				else
+				{
+					//continue eating...
+					sc.Eat();
+				}
+			}
+			else if(sc.InHitState())
+			{
+				while(potentialSpot == null && numIterations < 10)
+				{
+					potentialSpot = sc.SearchForOuterSpot();
+					//if the egg is currently taken, don't allow spot0 to be valid...
+					
+					if(potentialSpot != null)
+					{
+						if(!_takenSpotList.Contains(potentialSpot))
+						{
+							_takenSpotList.Add(potentialSpot);
+							break;
+						}
+						else
+						{
+							potentialSpot = null;
+						}
+					}
+					numIterations++;
+				}
+				
+				//turn physics back off, animation back on
+				g.GetComponent<Rigidbody>().useGravity = false;
+				g.GetComponent<Rigidbody>().isKinematic = true;
+				sc.GetAnimController().enabled = true;
+				
+				sc.SetNewSpot(potentialSpot);
+				sc.WalkToSpot();
+			}
+			else
+			{
+				while(potentialSpot == null && numIterations < 10)
+				{
+					potentialSpot = sc.SearchForNewSpot();
+					//if the egg is currently taken, don't allow spot0 to be valid...
+					
+					if(potentialSpot != null)
+					{
+						//don't have skuas walk into the middle if the egg is gone already...
+						if(EggIsTaken() && potentialSpot.IsCenter)
+						{
+							potentialSpot = null;
+						}
+						else
+						{
+							if(!_takenSpotList.Contains(potentialSpot))
+							{
+								_takenSpotList.Add(potentialSpot);
+								break;
+							}
+							else
+							{
+								potentialSpot = null;
+							}
+						}
+					}
+					numIterations++;
+				}
+				
+				/*if(numIterations == 10)
+				{
+					Debug.Log("Num iters");
+				}*/
+				
+				if(potentialSpot == sc.CurrentSpot)
+				{
+					sc.GoIdle();
+				}
+				else
+				{
+					if(potentialSpot.IsCenter)
+					{
+						_theEgg.GetComponent<Egg>().IsTaken = true;
+						sc.SetEggRef(_theEgg.GetComponent<Egg>());
+					}
+					
+					sc.SetNewSpot(potentialSpot);
+					sc.WalkToSpot();
+				}
+			}
 		}
 	}
 	
 	void SpawnSkua(int spawnLocation)
 	{
 		GameObject newSkua = Instantiate(_skuaPrefab);
-		
 		
 		//newSkua.GetComponent<Skua>().WalkForward();
 		
@@ -149,7 +271,8 @@ public class SkuaSpawner : MonoBehaviour
 		
 		_spawnLocations[spawnLocation].CurrentSkua = newSkua;
 		
-		newSkua.GetComponent<SkuaState>().CurrentSpot = _spawnLocations[spawnLocation];
+		newSkua.GetComponent<SkuaController>().SetNewSpot(_spawnLocations[spawnLocation]);
+		//newSkua.GetComponent<SkuaState>().CurrentSpot = _spawnLocations[spawnLocation];
 		
 		if(_spawnLocations[spawnLocation].Penguin != null)
 		{
@@ -161,9 +284,9 @@ public class SkuaSpawner : MonoBehaviour
 			_spawnLocations[spawnLocation].OtherPenguin.GetComponent<AudioSource>().Play();
 		}
 		
-		newSkua.GetComponent<SkuaState>().Spawner = this;
+		//newSkua.GetComponent<SkuaState>().Spawner = this;
 		
-		newSkua.GetComponent<SkuaState>().GoIdle();
+		//newSkua.GetComponent<SkuaState>().GoIdle();
 		
 		_currentSkuas.Add(newSkua);
 	}

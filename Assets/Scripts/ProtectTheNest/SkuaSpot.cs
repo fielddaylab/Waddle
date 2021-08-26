@@ -30,6 +30,21 @@ public class SkuaSpot : MonoBehaviour
 	public bool IsOuter => _isOuter;
 	
 	[SerializeField]
+	bool _isCenter;
+	
+	public bool IsCenter => _isCenter;
+	
+	[SerializeField]
+	bool _isBlocked;
+	
+	public bool IsBlocked => _isBlocked;
+	
+	[SerializeField]
+	bool _isInner;
+	
+	public bool IsInner => _isInner;
+	
+	[SerializeField]
 	GameObject _currentSkua;
 	
 	public GameObject CurrentSkua
