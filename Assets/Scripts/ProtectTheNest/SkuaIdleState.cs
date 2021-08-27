@@ -51,6 +51,7 @@ public class SkuaIdleState : MonoBehaviour, ISkuaState
 			//a.SetBool("fly", false);
 			//a.SetBool("walkleft", false);
 			//a.SetBool("walkright", false);
+			a.SetBool("eat", false);
 			a.SetBool("walk", false);
 			a.SetBool("idle", true);
 		}

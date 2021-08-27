@@ -74,8 +74,9 @@ public class SkuaWalkState : MonoBehaviour, ISkuaState
 			//a.SetBool("fly", false);
 			//a.SetBool("walkleft", false);
 			//a.SetBool("walkright", false);
-			a.SetBool("walk", true);
+			a.SetBool("eat", false);
 			a.SetBool("idle", false);
+			a.SetBool("walk", true);
 		}
 		
 		StartCoroutine(StartMove(_sc.CurrentSpot.transform.position, Quaternion.Euler(e), _sc.MoveFrequency));

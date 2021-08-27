@@ -36,13 +36,15 @@ public class SkuaHitState : MonoBehaviour, ISkuaState
 			//a.SetBool("walkleft", false);
 			//a.SetBool("walkright", false);
 			a.SetBool("walk", false);
-			a.SetBool("idle", true);
 			a.SetBool("eat", false);
+			a.SetBool("idle", true);
+			
 			
 			gameObject.GetComponent<Rigidbody>().useGravity = true;
 			gameObject.GetComponent<Rigidbody>().isKinematic = false;
 
 			a.enabled = false;
+			
 			gameObject.GetComponent<AudioSource>().Play();
 			//GetComponent<Rigidbody>().AddForce((-transform.forward + transform.up)*5.0f);
 		}

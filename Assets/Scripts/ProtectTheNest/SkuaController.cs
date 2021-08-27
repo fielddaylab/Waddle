@@ -189,6 +189,12 @@ public class SkuaController : MonoBehaviour
 		{
 			if(_currentSpot != null && (_currentSpot.IsInner || _theEgg != null))
 			{
+				if(_theEgg != null)
+				{
+					_theEgg.Reset();
+					_theEgg = null;
+				}
+				
 				SkuaHit();
 			}
 		}

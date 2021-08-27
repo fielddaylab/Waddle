@@ -30,6 +30,7 @@ public class Egg : MonoBehaviour
 	
 	public void Reset()
 	{
+		gameObject.transform.SetParent(null, false);
 		transform.position = _startPosition;
 		transform.rotation = _startRotation;
 		_isTaken = false;
