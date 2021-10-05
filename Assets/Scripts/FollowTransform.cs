@@ -18,6 +18,15 @@ public class FollowTransform : MonoBehaviour
         if(_followTransform != null)
 		{
 			transform.position = _followTransform.transform.position;
+			
+			if(_followTransform.transform.childCount > 1)
+			{
+				OVRHand h = _followTransform.transform.GetChild(1).GetComponent<OVRHand>();
+				if(!h.IsDataHighConfidence)
+				{
+					//do something here when we lose tracking...
+				}
+			}
 		}
     }
 	

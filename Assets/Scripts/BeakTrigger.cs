@@ -7,12 +7,13 @@ using UnityEngine;
 
 public class BeakTrigger : MonoBehaviour
 {
-
 	float _gackTimer = 0.0f;
 
 	[SerializeField]
 	float _gackTimerLimit = 1.5f;
 	float GackTimerLimit => _gackTimerLimit;
+	
+	public GameObject pebbleTextObject;
 	
     // Start is called before the first frame update
     void Start()
@@ -25,39 +26,74 @@ public class BeakTrigger : MonoBehaviour
     {
 
     }
-	
-	/*IEnumerator MoveForward()
-	{
-		while(_isInNav)
+
+
+	IEnumerator MoveToPos(Collider pebble, float duration){
+
+		Vector3 startPosition = pebble.gameObject.transform.position;
+		Vector3 newSpot = pebbleTextObject.transform.position;
+
+		//move the pebble to the position of text
+		float t = 0f;
+		float timeSlice = 0.02f;
+		float timeSliceCount = 0f;
+		while(t < duration)
 		{
-			_playerObject.GetComponent<OVRPlayerController>().UpdateMovement();
+			if(timeSliceCount > timeSlice){
+				timeSliceCount = 0;
+				newSpot = pebbleTextObject.transform.position;
+			}
+			pebble.gameObject.transform.position = Vector3.Lerp(startPosition, newSpot,  (t/duration) );
+			
+			t += (Time.deltaTime);
+			timeSliceCount += (Time.deltaTime);	
 			yield return null;
 		}
-	}*/
+
+		//move the pebble to the nest
+		/*yield return new WaitForSeconds(3);
+		t = 0f;
+		startPosition = pebble.gameObject.transform.position;
+		newSpot = nest.transform.position;
+		while(t < 3)
+		{
+			pebble.gameObject.transform.position = Vector3.Lerp(startPosition, newSpot,  (t/duration) );
+			
+			t += (Time.deltaTime);
+			yield return null;
+		}*/
+		pebble.gameObject.SetActive(false);
+
+		//If the player havn't collected enough pebbles, continue to construct the nest
+		/*if(pebbleCount <= 10){
+			for(int i=0; i<3; i++){
+				nestRocks[nestRockCount].SetActive(true);
+				nestRockCount += 1;
+			}
+		}*/
+
+	}
 	
 	void OnTriggerEnter(Collider otherCollider)
 	{
 		//Debug.Log(otherCollider.gameObject.name);
 		if(otherCollider.gameObject.name.StartsWith("Rocks"))
 		{
+			StartCoroutine(MoveToPos(otherCollider, 1));
 			//pick up a rock with your beak
 			if(gameObject.transform.childCount == 0)
 			{
-				otherCollider.gameObject.transform.parent = gameObject.transform;
+				//otherCollider.gameObject.transform.parent = gameObject.transform;
 				Rigidbody rb = otherCollider.gameObject.GetComponent<Rigidbody>();
 				if(rb != null)
 				{
 					rb.isKinematic = true;
 					rb.detectCollisions = false;
 				}
-				//enable the navigationtrigger collider... so that we can drop the rock..
-				/*if(navigationTrigger != null)
-				{
-					navigationTrigger.GetComponent<Collider>().enabled = true;
-					navigationTrigger.GetComponent<Rigidbody>().detectCollisions = true;
-				}*/
 			}
 			//Debug.Log(otherCollider.gameObject.name);
+			
+			
 		}
 		
 	}

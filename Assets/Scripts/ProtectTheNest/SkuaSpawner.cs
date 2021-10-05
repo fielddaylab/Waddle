@@ -43,17 +43,33 @@ public class SkuaSpawner : MonoBehaviour
 	
 	List<SkuaSpot> _takenSpotList = new List<SkuaSpot>();
 	
+	bool _isGameActive = false;
+	
+	public bool IsGameActive => _isGameActive;
+	
     // Start is called before the first frame update
     void Start()
     {
-        _startTime = Time.time;
-		_updateTime = _startTime;
-		_eggTime = _startTime;
+        
     }
 
+	public void StartGame()
+	{
+		_isGameActive = true;
+		
+		_startTime = Time.time;
+		_updateTime = _startTime;
+		_eggTime = _startTime;
+	}
+	
     // Update is called once per frame
     void Update()
     {
+		if(!_isGameActive)
+		{
+			return;
+		}
+		
 		float currTime = Time.time;
 		
 		if(_waveTimes.Count > 0)
