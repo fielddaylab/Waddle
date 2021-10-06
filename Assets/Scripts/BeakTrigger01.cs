@@ -65,6 +65,7 @@ public class BeakTrigger01 : MonoBehaviour
 			
 			if(gameObject.transform.childCount == 0)
 			{
+				Debug.Log("2");
 			//	otherCollider.gameObject.transform.parent = gameObject.transform;
 				Rigidbody rb = otherCollider.gameObject.GetComponent<Rigidbody>();
 				if(rb != null)
@@ -85,6 +86,44 @@ public class BeakTrigger01 : MonoBehaviour
 			//Debug.Log(otherCollider.gameObject.name);
 		}
 		
+		//collecting bowling ball
+				//Debug.Log(otherCollider.gameObject.name);
+				
+		if(otherCollider.gameObject.name.StartsWith("BowlingBall"))
+		{
+			//pick up a bowling with your beak
+			if(gameObject.transform.childCount == 0)
+			{
+				otherCollider.gameObject.transform.parent = gameObject.transform;
+				Rigidbody rb = otherCollider.gameObject.GetComponent<Rigidbody>();
+				if(rb != null)
+				{
+					rb.isKinematic = true;
+					rb.detectCollisions = false;
+				}
+			}
+		}
+
+		if(otherCollider.gameObject.name.StartsWith("SlopeTrigger"))
+		{
+			if(gameObject.transform.childCount != 0)
+			{
+				GameObject ball = gameObject.transform.GetChild(0).gameObject;
+				ball.name = "DetachedBall";
+				gameObject.transform.DetachChildren();
+				Rigidbody rb = ball.GetComponent<Rigidbody>();
+				if(rb != null)
+				{
+					rb.isKinematic = false;
+					rb.detectCollisions = true;
+					rb.AddForce(ball.transform.forward*2000.0f);
+				}
+			}
+		}
+
+
+
+		
 	}
 	
 	
@@ -102,6 +141,8 @@ public class BeakTrigger01 : MonoBehaviour
 		}
 	}
 	
+
+
 	
 
 	
@@ -171,6 +212,7 @@ public class BeakTrigger01 : MonoBehaviour
 		pebble.gameObject.SetActive(false);
 
 		//If the player havn't collected enough pebbles, continue to construct the nest
+		//assume that there are 30 pebbles in total for the nest
 		if(pebbleCount <= 10){
 			for(int i=0; i<3; i++){
 				nestRocks[nestRockCount].SetActive(true);
@@ -180,32 +222,5 @@ public class BeakTrigger01 : MonoBehaviour
 
 	}
 
-/*
-		IEnumerator StartMove(Vector3 newSpot, Quaternion newRot, float duration)
-	{
-		float t = 0f;
-		Vector3 startPosition = transform.position;
 
-		while(t < duration)
-		{
-			transform.position = Vector3.Lerp(startPosition, newSpot, (t/duration));
-			
-			t += (Time.deltaTime);	
-			yield return null;
-		}
-
-		if(_sc.CurrentSpot.IsCenter)
-		{
-			//take egg, then retreat..
-			_sc.GetEgg.gameObject.transform.SetParent(gameObject.transform.GetChild(0).transform, false);
-			_sc.GoIdle();
-		}
-		else
-		{
-			transform.rotation = newRot;
-			_sc.GoIdle();
-		}
-	}
-
-*/
 }
