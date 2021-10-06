@@ -46,7 +46,7 @@ public class SkuaHitState : MonoBehaviour, ISkuaState
 			a.enabled = false;
 			
 			gameObject.GetComponent<AudioSource>().Play();
-			GetComponent<Rigidbody>().AddForce((-transform.forward + transform.up)*2.0f);
+			GetComponent<Rigidbody>().AddForce((transform.forward*0.8f + transform.up*1.5f));
 		}
 	}
 }

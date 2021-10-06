@@ -111,12 +111,14 @@ public class BeakTrigger01 : MonoBehaviour
 				GameObject ball = gameObject.transform.GetChild(0).gameObject;
 				ball.name = "DetachedBall";
 				gameObject.transform.DetachChildren();
+				ball.transform.rotation = Camera.main.transform.rotation;
+				//ball.transform.rotation = gameObject.transform.rotation * -1;
 				Rigidbody rb = ball.GetComponent<Rigidbody>();
 				if(rb != null)
 				{
 					rb.isKinematic = false;
 					rb.detectCollisions = true;
-					rb.AddForce(ball.transform.forward*2000.0f);
+					rb.AddForce(ball.transform.forward*1000.0f);
 				}
 			}
 		}
