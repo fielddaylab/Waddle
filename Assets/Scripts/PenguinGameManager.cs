@@ -24,6 +24,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
     void Start()
     {
 		//temporary for demo as we're just restarting one game.
+		//this appears to not function with multiple scenes at the moment
         _nestGame = GameObject.Find("ProtectTheNest").GetComponent<ProtectTheNest>();
 
     }

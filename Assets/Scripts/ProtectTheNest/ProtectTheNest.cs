@@ -46,9 +46,9 @@ public class ProtectTheNest : MiniGameController
 
         if(_timeWithoutEgg - _startTime > _gameTimeLimit)
 		{
-			//game is over...
-			//do a fade out...
-            EndGame();
+			//eventually end game and return to overworld, for now, just restart.
+            //EndGame();
+            RestartGame();
             return;
 		}
 
@@ -102,7 +102,29 @@ public class ProtectTheNest : MiniGameController
 
         _skuaMoveTime = _startTime;
         _timeWithoutEgg = _startTime;
+    }
 
+    public virtual void RestartGame()
+    {
+        if(_isGameActive)
+        {
+            EndGame();
+        }
+
+        //for purposes of the demo, only want to move player back to starting point and fade in
+        //that way start of skua demo occurs again when reaching the nest...
+        //also - re-enable the start volume - demo hack
+        //PenguinPlayer.Instance.transform.rotation = _startingPosition.transform.rotation;
+        PenguinPlayer.Instance.transform.position = _startingPosition.transform.position;
+        
+        GameObject startVolume = GameObject.Find("StartGame");
+        if(startVolume != null)
+        {
+            startVolume.GetComponent<Collider>().enabled = true;
+        }
+        
+        Camera.main.gameObject.GetComponent<OVRScreenFade>().FadeIn();
+        //StartGame();
     }
 
     public virtual void EndGame()
@@ -117,6 +139,8 @@ public class ProtectTheNest : MiniGameController
 		     _theEgg.GetComponent<Egg>().IsTaken = false;
         }
 
+        Camera.main.gameObject.GetComponent<OVRScreenFade>().FadeOut();
+        
         base.EndGame();
     }
 }

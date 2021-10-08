@@ -13,7 +13,7 @@ public class MiniGameController : MonoBehaviour
     protected bool _isGameActive = false;
 
     [SerializeField]
-    GameObject _startingPosition;
+    protected GameObject _startingPosition;
 
     // Start is called before the first frame update
     void Start()
@@ -29,13 +29,11 @@ public class MiniGameController : MonoBehaviour
 
     public virtual void EndGame()
     {
-        //eventually have a blizzard arrive here.
-        Camera.main.gameObject.GetComponent<OVRScreenFade>().FadeOut();
         _isGameActive = false;
         _startTime = 0f;
     }
 
-    public void RestartGame()
+    public virtual void RestartGame()
     {
         EndGame();
         StartGame();

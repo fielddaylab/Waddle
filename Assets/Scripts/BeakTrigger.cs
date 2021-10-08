@@ -13,13 +13,15 @@ public class BeakTrigger : MonoBehaviour
 	float _gackTimerLimit = 1.5f;
 	float GackTimerLimit => _gackTimerLimit;
 	
-	GameObject _pebbleTarget;
+	GameObject _pebbleTarget = null;
 	GameObject PebbleTarget => _pebbleTarget;
 	
-    // Start is called before the first frame update
+	AudioSource _audioFile = null;
+    
     void Start()
     {
         _pebbleTarget = GameObject.FindWithTag("Egg");
+		_audioFile = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -83,11 +85,18 @@ public class BeakTrigger : MonoBehaviour
 		//Debug.Log(otherCollider.gameObject.name);
 		if(otherCollider.gameObject.name.StartsWith("Rocks"))
 		{
+			if(_audioFile != null)
+			{
+				_audioFile.Play();
+			}
+
 			StartCoroutine(MoveToPos(otherCollider, 1));
-			//pick up a rock with your beak
+
 			if(gameObject.transform.childCount == 0)
 			{
+				//pick up a rock with your beak - commented out line below...
 				//otherCollider.gameObject.transform.parent = gameObject.transform;
+
 				Rigidbody rb = otherCollider.gameObject.GetComponent<Rigidbody>();
 				if(rb != null)
 				{
@@ -96,10 +105,7 @@ public class BeakTrigger : MonoBehaviour
 				}
 			}
 			//Debug.Log(otherCollider.gameObject.name);
-			
-			
 		}
-		
 	}
 	
 	void OnTriggerStay(Collider otherCollider)

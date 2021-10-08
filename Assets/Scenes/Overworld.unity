@@ -295,7 +295,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scenesWillLoad: 1
   _mode: 1
-  _loadInEditor: 0
+  _loadInEditor: 1
   _scenes: {fileID: 11400000, guid: 99eb313d11cb38f41bdb3d8e5ad11cb5, type: 2}
   _sceneLoadHistory: {fileID: 0}
 --- !u!1 &950503628
