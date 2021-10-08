@@ -25,7 +25,10 @@ public class BeakTrigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+		if(_pebbleTarget == null)
+		{
+			 _pebbleTarget = GameObject.FindWithTag("Egg");
+		}
     }
 
 

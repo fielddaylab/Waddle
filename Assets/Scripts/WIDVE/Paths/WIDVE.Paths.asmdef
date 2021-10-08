@@ -1,0 +1,19 @@
+{
+    "name": "WIDVE.Paths",
+    "references": [
+        "WIDVE",
+        "PathCreator",
+        "TubeRenderer"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "WIDVE_PATHS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

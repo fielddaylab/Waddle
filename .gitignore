@@ -63,3 +63,15 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+Assets/Models/Seagull/Scripts.meta
+Assets/Models/Seagull/Scripts/CameraFollow.cs
+Assets/Models/Seagull/Scripts/CameraFollow.cs.meta
+Assets/Models/Seagull/Scripts/LookAt.cs
+Assets/Models/Seagull/Scripts/LookAt.cs.meta
+Assets/Models/Seagull/Scripts/Seagull.cs
+Assets/Models/Seagull/Scripts/Seagull.cs.meta
+Assets/Models/Seagull/Seagull_readme.txt
+Assets/Models/Seagull/Seagull_readme.txt.meta
+Assets/Models/Seagull/Shaders.meta
+Assets/Models/Seagull/Shaders/Standard Two Sided Soft Blend.shader
+Assets/Models/Seagull/Shaders/Standard Two Sided Soft Blend.shader.meta

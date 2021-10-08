@@ -25,6 +25,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
     {
 		//temporary for demo as we're just restarting one game.
         _nestGame = GameObject.Find("ProtectTheNest").GetComponent<ProtectTheNest>();
+
     }
 
     // Update is called once per frame
@@ -38,6 +39,11 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 
 	public void LoadMiniGame(MiniGame mg)
 	{
+		if(_nestGame == null)
+		{
+			_nestGame = GameObject.Find("ProtectTheNest").GetComponent<ProtectTheNest>();
+		}
+
 		if(_nestGame != null)
 		{
 			_nestGame.StartGame();
