@@ -6,6 +6,7 @@ TagManager:
   tags:
   - NestRock
   - BowlingBall
+  - Egg
   layers:
   - Default
   - TransparentFX

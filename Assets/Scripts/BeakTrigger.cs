@@ -13,12 +13,13 @@ public class BeakTrigger : MonoBehaviour
 	float _gackTimerLimit = 1.5f;
 	float GackTimerLimit => _gackTimerLimit;
 	
-	public GameObject pebbleTextObject;
+	GameObject _pebbleTarget;
+	GameObject PebbleTarget => _pebbleTarget;
 	
     // Start is called before the first frame update
     void Start()
     {
-        
+        _pebbleTarget = GameObject.FindWithTag("Egg");
     }
 
     // Update is called once per frame
@@ -31,7 +32,7 @@ public class BeakTrigger : MonoBehaviour
 	IEnumerator MoveToPos(Collider pebble, float duration){
 
 		Vector3 startPosition = pebble.gameObject.transform.position;
-		Vector3 newSpot = pebbleTextObject.transform.position;
+		Vector3 newSpot = _pebbleTarget.transform.position;
 
 		//move the pebble to the position of text
 		float t = 0f;
@@ -41,7 +42,7 @@ public class BeakTrigger : MonoBehaviour
 		{
 			if(timeSliceCount > timeSlice){
 				timeSliceCount = 0;
-				newSpot = pebbleTextObject.transform.position;
+				newSpot = _pebbleTarget.transform.position;
 			}
 			pebble.gameObject.transform.position = Vector3.Lerp(startPosition, newSpot,  (t/duration) );
 			

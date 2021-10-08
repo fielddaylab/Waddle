@@ -5,11 +5,13 @@ using UnityEngine;
 public class FollowTransform : MonoBehaviour
 {
 	public GameObject _followTransform;
-	
+
+	Camera _mainCam = null;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+		_mainCam = Camera.main;
     }
 
     // Update is called once per frame
@@ -17,15 +19,29 @@ public class FollowTransform : MonoBehaviour
     {
         if(_followTransform != null)
 		{
-			transform.position = _followTransform.transform.position;
-			
 			if(_followTransform.transform.childCount > 1)
 			{
 				OVRHand h = _followTransform.transform.GetChild(1).GetComponent<OVRHand>();
 				if(!h.IsDataHighConfidence)
 				{
-					//do something here when we lose tracking...
+					//if losing tracking - force the hand IK end straight out from the 
+					if(h.HandType == OVRHand.Hand.HandLeft)
+					{
+						transform.position = _mainCam.transform.position - _mainCam.transform.right * 3.0f;
+					}
+					else
+					{
+						transform.position = _mainCam.transform.position + _mainCam.transform.right * 3.0f;
+					}
 				}
+				else
+				{
+					transform.position = _followTransform.transform.position;
+				}
+			}
+			else
+			{
+				transform.position = _followTransform.transform.position;
 			}
 		}
     }

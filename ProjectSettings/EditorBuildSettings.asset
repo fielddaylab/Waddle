@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Overworld.unity
+    guid: 84a7e0f9e50a1bd458f4e5840cb81fbe
+  - enabled: 1
+    path: Assets/Scenes/OculusPlayer.unity
+    guid: ae5677281d435864a9e9ef732728b218
+  - enabled: 1
     path: Assets/Scenes/ProtectTheNest.unity
     guid: 9552ffdaa399f074484068af6d7d5b93
   m_configObjects:

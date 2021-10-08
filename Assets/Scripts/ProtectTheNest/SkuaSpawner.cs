@@ -11,73 +11,54 @@ public class SkuaSpawner : MonoBehaviour
 	GameObject _skuaPrefab;
 	
 	[SerializeField]
-	float _totalGameTime;
-	
-	[SerializeField]
 	List<SkuaSpot> _spawnLocations;
 	
 	[SerializeField]
 	List<float> _waveTimes;
-	
-	float _startTime;
-	
+
 	List<GameObject> _currentSkuas = new List<GameObject>();
-	
-	//should move 85 times / minute...
-	[SerializeField]
-	float _moveFrequency = 0.70588235f;
-	
-	public float MoveFrequency => _moveFrequency;
-	
-	float _updateTime;
-	
-	float _eggTime;
-	
-	[SerializeField]
-	GameObject _eggTimer;
-	
-	[SerializeField]
-	GameObject _theEgg;
-	
-	public GameObject TheEgg => _theEgg;
 	
 	List<SkuaSpot> _takenSpotList = new List<SkuaSpot>();
 	
-	bool _isGameActive = false;
-	
-	public bool IsGameActive => _isGameActive;
-	
+	[SerializeField]
+	GameObject _theEgg;
+	public GameObject TheEgg => _theEgg;
+
     // Start is called before the first frame update
     void Start()
     {
         
     }
-
-	public void StartGame()
-	{
-		_isGameActive = true;
-		
-		_startTime = Time.time;
-		_updateTime = _startTime;
-		_eggTime = _startTime;
-	}
 	
-    // Update is called once per frame
-    void Update()
-    {
-		if(!_isGameActive)
+	public void ClearGame()
+	{
+		_takenSpotList.Clear();
+		
+		for(int i = 0; i < _currentSkuas.Count; ++i)
 		{
-			return;
+			DestroyObject(_currentSkuas[i]);
 		}
 		
-		float currTime = Time.time;
-		
+		_currentSkuas.Clear();
+	}
+	
+	bool EggIsTaken()
+	{
+        if(_theEgg != null)
+        {
+		    return _theEgg.GetComponent<Egg>().IsTaken;
+        }
+
+        return false;
+	}
+
+	public void CheckForSpawn(float timeSinceStart)
+	{
 		if(_waveTimes.Count > 0)
 		{
-			float spawnTime = currTime - _startTime;
 			for(int i = 0; i < _waveTimes.Count; ++i)
 			{
-				if(spawnTime > _waveTimes[i])
+				if(timeSinceStart > _waveTimes[i])
 				{
 					int spawnLocation = -1;
 
@@ -102,48 +83,15 @@ public class SkuaSpawner : MonoBehaviour
 				}
 			}
 		}
+	}
 
+    // Update is called once per frame
+    void Update()
+    {
 		
-		if(currTime - _updateTime > _moveFrequency)
-		{
-			MoveSkuas();
-			_updateTime = currTime;
-		}
-		
-		if(_eggTime - _startTime > _totalGameTime)
-		{
-			//game is over...
-			//do a fade out...
-			Camera.main.gameObject.GetComponent<OVRScreenFade>().FadeOut();
-		}
-		
-		if(_eggTimer != null)
-		{
-			if(!EggIsTaken())
-			{
-				_eggTime += Time.deltaTime;
-				float t = _eggTime - _startTime;
-				float timeLeft = _totalGameTime - t;
-				if(timeLeft > 0f)
-				{
-					System.TimeSpan ts = System.TimeSpan.FromSeconds(timeLeft);
-					_eggTimer.GetComponent<TMPro.TextMeshPro>().text = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
-				}
-				else
-				{
-					System.TimeSpan ts = System.TimeSpan.FromSeconds(0);
-					_eggTimer.GetComponent<TMPro.TextMeshPro>().text = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
-				}
-			}
-		}
     }
 	
-	public bool EggIsTaken()
-	{
-		return _theEgg.GetComponent<Egg>().IsTaken;
-	}
-	
-	void MoveSkuas()
+	public void MoveSkuas()
 	{
 		_takenSpotList.Clear();
 		
@@ -271,7 +219,7 @@ public class SkuaSpawner : MonoBehaviour
 		}
 	}
 	
-	void SpawnSkua(int spawnLocation)
+	public void SpawnSkua(int spawnLocation)
 	{
 		GameObject newSkua = Instantiate(_skuaPrefab);
 		
