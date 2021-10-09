@@ -106,29 +106,43 @@ public class ProtectTheNest : MiniGameController
 
     public virtual void RestartGame()
     {
-        if(_isGameActive)
-        {
-            EndGame();
-        }
-
+        EndGame();
+        
         //for purposes of the demo, only want to move player back to starting point and fade in
         //that way start of skua demo occurs again when reaching the nest...
         //also - re-enable the start volume - demo hack
         //PenguinPlayer.Instance.transform.rotation = _startingPosition.transform.rotation;
-        PenguinPlayer.Instance.transform.position = _startingPosition.transform.position;
+        PenguinPlayer.Instance.transform.position =  _startingPosition.transform.position;
         
-        GameObject startVolume = GameObject.Find("StartGame");
+        StartCoroutine(StartNextFrame());
+    }
+
+    IEnumerator StartNextFrame()
+    {
+        yield return null;
+        
+        GameObject startVolume = GameObject.Find("Nest");
         if(startVolume != null)
         {
             startVolume.GetComponent<Collider>().enabled = true;
         }
         
         Camera.main.gameObject.GetComponent<OVRScreenFade>().FadeIn();
+
+        if(_skuaSpawner != null)
+        {
+            _skuaSpawner.StartGame();
+        }
+
+        
         //StartGame();
     }
 
     public virtual void EndGame()
     {
+        _timeWithoutEgg = 0f;
+        _skuaMoveTime = 0f;
+
         if(_skuaSpawner != null)
         {
             _skuaSpawner.ClearGame();
@@ -137,6 +151,13 @@ public class ProtectTheNest : MiniGameController
         if(_theEgg != null)
         {
 		     _theEgg.GetComponent<Egg>().IsTaken = false;
+             _theEgg.GetComponent<Egg>().Reset();
+        }
+
+        if(_eggTimer != null)
+        {
+            System.TimeSpan ts = System.TimeSpan.FromSeconds(_gameTimeLimit);
+            _eggTimer.GetComponent<TMPro.TextMeshPro>().text = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
         }
 
         Camera.main.gameObject.GetComponent<OVRScreenFade>().FadeOut();

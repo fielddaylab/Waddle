@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class SkuaController : MonoBehaviour
 {
-	ISkuaState _walkState, _hitState, _eatState, _idleState;
+	ISkuaState _walkState, _hitState, _eatState, _idleState, _removeState;
 	
 	SkuaContext _skuaStateContext;
 	
@@ -36,6 +36,7 @@ public class SkuaController : MonoBehaviour
 		_idleState = gameObject.AddComponent<SkuaIdleState>();
 		_eatState = gameObject.AddComponent<SkuaEatState>();
 		_hitState = gameObject.AddComponent<SkuaHitState>();
+		_removeState = gameObject.AddComponent<SkuaRemoveState>();
 		
 		_skuaStateContext.Transition(_idleState);
     }
@@ -96,6 +97,11 @@ public class SkuaController : MonoBehaviour
 	public void SkuaHit()
 	{
 		_skuaStateContext.Transition(_hitState);
+	}
+	
+	public void SkuaRemove()
+	{
+		_skuaStateContext.Transition(_removeState);
 	}
 	
 	public SkuaSpot SearchForOuterSpot()

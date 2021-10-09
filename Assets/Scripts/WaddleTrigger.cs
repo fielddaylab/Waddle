@@ -8,11 +8,14 @@ using UnityEngine;
 public class WaddleTrigger : MonoBehaviour
 {
 	[SerializeField]
-	GameObject _ovrPlayer;
+	GameObject _rotationTransform;
 	
 	[SerializeField]
 	GameObject _centerEye;
 	
+	[SerializeField]
+	GameObject _positionTransform;
+
 	public float _speed;
 	
 	//int updateCount = 0;
@@ -49,7 +52,7 @@ public class WaddleTrigger : MonoBehaviour
 			}
 			
 			//Debug.Log(gameObject.name);
-			//_ovrPlayer.transform.position -= _ovrPlayer.transform.forward * _speed * Time.deltaTime;
+			//_rotationTransform.transform.position -= _rotationTransform.transform.forward * _speed * Time.deltaTime;
 			transform.parent.GetComponent<NavRing>().ForceUpdate(lr);
 		}
 	}
@@ -62,7 +65,7 @@ public class WaddleTrigger : MonoBehaviour
 			{
 				//Debug.Log("Updating: " + updateCount);
 				//this moves the entire player
-				_ovrPlayer.transform.position -= _ovrPlayer.transform.forward * _speed * Time.deltaTime; 
+				_positionTransform.transform.position -= _rotationTransform.transform.forward * _speed * Time.deltaTime; 
 				_needsUpdate = false;
 				//updateCount++;
 				

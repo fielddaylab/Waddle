@@ -9,10 +9,11 @@ public class SkuaHitState : MonoBehaviour, ISkuaState
 {
 	private SkuaController _sc;
 	
+	Camera _mainCam = null;
     // Start is called before the first frame update
     void Start()
     {
-        
+        _mainCam = Camera.main;
     }
 
     // Update is called once per frame
@@ -49,7 +50,7 @@ public class SkuaHitState : MonoBehaviour, ISkuaState
 			a.enabled = false;
 			
 			gameObject.GetComponent<AudioSource>().Play();
-			GetComponent<Rigidbody>().AddForce((transform.forward*0.8f + transform.up*1.5f));
+			GetComponent<Rigidbody>().AddForce((_mainCam.transform.forward*3f + transform.up*1.5f));
 		}
 	}
 }

@@ -16,6 +16,8 @@ public class SkuaSpawner : MonoBehaviour
 	[SerializeField]
 	List<float> _waveTimes;
 
+	List<float> _originalWaveTimes;
+
 	List<GameObject> _currentSkuas = new List<GameObject>();
 	
 	List<SkuaSpot> _takenSpotList = new List<SkuaSpot>();
@@ -27,16 +29,31 @@ public class SkuaSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        _originalWaveTimes = new List<float>(_waveTimes);
     }
 	
+	public void StartGame()
+	{
+		for(int i = 0; i < _originalWaveTimes.Count; ++i)
+		{
+			_waveTimes.Add(_originalWaveTimes[i]);
+		}
+	}
+
 	public void ClearGame()
 	{
 		_takenSpotList.Clear();
 		
 		for(int i = 0; i < _currentSkuas.Count; ++i)
 		{
-			DestroyObject(_currentSkuas[i]);
+			//DestroyObject(_currentSkuas[i]);
+			SkuaController sc = _currentSkuas[i].GetComponent<SkuaController>();
+			sc.SkuaRemove();
+		}
+
+		for(int i = 0; i < _spawnLocations.Count; ++i)
+		{
+			_spawnLocations[i].CurrentSkua = null;
 		}
 		
 		_currentSkuas.Clear();
