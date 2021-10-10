@@ -26,6 +26,8 @@ public class SkuaSpawner : MonoBehaviour
 	GameObject _theEgg;
 	public GameObject TheEgg => _theEgg;
 
+	bool _moveOut = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -105,7 +107,14 @@ public class SkuaSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		
+		if(_theEgg != null)
+		{
+			if(_theEgg.GetComponent<Egg>().WasReset)
+			{
+				_moveOut = true;
+				_theEgg.GetComponent<Egg>().WasReset = false;
+			}
+		}
     }
 	
 	public void MoveSkuas()
@@ -118,7 +127,26 @@ public class SkuaSpawner : MonoBehaviour
 			int numIterations = 0;
 			SkuaController sc = g.GetComponent<SkuaController>();
 			
-			if(sc.GetEgg != null)
+			if(_moveOut)
+			{
+				if(sc.CurrentSpot.SpotOut != null)
+				{
+					if(sc.InHitState())
+					{
+						g.GetComponent<Rigidbody>().useGravity = false;
+						g.GetComponent<Rigidbody>().isKinematic = true;
+						sc.GetAnimController().enabled = true;
+					}
+
+					sc.SetNewSpot(sc.CurrentSpot.SpotOut);
+					sc.WalkToSpot();
+				}
+				else
+				{
+					sc.GoIdle();
+				}
+			}
+			else if(sc.GetEgg != null)
 			{
 				//if this skua has the egg, and it hasn't retreated to an outer spot yet, do so...
 				if(!sc.CurrentSpot.IsOuter)
@@ -233,6 +261,11 @@ public class SkuaSpawner : MonoBehaviour
 					sc.WalkToSpot();
 				}
 			}
+		}
+
+		if(_moveOut)
+		{
+			_moveOut = false;
 		}
 	}
 	

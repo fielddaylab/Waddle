@@ -8,6 +8,7 @@ using UnityEngine;
 public class Egg : MonoBehaviour
 {
 	bool _isTaken;
+	bool _wasReset;
 	Vector3 _startPosition;
 	Quaternion _startRotation;
 	
@@ -17,10 +18,17 @@ public class Egg : MonoBehaviour
 		set { _isTaken = value; }
 	}
 	
+	public bool WasReset
+	{
+		get { return _wasReset; }
+		set { _wasReset = value; }
+	}
+	
     // Start is called before the first frame update
     void Start()
     {
         _isTaken = false;
+		_wasReset = false;
 		_startPosition = transform.position;
 		_startRotation = transform.rotation;
     }
@@ -37,5 +45,6 @@ public class Egg : MonoBehaviour
 		transform.position = _startPosition;
 		transform.rotation = _startRotation;
 		_isTaken = false;
+		_wasReset = true;
 	}
 }
