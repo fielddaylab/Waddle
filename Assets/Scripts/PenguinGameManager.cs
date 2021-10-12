@@ -26,8 +26,16 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		//temporary for demo as we're just restarting one game.
 		//this appears to not function with multiple scenes at the moment
         _nestGame = GameObject.Find("ProtectTheNest").GetComponent<ProtectTheNest>();
-
+		OVRManager.HMDUnmounted += HandleHMDUnmounted;
     }
+
+	void HandleHMDUnmounted()
+	{
+		if(_nestGame != null)
+		{
+			_nestGame.RestartGame();
+		}
+	}
 
     // Update is called once per frame
     void Update()

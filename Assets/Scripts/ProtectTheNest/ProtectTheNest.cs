@@ -112,7 +112,6 @@ public class ProtectTheNest : MiniGameController
         //that way start of skua demo occurs again when reaching the nest...
         //also - re-enable the start volume - demo hack
         //PenguinPlayer.Instance.transform.rotation = _startingPosition.transform.rotation;
-        PenguinPlayer.Instance.transform.position =  _startingPosition.transform.position;
         
         StartCoroutine(StartNextFrame());
     }
@@ -120,6 +119,8 @@ public class ProtectTheNest : MiniGameController
     IEnumerator StartNextFrame()
     {
         yield return null;
+        
+        PenguinPlayer.Instance.transform.position =  _startingPosition.transform.position;
         
         GameObject startVolume = GameObject.Find("Nest");
         if(startVolume != null)
