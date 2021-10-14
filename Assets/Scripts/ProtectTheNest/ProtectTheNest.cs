@@ -19,7 +19,7 @@ public class ProtectTheNest : MiniGameController
     public float GameTimeLimit => _gameTimeLimit;
 
 	[SerializeField]
-	GameObject _eggTimer;
+	GameObject _eggTimer = null;
 	
 	[SerializeField]
 	GameObject _theEgg;
@@ -112,7 +112,10 @@ public class ProtectTheNest : MiniGameController
         //that way start of skua demo occurs again when reaching the nest...
         //also - re-enable the start volume - demo hack
         //PenguinPlayer.Instance.transform.rotation = _startingPosition.transform.rotation;
-        
+        //Debug.Log("Restarting game");
+		PenguinPlayer.Instance.transform.position =  _startingPosition.transform.position;
+        //Debug.Log(PenguinPlayer.Instance.transform.position);
+		
         StartCoroutine(StartNextFrame());
     }
 
@@ -120,7 +123,6 @@ public class ProtectTheNest : MiniGameController
     {
         yield return null;
         
-        PenguinPlayer.Instance.transform.position =  _startingPosition.transform.position;
         
         GameObject startVolume = GameObject.Find("Nest");
         if(startVolume != null)
@@ -135,7 +137,6 @@ public class ProtectTheNest : MiniGameController
             _skuaSpawner.StartGame();
         }
 
-        
         //StartGame();
     }
 
