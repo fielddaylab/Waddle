@@ -14,8 +14,34 @@ public class MiniGameUnlocker : MonoBehaviour
 
     public string SceneName => _sceneName;
 
+	[SerializeField]
+	bool _lockable;
+	
+	public bool Lockable => _lockable;
+	
     MiniGameController _miniGame = null;
 
+	[SerializeField]
+	List<Material> _lockMaterials = new List<Material>();
+	
+	public List<Material> LockMaterials => _lockMaterials;
+	
+	[SerializeField]
+	Material _unlockedMaterial;
+	
+	public Material UnlockedMaterial => _unlockedMaterial;
+	
+	[SerializeField]
+	int _numPebblesToUnlock = 10;
+	
+	public int NumPebblesToUnlock => _numPebblesToUnlock;
+	
+	int _numPebblesCollected = 0;
+
+	bool _isGameUnlocked = false;
+	public bool IsGameUnlocked => _isGameUnlocked;
+	
+	
     public MiniGameController MiniGame
     {
         get { return _miniGame; }
@@ -33,4 +59,24 @@ public class MiniGameUnlocker : MonoBehaviour
     {
         
     }
+	
+	public void CollectPebble()
+	{
+		if(_lockable)
+		{
+			_numPebblesCollected++;
+			if(_numPebblesCollected == _numPebblesToUnlock)
+			{
+				//switch to unlock icon, load mini game...
+				transform.GetChild(1).GetComponent<MeshRenderer>().sharedMaterial = _unlockedMaterial;
+				_isGameUnlocked = true;
+				
+				//todo - load the scene
+			}
+			else if(_numPebblesCollected < _numPebblesToUnlock)
+			{
+				transform.GetChild(1).GetComponent<MeshRenderer>().sharedMaterial = _lockMaterials[_numPebblesCollected-1];
+			}
+		}
+	}
 }

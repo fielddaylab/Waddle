@@ -69,7 +69,20 @@ public class BeakTrigger : MonoBehaviour
 			yield return null;
 		}*/
 		pebble.gameObject.SetActive(false);
-
+		
+		Transform p = pebble.gameObject.transform.parent;
+		if(p != null)
+		{
+			Transform gp = p.parent;
+			if(gp != null)
+			{
+				MiniGameUnlocker unlocker = gp.GetComponent<MiniGameUnlocker>();
+				if(unlocker != null)
+				{
+					unlocker.CollectPebble();
+				}
+			}
+		}
 		//If the player havn't collected enough pebbles, continue to construct the nest
 		/*if(pebbleCount <= 10){
 			for(int i=0; i<3; i++){
@@ -83,13 +96,25 @@ public class BeakTrigger : MonoBehaviour
 	void OnTriggerEnter(Collider otherCollider)
 	{
 		//Debug.Log(otherCollider.gameObject.name);
+		//todo - get rid of string checks here.
 		if(otherCollider.gameObject.name.StartsWith("Rocks"))
 		{
 			if(_audioFile != null)
 			{
 				_audioFile.Play();
 			}
-
+			
+			//if these rocks are coming from a mini game, set pebble target dynamically to that mini game's nest
+			Transform p = otherCollider.gameObject.transform.parent;
+			if(p != null)
+			{
+				if(p.gameObject.name == "Pebbles")
+				{
+					//current assumption - Pebbles and SparseNest object's have the same transform.
+					_pebbleTarget = p.gameObject;
+				}
+			}
+			
 			StartCoroutine(MoveToPos(otherCollider, 1));
 
 			if(gameObject.transform.childCount == 0)
