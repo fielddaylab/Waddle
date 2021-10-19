@@ -70,8 +70,11 @@ public class MiniGameUnlocker : MonoBehaviour
 				//switch to unlock icon, load mini game...
 				transform.GetChild(1).GetComponent<MeshRenderer>().sharedMaterial = _unlockedMaterial;
 				_isGameUnlocked = true;
-				
+				//show border
+				transform.GetChild(3).gameObject.SetActive(true);
+
 				//todo - load the scene
+				UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(_sceneName, UnityEngine.SceneManagement.LoadSceneMode.Additive);
 			}
 			else if(_numPebblesCollected < _numPebblesToUnlock)
 			{
