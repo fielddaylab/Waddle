@@ -524,6 +524,10 @@ PrefabInstance:
       propertyPath: _followTransform
       value: 
       objectReference: {fileID: 1319133328}
+    - target: {fileID: 234807930002966548, guid: f91d46b41e320764581654de9e63bf5c, type: 3}
+      propertyPath: Iterations
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 234807930002966549, guid: f91d46b41e320764581654de9e63bf5c, type: 3}
       propertyPath: _eyeObject
       value: 
@@ -532,6 +536,10 @@ PrefabInstance:
       propertyPath: _rotationTransform
       value: 
       objectReference: {fileID: 1319133335}
+    - target: {fileID: 234807930002966550, guid: f91d46b41e320764581654de9e63bf5c, type: 3}
+      propertyPath: Iterations
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 234807930002966551, guid: f91d46b41e320764581654de9e63bf5c, type: 3}
       propertyPath: m_Size.x
       value: 0.015000001
