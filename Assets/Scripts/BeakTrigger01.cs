@@ -17,6 +17,10 @@ public class BeakTrigger01 : MonoBehaviour
 	GameObject nest;
 	GameObject[] nestRocks;
 	Text pebbleText; 
+	
+	//variables for snowball Bowling
+	GameObject[] bowlingPenguins;
+	GameObject[] bowlingBalls;
 
 	[SerializeField]
 	float _gackTimerLimit = 1.5f;
@@ -25,6 +29,7 @@ public class BeakTrigger01 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		//initialize pebble collection
 		nestRocks = GameObject.FindGameObjectsWithTag("NestRock");
 		for(int i=0; i<nestRocks.Length; i++){
 			nestRocks[i].SetActive(false);
@@ -33,6 +38,16 @@ public class BeakTrigger01 : MonoBehaviour
 		pebbleText = pebbleTextObject.GetComponent<Text>();
 		pebbleText.text = "0 pebble collected";
 		nest = GameObject.Find("Nest");
+
+		//initialize Penguin Bowling game
+		bowlingPenguins = GameObject.FindGameObjectsWithTag("BowlingPenguin");
+		bowlingBalls = GameObject.FindGameObjectsWithTag("BowlingBall");
+		for(int i=0; i<bowlingPenguins.Length; i++){
+			bowlingPenguins[i].SetActive(false);
+		}
+		for(int i=0; i<bowlingBalls.Length; i++){
+			bowlingBalls[i].SetActive(false);
+		}
     }
 
     // Update is called once per frame
@@ -86,9 +101,7 @@ public class BeakTrigger01 : MonoBehaviour
 			//Debug.Log(otherCollider.gameObject.name);
 		}
 		
-		//collecting bowling ball
-				//Debug.Log(otherCollider.gameObject.name);
-				
+		//picking up bowling ball
 		if(otherCollider.gameObject.name.StartsWith("BowlingBall"))
 		{
 			//pick up a bowling with your beak
@@ -112,14 +125,27 @@ public class BeakTrigger01 : MonoBehaviour
 				ball.name = "DetachedBall";
 				gameObject.transform.DetachChildren();
 				ball.transform.rotation = Camera.main.transform.rotation;
-				//ball.transform.rotation = gameObject.transform.rotation * -1;
+				//ball.transform.rotation = Quaternion.Inverse(gameObject.transform.rotation);
 				Rigidbody rb = ball.GetComponent<Rigidbody>();
 				if(rb != null)
 				{
 					rb.isKinematic = false;
 					rb.detectCollisions = true;
-					rb.AddForce(ball.transform.forward*1000.0f);
+					rb.AddForce(ball.transform.forward*10000.0f);
+					StartCoroutine(BowlingBallGrow(ball));
 				}
+			}
+		}
+
+
+		//start penguin bowling game when the player touches the attraction with the beak
+		if(otherCollider.gameObject.name.StartsWith("BowlingAttraction"))
+		{
+			for(int i=0; i<bowlingPenguins.Length; i++){
+				bowlingPenguins[i].SetActive(true);
+			}
+			for(int i=0; i<bowlingBalls.Length; i++){
+				bowlingBalls[i].SetActive(true);
 			}
 		}
 
@@ -222,6 +248,13 @@ public class BeakTrigger01 : MonoBehaviour
 			}
 		}
 
+	}
+
+	IEnumerator BowlingBallGrow(GameObject ball){
+		for(int i=0; i<40; i++){
+			ball.transform.localScale += new Vector3(0.01f,0.01f,0.01f);
+			yield return new WaitForSeconds(0.05f);
+		}
 	}
 
 
