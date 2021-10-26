@@ -25,6 +25,7 @@ public class MiniGameController : MonoBehaviour
     {
         _isGameActive = true;
         _startTime = UnityEngine.Time.time;
+		_totalGameTime = 0f;
     }
 
     public virtual void EndGame()

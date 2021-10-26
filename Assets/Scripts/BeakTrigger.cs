@@ -131,6 +131,22 @@ public class BeakTrigger : MonoBehaviour
 			}
 			//Debug.Log(otherCollider.gameObject.name);
 		}
+		else if(otherCollider.gameObject.name.StartsWith("Bubble"))
+		{
+			//play positive sound effect if they collide with bubble...
+			//also destroy bubble...
+			ShrinkRing sr = otherCollider.gameObject.transform.GetChild(0).GetComponent<ShrinkRing>();
+			if(sr != null && sr.IsValidWindow)
+			{
+				AudioSource audio = otherCollider.gameObject.GetComponent<AudioSource>();
+				if(audio != null)
+				{
+					GetComponent<AudioSource>().Play();
+				}
+				
+				sr.Popped();
+			}
+		}
 	}
 	
 	void OnTriggerStay(Collider otherCollider)
