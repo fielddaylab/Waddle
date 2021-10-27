@@ -53,24 +53,6 @@ public class SkuaSpot : MonoBehaviour
 		set { _currentSkua = value; }
 	}
 	
-	[SerializeField]
-	GameObject _penguin;
-	
-	public GameObject Penguin
-	{
-		get { return _penguin; }
-		set { _penguin = value; }
-	}
-	
-	[SerializeField]
-	GameObject _penguin2;
-	
-	public GameObject OtherPenguin
-	{
-		get { return _penguin2; }
-		set { _penguin2 = value; }
-	}
-	
 	// Start is called before the first frame update
     void Start()
     {
@@ -82,6 +64,4 @@ public class SkuaSpot : MonoBehaviour
     {
         
     }
-	
-	
 }

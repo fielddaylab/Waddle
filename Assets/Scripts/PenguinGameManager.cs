@@ -18,9 +18,9 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	
 	MiniGame _currentMiniGame = MiniGame.ProtectTheNest;
 
-	//temporary for demo as we're just restarting one game.
 	ProtectTheNest _nestGame = null;
-
+	MatingDance _matingDance = null;
+	
     void Start()
     {
 		//temporary for demo as we're just restarting one game.
@@ -36,7 +36,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 			}
 			if (rate < newRate)
 			{*/
-		float newRate = 120.0f;
+		float newRate = 90.0f;
 		
 		if (Unity.XR.Oculus.Performance.TrySetDisplayRefreshRate(newRate))
 		{
@@ -61,6 +61,18 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		}
 	}
 	
+	void SetMatingDance()
+	{
+		if(_matingDance == null)
+		{
+			GameObject md = GameObject.Find("MatingDance");
+			if(md != null)
+			{
+				_matingDance = md.GetComponent<MatingDance>();
+			}
+		}
+	}
+	
 	void HandleHMDUnmounted()
 	{
 		SetTheNest();
@@ -69,6 +81,13 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		{
 			_nestGame.RestartGame();
 		}
+		
+		SetMatingDance();
+			
+		if(_matingDance != null)
+		{
+			_matingDance.RestartGame();
+		}
 	}
 
     // Update is called once per frame
@@ -76,22 +95,35 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
     {
         if(OVRInput.GetDown(OVRInput.Button.Start))
 		{
-			SetTheNest();
+			//SetTheNest();
 		
-			if(_nestGame != null)
+			/*if(_nestGame != null)
 			{
 				_nestGame.RestartGame();
-			}
+			}*/
 		}
     }
 
 	public void LoadMiniGame(MiniGame mg)
 	{
-		SetTheNest();
-		
-		if(_nestGame != null)
+		if(mg == MiniGame.ProtectTheNest)
 		{
-			_nestGame.StartGame();
+			SetTheNest();
+			
+			if(_nestGame != null)
+			{
+				//Debug.Log("Starting protect the nest");
+				_nestGame.StartGame();
+			}
+		}
+		else if(mg == MiniGame.MatingDance)
+		{
+			SetMatingDance();
+			
+			if(_matingDance != null)
+			{
+				_matingDance.StartGame();
+			}
 		}
 	}
 }

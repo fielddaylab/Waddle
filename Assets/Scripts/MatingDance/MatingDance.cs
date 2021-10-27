@@ -64,6 +64,28 @@ public class MatingDance : MiniGameController
 		
     }
 
+	public virtual void StartGame()
+    {
+        base.StartGame();
+
+        AudioSource audio = GetComponent<AudioSource>();
+		if(audio != null)
+		{
+			audio.Play();
+		}
+    }
+	
+	public virtual void EndGame()
+	{
+		AudioSource audio = GetComponent<AudioSource>();
+		if(audio != null)
+		{
+			audio.Stop();
+		}
+		
+		base.EndGame();
+	}
+	
     // Update is called once per frame
     void Update()
     {

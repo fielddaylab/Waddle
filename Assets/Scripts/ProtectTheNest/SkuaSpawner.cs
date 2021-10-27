@@ -288,16 +288,12 @@ public class SkuaSpawner : MonoBehaviour
 		newSkua.GetComponent<SkuaController>().SetNewSpot(_spawnLocations[spawnLocation]);
 		//newSkua.GetComponent<SkuaState>().CurrentSpot = _spawnLocations[spawnLocation];
 		
-		if(_spawnLocations[spawnLocation].Penguin != null)
+		AudioSource audio = GetComponent<AudioSource>();
+		if(audio != null)
 		{
-			_spawnLocations[spawnLocation].Penguin.GetComponent<AudioSource>().Play();
+			audio.Play();
 		}
-		
-		if(_spawnLocations[spawnLocation].OtherPenguin != null)
-		{
-			_spawnLocations[spawnLocation].OtherPenguin.GetComponent<AudioSource>().Play();
-		}
-		
+
 		//newSkua.GetComponent<SkuaState>().Spawner = this;
 		
 		//newSkua.GetComponent<SkuaState>().GoIdle();

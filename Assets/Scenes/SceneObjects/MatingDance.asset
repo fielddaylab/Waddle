@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fa4e26752ab07548abfe9a1b3af27ec, type: 3}
-  m_Name: StartupScenes
+  m_Script: {fileID: 11500000, guid: ec9bb5da05940904bb290d3951a3bcb7, type: 3}
+  m_Name: MatingDance
   m_EditorClassIdentifier: 
-  _activeSceneIndex: -1
-  _objects:
-  - {fileID: 11400000, guid: 4520034fb4ac70143b13ade3b4ecbd90, type: 2}
+  _scene: {fileID: 102900000, guid: 3c8d90e4eb3c0db439909121ec1e8b6b, type: 3}
+  _scenePath: Assets/Scenes/MatingDance.unity
+  _name: MatingDance
+  _index: -1

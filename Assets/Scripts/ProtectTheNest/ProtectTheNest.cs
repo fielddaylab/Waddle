@@ -123,13 +123,6 @@ public class ProtectTheNest : MiniGameController
     {
         yield return null;
         
-        
-        GameObject startVolume = GameObject.Find("Nest");
-        if(startVolume != null)
-        {
-            startVolume.GetComponent<Collider>().enabled = true;
-        }
-        
         Camera.main.gameObject.GetComponent<OVRScreenFade>().FadeIn();
 
         if(_skuaSpawner != null)

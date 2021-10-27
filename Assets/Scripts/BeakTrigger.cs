@@ -141,7 +141,7 @@ public class BeakTrigger : MonoBehaviour
 				AudioSource audio = otherCollider.gameObject.GetComponent<AudioSource>();
 				if(audio != null)
 				{
-					GetComponent<AudioSource>().Play();
+					audio.Play();
 				}
 				
 				sr.Popped();

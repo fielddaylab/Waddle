@@ -8,7 +8,11 @@ using UnityEngine;
 
 public class StartGame : MonoBehaviour
 {
-
+	public PenguinGameManager.MiniGame _miniGame;
+	
+	[SerializeField]
+	bool _loadScene = false;
+	
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +30,30 @@ public class StartGame : MonoBehaviour
 		if(otherCollider.gameObject.layer == 3)
 		{
 			gameObject.GetComponent<Collider>().enabled = false;
-			PenguinGameManager.Instance.LoadMiniGame(PenguinGameManager.MiniGame.ProtectTheNest);
+			
+			if(_loadScene)
+			{
+				StartCoroutine(LoadMiniGameAsync(_miniGame.ToString()));
+			}
+			else
+			{
+				PenguinGameManager.Instance.LoadMiniGame(_miniGame);
+			}
 		}
+	}
+	
+	IEnumerator LoadMiniGameAsync(string _miniGameName)
+	{
+		AsyncOperation asyncLoad = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(_miniGameName, UnityEngine.SceneManagement.LoadSceneMode.Additive);
+		
+		while(!asyncLoad.isDone)
+		{
+			yield return null;
+		}
+		
+		PenguinGameManager.Instance.LoadMiniGame(_miniGame);
+		
+		//turn on the borders...
+		transform.GetChild(3).gameObject.SetActive(true);
 	}
 }
