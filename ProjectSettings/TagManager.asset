@@ -8,6 +8,7 @@ TagManager:
   - BowlingBall
   - Egg
   - BowlingPenguin
+  - HeightSet
   layers:
   - Default
   - TransparentFX
