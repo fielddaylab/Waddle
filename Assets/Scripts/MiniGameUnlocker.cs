@@ -73,7 +73,14 @@ public class MiniGameUnlocker : MonoBehaviour
 				
 				//show border
 				transform.GetChild(3).gameObject.SetActive(true);
-
+				
+				if(!Lockable)
+				{
+					//if a lockable attraction, don't hide poles and icon until game actually running
+					transform.GetChild(4).gameObject.SetActive(false);
+					
+					transform.GetChild(2).gameObject.SetActive(false);
+				}
 				//accumulate a pebble onto the nest...
 				transform.GetChild(2).GetChild(_numPebblesCollected).gameObject.SetActive(true);
 				
