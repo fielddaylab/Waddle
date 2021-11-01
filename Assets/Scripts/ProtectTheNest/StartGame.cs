@@ -55,5 +55,16 @@ public class StartGame : MonoBehaviour
 		
 		//turn on the borders...
 		transform.GetChild(3).gameObject.SetActive(true);
+		
+		//turn off icon and Pole...eventually fade and fade back in when leaving
+		transform.GetChild(1).gameObject.SetActive(false);
+		transform.GetChild(5).gameObject.SetActive(false);
+		
+		//if protect the nest, turn off ray of light...
+		if(_miniGame == PenguinGameManager.MiniGame.ProtectTheNest)
+		{
+			transform.GetChild(8).gameObject.SetActive(false);
+			transform.GetChild(9).gameObject.SetActive(false);
+		}
 	}
 }
