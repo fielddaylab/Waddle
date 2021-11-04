@@ -3,7 +3,32 @@ guid: 80c1d7555090cf8b58ce2b1f815cb685
 ModelImporter:
   serializedVersion: 21100
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pebble_00_tex
+    second: {fileID: 2100000, guid: 59195c8bbe100f5439b94cc872be1a3e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pebble_01_tex.002
+    second: {fileID: 2100000, guid: eb14957cf12adff41aa80ed6e68490a3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pebble_02_tex
+    second: {fileID: 2100000, guid: 8c249d18eaf386840bc458bc0b355774, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pebble_03_tex
+    second: {fileID: 2100000, guid: 309c95bc86d71c44889e18ebe3fe7d17, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pebble_04_tex
+    second: {fileID: 2100000, guid: 0db7f312f5c72ec4ebb09923c265df77, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

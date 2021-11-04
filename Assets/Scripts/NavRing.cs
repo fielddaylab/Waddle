@@ -10,25 +10,30 @@ public class NavRing : MonoBehaviour
 {
 	public GameObject _ovrPlayer;
 	public GameObject _centerEye;
+	public GameObject _positionTransform;
 	
 	bool _needsUpdate = false;
-	int _lr = -1;
+
+	bool _hitOnce = false;
 	
 	//let's make the radius based on the distance between the two children...
-	//public float _colliderRadius = 0.06f;
+	private float _colliderRadius;
 	
     // Start is called before the first frame update
     void Start()
     {
         transform.position = _centerEye.transform.position;
 		transform.rotation = _ovrPlayer.transform.rotation;
-		//Debug.Log(_colliderRadius);
+		BoxCollider _rightTrigger = transform.GetChild(0).GetComponent<BoxCollider>();
+		BoxCollider _leftTrigger = transform.GetChild(1).GetComponent<BoxCollider>();
+		_colliderRadius = Vector3.Distance(_rightTrigger.center, _leftTrigger.center);
+		
+		Debug.Log(_colliderRadius);
     }
 
-	public void ForceUpdate(int lr)
+	public void ForceUpdate()
 	{
 		_needsUpdate = true;
-		_lr = lr;
 	}
 	
     void Update()
@@ -52,7 +57,9 @@ public class NavRing : MonoBehaviour
 	void LateUpdate()
 	{
 		transform.rotation = _ovrPlayer.transform.rotation;
-		float radius = Vector3.Distance(transform.GetChild(0).transform.position, transform.GetChild(1).transform.position) * 0.25f;
+		
+		//this radius calculation shouldn't be the position - it needs to be the centers of the colliders...
+		float radius = _colliderRadius * 0.25f;
 		//Debug.Log(radius);
 		if(_needsUpdate)
 		{
@@ -75,7 +82,8 @@ public class NavRing : MonoBehaviour
 				
 				_lr = -1;
 			}*/
-			
+			//_positionTransform.transform.position -= _ovrPlayer.transform.forward * Time.deltaTime;
+			//transform.position = _positionTransform.transform.position;			
 			_needsUpdate = false;
 		}
 		else
@@ -88,8 +96,8 @@ public class NavRing : MonoBehaviour
 			Vector3 flatPos = transform.position;
 			flatPos.y = 0f;
 			float fLen = (flatEye - flatPos).magnitude;
-			//Debug.Log(fLen + " " + radius);
-			if(fLen > radius*3f)
+			
+			if(fLen > radius*4f)
 			{
 				transform.position = _centerEye.transform.position;
 			}

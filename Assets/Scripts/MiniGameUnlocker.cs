@@ -81,8 +81,13 @@ public class MiniGameUnlocker : MonoBehaviour
 					
 					transform.GetChild(2).gameObject.SetActive(false);
 				}
+				
 				//accumulate a pebble onto the nest...
-				transform.GetChild(2).GetChild(_numPebblesCollected).gameObject.SetActive(true);
+				//every 2 pebbles, so a new version of the nest...
+				if(_numPebblesCollected % 2 == 0)
+				{
+					transform.GetChild(2).GetChild((_numPebblesCollected/2)-1).gameObject.SetActive(true);
+				}
 				
 				UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(_sceneName, UnityEngine.SceneManagement.LoadSceneMode.Additive);
 			}

@@ -35,25 +35,25 @@ public class WaddleTrigger : MonoBehaviour
 	void OnTriggerEnter(Collider otherCollider)
 	{
 		//happens in physics thread...
-		if(otherCollider.gameObject.name == "BeakRight")
+		if(otherCollider.gameObject.name == "CenterEyeAnchor")
 		{
 			//transform.position = otherCollider.gameObject.transform.position;
 			_needsUpdate = true;
-			int lr = -1;
+			/*int lr = -1;
 			if(gameObject.name.EndsWith("Right"))
 			{
 				lr = 0;
-				//Debug.Log("Right nav ring");
+				Debug.Log("Right nav ring");
 			}
 			else if(gameObject.name.EndsWith("Left"))
 			{
 				lr = 1;
-				//Debug.Log("Left nav ring");
-			}
+				Debug.Log("Left nav ring");
+			}*/
 			
 			//Debug.Log(gameObject.name);
 			//_rotationTransform.transform.position -= _rotationTransform.transform.forward * _speed * Time.deltaTime;
-			transform.parent.GetComponent<NavRing>().ForceUpdate(lr);
+			transform.parent.GetComponent<NavRing>().ForceUpdate();
 		}
 	}
 	
@@ -65,7 +65,7 @@ public class WaddleTrigger : MonoBehaviour
 			{
 				//Debug.Log("Updating: " + updateCount);
 				//this moves the entire player
-				_positionTransform.transform.position -= _rotationTransform.transform.forward * _speed * Time.deltaTime; 
+				_positionTransform.transform.position += _rotationTransform.transform.forward * _speed * Time.deltaTime; 
 				_needsUpdate = false;
 				//updateCount++;
 				

@@ -97,7 +97,7 @@ public class BeakTrigger : MonoBehaviour
 	{
 		//Debug.Log(otherCollider.gameObject.name);
 		//todo - get rid of string checks here.
-		if(otherCollider.gameObject.name.StartsWith("Rock"))
+		if(otherCollider.gameObject.name.StartsWith("Pebble"))
 		{
 			if(_audioFile != null)
 			{
