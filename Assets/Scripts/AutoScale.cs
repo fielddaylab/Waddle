@@ -18,8 +18,11 @@ public class AutoScale : MonoBehaviour
 		 _mainCam = Camera.main;
 		float currHeight = _mainCam.transform.localPosition.y;
 		Debug.Log("Starting height: " + currHeight);
-		float scale = _defaultHeight / currHeight;
-		transform.localScale = Vector3.one * scale;
+		if(currHeight != 0f)
+		{
+			float scale = _defaultHeight / currHeight;
+			transform.localScale = Vector3.one * scale;
+		}
 	}
 	
     // Update is called once per frame
