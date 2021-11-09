@@ -338,8 +338,8 @@ GameObject:
   m_Component:
   - component: {fileID: 746006603}
   m_Layer: 0
-  m_Name: SetHeight
-  m_TagString: HeightSet
+  m_Name: Geometry
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

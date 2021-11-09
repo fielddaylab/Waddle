@@ -16,22 +16,42 @@ public class BeakTrigger : MonoBehaviour
 	GameObject _pebbleTarget = null;
 	GameObject PebbleTarget => _pebbleTarget;
 	
+	//variables for snowball Bowling
+	GameObject[] bowlingPenguins;
+	GameObject[] bowlingBalls;
+
 	AudioSource _audioFile = null;
     
     void Start()
     {
-        _pebbleTarget = GameObject.FindWithTag("Egg");
+        //_pebbleTarget = GameObject.FindWithTag("Egg");
 		_audioFile = GetComponent<AudioSource>();
+		
+		bowlingPenguins = GameObject.FindGameObjectsWithTag("BowlingPenguin");
+		bowlingBalls = GameObject.FindGameObjectsWithTag("BowlingBall");
+		for(int i=0; i<bowlingPenguins.Length; i++){
+			bowlingPenguins[i].SetActive(false);
+		}
+		for(int i=0; i<bowlingBalls.Length; i++){
+			bowlingBalls[i].SetActive(false);
+		}
     }
 
     // Update is called once per frame
     void Update()
     {
-		if(_pebbleTarget == null)
+		/*if(_pebbleTarget == null)
 		{
 			 _pebbleTarget = GameObject.FindWithTag("Egg");
-		}
+		}*/
     }
+
+	IEnumerator BowlingBallGrow(GameObject ball){
+		for(int i=0; i<40; i++){
+			ball.transform.localScale += new Vector3(0.01f,0.01f,0.01f);
+			yield return new WaitForSeconds(0.05f);
+		}
+	}
 
 
 	IEnumerator MoveToPos(Collider pebble, float duration){
@@ -145,6 +165,55 @@ public class BeakTrigger : MonoBehaviour
 				}
 				
 				sr.Popped();
+			}
+		}
+		
+		//picking up bowling ball
+		if(otherCollider.gameObject.name.StartsWith("BowlingBall"))
+		{
+			//pick up a bowling with your beak
+			if(gameObject.transform.childCount == 2)
+			{
+				otherCollider.gameObject.transform.parent = gameObject.transform;
+				Rigidbody rb = otherCollider.gameObject.GetComponent<Rigidbody>();
+				if(rb != null)
+				{
+					rb.isKinematic = true;
+					rb.detectCollisions = false;
+				}
+			}
+		}
+
+		if(otherCollider.gameObject.name.StartsWith("SlopeTrigger"))
+		{
+			if(gameObject.transform.childCount != 0)
+			{
+				int ballIdx = gameObject.transform.childCount-1;
+				GameObject ball = gameObject.transform.GetChild(ballIdx).gameObject;
+				ball.name = "DetachedBall";
+				gameObject.transform.DetachChildren();
+				ball.transform.rotation = Camera.main.transform.rotation;
+				//ball.transform.rotation = Quaternion.Inverse(gameObject.transform.rotation);
+				Rigidbody rb = ball.GetComponent<Rigidbody>();
+				if(rb != null)
+				{
+					rb.isKinematic = false;
+					rb.detectCollisions = true;
+					rb.AddForce(ball.transform.forward*10000.0f);
+					StartCoroutine(BowlingBallGrow(ball));
+				}
+			}
+		}
+
+
+		//start penguin bowling game when the player touches the attraction with the beak
+		if(otherCollider.gameObject.name.StartsWith("BowlingAttraction"))
+		{
+			for(int i=0; i<bowlingPenguins.Length; i++){
+				bowlingPenguins[i].SetActive(true);
+			}
+			for(int i=0; i<bowlingBalls.Length; i++){
+				bowlingBalls[i].SetActive(true);
 			}
 		}
 	}
