@@ -74,7 +74,7 @@ public class FeetRaycast : MonoBehaviour
 			Vector3 pos = transform.position;
 			pos.x = hitInfo.point.x;
 			pos.z = hitInfo.point.z;
-			pos.y = hitInfo.point.y;//_eyeObject.transform.position.y - _penguinCapsuleHeight + (_penguinCapsuleHeight - _eyeObject.transform.localPosition.y);	//also take into account difference between tracked height and capsule height...
+			//pos.y = hitInfo.point.y;//_eyeObject.transform.position.y - _penguinCapsuleHeight + (_penguinCapsuleHeight - _eyeObject.transform.localPosition.y);	//also take into account difference between tracked height and capsule height...
 			transform.position = pos;
 
 			Vector3 flatForward = _eyeObject.transform.forward;

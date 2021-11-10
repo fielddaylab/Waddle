@@ -40,7 +40,7 @@ public class AdjustHeight : MonoBehaviour
 		{
 			//Debug.Log("Hit point: " + hitInfo.point);
 			Vector3 pos = transform.position;
-			pos.y = hitInfo.point.y;
+			pos.y = hitInfo.point.y;// + (_eyeObject.transform.localPosition.y - _penguinCapsuleHeight);
 			transform.position = pos;
 		}
 	}
