@@ -47,6 +47,8 @@ public class AutoScale : MonoBehaviour
 			if(currHeight != 0f)
 			{
 				//on android builds this is currently not returning a correct value...
+				//so let's set to a default temporary reasonable value until we figure out how..
+				currHeight = 1.5f;
 				Debug.Log("Starting height: " + currHeight);
 				Vector3 lp = transform.localPosition;
 				lp.y = _defaultHeight - currHeight;
