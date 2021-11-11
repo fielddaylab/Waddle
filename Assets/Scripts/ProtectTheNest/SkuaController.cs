@@ -27,6 +27,14 @@ public class SkuaController : MonoBehaviour
 	
 	public Egg GetEgg => _theEgg;
 	
+	private SkuaSpot _centerSpot = null;
+	
+	public SkuaSpot CenterSpot => _centerSpot;
+	
+	private SkuaWalkState.WalkDirection _walkDir;
+	
+	public SkuaWalkState.WalkDirection WalkDir => _walkDir;
+	
     // Start is called before the first frame update
     void Start()
     {
@@ -56,6 +64,13 @@ public class SkuaController : MonoBehaviour
 		
 		_currentSpot = newSpot;
 		
+		/*if(_centerSpot == null)
+		{
+			GameObject parentObject = _currentSpot.gameObject.transform.parent.gameObject;
+			SkuaSpot[] spots = parentObject.GetComponentsInChildren<SkuaSpot>();
+			_centerSpot = spots[0];
+		}*/
+		
 		_currentSpot.CurrentSkua = gameObject;
 	}
 	
@@ -79,8 +94,10 @@ public class SkuaController : MonoBehaviour
 		return (_skuaStateContext.CurrentState == _hitState);
 	}
 	
-	public void WalkToSpot()
+	public void WalkToSpot(SkuaWalkState.WalkDirection eDir)
 	{
+		_walkDir = eDir;
+		
 		_skuaStateContext.Transition(_walkState);
 	}
 	
@@ -127,6 +144,28 @@ public class SkuaController : MonoBehaviour
 		}
 		
 		return newSpot;
+	}
+	
+	public SkuaWalkState.WalkDirection WhichDirection(SkuaSpot potentialSpot)
+	{
+		if(potentialSpot == _currentSpot.SpotOut)
+		{
+			return SkuaWalkState.WalkDirection.eBACK;
+		}
+		else if(potentialSpot == _currentSpot.SpotIn)
+		{
+			return SkuaWalkState.WalkDirection.eFORWARD;
+		}
+		else if(potentialSpot == _currentSpot.SpotLeft)
+		{
+			return SkuaWalkState.WalkDirection.eLEFT;
+		}
+		else if(potentialSpot == _currentSpot.SpotRight)
+		{
+			return SkuaWalkState.WalkDirection.eRIGHT;
+		}
+		
+		return SkuaWalkState.WalkDirection.eSTAY;
 	}
 	
 	public SkuaSpot SearchForNewSpot()

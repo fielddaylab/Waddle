@@ -9,6 +9,14 @@ public class SkuaWalkState : MonoBehaviour, ISkuaState
 {
 	private SkuaController _sc;
 	
+	public enum WalkDirection {
+		eFORWARD=0,
+		eBACK,
+		eLEFT,
+		eRIGHT,
+		eSTAY
+	};
+	
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +28,7 @@ public class SkuaWalkState : MonoBehaviour, ISkuaState
     {
         
     }
+
 	
 	IEnumerator StartMove(Vector3 newSpot, Quaternion newRot, float duration)
 	{
@@ -65,11 +74,11 @@ public class SkuaWalkState : MonoBehaviour, ISkuaState
 		//gameObject.transform.position = p;
 		
 		Vector3 e = _sc.CurrentSpot.gameObject.transform.rotation.eulerAngles;
-		Quaternion q = Quaternion.LookRotation(Vector3.Normalize(p - gameObject.transform.position), Vector3.up);
+		//Quaternion q = Quaternion.LookRotation(Vector3.Normalize(p - _sc.CenterSpot.transform.position), Vector3.up);
 		//q.SetFromToRotation(gameObject.transform.forward, );
 		//Vector3 e = q.eulerAngles;
 		e.y -= 90.0f;//due to skua model's local rotation.
-		gameObject.transform.rotation = q;
+		//gameObject.transform.rotation = q;
 		
 		
 		Animator a = sc.GetAnimController();
@@ -80,9 +89,27 @@ public class SkuaWalkState : MonoBehaviour, ISkuaState
 			//a.SetBool("fly", false);
 			//a.SetBool("walkleft", false);
 			//a.SetBool("walkright", false);
-			a.SetBool("eat", false);
+			//a.SetBool("eat", false);
 			a.SetBool("idle", false);
-			a.SetBool("walk", true);
+			
+			if(_sc.WalkDir == SkuaWalkState.WalkDirection.eFORWARD)
+			{
+				a.SetBool("forward", true);
+			}
+			else if(_sc.WalkDir == SkuaWalkState.WalkDirection.eBACK)
+			{
+				a.SetBool("back", true);
+			}
+			else if(_sc.WalkDir == SkuaWalkState.WalkDirection.eLEFT)
+			{
+				a.SetBool("left", true);
+			}
+			else if(_sc.WalkDir == SkuaWalkState.WalkDirection.eRIGHT)
+			{
+				a.SetBool("right", true);
+			}
+			
+			//a.SetBool("walk", true);
 		}
 		
 		StartCoroutine(StartMove(_sc.CurrentSpot.transform.position, Quaternion.Euler(e), _sc.MoveFrequency));

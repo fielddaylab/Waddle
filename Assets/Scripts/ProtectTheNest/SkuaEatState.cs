@@ -39,7 +39,7 @@ public class SkuaEatState : MonoBehaviour, ISkuaState
 			a.SetBool("idle", false);
 			a.SetBool("eat", true);
 			
-			_sc.GetEgg.gameObject.transform.SetParent(gameObject.transform.GetChild(1).transform, false);
+			_sc.GetEgg.gameObject.transform.SetParent(gameObject.transform.GetChild(1).transform);
 		}
 	}
 }

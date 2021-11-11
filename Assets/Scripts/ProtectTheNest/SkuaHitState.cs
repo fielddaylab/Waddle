@@ -34,15 +34,11 @@ public class SkuaHitState : MonoBehaviour, ISkuaState
 		Animator a = sc.GetAnimController();
 		if(a != null)
 		{
-			//Debug.Log("Setting fly");
-			//a.SetBool("takeoff", false);
-			//a.SetBool("fly", false);
-			//a.SetBool("walkleft", false);
-			//a.SetBool("walkright", false);
-			a.SetBool("walk", false);
-			a.SetBool("eat", false);
-			a.SetBool("idle", true);
-			
+
+			//a.SetBool("walk", false);
+			//a.SetBool("eat", false);
+			//a.SetBool("idle", true);
+			a.SetBool("slapped", true);
 			
 			gameObject.GetComponent<Rigidbody>().useGravity = true;
 			gameObject.GetComponent<Rigidbody>().isKinematic = false;

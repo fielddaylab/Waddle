@@ -139,7 +139,7 @@ public class SkuaSpawner : MonoBehaviour
 					}
 
 					sc.SetNewSpot(sc.CurrentSpot.SpotOut);
-					sc.WalkToSpot();
+					sc.WalkToSpot(SkuaWalkState.WalkDirection.eBACK);
 				}
 				else
 				{
@@ -172,7 +172,7 @@ public class SkuaSpawner : MonoBehaviour
 					}
 					
 					sc.SetNewSpot(potentialSpot);
-					sc.WalkToSpot();
+					sc.WalkToSpot(SkuaWalkState.WalkDirection.eBACK);
 				}
 				else
 				{
@@ -208,7 +208,7 @@ public class SkuaSpawner : MonoBehaviour
 				sc.GetAnimController().enabled = true;
 				
 				sc.SetNewSpot(potentialSpot);
-				sc.WalkToSpot();
+				sc.WalkToSpot(SkuaWalkState.WalkDirection.eBACK);
 			}
 			else
 			{
@@ -257,8 +257,9 @@ public class SkuaSpawner : MonoBehaviour
 						sc.SetEggRef(_theEgg.GetComponent<Egg>());
 					}
 					
+					SkuaWalkState.WalkDirection eDir = sc.WhichDirection(potentialSpot);
 					sc.SetNewSpot(potentialSpot);
-					sc.WalkToSpot();
+					sc.WalkToSpot(eDir);
 				}
 			}
 		}

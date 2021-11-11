@@ -1742,7 +1742,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a173a3341558f604690d2c9103678e39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skuaPrefab: {fileID: 1512524811303714, guid: b116fbc0b3444a841892aaf8bbfb011a, type: 3}
+  _skuaPrefab: {fileID: 1189361761800618, guid: 910564061ef4dcd42932d54464c0002d, type: 3}
   _spawnLocations:
   - {fileID: 539406030}
   - {fileID: 1621314044}
