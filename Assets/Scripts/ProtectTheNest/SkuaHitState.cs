@@ -37,16 +37,16 @@ public class SkuaHitState : MonoBehaviour, ISkuaState
 
 			//a.SetBool("walk", false);
 			//a.SetBool("eat", false);
-			//a.SetBool("idle", true);
+			a.SetBool("idle", false);
 			a.SetBool("slapped", true);
 			
-			gameObject.GetComponent<Rigidbody>().useGravity = true;
-			gameObject.GetComponent<Rigidbody>().isKinematic = false;
+			//gameObject.GetComponent<Rigidbody>().useGravity = true;
+			//gameObject.GetComponent<Rigidbody>().isKinematic = false;
 
-			a.enabled = false;
+			//a.enabled = false;
 			
 			gameObject.GetComponent<AudioSource>().Play();
-			GetComponent<Rigidbody>().AddForce((_mainCam.transform.forward*3f + transform.up*1.5f));
+			//GetComponent<Rigidbody>().AddForce((_mainCam.transform.forward*3f + transform.up*1.5f));
 		}
 	}
 }

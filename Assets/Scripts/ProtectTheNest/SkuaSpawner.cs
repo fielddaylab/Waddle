@@ -203,9 +203,10 @@ public class SkuaSpawner : MonoBehaviour
 				}
 				
 				//turn physics back off, animation back on
-				g.GetComponent<Rigidbody>().useGravity = false;
-				g.GetComponent<Rigidbody>().isKinematic = true;
-				sc.GetAnimController().enabled = true;
+				//g.GetComponent<Rigidbody>().useGravity = false;
+				//g.GetComponent<Rigidbody>().isKinematic = true;
+				//sc.GetAnimController().enabled = true;
+				sc.GetAnimController().SetBool("slapped", false);
 				
 				sc.SetNewSpot(potentialSpot);
 				sc.WalkToSpot(SkuaWalkState.WalkDirection.eBACK);

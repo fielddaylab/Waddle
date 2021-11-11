@@ -34,10 +34,12 @@ public class SkuaWalkState : MonoBehaviour, ISkuaState
 	{
 		float t = 0f;
 		Vector3 startPosition = transform.position;
-
+		Quaternion startRotation = transform.rotation;
+		
 		while(t < duration)
 		{
 			transform.position = Vector3.Lerp(startPosition, newSpot, (t/duration));
+			transform.rotation = Quaternion.Lerp(startRotation, newRot, (t/duration));
 			
 			t += (Time.deltaTime);	
 			yield return null;
@@ -90,7 +92,12 @@ public class SkuaWalkState : MonoBehaviour, ISkuaState
 			//a.SetBool("walkleft", false);
 			//a.SetBool("walkright", false);
 			//a.SetBool("eat", false);
+			a.SetBool("right", false);
+			a.SetBool("left", false);
+			a.SetBool("back", false);
+			a.SetBool("forward", false);
 			a.SetBool("idle", false);
+			a.SetBool("slapped", false);
 			
 			if(_sc.WalkDir == SkuaWalkState.WalkDirection.eFORWARD)
 			{
@@ -108,8 +115,6 @@ public class SkuaWalkState : MonoBehaviour, ISkuaState
 			{
 				a.SetBool("right", true);
 			}
-			
-			//a.SetBool("walk", true);
 		}
 		
 		StartCoroutine(StartMove(_sc.CurrentSpot.transform.position, Quaternion.Euler(e), _sc.MoveFrequency));

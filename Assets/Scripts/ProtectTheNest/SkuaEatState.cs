@@ -35,9 +35,9 @@ public class SkuaEatState : MonoBehaviour, ISkuaState
 			//a.SetBool("fly", false);
 			//a.SetBool("walkleft", false);
 			//a.SetBool("walkright", false);
-			a.SetBool("walk", false);
-			a.SetBool("idle", false);
-			a.SetBool("eat", true);
+			//a.SetBool("walk", false);
+			//a.SetBool("idle", false);
+			//a.SetBool("eat", true);
 			
 			_sc.GetEgg.gameObject.transform.SetParent(gameObject.transform.GetChild(1).transform);
 		}
