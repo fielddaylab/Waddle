@@ -10,6 +10,8 @@ public class ShrinkRing : MonoBehaviour
 	
 	public bool IsValidWindow => _isValidWindow;
 	
+	IEnumerator _coroutine = null;
+	
     // Start is called before the first frame update
     void Start()
     {
@@ -22,10 +24,24 @@ public class ShrinkRing : MonoBehaviour
         if(!_isShrinking)
         {
             _isShrinking = true;
-            StartCoroutine(Shrink(1.5f));
+			_coroutine = Shrink(1.5f);
+            StartCoroutine(_coroutine);
         }
     }
+	
+	void HideBubble()
+	{
+		gameObject.transform.parent.gameObject.GetComponent<MeshRenderer>().enabled = false;
+		gameObject.GetComponent<MeshRenderer>().enabled = false;
+	}
 
+	IEnumerator DestroyCo(float duration)
+	{
+		yield return new WaitForSeconds(duration);
+		
+		Object.Destroy(gameObject.transform.parent.gameObject);
+	}
+	
     IEnumerator Shrink(float duration)
     {
         Vector3 startScale = transform.localScale;
@@ -66,14 +82,23 @@ public class ShrinkRing : MonoBehaviour
 				audio.Play();
 			}
 			
+			HideBubble();
+			
 			//destroy the bubble
-			DestroyObject(gameObject.transform.parent.gameObject);
+			StartCoroutine(DestroyCo(5f));
 		}
     }
 
 	public void Popped()
 	{
 		_wasPopped = true;
-		DestroyObject(gameObject.transform.parent.gameObject);
+		if(_coroutine != null)
+		{
+			StopCoroutine(_coroutine);
+		}
+		
+		HideBubble();
+		
+		StartCoroutine(DestroyCo(5f));
 	}
 }

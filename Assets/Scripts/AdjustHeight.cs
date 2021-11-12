@@ -12,8 +12,6 @@ public class AdjustHeight : MonoBehaviour
 	
 	float _penguinCapsuleHeight = 0.7112f;
 	
-	bool _resetHeights = false;
-	
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +27,6 @@ public class AdjustHeight : MonoBehaviour
 
 	void Update()
 	{
-		//SetHeights();
 	}
 	
 	void LateUpdate()

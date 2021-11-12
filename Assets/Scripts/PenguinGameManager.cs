@@ -16,7 +16,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		MatingDance
 	}
 	
-	MiniGame _currentMiniGame = MiniGame.ProtectTheNest;
+	//MiniGame _currentMiniGame = MiniGame.ProtectTheNest;
 
 	ProtectTheNest _nestGame = null;
 	MatingDance _matingDance = null;

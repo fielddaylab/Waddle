@@ -25,6 +25,6 @@ public class SkuaRemoveState : MonoBehaviour, ISkuaState
 			_sc = sc;
 		}
 
-        DestroyObject(gameObject);
+        Object.Destroy(gameObject);
     }
 }

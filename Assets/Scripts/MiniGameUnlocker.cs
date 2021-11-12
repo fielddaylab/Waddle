@@ -77,6 +77,7 @@ public class MiniGameUnlocker : MonoBehaviour
 				if(!Lockable)
 				{
 					//if a lockable attraction, don't hide poles and icon until game actually running
+					//TODO - fade these out / in...
 					transform.GetChild(4).gameObject.SetActive(false);
 					
 					transform.GetChild(2).gameObject.SetActive(false);
@@ -96,7 +97,10 @@ public class MiniGameUnlocker : MonoBehaviour
 				transform.GetChild(1).GetComponent<MeshRenderer>().sharedMaterial = _lockMaterials[_numPebblesCollected-1];
 
 				//accumulate a pebble onto the nest...
-				transform.GetChild(2).GetChild(_numPebblesCollected).gameObject.SetActive(true);
+				if(_numPebblesCollected % 2 == 0)
+				{
+					transform.GetChild(2).GetChild((_numPebblesCollected/2)-1).gameObject.SetActive(true);
+				}
 			}
 		}
 	}

@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Xylophone : MonoBehaviour
 {
-    AudioSource audio;
+    AudioSource audioS;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        audio = GetComponent<AudioSource>();
+        audioS = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -21,7 +21,7 @@ public class Xylophone : MonoBehaviour
 
     void OnTriggerEnter(Collider otherCollider){
         if(otherCollider.gameObject.name.StartsWith("Flipper")){
-            audio.Play();
+            audioS.Play();
         }
     }
 

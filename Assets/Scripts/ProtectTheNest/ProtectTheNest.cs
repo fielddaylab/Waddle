@@ -96,7 +96,7 @@ public class ProtectTheNest : MiniGameController
         return false;
 	}
 
-    public virtual void StartGame()
+    public override void StartGame()
     {
         base.StartGame();
 
@@ -104,7 +104,7 @@ public class ProtectTheNest : MiniGameController
         _timeWithoutEgg = _startTime;
     }
 
-    public virtual void RestartGame()
+    public override void RestartGame()
     {
         EndGame();
         
@@ -133,7 +133,7 @@ public class ProtectTheNest : MiniGameController
         //StartGame();
     }
 
-    public virtual void EndGame()
+    public override void EndGame()
     {
         _timeWithoutEgg = 0f;
         _skuaMoveTime = 0f;

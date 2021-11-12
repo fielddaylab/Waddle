@@ -20,7 +20,7 @@ public class FeetRaycast : MonoBehaviour
 	
 	float _penguinCapsuleHeight = 0.7112f;
 	
-	bool _resetHeights = false;
+	//bool _resetHeights = false;
 	
     // Start is called before the first frame update
     void Start()

@@ -61,18 +61,18 @@ public class BeakTrigger : MonoBehaviour
 
 		//move the pebble to the position of text
 		float t = 0f;
-		float timeSlice = 0.02f;
-		float timeSliceCount = 0f;
+		//float timeSlice = 0.02f;
+		//float timeSliceCount = 0f;
 		while(t < duration)
 		{
-			if(timeSliceCount > timeSlice){
+			/*if(timeSliceCount > timeSlice){
 				timeSliceCount = 0;
 				newSpot = _pebbleTarget.transform.position;
-			}
+			}*/
 			pebble.gameObject.transform.position = Vector3.Lerp(startPosition, newSpot,  (t/duration) );
 			
 			t += (Time.deltaTime);
-			timeSliceCount += (Time.deltaTime);	
+			//timeSliceCount += (Time.deltaTime);	
 			yield return null;
 		}
 
@@ -161,6 +161,7 @@ public class BeakTrigger : MonoBehaviour
 				AudioSource audio = otherCollider.gameObject.GetComponent<AudioSource>();
 				if(audio != null)
 				{
+					//Debug.Log("Bubble Hit!");
 					audio.Play();
 				}
 				

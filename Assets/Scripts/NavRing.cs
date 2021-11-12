@@ -14,8 +14,6 @@ public class NavRing : MonoBehaviour
 	
 	bool _needsUpdate = false;
 
-	bool _hitOnce = false;
-	
 	//let's make the radius based on the distance between the two children...
 	private float _colliderRadius;
 	

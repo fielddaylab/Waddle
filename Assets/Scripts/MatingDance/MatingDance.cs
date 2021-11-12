@@ -64,7 +64,7 @@ public class MatingDance : MiniGameController
 		
     }
 
-	public virtual void StartGame()
+	public override void StartGame()
     {
         base.StartGame();
 
@@ -75,7 +75,7 @@ public class MatingDance : MiniGameController
 		}
     }
 	
-	public virtual void EndGame()
+	public override void EndGame()
 	{
 		AudioSource audio = GetComponent<AudioSource>();
 		if(audio != null)
