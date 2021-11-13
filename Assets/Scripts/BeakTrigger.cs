@@ -54,55 +54,59 @@ public class BeakTrigger : MonoBehaviour
 	}
 
 
-	IEnumerator MoveToPos(Collider pebble, float duration){
-
-		Vector3 startPosition = pebble.gameObject.transform.position;
-		Vector3 newSpot = _pebbleTarget.transform.position;
-
-		//move the pebble to the position of text
-		float t = 0f;
-		//float timeSlice = 0.02f;
-		//float timeSliceCount = 0f;
-		while(t < duration)
+	IEnumerator MoveToPos(Collider pebble, float duration)
+	{
+		if(_pebbleTarget != null)
 		{
-			/*if(timeSliceCount > timeSlice){
-				timeSliceCount = 0;
-				newSpot = _pebbleTarget.transform.position;
-			}*/
-			pebble.gameObject.transform.position = Vector3.Lerp(startPosition, newSpot,  (t/duration) );
-			
-			t += (Time.deltaTime);
-			//timeSliceCount += (Time.deltaTime);	
-			yield return null;
-		}
+			Vector3 startPosition = pebble.gameObject.transform.position;
+			Vector3 newSpot = _pebbleTarget.transform.position;
 
-		//move the pebble to the nest
-		/*yield return new WaitForSeconds(3);
-		t = 0f;
-		startPosition = pebble.gameObject.transform.position;
-		newSpot = nest.transform.position;
-		while(t < 3)
-		{
-			pebble.gameObject.transform.position = Vector3.Lerp(startPosition, newSpot,  (t/duration) );
-			
-			t += (Time.deltaTime);
-			yield return null;
-		}*/
-		pebble.gameObject.SetActive(false);
-		
-		Transform p = pebble.gameObject.transform.parent;
-		if(p != null)
-		{
-			Transform gp = p.parent;
-			if(gp != null)
+			//move the pebble to the position of text
+			float t = 0f;
+			//float timeSlice = 0.02f;
+			//float timeSliceCount = 0f;
+			while(t < duration)
 			{
-				MiniGameUnlocker unlocker = gp.GetComponent<MiniGameUnlocker>();
-				if(unlocker != null)
+				/*if(timeSliceCount > timeSlice){
+					timeSliceCount = 0;
+					newSpot = _pebbleTarget.transform.position;
+				}*/
+				pebble.gameObject.transform.position = Vector3.Lerp(startPosition, newSpot,  (t/duration) );
+				
+				t += (Time.deltaTime);
+				//timeSliceCount += (Time.deltaTime);	
+				yield return null;
+			}
+
+			//move the pebble to the nest
+			/*yield return new WaitForSeconds(3);
+			t = 0f;
+			startPosition = pebble.gameObject.transform.position;
+			newSpot = nest.transform.position;
+			while(t < 3)
+			{
+				pebble.gameObject.transform.position = Vector3.Lerp(startPosition, newSpot,  (t/duration) );
+				
+				t += (Time.deltaTime);
+				yield return null;
+			}*/
+		
+			Transform p = pebble.gameObject.transform.parent;
+			if(p != null)
+			{
+				Transform gp = p.parent;
+				if(gp != null)
 				{
-					unlocker.CollectPebble();
+					MiniGameUnlocker unlocker = gp.GetComponent<MiniGameUnlocker>();
+					if(unlocker != null)
+					{
+						unlocker.CollectPebble();
+					}
 				}
 			}
 		}
+		
+		pebble.gameObject.SetActive(false);
 		//If the player havn't collected enough pebbles, continue to construct the nest
 		/*if(pebbleCount <= 10){
 			for(int i=0; i<3; i++){
