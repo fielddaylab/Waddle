@@ -15,6 +15,9 @@ public class MiniGameController : MonoBehaviour
     [SerializeField]
     protected GameObject _startingPosition;
 
+	public delegate void OnEndGameDelegate();
+	public static OnEndGameDelegate _endGameDelegate;
+	
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +35,8 @@ public class MiniGameController : MonoBehaviour
     {
         _isGameActive = false;
         _startTime = 0f;
+		
+		_endGameDelegate();
     }
 
     public virtual void RestartGame()

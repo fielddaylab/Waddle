@@ -16,7 +16,7 @@ public class StartGame : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        MiniGameController._endGameDelegate += OnEndGame;
     }
 
     // Update is called once per frame
@@ -24,6 +24,28 @@ public class StartGame : MonoBehaviour
     {
         
     }
+	
+	void OnDisable()
+	{
+		MiniGameController._endGameDelegate -= OnEndGame;
+	}
+	
+	void OnEndGame()
+	{
+		//turn on the borders...
+		transform.GetChild(3).gameObject.SetActive(false);
+		
+		//turn off icon and Pole...eventually fade and fade back in when leaving
+		transform.GetChild(1).gameObject.SetActive(true);
+		transform.GetChild(5).gameObject.SetActive(true);
+		
+		//if protect the nest, turn off ray of light...
+		if(_miniGame == PenguinGameManager.MiniGame.ProtectTheNest)
+		{
+			transform.GetChild(8).gameObject.SetActive(true);
+			transform.GetChild(9).gameObject.SetActive(true);
+		}
+	}
 	
 	void OnTriggerEnter(Collider otherCollider)
 	{
@@ -41,6 +63,7 @@ public class StartGame : MonoBehaviour
 			}
 		}
 	}
+	
 	
 	IEnumerator LoadMiniGameAsync(string _miniGameName)
 	{

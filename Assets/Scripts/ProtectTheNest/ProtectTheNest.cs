@@ -47,8 +47,8 @@ public class ProtectTheNest : MiniGameController
         if(_timeWithoutEgg - _startTime > _gameTimeLimit)
 		{
 			//eventually end game and return to overworld, for now, just restart.
-            //EndGame();
-            RestartGame();
+            EndGame();
+            //RestartGame();
             return;
 		}
 
@@ -155,7 +155,7 @@ public class ProtectTheNest : MiniGameController
             _eggTimer.GetComponent<TMPro.TextMeshPro>().text = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
         }
 
-        Camera.main.gameObject.GetComponent<OVRScreenFade>().FadeOut();
+        //Camera.main.gameObject.GetComponent<OVRScreenFade>().FadeOut();
         
         base.EndGame();
     }
