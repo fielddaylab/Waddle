@@ -34,18 +34,22 @@ public class StartGame : MonoBehaviour
 	
 	void OnStartGame()
 	{
-		//turn on the borders...
-		transform.GetChild(3).gameObject.SetActive(true);
-		
-		//turn off icon and Pole...eventually fade and fade back in when leaving
-		transform.GetChild(1).gameObject.SetActive(false);
-		transform.GetChild(5).gameObject.SetActive(false);
-		
-		//if protect the nest, turn off ray of light...
-		if(_miniGame == PenguinGameManager.MiniGame.ProtectTheNest)
+		//todo - figure out how to combine this with the same code that runs in MiniGameUnlocker
+		if(_miniGame != PenguinGameManager.MiniGame.MatingDance)
 		{
-			transform.GetChild(8).gameObject.SetActive(false);
-			transform.GetChild(9).gameObject.SetActive(false);
+			//turn on the borders...
+			transform.GetChild(3).gameObject.SetActive(true);
+			
+			//turn off icon and Pole...eventually fade and fade back in when leaving
+			transform.GetChild(1).gameObject.SetActive(false);
+			transform.GetChild(5).gameObject.SetActive(false);
+			
+			//if protect the nest, turn off ray of light...
+			if(_miniGame == PenguinGameManager.MiniGame.ProtectTheNest)
+			{
+				transform.GetChild(8).gameObject.SetActive(false);
+				transform.GetChild(9).gameObject.SetActive(false);
+			}
 		}
 		
 		//slow down the player...
@@ -55,18 +59,21 @@ public class StartGame : MonoBehaviour
 	
 	void OnEndGame()
 	{
-		//turn on the borders...
-		transform.GetChild(3).gameObject.SetActive(false);
-		
-		//turn off icon and Pole...eventually fade and fade back in when leaving
-		transform.GetChild(1).gameObject.SetActive(true);
-		transform.GetChild(5).gameObject.SetActive(true);
-		
-		//if protect the nest, turn off ray of light...
-		if(_miniGame == PenguinGameManager.MiniGame.ProtectTheNest)
+		if(_miniGame != PenguinGameManager.MiniGame.MatingDance)
 		{
-			transform.GetChild(8).gameObject.SetActive(true);
-			transform.GetChild(9).gameObject.SetActive(true);
+			//turn on the borders...
+			transform.GetChild(3).gameObject.SetActive(false);
+			
+			//turn off icon and Pole...eventually fade and fade back in when leaving
+			transform.GetChild(1).gameObject.SetActive(true);
+			transform.GetChild(5).gameObject.SetActive(true);
+			
+			//if protect the nest, turn off ray of light...
+			if(_miniGame == PenguinGameManager.MiniGame.ProtectTheNest)
+			{
+				transform.GetChild(8).gameObject.SetActive(true);
+				transform.GetChild(9).gameObject.SetActive(true);
+			}
 		}
 		
 		//return the the player to default speed...
