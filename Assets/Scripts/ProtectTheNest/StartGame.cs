@@ -17,6 +17,7 @@ public class StartGame : MonoBehaviour
     void Start()
     {
         MiniGameController._endGameDelegate += OnEndGame;
+		MiniGameController._startGameDelegate += OnStartGame;
     }
 
     // Update is called once per frame
@@ -28,6 +29,28 @@ public class StartGame : MonoBehaviour
 	void OnDisable()
 	{
 		MiniGameController._endGameDelegate -= OnEndGame;
+		MiniGameController._startGameDelegate -= OnStartGame;
+	}
+	
+	void OnStartGame()
+	{
+		//turn on the borders...
+		transform.GetChild(3).gameObject.SetActive(true);
+		
+		//turn off icon and Pole...eventually fade and fade back in when leaving
+		transform.GetChild(1).gameObject.SetActive(false);
+		transform.GetChild(5).gameObject.SetActive(false);
+		
+		//if protect the nest, turn off ray of light...
+		if(_miniGame == PenguinGameManager.MiniGame.ProtectTheNest)
+		{
+			transform.GetChild(8).gameObject.SetActive(false);
+			transform.GetChild(9).gameObject.SetActive(false);
+		}
+		
+		//slow down the player...
+		PenguinPlayer.Instance.transform.GetChild(3).GetChild(0).GetComponent<WaddleTrigger>().Speed = 5f;
+		PenguinPlayer.Instance.transform.GetChild(3).GetChild(1).GetComponent<WaddleTrigger>().Speed = 5f;
 	}
 	
 	void OnEndGame()
@@ -45,6 +68,10 @@ public class StartGame : MonoBehaviour
 			transform.GetChild(8).gameObject.SetActive(true);
 			transform.GetChild(9).gameObject.SetActive(true);
 		}
+		
+		//return the the player to default speed...
+		PenguinPlayer.Instance.transform.GetChild(3).GetChild(0).GetComponent<WaddleTrigger>().Speed = 20f;
+		PenguinPlayer.Instance.transform.GetChild(3).GetChild(1).GetComponent<WaddleTrigger>().Speed = 20f;
 	}
 	
 	void OnTriggerEnter(Collider otherCollider)
@@ -75,19 +102,5 @@ public class StartGame : MonoBehaviour
 		}
 		
 		PenguinGameManager.Instance.LoadMiniGame(_miniGame);
-		
-		//turn on the borders...
-		transform.GetChild(3).gameObject.SetActive(true);
-		
-		//turn off icon and Pole...eventually fade and fade back in when leaving
-		transform.GetChild(1).gameObject.SetActive(false);
-		transform.GetChild(5).gameObject.SetActive(false);
-		
-		//if protect the nest, turn off ray of light...
-		if(_miniGame == PenguinGameManager.MiniGame.ProtectTheNest)
-		{
-			transform.GetChild(8).gameObject.SetActive(false);
-			transform.GetChild(9).gameObject.SetActive(false);
-		}
 	}
 }

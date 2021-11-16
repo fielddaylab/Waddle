@@ -4244,11 +4244,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7928592
+      value: 0.6308438
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.6094049
+      value: 0.77590984
       objectReference: {fileID: 0}
     - target: {fileID: 6861165212368088839, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_Size
@@ -7062,7 +7062,7 @@ GameObject:
   m_Component:
   - component: {fileID: 897836796}
   - component: {fileID: 897836795}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SlopeTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7880,7 +7880,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294934463
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 4874543f4bb5e044a9610282aa92a521, type: 2}
   m_TargetDisplay: 0
@@ -13706,6 +13706,14 @@ PrefabInstance:
       propertyPath: m_LightmapParameters
       value: 
       objectReference: {fileID: 15204, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 671160612004445302, guid: 0d291b4c1296f4e12a7d30f1b5f7e009, type: 3}
+      propertyPath: m_DetailObjectDensity
+      value: 0.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 671160612004445302, guid: 0d291b4c1296f4e12a7d30f1b5f7e009, type: 3}
+      propertyPath: m_DetailObjectDistance
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 671160612004445305, guid: 0d291b4c1296f4e12a7d30f1b5f7e009, type: 3}
       propertyPath: m_Layer
       value: 11
@@ -13826,11 +13834,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.8502874
+      value: 0.57348067
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.5263187
+      value: 0.8192191
       objectReference: {fileID: 0}
     - target: {fileID: 7496492113157597932, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: _sceneName

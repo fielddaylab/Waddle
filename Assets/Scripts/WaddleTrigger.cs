@@ -16,7 +16,14 @@ public class WaddleTrigger : MonoBehaviour
 	[SerializeField]
 	GameObject _positionTransform;
 
-	public float _speed;
+	[SerializeField]
+	float _speed;
+	
+	public float Speed
+	{
+		get { return _speed; }
+		set { _speed = value; }
+	}
 	
 	//int updateCount = 0;
 	bool _needsUpdate = false;
