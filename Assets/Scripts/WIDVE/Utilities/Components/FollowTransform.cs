@@ -43,6 +43,10 @@ namespace WIDVE.Utilities
 		Vector3 _offsetToApply = Vector3.zero;
 		Vector3 OffsetToApply => _offsetToApply;
 		
+		[SerializeField]
+		Vector3 _rotationToApply = Vector3.zero;
+		Vector3 RotationToApply => _rotationToApply;
+		
 		bool ShouldFollow
 		{
 			get
@@ -69,9 +73,22 @@ namespace WIDVE.Utilities
 		{
 			if(!FollowMe) GetFollowTarget();
 			if(!FollowMe) return;
-
+			
 			if(FollowPosition) transform.position = FollowMe.position;
-			if(FollowRotation) transform.rotation = FollowMe.rotation;
+			if(FollowRotation) 
+			{
+				if(_rotationToApply.sqrMagnitude > 0f)
+				{
+					Quaternion q = Quaternion.identity;
+					q.eulerAngles = _rotationToApply;
+					transform.rotation = q;
+					transform.rotation = FollowMe.rotation * transform.rotation;
+				}
+				else
+				{
+					transform.rotation = FollowMe.rotation;
+				}
+			}
 			
 			transform.localScale = _scaleToApply;
 			transform.position += _offsetToApply;
@@ -99,6 +116,7 @@ namespace WIDVE.Utilities
 				EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(_followInEditor)));
 				EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(_scaleToApply)));
 				EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(_offsetToApply)));
+				EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(_rotationToApply)));
 				
 				serializedObject.ApplyModifiedProperties();
 			}

@@ -2881,6 +2881,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 765199777}
     m_Modifications:
+    - target: {fileID: 2174861828153204636, guid: ca7300d550e8b9e4f82019402307066d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.00000013026876
+      objectReference: {fileID: 0}
+    - target: {fileID: 2174861828153204636, guid: ca7300d550e8b9e4f82019402307066d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.14345509
+      objectReference: {fileID: 0}
+    - target: {fileID: 2174861828153204636, guid: ca7300d550e8b9e4f82019402307066d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.000001013279
+      objectReference: {fileID: 0}
     - target: {fileID: 3889978522831538562, guid: ca7300d550e8b9e4f82019402307066d, type: 3}
       propertyPath: m_Name
       value: AdelieBodyMirror
@@ -2952,3 +2964,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4517157120599495480, guid: ca7300d550e8b9e4f82019402307066d, type: 3}
   m_PrefabInstance: {fileID: 1880717334}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1880717336 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5883745820201960041, guid: ca7300d550e8b9e4f82019402307066d, type: 3}
+  m_PrefabInstance: {fileID: 1880717334}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1880717337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880717336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1daa0841b9214245bfb011dfd0c5202, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tag: MainCamera
+  _followPosition: 0
+  _followRotation: 1
+  _followInEditor: 0
+  _scaleToApply: {x: 1, y: 1, z: 1}
+  _offsetToApply: {x: 0, y: 0, z: 0}
+  _rotationToApply: {x: -39.362, y: 179.718, z: -1.568}
