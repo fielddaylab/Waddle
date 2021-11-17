@@ -2426,6 +2426,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPCPenguin
       objectReference: {fileID: 0}
+    - target: {fileID: 4365031788453161496, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
+      propertyPath: m_TagString
+      value: PTNPenguin
+      objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -4244,11 +4248,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.77352005
+      value: 0.6571588
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.63377184
+      value: 0.75375223
       objectReference: {fileID: 0}
     - target: {fileID: 6861165212368088839, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_Size
@@ -5303,6 +5307,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPCPenguin5
       objectReference: {fileID: 0}
+    - target: {fileID: 4365031788453161496, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
+      propertyPath: m_TagString
+      value: PTNPenguin
+      objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -5462,6 +5470,10 @@ PrefabInstance:
     - target: {fileID: 3556293901462193823, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_Name
       value: NPCPenguin2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4365031788453161496, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
+      propertyPath: m_TagString
+      value: PTNPenguin
       objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_RootOrder
@@ -5866,6 +5878,10 @@ PrefabInstance:
     - target: {fileID: 3556293901462193823, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_Name
       value: NPCPenguin3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4365031788453161496, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
+      propertyPath: m_TagString
+      value: PTNPenguin
       objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_RootOrder
@@ -11659,6 +11675,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPCPenguin6
       objectReference: {fileID: 0}
+    - target: {fileID: 4365031788453161496, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
+      propertyPath: m_TagString
+      value: PTNPenguin
+      objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -12908,6 +12928,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPCPenguin4
       objectReference: {fileID: 0}
+    - target: {fileID: 4365031788453161496, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
+      propertyPath: m_TagString
+      value: PTNPenguin
+      objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -13838,11 +13862,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.73472846
+      value: 0.6076643
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.67836136
+      value: 0.794194
       objectReference: {fileID: 0}
     - target: {fileID: 7496492113157597932, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: _sceneName

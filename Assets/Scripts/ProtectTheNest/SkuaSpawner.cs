@@ -22,6 +22,8 @@ public class SkuaSpawner : MonoBehaviour
 	
 	List<SkuaSpot> _takenSpotList = new List<SkuaSpot>();
 	
+	List<GameObject> _npcPenguins = new List<GameObject>();
+	
 	[SerializeField]
 	GameObject _theEgg;
 	public GameObject TheEgg => _theEgg;
@@ -32,6 +34,7 @@ public class SkuaSpawner : MonoBehaviour
     void Start()
     {
         _originalWaveTimes = new List<float>(_waveTimes);
+		_npcPenguins.AddRange(GameObject.FindGameObjectsWithTag("PTNPenguin"));
     }
 	
 	public void StartGame()
@@ -71,6 +74,15 @@ public class SkuaSpawner : MonoBehaviour
         return false;
 	}
 
+	IEnumerator ResetCall(int penguinIdx, float duration)
+	{
+		yield return new WaitForSeconds(duration);
+		if(penguinIdx < _npcPenguins.Count)
+		{
+			_npcPenguins[penguinIdx].GetComponent<Animator>().SetBool("call", false);
+		}
+	}
+	
 	public void CheckForSpawn(float timeSinceStart)
 	{
 		if(_waveTimes.Count > 0)
@@ -290,10 +302,44 @@ public class SkuaSpawner : MonoBehaviour
 		newSkua.GetComponent<SkuaController>().SetNewSpot(_spawnLocations[spawnLocation]);
 		//newSkua.GetComponent<SkuaState>().CurrentSpot = _spawnLocations[spawnLocation];
 		
-		AudioSource audio = GetComponent<AudioSource>();
-		if(audio != null)
+		//find closest NPC penguin - play their sound, and their call animation...
+		if(_npcPenguins.Count > 0)
 		{
-			audio.Play();
+			float fClosestDist = 99999f;
+			int cI = -1;
+			for(int i = 0; i < _npcPenguins.Count; ++i)
+			{
+				float fD = Vector3.Distance(spawnSpot, _npcPenguins[i].transform.position);
+				if(fD < fClosestDist)
+				{
+					cI = i;
+					fClosestDist = fD;
+				}
+			}
+			
+			if(cI != -1)
+			{
+				AudioSource audio = _npcPenguins[cI].GetComponent<AudioSource>();
+				if(audio != null)
+				{
+					audio.Play();
+				}
+				
+				Animator anima = _npcPenguins[cI].GetComponent<Animator>();
+				if(anima != null)
+				{
+					anima.SetBool("call", true);
+					StartCoroutine(ResetCall(cI, 2f));
+				}
+			}
+		}
+		else
+		{
+			AudioSource audio = GetComponent<AudioSource>();
+			if(audio != null)
+			{
+				audio.Play();
+			}
 		}
 
 		//newSkua.GetComponent<SkuaState>().Spawner = this;

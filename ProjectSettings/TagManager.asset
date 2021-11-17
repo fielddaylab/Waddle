@@ -9,6 +9,7 @@ TagManager:
   - Egg
   - BowlingPenguin
   - HeightSet
+  - PTNPenguin
   layers:
   - Default
   - TransparentFX
