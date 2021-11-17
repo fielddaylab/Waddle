@@ -80,10 +80,21 @@ public class FeetRaycast : MonoBehaviour
 			Vector3 flatForward = _eyeObject.transform.forward;
 			flatForward.y = 0f;
 			flatForward = flatForward.normalized;
-			transform.position -= (flatForward * 0.1f);	//this should be related to scale
-			
+
+			//Jack's changes
 			Quaternion q = Quaternion.identity;
 			q.eulerAngles = _rotationToApply;
+		
+			if( Vector3.Dot(_eyeObject.transform.up, Vector3.down) > 0){
+				Vector3 tmp = q.eulerAngles;
+				tmp.y = q.eulerAngles.y - 180;
+				q.eulerAngles = tmp;
+				transform.position += (flatForward * 0.15f);
+			}
+			else{
+				transform.position -= (flatForward * 0.1f);	//this should be related to scale
+			}
+
 			transform.rotation = _rotationTransform.transform.rotation;
 			transform.rotation *= q;
 			//to-do, need to back this up some...
