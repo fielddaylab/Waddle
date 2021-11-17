@@ -57,7 +57,25 @@ public class MiniGameUnlocker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+		if(!_lockable)
+		{
+			const float DIST_TO_BORDER = 4f;
+			float d = Vector3.Distance(PenguinPlayer.Instance.transform.position, transform.position);
+			if(d < DIST_TO_BORDER)
+			{
+				//adjust the interpolator component if within the attraction border...
+				if(d < 0.1f)
+				{
+					transform.GetChild(1).gameObject.GetComponent<WIDVE.Utilities.Interpolator>().SetRawValue(0f);
+					transform.GetChild(4).gameObject.GetComponent<WIDVE.Utilities.Interpolator>().SetRawValue(0f);
+				}
+				else
+				{
+					transform.GetChild(1).gameObject.GetComponent<WIDVE.Utilities.Interpolator>().SetRawValue(1f - ((DIST_TO_BORDER-d)/DIST_TO_BORDER));
+					transform.GetChild(4).gameObject.GetComponent<WIDVE.Utilities.Interpolator>().SetRawValue(1f - ((DIST_TO_BORDER-d)/DIST_TO_BORDER));
+				}
+			}
+		}
     }
 	
 	public void CollectPebble()
@@ -77,10 +95,8 @@ public class MiniGameUnlocker : MonoBehaviour
 				if(!Lockable)
 				{
 					//if a lockable attraction, don't hide poles and icon until game actually running
-					//TODO - fade these out / in...
+					transform.GetChild(1).gameObject.SetActive(false);
 					transform.GetChild(4).gameObject.SetActive(false);
-					
-					transform.GetChild(2).gameObject.SetActive(false);
 				}
 				
 				//slow down the speed of the user, so harder for them to leave...

@@ -42,7 +42,7 @@ public class StartGame : MonoBehaviour
 			
 			//turn off icon and Pole...eventually fade and fade back in when leaving
 			transform.GetChild(1).gameObject.SetActive(false);
-			transform.GetChild(5).gameObject.SetActive(false);
+			transform.GetChild(4).gameObject.SetActive(false);
 			
 			//if protect the nest, turn off ray of light...
 			if(_miniGame == PenguinGameManager.MiniGame.ProtectTheNest)
@@ -66,7 +66,7 @@ public class StartGame : MonoBehaviour
 			
 			//turn off icon and Pole...eventually fade and fade back in when leaving
 			transform.GetChild(1).gameObject.SetActive(true);
-			transform.GetChild(5).gameObject.SetActive(true);
+			transform.GetChild(4).gameObject.SetActive(true);
 			
 			//if protect the nest, turn off ray of light...
 			if(_miniGame == PenguinGameManager.MiniGame.ProtectTheNest)
