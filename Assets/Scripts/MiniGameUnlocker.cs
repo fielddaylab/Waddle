@@ -57,7 +57,7 @@ public class MiniGameUnlocker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if(!_lockable)
+		/*if(!_lockable)
 		{
 			const float DIST_TO_BORDER = 4f;
 			float d = Vector3.Distance(PenguinPlayer.Instance.transform.position, transform.position);
@@ -75,7 +75,7 @@ public class MiniGameUnlocker : MonoBehaviour
 					transform.GetChild(4).gameObject.GetComponent<WIDVE.Utilities.Interpolator>().SetRawValue(1f - ((DIST_TO_BORDER-d)/DIST_TO_BORDER));
 				}
 			}
-		}
+		}*/
     }
 	
 	public void CollectPebble()

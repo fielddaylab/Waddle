@@ -36,13 +36,13 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 			}
 			if (rate < newRate)
 			{*/
-		float newRate = 90.0f;
+		//float newRate = 90.0f;
 		
-		if (Unity.XR.Oculus.Performance.TrySetDisplayRefreshRate(newRate))
-		{
-			Time.fixedDeltaTime = 1f / newRate;
-			Time.maximumDeltaTime = 1f / newRate;
-		}
+		//if (Unity.XR.Oculus.Performance.TrySetDisplayRefreshRate(newRate))
+		//{
+		//	Time.fixedDeltaTime = 1f / newRate;
+		//	Time.maximumDeltaTime = 1f / newRate;
+		//}
 			//}
 		//}
 		
@@ -79,14 +79,14 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		
 		if(_nestGame != null)
 		{
-			_nestGame.RestartGame();
+			//_nestGame.RestartGame();
 		}
 		
 		SetMatingDance();
 			
 		if(_matingDance != null)
 		{
-			_matingDance.RestartGame();
+			//_matingDance.RestartGame();
 		}
 	}
 
