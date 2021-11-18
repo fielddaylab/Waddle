@@ -27,6 +27,15 @@ public class MatingDance : MiniGameController
 	[SerializeField]
 	GameObject _beatBubbleSpot = null;
 	
+	[SerializeField]
+	GameObject _drumBubbleSpot = null;
+	
+	[SerializeField]
+	GameObject _tripletBubbleSpot = null;
+	
+	[SerializeField]
+	GameObject _measureBubbleSpot = null;
+	
     void Start()
     {
         Debug.Log(GetComponent<AudioSource>().clip.samples);
@@ -58,10 +67,21 @@ public class MatingDance : MiniGameController
 					{
 						_bubbleTypes[i] = 1;
 					}
+					else if(d[2].StartsWith("Drum"))
+					{
+						_bubbleTypes[i] = 2;
+					}
+					else if(d[2].StartsWith("Triplet"))
+					{
+						_bubbleTypes[i] = 3;
+					}
+					else if(d[2].StartsWith("Measure"))
+					{
+						_bubbleTypes[i] = 4;
+					}
 				}
 			}
 		}
-		
     }
 
 	public override void StartGame()
@@ -111,6 +131,18 @@ public class MatingDance : MiniGameController
 					else if(_bubbleTypes[_currentSample] == 1)
 					{
 						GameObject.Instantiate(_bubblePrefab, _beatBubbleSpot.transform);
+					}
+					else if(_bubbleTypes[_currentSample] == 2)
+					{
+						GameObject.Instantiate(_bubblePrefab, _drumBubbleSpot.transform);
+					}
+					else if(_bubbleTypes[_currentSample] == 3)
+					{
+						GameObject.Instantiate(_bubblePrefab, _tripletBubbleSpot.transform);
+					}
+					else if(_bubbleTypes[_currentSample] == 4)
+					{
+						GameObject.Instantiate(_bubblePrefab, _measureBubbleSpot.transform);
 					}
 				}
 				_currentSample++;
