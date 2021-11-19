@@ -29,12 +29,12 @@ public class BeakTrigger : MonoBehaviour
 		
 		bowlingPenguins = GameObject.FindGameObjectsWithTag("BowlingPenguin");
 		bowlingBalls = GameObject.FindGameObjectsWithTag("BowlingBall");
-		for(int i=0; i<bowlingPenguins.Length; i++){
+		/*for(int i=0; i<bowlingPenguins.Length; i++){
 			bowlingPenguins[i].SetActive(false);
 		}
 		for(int i=0; i<bowlingBalls.Length; i++){
 			bowlingBalls[i].SetActive(false);
-		}
+		}*/
     }
 
     // Update is called once per frame
@@ -212,7 +212,7 @@ public class BeakTrigger : MonoBehaviour
 
 
 		//start penguin bowling game when the player touches the attraction with the beak
-		if(otherCollider.gameObject.name.StartsWith("BowlingAttraction"))
+		/*if(otherCollider.gameObject.name.StartsWith("BowlingAttraction"))
 		{
 			for(int i=0; i<bowlingPenguins.Length; i++){
 				bowlingPenguins[i].SetActive(true);
@@ -220,7 +220,7 @@ public class BeakTrigger : MonoBehaviour
 			for(int i=0; i<bowlingBalls.Length; i++){
 				bowlingBalls[i].SetActive(true);
 			}
-		}
+		}*/
 	}
 	
 	void OnTriggerStay(Collider otherCollider)
