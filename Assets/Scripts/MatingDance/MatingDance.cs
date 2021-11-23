@@ -34,6 +34,12 @@ public class MatingDance : MiniGameController
 	GameObject _tripletBubbleSpot = null;
 	
 	[SerializeField]
+	GameObject _tripletBubbleSpot2 = null;
+	
+	[SerializeField]
+	GameObject _tripletBubbleSpot3 = null;
+	
+	[SerializeField]
 	GameObject _measureBubbleSpot = null;
 	
     void Start()
@@ -146,6 +152,10 @@ public class MatingDance : MiniGameController
 					}
 				}
 				_currentSample++;
+			}
+			else
+			{
+				EndGame();
 			}
 		}
 		

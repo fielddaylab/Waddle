@@ -10,6 +10,7 @@ TagManager:
   - BowlingPenguin
   - HeightSet
   - PTNPenguin
+  - MainMenu
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - StartGame
   - PenguinPlayer
   - MirrorPlayer
-  - 
+  - 3DUI
   - 
   - 
   - 

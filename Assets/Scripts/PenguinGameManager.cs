@@ -16,10 +16,31 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		MatingDance
 	}
 	
+	public enum GameMode
+	{
+		ShowMode,
+		HomeMode
+	}
+	
+	[SerializeField]
+	GameMode _gameMode;
+	
+	public GameMode GetGameMode => _gameMode;
+	
+	[SerializeField]
+	float _targetFrameRate = 72f;
+	
 	//MiniGame _currentMiniGame = MiniGame.ProtectTheNest;
 
 	ProtectTheNest _nestGame = null;
 	MatingDance _matingDance = null;
+	
+	bool _showedWaddleMessage = false;
+	
+	float _overallStartTime = 0f;
+	
+	[SerializeField]
+	float _showModeTimeLimit = 420f;	//7 minutes
 	
     void Start()
     {
@@ -38,17 +59,27 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 			{*/
 		//float newRate = 90.0f;
 		
-		//if (Unity.XR.Oculus.Performance.TrySetDisplayRefreshRate(newRate))
-		//{
-		//	Time.fixedDeltaTime = 1f / newRate;
-		//	Time.maximumDeltaTime = 1f / newRate;
-		//}
+		if(_targetFrameRate != 72f)
+		{
+			if (Unity.XR.Oculus.Performance.TrySetDisplayRefreshRate(_targetFrameRate))
+			{
+				Time.fixedDeltaTime = 1f / _targetFrameRate;
+				Time.maximumDeltaTime = 1f / _targetFrameRate;
+			}
+		}
 			//}
 		//}
+		
+		_overallStartTime = UnityEngine.Time.time;
 		
 		OVRManager.HMDUnmounted += HandleHMDUnmounted;
     }
 
+	float GetGameTime()
+	{
+		return UnityEngine.Time.time - _overallStartTime;
+	}
+	
 	void SetTheNest()
 	{
 		if(_nestGame == null)
@@ -101,6 +132,21 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 			{
 				_nestGame.RestartGame();
 			}*/
+		}
+		
+		/*if(!_showedWaddleMessage)
+		{
+			PenguinPlayer.Instance.ShowWaddleMessage();
+			_showedWaddleMessage = true;
+		}*/
+		
+		if(_gameMode == GameMode.ShowMode)
+		{
+			//7 minutes
+			if(GetGameTime() > _showModeTimeLimit)
+			{
+				
+			}
 		}
     }
 
