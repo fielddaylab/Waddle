@@ -11,6 +11,9 @@ public class MatingDance : MiniGameController
     GameObject _bubblePrefab = null;
 
 	[SerializeField]
+	GameObject _bubbleLinePrefab = null;
+	
+	[SerializeField]
 	TextAsset _dataFile = null;
 	
 	float[] _timeSamples = null;
@@ -41,6 +44,8 @@ public class MatingDance : MiniGameController
 	
 	[SerializeField]
 	GameObject _measureBubbleSpot = null;
+	
+	GameObject _lastSpawn = null;
 	
     void Start()
     {
@@ -90,8 +95,16 @@ public class MatingDance : MiniGameController
 		}
     }
 
+	IEnumerator DestroyLine(GameObject go, float duration)
+	{
+		yield return new WaitForSeconds(duration);
+		
+		Object.Destroy(go);
+	}
+	
 	public override void StartGame()
     {
+		Debug.Log("Starting mating dance");
         base.StartGame();
 
         AudioSource audio = GetComponent<AudioSource>();
@@ -127,36 +140,63 @@ public class MatingDance : MiniGameController
 					{
 						if(_currentSample % 2 == 0)
 						{
-							GameObject.Instantiate(_bubblePrefab, _clapBubbleSpot.transform);
+							_lastSpawn = GameObject.Instantiate(_bubblePrefab, _clapBubbleSpot.transform);
 						}
 						else
 						{
-							GameObject.Instantiate(_bubblePrefab, _clapBubbleSpot2.transform);
+							_lastSpawn = GameObject.Instantiate(_bubblePrefab, _clapBubbleSpot2.transform);
 						}
 					}
 					else if(_bubbleTypes[_currentSample] == 1)
 					{
-						GameObject.Instantiate(_bubblePrefab, _beatBubbleSpot.transform);
+						_lastSpawn = GameObject.Instantiate(_bubblePrefab, _beatBubbleSpot.transform);
 					}
 					else if(_bubbleTypes[_currentSample] == 2)
 					{
-						GameObject.Instantiate(_bubblePrefab, _drumBubbleSpot.transform);
+						_lastSpawn = GameObject.Instantiate(_bubblePrefab, _drumBubbleSpot.transform);
 					}
 					else if(_bubbleTypes[_currentSample] == 3)
 					{
-						GameObject.Instantiate(_bubblePrefab, _tripletBubbleSpot.transform);
+						GameObject o = null;
+						
+						if(_currentSample % 3 == 0)
+						{
+							o = GameObject.Instantiate(_bubblePrefab, _tripletBubbleSpot.transform);
+						}
+						else if(_currentSample % 3 == 1)
+						{
+							o = GameObject.Instantiate(_bubblePrefab, _tripletBubbleSpot2.transform);
+						}
+						else
+						{
+							o = GameObject.Instantiate(_bubblePrefab, _tripletBubbleSpot3.transform);
+						}
+						
+						if(_bubbleTypes[_currentSample-1] == 3)
+						{
+							if(_bubbleLinePrefab != null)
+							{
+								GameObject bubbleLine = GameObject.Instantiate(_bubbleLinePrefab, _tripletBubbleSpot.transform);
+								//set the line vertices to this sample and last sample..
+								bubbleLine.GetComponent<LineRenderer>().SetPosition(0, _lastSpawn.transform.position);
+								bubbleLine.GetComponent<LineRenderer>().SetPosition(1, o.transform.position);
+								StartCoroutine(DestroyLine(bubbleLine, 1.5f));
+							}
+						}
+						
+						_lastSpawn = o;
 					}
 					else if(_bubbleTypes[_currentSample] == 4)
 					{
-						GameObject.Instantiate(_bubblePrefab, _measureBubbleSpot.transform);
+						_lastSpawn = GameObject.Instantiate(_bubblePrefab, _measureBubbleSpot.transform);
 					}
 				}
 				_currentSample++;
 			}
-			else
+			/*else
 			{
 				EndGame();
-			}
+			}*/
 		}
 		
         //about 44,100 samples per second...
