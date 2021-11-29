@@ -58,8 +58,17 @@ public class BeakTrigger : MonoBehaviour
 	{
 		if(_pebbleTarget != null)
 		{
+			Vector3 heightAdjust = new Vector3(0,0.5f,0);
+			
 			Vector3 startPosition = pebble.gameObject.transform.position;
 			Vector3 newSpot = _pebbleTarget.transform.position;
+
+			Vector3[] points = new Vector3[]{
+				startPosition,
+				Vector3.Lerp(startPosition, newSpot,  0.25f) + heightAdjust,
+				Vector3.Lerp(startPosition, newSpot,  0.75f) + heightAdjust,
+				newSpot
+			};
 
 			//move the pebble to the position of text
 			float t = 0f;
@@ -71,8 +80,9 @@ public class BeakTrigger : MonoBehaviour
 					timeSliceCount = 0;
 					newSpot = _pebbleTarget.transform.position;
 				}*/
-				pebble.gameObject.transform.position = Vector3.Lerp(startPosition, newSpot,  (t/duration) );
-				
+
+				//pebble.gameObject.transform.position = Vector3.Lerp(startPosition, newSpot,  (t/duration) );
+				pebble.gameObject.transform.position = GetPoint(t/duration, points);
 				t += (Time.deltaTime);
 				//timeSliceCount += (Time.deltaTime);	
 				yield return null;
@@ -256,4 +266,26 @@ public class BeakTrigger : MonoBehaviour
 		
 		//have on trigger exit cause movement?
 	}
+	//Jack's edit
+    Vector3 GetPoint (float t, Vector3[] points) {
+		//return transform.TransformPoint(GetBezierPoint(points[0], points[1], points[2], points[3], t));
+		return CalculateCubicBezierPoint(t, points[0], points[1], points[2], points[3]);
+	}
+
+	Vector3 CalculateCubicBezierPoint(float t, Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3)
+    {
+        float u = 1 - t;
+        float tt = t * t;
+        float uu = u * u;
+        float uuu = uu * u;
+        float ttt = tt * t;
+        
+        Vector3 p = uuu * p0; 
+        p += 3 * uu * t * p1; 
+        p += 3 * u * tt * p2; 
+        p += ttt * p3; 
+        
+        return p;
+    }
+
 }
