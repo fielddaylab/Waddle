@@ -27,11 +27,11 @@ public class FollowTransform : MonoBehaviour
 					//if losing tracking - force the hand IK end straight out from the 
 					if(h.HandType == OVRHand.Hand.HandLeft)
 					{
-						transform.position = _mainCam.transform.position - _mainCam.transform.right * 3.0f;
+						transform.position = _mainCam.transform.position - _mainCam.transform.up * 2.0f;//- _mainCam.transform.right * 3.0f;
 					}
 					else
 					{
-						transform.position = _mainCam.transform.position + _mainCam.transform.right * 3.0f;
+						transform.position = _mainCam.transform.position - _mainCam.transform.up * 2.0f;// _mainCam.transform.right * 3.0f;
 					}
 				}
 				else

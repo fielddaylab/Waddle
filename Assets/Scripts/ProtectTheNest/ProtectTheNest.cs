@@ -113,10 +113,10 @@ public class ProtectTheNest : MiniGameController
         //also - re-enable the start volume - demo hack
         //PenguinPlayer.Instance.transform.rotation = _startingPosition.transform.rotation;
         //Debug.Log("Restarting game");
-		PenguinPlayer.Instance.transform.position =  _startingPosition.transform.position;
+		//PenguinPlayer.Instance.transform.position =  _startingPosition.transform.position;
         //Debug.Log(PenguinPlayer.Instance.transform.position);
 		
-        StartCoroutine(StartNextFrame());
+        //StartCoroutine(StartNextFrame());
     }
 
     IEnumerator StartNextFrame()

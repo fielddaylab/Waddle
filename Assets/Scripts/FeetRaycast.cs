@@ -18,9 +18,9 @@ public class FeetRaycast : MonoBehaviour
 	Vector3 _rotationToApply;
 	Vector3 RotationToApply => _rotationToApply;
 	
-	float _penguinCapsuleHeight = 0.7112f;
+	Vector3 _lastPosition;
 	
-	//bool _resetHeights = false;
+	float _penguinCapsuleHeight = 0.7112f;
 	
     // Start is called before the first frame update
     void Start()
@@ -35,35 +35,6 @@ public class FeetRaycast : MonoBehaviour
 		//OVRManager.TrackingAcquired += SetHeights;
     }
 
-    // Update is called once per frame
-    /*void FixedUpdate()
-    {
-		
-    }*/
-	
-	/*void SetHeights()
-	{
-		if(!_resetHeights)
-		{
-			Time.timeScale = 0;
-			GameObject[] heightSets = GameObject.FindGameObjectsWithTag("HeightSet");
-			for(int i = 0; i < heightSets.Length; ++i)
-			{
-				Debug.Log( Camera.main.transform.position.y );
-				Vector3 posHeight = heightSets[i].transform.position;
-				posHeight.y = Camera.main.transform.position.y - 0.6096f;
-				heightSets[i].transform.position = posHeight;
-			}
-			_resetHeights = true;
-			Time.timeScale = 1;
-		}	
-	}*/
-	
-	void Update()
-	{
-		//SetHeights();
-	}
-	
 	void LateUpdate()
 	{
 		RaycastHit hitInfo;
@@ -97,7 +68,8 @@ public class FeetRaycast : MonoBehaviour
 
 			transform.rotation = _rotationTransform.transform.rotation;
 			transform.rotation *= q;
-			//to-do, need to back this up some...
 		}
+		
+		_lastPosition = _eyeObject.transform.position;
 	}
 }

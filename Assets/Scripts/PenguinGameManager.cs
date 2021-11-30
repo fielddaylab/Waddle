@@ -30,7 +30,8 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	[SerializeField]
 	float _targetFrameRate = 72f;
 	
-	//MiniGame _currentMiniGame = MiniGame.ProtectTheNest;
+	[SerializeField]
+	GameObject _playerStartLocation;
 
 	ProtectTheNest _nestGame = null;
 	MatingDance _matingDance = null;
@@ -107,18 +108,24 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	
 	void HandleHMDUnmounted()
 	{
-		SetTheNest();
-		
-		if(_nestGame != null)
+		//this should now reset the whole experience in "ShowMode"
+		if(_gameMode == GameMode.ShowMode)
 		{
-			//_nestGame.RestartGame();
-		}
+			SetTheNest();
 		
-		SetMatingDance();
+			if(_nestGame != null)
+			{
+				_nestGame.RestartGame();
+			}
 			
-		if(_matingDance != null)
-		{
-			//_matingDance.RestartGame();
+			SetMatingDance();
+				
+			if(_matingDance != null)
+			{
+				_matingDance.RestartGame();
+			}
+			
+			PenguinPlayer.Instance.transform.position = _playerStartLocation.transform.position;
 		}
 	}
 
