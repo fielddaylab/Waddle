@@ -36,6 +36,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	MatingDance _matingDance = null;
 	
 	bool _showedWaddleMessage = false;
+	bool _showingEndGamePrefab = false;
 	
 	float _overallStartTime = 0f;
 	
@@ -145,7 +146,11 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 			//7 minutes
 			if(GetGameTime() > _showModeTimeLimit)
 			{
-				
+				if(!_showingEndGamePrefab)
+				{
+					PenguinPlayer.Instance.ShowEndGamePrefab();
+					_showingEndGamePrefab = true;
+				}
 			}
 		}
     }
