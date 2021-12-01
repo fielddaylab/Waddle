@@ -223,6 +223,15 @@ public class BeakTrigger : MonoBehaviour
 			}
 		}
 
+		if(otherCollider.gameObject.name.StartsWith("SkewerTrigger")){
+			//Debug.Log("Skewer!!!!!!!");
+			AudioSource audioS = otherCollider.gameObject.transform.parent.parent.gameObject.GetComponent<AudioSource>();
+			GameObject fish = otherCollider.gameObject.transform.parent.gameObject;
+
+			audioS.Play();
+            fish.SetActive(false);
+		}
+
 
 		//start penguin bowling game when the player touches the attraction with the beak
 		/*if(otherCollider.gameObject.name.StartsWith("BowlingAttraction"))
