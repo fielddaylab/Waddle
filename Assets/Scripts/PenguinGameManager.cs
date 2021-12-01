@@ -35,14 +35,16 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 
 	ProtectTheNest _nestGame = null;
 	MatingDance _matingDance = null;
-	
-	bool _showedWaddleMessage = false;
+
 	bool _showingEndGamePrefab = false;
 	
 	float _overallStartTime = 0f;
 	
 	[SerializeField]
 	float _showModeTimeLimit = 420f;	//7 minutes
+	
+	public delegate void OnResetDelegate();
+	public static event OnResetDelegate _resetGameDelegate;
 	
     void Start()
     {
@@ -74,9 +76,18 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		
 		_overallStartTime = UnityEngine.Time.time;
 		
+		StartCoroutine(ShowMessage("", 5f, 10f));
+		
 		OVRManager.HMDUnmounted += HandleHMDUnmounted;
     }
 
+	IEnumerator ShowMessage(string message, float startDuration, float duration)
+	{
+		yield return new WaitForSeconds(startDuration);
+		
+		PenguinPlayer.Instance.ShowWaddleMessage(duration);
+	}
+	
 	float GetGameTime()
 	{
 		return UnityEngine.Time.time - _overallStartTime;
@@ -126,6 +137,8 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 			}
 			
 			PenguinPlayer.Instance.transform.position = _playerStartLocation.transform.position;
+			
+			_resetGameDelegate();
 		}
 	}
 
@@ -134,19 +147,9 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
     {
         if(OVRInput.GetDown(OVRInput.Button.Start))
 		{
-			//SetTheNest();
-		
-			/*if(_nestGame != null)
-			{
-				_nestGame.RestartGame();
-			}*/
+			//this should bring up the UI...
+			//
 		}
-		
-		/*if(!_showedWaddleMessage)
-		{
-			PenguinPlayer.Instance.ShowWaddleMessage();
-			_showedWaddleMessage = true;
-		}*/
 		
 		if(_gameMode == GameMode.ShowMode)
 		{

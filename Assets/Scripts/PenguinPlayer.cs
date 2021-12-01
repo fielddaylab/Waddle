@@ -22,12 +22,12 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
         
     }
 	
-	public void ShowWaddleMessage()
+	public void ShowWaddleMessage(float showDuration)
 	{
 		//store a game object for the UserMessage object..
 		if(_userMessageUI != null)
 		{
-			_userMessageUI.GetComponent<UserMessage>().StartShowMessage("", 8f);
+			_userMessageUI.GetComponent<UserMessage>().StartShowMessage("", showDuration);
 		}
 	}
 	
