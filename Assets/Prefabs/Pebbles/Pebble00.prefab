@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 2752364962485863809}
   - component: {fileID: 2712853705221026466}
   - component: {fileID: 7467378330936536063}
+  - component: {fileID: 772058589542316441}
   m_Layer: 7
   m_Name: Pebble00
-  m_TagString: Respawn
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,3 +97,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.00037204206, y: 0.00035763747, z: 0.00031075603}
   m_Center: {x: 3.4197e-10, y: 0, z: 3.4197e-10}
+--- !u!114 &772058589542316441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4534488084655613874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a3b2fa6adde5cf448e2d06c1d1fb836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

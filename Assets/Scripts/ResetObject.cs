@@ -20,19 +20,42 @@ public class ResetObject : MonoBehaviour
 
 	void OnEnable()
 	{
-		//PenguinGameManager.OnResetDelegate += DoReset;
+		PenguinGameManager._resetGameDelegate += DoReset;
 	}
 	
 	void OnDisable()
 	{
-		//PenguinGameManager.OnResetDelegate -= DoReset;
+		PenguinGameManager._resetGameDelegate -= DoReset;
 	}
 	
 	public void DoReset()
 	{
+		 Rigidbody rb = GetComponent<Rigidbody>();
+		 /*if(rb != null)
+		 {
+			 rb.velocity = Vector3.zero;
+		 }*/
+		 
 		 transform.position = _startingPosition;
 		 transform.rotation = _startingOrientation;
 		 transform.localScale = _startingScale;
+		 
+		 if(rb != null)
+		 {
+			 StartCoroutine(TurnPhysicsOff());
+		 }
+	}
+
+	IEnumerator TurnPhysicsOff()
+	{
+		yield return null;
+		
+		Rigidbody rb = GetComponent<Rigidbody>();
+		if(rb != null)
+		{
+			rb.velocity = Vector3.zero;
+			rb.angularVelocity = Vector3.zero;
+		}
 	}
 	
     // Update is called once per frame
