@@ -127,7 +127,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.0.266
+  bundleVersion: 0.0.271
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -149,11 +149,11 @@ PlayerSettings:
     Android: com.DefaultCompany.PenguinsVR
     Standalone: com.DefaultCompany.PenguinsVR
   buildNumber:
-    Standalone: 0.0.266
+    Standalone: 0.0.271
     iPhone: 0
     tvOS: 0
   overrideDefaultApplicationIdentifier: 0
-  AndroidBundleVersionCode: 266
+  AndroidBundleVersionCode: 271
   AndroidMinSdkVersion: 23
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 0
