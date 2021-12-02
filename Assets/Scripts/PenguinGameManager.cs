@@ -79,6 +79,8 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		StartCoroutine(ShowMessage("", 5f, 10f));
 		
 		OVRManager.HMDUnmounted += HandleHMDUnmounted;
+		
+		OVRManager.HMDMounted += HandleHMDMounted;
     }
 
 	IEnumerator ShowMessage(string message, float startDuration, float duration)
@@ -117,6 +119,13 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		}
 	}
 	
+	void HandleHMDMounted()
+	{
+		StartCoroutine(ShowMessage("", 5f, 10f));
+		
+		PenguinPlayer.Instance.EnableMovement();
+	}
+	
 	void HandleHMDUnmounted()
 	{
 		//this should now reset the whole experience in "ShowMode"
@@ -140,19 +149,14 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 			
 			_resetGameDelegate();
 			
-			StartCoroutine(ShowMessage("", 8f, 10f));
+			PenguinPlayer.Instance.DisableMovement();
 		}
 	}
 
     // Update is called once per frame
     void Update()
     {
-        if(OVRInput.GetDown(OVRInput.Button.Start))
-		{
-			//this should bring up the UI...
-			//
-		}
-		
+        
 		if(_gameMode == GameMode.ShowMode)
 		{
 			//7 minutes
