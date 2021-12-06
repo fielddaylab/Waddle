@@ -49,7 +49,7 @@ public class ShrinkRing : MonoBehaviour
         Vector3 endScale = Vector3.one;
 
         float t = 0f;
-		//bool bSet = false;
+		bool bSet = false;
 		
         while(t < (duration + 0.5f))
         {
@@ -63,11 +63,12 @@ public class ShrinkRing : MonoBehaviour
                 _isValidWindow = true;
 				
             }
-            else if((t >= duration && t < (duration + 0.5f)))
+            
+			if((t >= duration && t < (duration + 0.5f)) && !bSet)
             {
                 //only need to set this once...
 				gameObject.transform.parent.GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
-				//bSet = true;
+				bSet = true;
             }
 			
 			t += UnityEngine.Time.deltaTime;
