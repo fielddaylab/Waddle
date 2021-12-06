@@ -11,9 +11,6 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 	GameObject _mainUI;
 	
 	[SerializeField]
-	GameObject _endGamePrefab;
-	
-	[SerializeField]
 	GameObject _leftHandController;
 	
 	[SerializeField]
@@ -94,10 +91,7 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 	
 	public void ShowEndGamePrefab()
 	{
-		if(_endGamePrefab != null)
-		{
-			//play the snow storm...
-			
-		}
+		//play the snow storm...
+		transform.GetChild(4).gameObject.SetActive(true);
 	}
 }

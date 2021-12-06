@@ -54,6 +54,45 @@ public class MiniGameUnlocker : MonoBehaviour
         
     }
 
+	void OnEnable()
+	{
+		PenguinGameManager._resetGameDelegate += ResetMiniGame;
+	}
+	
+	void OnDisable()
+	{
+		PenguinGameManager._resetGameDelegate -= ResetMiniGame;
+	}
+	
+	void ResetMiniGame()
+	{
+		transform.GetChild(3).gameObject.SetActive(false);
+		
+		_isGameUnlocked = false;
+	
+		if(_lockable)
+		{
+			transform.GetChild(1).GetComponent<MeshRenderer>().sharedMaterial = _lockMaterials[0];
+			
+			for(int i = 0; i < transform.GetChild(2).childCount; ++i)
+			{
+				transform.GetChild(2).GetChild(i).gameObject.SetActive(false);
+			}
+		}
+		
+		if(transform.childCount > 7)
+		{
+			transform.GetChild(8).gameObject.SetActive(true);
+			transform.GetChild(9).gameObject.SetActive(true);
+		}
+		
+		transform.GetChild(1).gameObject.SetActive(true);
+		transform.GetChild(4).gameObject.SetActive(true);
+		
+		PenguinPlayer.Instance.transform.GetChild(3).GetChild(0).GetComponent<WaddleTrigger>().Speed = 20f;
+		PenguinPlayer.Instance.transform.GetChild(3).GetChild(1).GetComponent<WaddleTrigger>().Speed = 20f;
+	}
+	
     // Update is called once per frame
     void Update()
     {

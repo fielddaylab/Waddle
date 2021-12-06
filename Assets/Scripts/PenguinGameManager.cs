@@ -131,18 +131,18 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		//this should now reset the whole experience in "ShowMode"
 		if(_gameMode == GameMode.ShowMode)
 		{
-			SetTheNest();
-		
 			if(_nestGame != null)
 			{
 				_nestGame.RestartGame();
+				
+				UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(MiniGame.ProtectTheNest.ToString());
 			}
 			
-			SetMatingDance();
-				
 			if(_matingDance != null)
 			{
 				_matingDance.RestartGame();
+				
+				UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(MiniGame.MatingDance.ToString());
 			}
 			
 			PenguinPlayer.Instance.transform.position = _playerStartLocation.transform.position;

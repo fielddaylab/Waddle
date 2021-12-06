@@ -24,7 +24,8 @@ public class ShrinkRing : MonoBehaviour
         if(!_isShrinking)
         {
             _isShrinking = true;
-			_coroutine = Shrink(1.5f);
+			_isValidWindow = false;
+			_coroutine = Shrink(2f);
             StartCoroutine(_coroutine);
         }
     }
@@ -48,7 +49,8 @@ public class ShrinkRing : MonoBehaviour
         Vector3 endScale = Vector3.one;
 
         float t = 0f;
-
+		//bool bSet = false;
+		
         while(t < (duration + 0.5f))
         {
             if(t < duration)
@@ -56,15 +58,16 @@ public class ShrinkRing : MonoBehaviour
                 transform.localScale = Vector3.Lerp(startScale, endScale, t / duration);
             }
 			
-            if(t < duration - 0.5f)
+            if(t >= duration - 0.5f)
             {
                 _isValidWindow = true;
 				
             }
-            else if(t >= duration && t < duration + 0.5f)
+            else if((t >= duration && t < (duration + 0.5f)))
             {
                 //only need to set this once...
 				gameObject.transform.parent.GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
+				//bSet = true;
             }
 			
 			t += UnityEngine.Time.deltaTime;

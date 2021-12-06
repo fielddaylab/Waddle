@@ -45,6 +45,9 @@ public class MatingDance : MiniGameController
 	[SerializeField]
 	GameObject _measureBubbleSpot = null;
 	
+	[SerializeField]
+	GameObject _pivotPoint = null;
+	
 	GameObject _lastSpawn = null;
 	
     void Start()
@@ -53,6 +56,7 @@ public class MatingDance : MiniGameController
         _sampleData = new float[GetComponent<AudioSource>().clip.samples];
         GetComponent<AudioSource>().clip.GetData(_sampleData, 0);
 		
+
 		if(_dataFile != null)
 		{
 			string sData = _dataFile.text;
@@ -111,6 +115,15 @@ public class MatingDance : MiniGameController
 		if(audio != null)
 		{
 			audio.Play();
+		}
+		
+		if(_pivotPoint != null)
+		{
+			OrientToUser otu = _pivotPoint.GetComponent<OrientToUser>();
+			if(otu != null)
+			{
+				otu.Rotate();
+			}
 		}
     }
 	
