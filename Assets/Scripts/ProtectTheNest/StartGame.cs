@@ -79,6 +79,8 @@ public class StartGame : MonoBehaviour
 		//return the the player to default speed...
 		PenguinPlayer.Instance.transform.GetChild(3).GetChild(0).GetComponent<WaddleTrigger>().Speed = 20f;
 		PenguinPlayer.Instance.transform.GetChild(3).GetChild(1).GetComponent<WaddleTrigger>().Speed = 20f;
+		
+		gameObject.GetComponent<Collider>().enabled = true;
 	}
 	
 	void OnTriggerEnter(Collider otherCollider)

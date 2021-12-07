@@ -151,7 +151,10 @@ public class MiniGameUnlocker : MonoBehaviour
 			}
 			else if(_numPebblesCollected < _numPebblesToUnlock)
 			{
-				transform.GetChild(1).GetComponent<MeshRenderer>().sharedMaterial = _lockMaterials[_numPebblesCollected-1];
+				if(_numPebblesCollected < _lockMaterials.Count)
+				{
+					transform.GetChild(1).GetComponent<MeshRenderer>().sharedMaterial = _lockMaterials[_numPebblesCollected];
+				}
 
 				//accumulate a pebble onto the nest...
 				if(_numPebblesCollected % 2 == 0)
