@@ -16,10 +16,15 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 	[SerializeField]
 	GameObject _rightHandController;
 	
+	LineRenderer _lineRenderer;
+	
+	bool _showingUI = false;
+	public bool ShowingUI => _showingUI;
+	
     // Start is called before the first frame update
     void Start()
     {
-        
+        _lineRenderer = transform.GetChild(5).gameObject.GetComponent<LineRenderer>();
     }
 
     // Update is called once per frame
@@ -33,6 +38,8 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 			{
 				if(_mainUI.activeSelf)
 				{
+					_showingUI = false;
+					
 					_mainUI.SetActive(false);
 					//switch our hands...
 					if(_leftHandController != null)
@@ -48,9 +55,12 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 					}
 					
 					EnableMovement();
+					
+					_lineRenderer.enabled = false;
 				}
 				else
 				{
+					_showingUI = true;
 					_mainUI.SetActive(true);
 					if(_leftHandController != null)
 					{
@@ -65,6 +75,8 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 					}
 					
 					DisableMovement();
+					
+					_lineRenderer.enabled = true;
 				}
 			}
 		}

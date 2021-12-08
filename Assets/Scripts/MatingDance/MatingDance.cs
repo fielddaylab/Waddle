@@ -50,6 +50,8 @@ public class MatingDance : MiniGameController
 	
 	GameObject _lastSpawn = null;
 	
+	const float BUBBLE_SHRINK_LENGTH = 2f;	//2 seconds...
+	
     void Start()
     {
         Debug.Log(GetComponent<AudioSource>().clip.samples);
@@ -193,7 +195,7 @@ public class MatingDance : MiniGameController
 								//set the line vertices to this sample and last sample..
 								bubbleLine.GetComponent<LineRenderer>().SetPosition(0, _lastSpawn.transform.position);
 								bubbleLine.GetComponent<LineRenderer>().SetPosition(1, o.transform.position);
-								StartCoroutine(DestroyLine(bubbleLine, 1.5f));
+								StartCoroutine(DestroyLine(bubbleLine, BUBBLE_SHRINK_LENGTH));
 							}
 						}
 						

@@ -14,20 +14,21 @@ public class HandRaycast : MonoBehaviour
 	[SerializeField]
 	LayerMask _mask;
 	
+	LineRenderer _lineRenderer;
     // Start is called before the first frame update
     void Start()
     {
-        
+        _lineRenderer = transform.GetChild(5).gameObject.GetComponent<LineRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-		if(_rightHand != null)
+		if(PenguinPlayer.Instance.ShowingUI && _rightHand != null)
 		{
 			RaycastHit hitInfo;
 
-			if(Physics.Raycast(_rightHand.transform.position, _rightHand.transform.forward, out hitInfo, Mathf.Infinity, _mask, QueryTriggerInteraction.Ignore))
+			if(Physics.Raycast(_rightHand.transform.position - _rightHand.transform.right*0.075f, -_rightHand.transform.up, out hitInfo, Mathf.Infinity, _mask, QueryTriggerInteraction.Ignore))
 			{
 				if(OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.Hands))
 				{
@@ -51,7 +52,20 @@ public class HandRaycast : MonoBehaviour
 		
 				}
 				
+				if(_lineRenderer != null)
+				{
+					_lineRenderer.SetPosition(0, _rightHand.transform.position - _rightHand.transform.right*0.075f);
+					_lineRenderer.SetPosition(1, hitInfo.point);
+				}
 				//Debug.Log("Hit " + hitInfo.collider.transform.gameObject.name);
+			}
+			else
+			{
+				if(_lineRenderer != null)
+				{
+					_lineRenderer.SetPosition(0, _rightHand.transform.position - _rightHand.transform.right*0.075f);
+					_lineRenderer.SetPosition(1, _rightHand.transform.position - _rightHand.transform.right*0.075f - _rightHand.transform.up * 10f);
+				}
 			}
 		}
     }

@@ -64,7 +64,7 @@ public class ShrinkRing : MonoBehaviour
 				
             }
             
-			if((t >= duration && t < (duration + 0.5f)) && !bSet)
+			if((t >= duration - 0.5f && t < (duration + 0.5f)) && !bSet)
             {
                 //only need to set this once...
 				gameObject.transform.parent.GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
