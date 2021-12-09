@@ -135,6 +135,7 @@ public class ProtectTheNest : MiniGameController
 
     public override void EndGame()
     {
+		//todo - fix two egg bug at end of game...
         _timeWithoutEgg = 0f;
         _skuaMoveTime = 0f;
 

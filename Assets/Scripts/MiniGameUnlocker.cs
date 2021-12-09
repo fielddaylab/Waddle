@@ -9,6 +9,19 @@ using UnityEngine;
 
 public class MiniGameUnlocker : MonoBehaviour
 {
+	public enum MiniGameCommonObjects
+	{
+		PEBBLES,
+		ICON,
+		NEST,
+		SNOW,
+		POLE,
+		PENGUINS,
+		MISC,
+		SPOT_LIGHT,
+		RAY_OF_LIGHT
+	}
+	
     [SerializeField]
     string _sceneName;
 
@@ -66,13 +79,15 @@ public class MiniGameUnlocker : MonoBehaviour
 	
 	void ResetMiniGame()
 	{
+		Debug.Log("Reseting mini game: " + _sceneName);
+		
 		transform.GetChild(3).gameObject.SetActive(false);
 		
 		_isGameUnlocked = false;
 	
 		if(_lockable)
 		{
-			transform.GetChild(1).GetComponent<MeshRenderer>().sharedMaterial = _lockMaterials[0];
+			transform.GetChild((int)MiniGameCommonObjects.ICON).GetComponent<MeshRenderer>().sharedMaterial = _lockMaterials[0];
 			
 			for(int i = 0; i < transform.GetChild(2).childCount; ++i)
 			{
@@ -91,6 +106,12 @@ public class MiniGameUnlocker : MonoBehaviour
 		
 		PenguinPlayer.Instance.transform.GetChild(3).GetChild(0).GetComponent<WaddleTrigger>().Speed = 20f;
 		PenguinPlayer.Instance.transform.GetChild(3).GetChild(1).GetComponent<WaddleTrigger>().Speed = 20f;
+		
+		Collider c = GetComponent<Collider>();
+		if(c != null)
+		{
+			c.enabled = true;
+		}
 	}
 	
     // Update is called once per frame

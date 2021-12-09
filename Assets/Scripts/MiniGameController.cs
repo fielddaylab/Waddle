@@ -29,7 +29,7 @@ public class MiniGameController : MonoBehaviour
 
     public virtual void StartGame()
     {
-		_startGameDelegate();
+		//_startGameDelegate();
 		
         _isGameActive = true;
         _startTime = UnityEngine.Time.time;

@@ -34,6 +34,7 @@ public class ShrinkRing : MonoBehaviour
 	{
 		gameObject.transform.parent.gameObject.GetComponent<MeshRenderer>().enabled = false;
 		gameObject.GetComponent<MeshRenderer>().enabled = false;
+		gameObject.transform.parent.gameObject.GetComponent<Collider>().enabled = false;
 	}
 
 	IEnumerator DestroyCo(float duration)
@@ -64,7 +65,7 @@ public class ShrinkRing : MonoBehaviour
 				
             }
             
-			if((t >= duration - 0.5f && t < (duration + 0.5f)) && !bSet)
+			if((t >= duration && t < (duration + 0.5f)) && !bSet)
             {
                 //only need to set this once...
 				gameObject.transform.parent.GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");

@@ -17,7 +17,8 @@ public class StartGame : MonoBehaviour
     void Start()
     {
         MiniGameController._endGameDelegate += OnEndGame;
-		MiniGameController._startGameDelegate += OnStartGame;
+		//MiniGameController._startGameDelegate += OnStartGame;
+		PenguinGameManager._resetGameDelegate += OnResetGame;
     }
 
     // Update is called once per frame
@@ -29,11 +30,13 @@ public class StartGame : MonoBehaviour
 	void OnDisable()
 	{
 		MiniGameController._endGameDelegate -= OnEndGame;
-		MiniGameController._startGameDelegate -= OnStartGame;
+		//MiniGameController._startGameDelegate -= OnStartGame;
+		PenguinGameManager._resetGameDelegate -= OnResetGame;
 	}
 	
 	void OnStartGame()
 	{
+		Debug.Log("Starting game: " + _miniGame.ToString());
 		//todo - figure out how to combine this with the same code that runs in MiniGameUnlocker
 		if(_miniGame != PenguinGameManager.MiniGame.MatingDance)
 		{
@@ -59,16 +62,17 @@ public class StartGame : MonoBehaviour
 	
 	void OnEndGame()
 	{
+		Debug.Log("Ending game: " + _miniGame.ToString());
 		if(_miniGame != PenguinGameManager.MiniGame.MatingDance)
 		{
-			//turn on the borders...
+			//turn off the borders...
 			transform.GetChild(3).gameObject.SetActive(false);
 			
-			//turn off icon and Pole...eventually fade and fade back in when leaving
+			//turn on icon and Pole...eventually fade and fade back in when leaving
 			transform.GetChild(1).gameObject.SetActive(true);
 			transform.GetChild(4).gameObject.SetActive(true);
 			
-			//if protect the nest, turn off ray of light...
+			//if protect the nest, turn on ray of light...
 			if(_miniGame == PenguinGameManager.MiniGame.ProtectTheNest)
 			{
 				transform.GetChild(8).gameObject.SetActive(true);
@@ -80,7 +84,16 @@ public class StartGame : MonoBehaviour
 		PenguinPlayer.Instance.transform.GetChild(3).GetChild(0).GetComponent<WaddleTrigger>().Speed = 20f;
 		PenguinPlayer.Instance.transform.GetChild(3).GetChild(1).GetComponent<WaddleTrigger>().Speed = 20f;
 		
-		gameObject.GetComponent<Collider>().enabled = true;
+		//only want to re-enable here when reseting..
+		//
+	}
+	
+	void OnResetGame()
+	{
+		if(_miniGame == PenguinGameManager.MiniGame.MatingDance)
+		{
+			gameObject.GetComponent<Collider>().enabled = true;
+		}
 	}
 	
 	void OnTriggerEnter(Collider otherCollider)
@@ -96,6 +109,8 @@ public class StartGame : MonoBehaviour
 			else
 			{
 				PenguinGameManager.Instance.LoadMiniGame(_miniGame);
+				
+				OnStartGame();
 			}
 		}
 	}
@@ -111,5 +126,7 @@ public class StartGame : MonoBehaviour
 		}
 		
 		PenguinGameManager.Instance.LoadMiniGame(_miniGame);
+		
+		OnStartGame();
 	}
 }

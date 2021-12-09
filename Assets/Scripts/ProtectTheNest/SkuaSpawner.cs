@@ -61,6 +61,11 @@ public class SkuaSpawner : MonoBehaviour
 			_spawnLocations[i].CurrentSkua = null;
 		}
 		
+		for(int i = 0; i < _npcPenguins.Count; ++i)	
+		{
+			StartCoroutine(ResetCall(i, 0.1f));
+		}
+		
 		_currentSkuas.Clear();
 	}
 	

@@ -137,6 +137,8 @@ public class MatingDance : MiniGameController
 			audio.Stop();
 		}
 		
+		_currentSample = 0;
+
 		base.EndGame();
 	}
 	
@@ -208,10 +210,13 @@ public class MatingDance : MiniGameController
 				}
 				_currentSample++;
 			}
-			/*else
+			else
 			{
-				EndGame();
-			}*/
+				if(_currentSample == _timeSamples.Length - 2)
+				{
+					EndGame();
+				}
+			}
 		}
 		
         //about 44,100 samples per second...

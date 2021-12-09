@@ -24,6 +24,7 @@ public class HandRaycast : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		//add check for hand tracking being active...
 		if(PenguinPlayer.Instance.ShowingUI && _rightHand != null)
 		{
 			RaycastHit hitInfo;
