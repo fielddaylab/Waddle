@@ -40,32 +40,8 @@ public class FeetRaycastJack : MonoBehaviour
 			Debug.Log(_penguinCapsuleHeight);
 		}
 		
-		//OVRManager.TrackingAcquired += SetHeights;
     }
 
-    // Update is called once per frame
-    /*void FixedUpdate()
-    {
-		
-    }*/
-	
-	/*void SetHeights()
-	{
-		if(!_resetHeights)
-		{
-			Time.timeScale = 0;
-			GameObject[] heightSets = GameObject.FindGameObjectsWithTag("HeightSet");
-			for(int i = 0; i < heightSets.Length; ++i)
-			{
-				Debug.Log( Camera.main.transform.position.y );
-				Vector3 posHeight = heightSets[i].transform.position;
-				posHeight.y = Camera.main.transform.position.y - 0.6096f;
-				heightSets[i].transform.position = posHeight;
-			}
-			_resetHeights = true;
-			Time.timeScale = 1;
-		}	
-	}*/
 	
 	void Update()
 	{
@@ -78,13 +54,7 @@ public class FeetRaycastJack : MonoBehaviour
 		
 		if(Physics.Raycast(_eyeObject.transform.position, Vector3.down, out hitInfo, Mathf.Infinity, _layerMask, QueryTriggerInteraction.Ignore))
 		{
-			//Debug.Log("Hit point: " + hitInfo.point);
-			//Vector3 pos = transform.position;
-			//pos.x = hitInfo.point.x;
-			//pos.z = hitInfo.point.z;
-			//Vector3 flatForward = _eyeObject.transform.forward;
-			//flatForward.y = 0f;
-			//flatForward = flatForward.normalized;
+
 			
 			Debug.Log(Vector3.Dot(_eyeObject.transform.up, Vector3.down));
 			//|| Vector3.Dot(_eyeObject.transform.up, Vector3.down) > 0.04f 
@@ -114,7 +84,6 @@ public class FeetRaycastJack : MonoBehaviour
 				bendedOver = false;
 			}
 
-			//pos.y = hitInfo.point.y;//_eyeObject.transform.position.y - _penguinCapsuleHeight + (_penguinCapsuleHeight - _eyeObject.transform.localPosition.y);	//also take into account difference between tracked height and capsule height...
 				transform.position = pos;
 
 
@@ -122,39 +91,19 @@ public class FeetRaycastJack : MonoBehaviour
 			q.eulerAngles = _rotationToApply;
 
 
-			//_eyeObject.transform.eulerAngles.x > 88
-			//Debug.Log(_eyeObject.transform.eulerAngles.x);
-
-
-			//transform.position -= (flatForward * 0.1f);
 
 			
 			if( Vector3.Dot(_eyeObject.transform.up, Vector3.down) > threashold){
-				//transform.rotation = _rotationTransform.transform.rotation;
 				Vector3 tmp = q.eulerAngles;
 				tmp.y = q.eulerAngles.y - 180;
 				q.eulerAngles = tmp;
 				transform.position += (flatForward * 0.1f);
-				//transform.position = transform.position + _transformationToApply;
 			}
 			else{
 					transform.position -= (flatForward * 0.1f);	//this should be related to scale
 			}
 			
-			
-
-			//Debug.Log(_eyeObject.transform.eulerAngles.x);
-			//Debug.Log(Vector3.Dot(_eyeObject.transform.up, Vector3.down));
-			//if(_eyeObject.transform.eulerAngles.x >70 && _eyeObject.transform.eulerAngles.x < 180){
-
 			transform.rotation = savedRotationTransform;
-			//transform.rotation = _rotationTransform.transform.rotation;
-
-
-			//Vector3 tmp1 = transform.eulerAngles;
-			//tmp1.y = _eyeObject.transform.eulerAngles.y;
-			//transform.eulerAngles = tmp1;
-			//transform.eulerAngles.y = _eyeObject.transform.eulerAngles.y;
 			transform.rotation *= q;
 			//to-do, need to back this up some...
 		}
