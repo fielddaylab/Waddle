@@ -81,7 +81,7 @@ public class MiniGameUnlocker : MonoBehaviour
 	{
 		Debug.Log("Reseting mini game: " + _sceneName);
 		
-		transform.GetChild(3).gameObject.SetActive(false);
+		transform.GetChild((int)MiniGameCommonObjects.SNOW).gameObject.SetActive(false);
 		
 		_isGameUnlocked = false;
 	
@@ -89,20 +89,20 @@ public class MiniGameUnlocker : MonoBehaviour
 		{
 			transform.GetChild((int)MiniGameCommonObjects.ICON).GetComponent<MeshRenderer>().sharedMaterial = _lockMaterials[0];
 			
-			for(int i = 0; i < transform.GetChild(2).childCount; ++i)
+			for(int i = 0; i < transform.GetChild((int)MiniGameCommonObjects.NEST).childCount; ++i)
 			{
-				transform.GetChild(2).GetChild(i).gameObject.SetActive(false);
+				transform.GetChild((int)MiniGameCommonObjects.NEST).GetChild(i).gameObject.SetActive(false);
 			}
 		}
 		
 		if(transform.childCount > 7)
 		{
-			transform.GetChild(8).gameObject.SetActive(true);
-			transform.GetChild(9).gameObject.SetActive(true);
+			transform.GetChild((int)MiniGameCommonObjects.SPOT_LIGHT).gameObject.SetActive(true);
+			transform.GetChild((int)MiniGameCommonObjects.RAY_OF_LIGHT).gameObject.SetActive(true);
 		}
 		
-		transform.GetChild(1).gameObject.SetActive(true);
-		transform.GetChild(4).gameObject.SetActive(true);
+		transform.GetChild((int)MiniGameCommonObjects.ICON).gameObject.SetActive(true);
+		transform.GetChild((int)MiniGameCommonObjects.POLE).gameObject.SetActive(true);
 		
 		PenguinPlayer.Instance.transform.GetChild(3).GetChild(0).GetComponent<WaddleTrigger>().Speed = 20f;
 		PenguinPlayer.Instance.transform.GetChild(3).GetChild(1).GetComponent<WaddleTrigger>().Speed = 20f;
@@ -146,17 +146,17 @@ public class MiniGameUnlocker : MonoBehaviour
 			if(_numPebblesCollected == _numPebblesToUnlock)
 			{
 				//switch to unlock icon, load mini game...
-				transform.GetChild(1).GetComponent<MeshRenderer>().sharedMaterial = _unlockedMaterial;
+				transform.GetChild((int)MiniGameCommonObjects.ICON).GetComponent<MeshRenderer>().sharedMaterial = _unlockedMaterial;
 				_isGameUnlocked = true;
 				
 				//show border
-				transform.GetChild(3).gameObject.SetActive(true);
+				transform.GetChild((int)MiniGameCommonObjects.SNOW).gameObject.SetActive(true);
 				
 				if(!Lockable)
 				{
 					//if a lockable attraction, don't hide poles and icon until game actually running
-					transform.GetChild(1).gameObject.SetActive(false);
-					transform.GetChild(4).gameObject.SetActive(false);
+					transform.GetChild((int)MiniGameCommonObjects.ICON).gameObject.SetActive(false);
+					transform.GetChild((int)MiniGameCommonObjects.POLE).gameObject.SetActive(false);
 				}
 				
 				//slow down the speed of the user, so harder for them to leave...
@@ -165,7 +165,7 @@ public class MiniGameUnlocker : MonoBehaviour
 				//every 2 pebbles, so a new version of the nest...
 				if(_numPebblesCollected % 2 == 0)
 				{
-					transform.GetChild(2).GetChild((_numPebblesCollected/2)-1).gameObject.SetActive(true);
+					transform.GetChild((int)MiniGameCommonObjects.NEST).GetChild((_numPebblesCollected/2)-1).gameObject.SetActive(true);
 				}
 				
 				UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(_sceneName, UnityEngine.SceneManagement.LoadSceneMode.Additive);
@@ -180,7 +180,7 @@ public class MiniGameUnlocker : MonoBehaviour
 				//accumulate a pebble onto the nest...
 				if(_numPebblesCollected % 2 == 0)
 				{
-					transform.GetChild(2).GetChild((_numPebblesCollected/2)-1).gameObject.SetActive(true);
+					transform.GetChild((int)MiniGameCommonObjects.NEST).GetChild((_numPebblesCollected/2)-1).gameObject.SetActive(true);
 				}
 			}
 		}

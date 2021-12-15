@@ -64,7 +64,7 @@ public class MatingDance : MiniGameController
 			string sData = _dataFile.text;
 			string[] dataArray = sData.Split('\n');
 			//number of time samples = length of data array.
-			Debug.Log(dataArray.Length);
+			//Debug.Log(dataArray.Length);
 			_timeSamples = new float[dataArray.Length];
 			_bubbleTypes = new int[dataArray.Length];
 			
@@ -218,16 +218,5 @@ public class MatingDance : MiniGameController
 				}
 			}
 		}
-		
-        //about 44,100 samples per second...
-        //Debug.Log(_sampleData[GetComponent<AudioSource>().timeSamples].ToString("F4"));
-        //pre-define a set of samples for when we need to spawn a bubble, based on the music...
-        /*if(_sampleData[GetComponent<AudioSource>().timeSamples] > 0.5f)
-        {
-            if(_bubblePrefab != null)
-            {
-                GameObject.Instantiate(_bubblePrefab);
-            }
-        }*/
     }
 }

@@ -41,17 +41,17 @@ public class StartGame : MonoBehaviour
 		if(_miniGame != PenguinGameManager.MiniGame.MatingDance)
 		{
 			//turn on the borders...
-			transform.GetChild(3).gameObject.SetActive(true);
+			transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.SNOW).gameObject.SetActive(true);
 			
 			//turn off icon and Pole...eventually fade and fade back in when leaving
-			transform.GetChild(1).gameObject.SetActive(false);
-			transform.GetChild(4).gameObject.SetActive(false);
+			transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.ICON).gameObject.SetActive(false);
+			transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.POLE).gameObject.SetActive(false);
 			
 			//if protect the nest, turn off ray of light...
 			if(_miniGame == PenguinGameManager.MiniGame.ProtectTheNest)
 			{
-				transform.GetChild(8).gameObject.SetActive(false);
-				transform.GetChild(9).gameObject.SetActive(false);
+				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.SPOT_LIGHT).gameObject.SetActive(false);
+				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.RAY_OF_LIGHT).gameObject.SetActive(false);
 			}
 		}
 		
@@ -65,18 +65,19 @@ public class StartGame : MonoBehaviour
 		Debug.Log("Ending game: " + _miniGame.ToString());
 		if(_miniGame != PenguinGameManager.MiniGame.MatingDance)
 		{
+			//we don't do this for mating dance, because the child objects don't exist where this script is for that case at the moment...
 			//turn off the borders...
-			transform.GetChild(3).gameObject.SetActive(false);
+			transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.SNOW).gameObject.SetActive(false);
 			
 			//turn on icon and Pole...eventually fade and fade back in when leaving
-			transform.GetChild(1).gameObject.SetActive(true);
-			transform.GetChild(4).gameObject.SetActive(true);
+			transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.ICON).gameObject.SetActive(true);
+			transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.POLE).gameObject.SetActive(true);
 			
 			//if protect the nest, turn on ray of light...
 			if(_miniGame == PenguinGameManager.MiniGame.ProtectTheNest)
 			{
-				transform.GetChild(8).gameObject.SetActive(true);
-				transform.GetChild(9).gameObject.SetActive(true);
+				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.SPOT_LIGHT).gameObject.SetActive(true);
+				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.RAY_OF_LIGHT).gameObject.SetActive(true);
 			}
 		}
 		

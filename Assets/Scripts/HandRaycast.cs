@@ -34,7 +34,7 @@ public class HandRaycast : MonoBehaviour
 				if(OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.Hands))
 				{
 					//raycast the UI...
-					
+					Debug.Log("Pressing button with hand");
 				}
 				
 				GameObject pObject = hitInfo.collider.transform.parent.gameObject;
