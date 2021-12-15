@@ -19,7 +19,8 @@ public class MiniGameUnlocker : MonoBehaviour
 		PENGUINS,
 		MISC,
 		SPOT_LIGHT,
-		RAY_OF_LIGHT
+		RAY_OF_LIGHT,
+		MISC2
 	}
 	
     [SerializeField]
@@ -99,6 +100,7 @@ public class MiniGameUnlocker : MonoBehaviour
 		{
 			transform.GetChild((int)MiniGameCommonObjects.SPOT_LIGHT).gameObject.SetActive(true);
 			transform.GetChild((int)MiniGameCommonObjects.RAY_OF_LIGHT).gameObject.SetActive(true);
+			transform.GetChild((int)MiniGameCommonObjects.MISC2).gameObject.SetActive(true);
 		}
 		
 		transform.GetChild((int)MiniGameCommonObjects.ICON).gameObject.SetActive(true);

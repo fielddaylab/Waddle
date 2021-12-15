@@ -52,6 +52,7 @@ public class StartGame : MonoBehaviour
 			{
 				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.SPOT_LIGHT).gameObject.SetActive(false);
 				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.RAY_OF_LIGHT).gameObject.SetActive(false);
+				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.MISC2).gameObject.SetActive(false);
 			}
 		}
 		
@@ -78,6 +79,7 @@ public class StartGame : MonoBehaviour
 			{
 				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.SPOT_LIGHT).gameObject.SetActive(true);
 				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.RAY_OF_LIGHT).gameObject.SetActive(true);
+				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.MISC2).gameObject.SetActive(true);
 			}
 		}
 		
