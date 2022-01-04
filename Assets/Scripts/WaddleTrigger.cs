@@ -45,22 +45,26 @@ public class WaddleTrigger : MonoBehaviour
 		if(otherCollider.gameObject.name == "CenterEyeAnchor")
 		{
 			//transform.position = otherCollider.gameObject.transform.position;
-			_needsUpdate = true;
-			/*int lr = -1;
-			if(gameObject.name.EndsWith("Right"))
+			//check that their head is relatively level when entering the collider
+			if(_centerEye.transform.forward.y > -0.25f && _centerEye.transform.forward.y < 0.25f)
 			{
-				lr = 0;
-				Debug.Log("Right nav ring");
+				_needsUpdate = true;
+				/*int lr = -1;
+				if(gameObject.name.EndsWith("Right"))
+				{
+					lr = 0;
+					Debug.Log("Right nav ring");
+				}
+				else if(gameObject.name.EndsWith("Left"))
+				{
+					lr = 1;
+					Debug.Log("Left nav ring");
+				}*/
+				
+				//Debug.Log(gameObject.name);
+				//_rotationTransform.transform.position -= _rotationTransform.transform.forward * _speed * Time.deltaTime;
+				transform.parent.GetComponent<NavRing>().ForceUpdate();
 			}
-			else if(gameObject.name.EndsWith("Left"))
-			{
-				lr = 1;
-				Debug.Log("Left nav ring");
-			}*/
-			
-			//Debug.Log(gameObject.name);
-			//_rotationTransform.transform.position -= _rotationTransform.transform.forward * _speed * Time.deltaTime;
-			transform.parent.GetComponent<NavRing>().ForceUpdate();
 		}
 	}
 	
@@ -68,19 +72,17 @@ public class WaddleTrigger : MonoBehaviour
 	{
 		if(_needsUpdate)
 		{
-			if(_centerEye.transform.forward.y > -0.5f)
+			
+			//Debug.Log("Updating: " + updateCount);
+			//this moves the entire player
+			_positionTransform.transform.position += _rotationTransform.transform.forward * _speed * Time.deltaTime; 
+			_needsUpdate = false;
+			//updateCount++;
+			
+			AudioSource audioClip = GetComponent<AudioSource>();
+			if(audioClip != null)
 			{
-				//Debug.Log("Updating: " + updateCount);
-				//this moves the entire player
-				_positionTransform.transform.position += _rotationTransform.transform.forward * _speed * Time.deltaTime; 
-				_needsUpdate = false;
-				//updateCount++;
-				
-				AudioSource audioClip = GetComponent<AudioSource>();
-				if(audioClip != null)
-				{
-					audioClip.Play();
-				}
+				audioClip.Play();
 			}
 		}
 	}
