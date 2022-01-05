@@ -1,5 +1,16 @@
 {
+  "scopedRegistries": [
+    {
+      "name": "package.openupm.com",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.beauprime.beaudata"
+      ]
+    }
+  ],
   "dependencies": {
+    "com.beauprime.beaudata": "0.3.1",
+    "com.fieldday.opengamedata-unity": "file:../Submodules/opengamedata-unity/Assets/FieldDay",
     "com.unity.ide.visualstudio": "2.0.9",
     "com.unity.ide.vscode": "1.2.3",
     "com.unity.render-pipelines.universal": "11.0.0",

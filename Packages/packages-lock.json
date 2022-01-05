@@ -1,5 +1,18 @@
 {
   "dependencies": {
+    "com.beauprime.beaudata": {
+      "version": "0.3.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
+    "com.fieldday.opengamedata-unity": {
+      "version": "file:../Submodules/opengamedata-unity/Assets/FieldDay",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.unity.ext.nunit": {
       "version": "1.0.6",
       "depth": 1,
