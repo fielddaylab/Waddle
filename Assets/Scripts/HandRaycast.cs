@@ -53,13 +53,13 @@ public class HandRaycast : MonoBehaviour
 				
 				if(pObject.transform.GetChild(0).gameObject == hitInfo.collider.transform.gameObject)
 				{
-					pObject.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
-					pObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
+					pObject.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
+					pObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
 				}
 				else if(pObject.transform.GetChild(1).gameObject == hitInfo.collider.transform.gameObject)
 				{
-					pObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
-					pObject.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);		
+					pObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
+					pObject.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);		
 				}
 				else
 				{
