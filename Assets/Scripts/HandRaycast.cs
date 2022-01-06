@@ -31,8 +31,10 @@ public class HandRaycast : MonoBehaviour
 
 			if(Physics.Raycast(_rightHand.transform.position - _rightHand.transform.right*0.075f, -_rightHand.transform.up, out hitInfo, Mathf.Infinity, _mask, QueryTriggerInteraction.Ignore))
 			{
+				GameObject pObject = hitInfo.collider.transform.parent.gameObject;
+				
 				if(OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.Hands))
-				{
+				{	
 					//raycast the UI...
 					Debug.Log("Pressing button with hand");
 					if(pObject.transform.GetChild(0).gameObject == hitInfo.collider.transform.gameObject)
@@ -48,7 +50,7 @@ public class HandRaycast : MonoBehaviour
 					return;
 				}
 				
-				GameObject pObject = hitInfo.collider.transform.parent.gameObject;
+				
 				if(pObject.transform.GetChild(0).gameObject == hitInfo.collider.transform.gameObject)
 				{
 					pObject.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
