@@ -127,7 +127,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.0.307
+  bundleVersion: 0.0.310
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -147,11 +147,11 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier: {}
   buildNumber:
-    Standalone: 0.0.307
+    Standalone: 0.0.310
     iPhone: 0
     tvOS: 0
   overrideDefaultApplicationIdentifier: 0
-  AndroidBundleVersionCode: 307
+  AndroidBundleVersionCode: 310
   AndroidMinSdkVersion: 23
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 0
