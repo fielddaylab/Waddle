@@ -35,6 +35,17 @@ public class HandRaycast : MonoBehaviour
 				{
 					//raycast the UI...
 					Debug.Log("Pressing button with hand");
+					if(pObject.transform.GetChild(0).gameObject == hitInfo.collider.transform.gameObject)
+					{
+						//resume (just close the menu)
+						
+					}
+					else if(pObject.transform.GetChild(1).gameObject == hitInfo.collider.transform.gameObject)
+					{
+						//restart
+					}
+					
+					return;
 				}
 				
 				GameObject pObject = hitInfo.collider.transform.parent.gameObject;
