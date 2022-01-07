@@ -27,6 +27,52 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
         _lineRenderer = transform.GetChild(5).gameObject.GetComponent<LineRenderer>();
     }
 
+	public void StopShowingUI()
+	{
+		_showingUI = false;
+					
+		_mainUI.SetActive(false);
+		//switch our hands...
+		if(_leftHandController != null)
+		{
+			_leftHandController.transform.GetChild(1).gameObject.SetActive(true);
+			_leftHandController.transform.GetChild(2).gameObject.SetActive(false);
+		}
+		
+		if(_rightHandController != null)
+		{
+			_rightHandController.transform.GetChild(1).gameObject.SetActive(true);
+			_rightHandController.transform.GetChild(2).gameObject.SetActive(false);
+		}
+		
+		EnableMovement();
+		
+		//need a way to stop physics for everything but colliding with the pause screen buttons...
+		
+		_lineRenderer.enabled = false;
+	}
+	
+	public void StartShowingUI()
+	{
+		_showingUI = true;
+		_mainUI.SetActive(true);
+		if(_leftHandController != null)
+		{
+			_leftHandController.transform.GetChild(1).gameObject.SetActive(false);
+			_leftHandController.transform.GetChild(2).gameObject.SetActive(true);
+		}
+		
+		if(_rightHandController != null)
+		{
+			_rightHandController.transform.GetChild(1).gameObject.SetActive(false);
+			_rightHandController.transform.GetChild(2).gameObject.SetActive(true);
+		}
+		
+		DisableMovement();
+		
+		_lineRenderer.enabled = true;	
+	}
+	
     // Update is called once per frame
     void Update()
     {
@@ -38,45 +84,11 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 			{
 				if(_mainUI.activeSelf)
 				{
-					_showingUI = false;
-					
-					_mainUI.SetActive(false);
-					//switch our hands...
-					if(_leftHandController != null)
-					{
-						_leftHandController.transform.GetChild(1).gameObject.SetActive(true);
-						_leftHandController.transform.GetChild(2).gameObject.SetActive(false);
-					}
-					
-					if(_rightHandController != null)
-					{
-						_rightHandController.transform.GetChild(1).gameObject.SetActive(true);
-						_rightHandController.transform.GetChild(2).gameObject.SetActive(false);
-					}
-					
-					EnableMovement();
-					
-					_lineRenderer.enabled = false;
+					StopShowingUI();
 				}
 				else
 				{
-					_showingUI = true;
-					_mainUI.SetActive(true);
-					if(_leftHandController != null)
-					{
-						_leftHandController.transform.GetChild(1).gameObject.SetActive(false);
-						_leftHandController.transform.GetChild(2).gameObject.SetActive(true);
-					}
-					
-					if(_rightHandController != null)
-					{
-						_rightHandController.transform.GetChild(1).gameObject.SetActive(false);
-						_rightHandController.transform.GetChild(2).gameObject.SetActive(true);
-					}
-					
-					DisableMovement();
-					
-					_lineRenderer.enabled = true;
+					StartShowingUI();
 				}
 			}
 		}

@@ -119,14 +119,14 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		}
 	}
 	
-	void HandleHMDMounted()
+	public void HandleHMDMounted()
 	{
 		StartCoroutine(ShowMessage("", 5f, 10f));
 		
 		PenguinPlayer.Instance.EnableMovement();
 	}
 	
-	void HandleHMDUnmounted()
+	public void HandleHMDUnmounted()
 	{
 		//this should now reset the whole experience in "ShowMode"
 		if(_gameMode == GameMode.ShowMode)

@@ -36,14 +36,15 @@ public class OrientToUser : MonoBehaviour
 			//get main camera
 			return Camera.main;
 		}
-#if UNITY_EDITOR
 		else
 		{
+			#if UNITY_EDITOR
 			//get scene view camera
 			return SceneView.lastActiveSceneView.camera;
+			#else
+			return null;
+			#endif
 		}
-#endif
-		return null;
 	}
 
 	bool ShouldRotate(int axis)
