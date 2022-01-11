@@ -15,13 +15,25 @@ public class HandRaycast : MonoBehaviour
 	LayerMask _mask;
 	
 	LineRenderer _lineRenderer;
+
+	GameObject _reticleObject;
 	
 	bool _wasPinching = false;
+	
+	const int NUM_LAST_POSITIONS = 10;
+	
+	Vector3 [] _lastPositions = new Vector3[NUM_LAST_POSITIONS];
 	
     // Start is called before the first frame update
     void Start()
     {
         _lineRenderer = transform.GetChild(5).gameObject.GetComponent<LineRenderer>();
+		_reticleObject = transform.GetChild(6).gameObject;
+		
+		for(int i = 0; i < NUM_LAST_POSITIONS; ++i)
+		{
+			_lastPositions[i] = Vector3.zero;
+		}
     }
 
     // Update is called once per frame
@@ -56,6 +68,15 @@ public class HandRaycast : MonoBehaviour
 			
 					}
 					
+					if(_reticleObject != null)
+					{
+						if(Physics.Raycast(castOrigin, -_rightHand.transform.up, out hitInfo, Mathf.Infinity, _mask, QueryTriggerInteraction.Ignore))
+						{
+							Vector3 hp = hitInfo.point;
+							_reticleObject.transform.position = hp;
+						}
+					}
+					
 					if(_lineRenderer != null)
 					{
 						_lineRenderer.SetPosition(0, castOrigin);
@@ -69,6 +90,11 @@ public class HandRaycast : MonoBehaviour
 					{
 						_lineRenderer.SetPosition(0, castOrigin);
 						_lineRenderer.SetPosition(1, _rightHand.transform.position - _rightHand.transform.right*0.11f - _rightHand.transform.forward*0.025f - _rightHand.transform.up * 10f);
+					}
+					
+					if(_reticleObject != null)
+					{
+						_reticleObject.transform.position = Vector3.zero;
 					}
 				}
 			}
@@ -98,6 +124,11 @@ public class HandRaycast : MonoBehaviour
 						_lineRenderer.SetPosition(0, Vector3.zero);
 						_lineRenderer.SetPosition(1, Vector3.zero);
 					}
+					
+					if(_reticleObject != null)
+					{
+						_reticleObject.transform.position = Vector3.zero;
+					}
 				}
 				else
 				{
@@ -106,17 +137,41 @@ public class HandRaycast : MonoBehaviour
 						_lineRenderer.SetPosition(0, Vector3.zero);
 						_lineRenderer.SetPosition(1, Vector3.zero);
 					}
+					
+					if(_reticleObject != null)
+					{
+						_reticleObject.transform.position = Vector3.zero;
+					}
 				}
 			}
-			
-			/*else
+			else
 			{
-				if(_lineRenderer != null)
+				if(_reticleObject != null)
 				{
-					_lineRenderer.SetPosition(0, castOrigin);
-					_lineRenderer.SetPosition(1, _rightHand.transform.position - _rightHand.transform.right*0.125f - _rightHand.transform.forward*0.075f - _rightHand.transform.up * 10f);
+					if(Physics.Raycast(castOrigin, -_rightHand.transform.up, out hitInfo, Mathf.Infinity, _mask, QueryTriggerInteraction.Ignore))
+					{
+						GameObject pObject = hitInfo.collider.transform.parent.gameObject;
+					
+						if(pObject.transform.GetChild(0).gameObject == hitInfo.collider.transform.gameObject)
+						{
+							pObject.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
+							pObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
+						}
+						else if(pObject.transform.GetChild(1).gameObject == hitInfo.collider.transform.gameObject)
+						{
+							pObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
+							pObject.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);		
+						}
+						
+						Vector3 hp = hitInfo.point;
+						_reticleObject.transform.position = hp;
+					}
+					else
+					{
+						_reticleObject.transform.position = Vector3.zero;
+					}
 				}
-			}*/
+			}
 		}
     }
 }
