@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TestSurvey : MonoBehaviour
 {
-    [SerializeField] private Survey m_Survey;
+    [SerializeField] private SurveyController m_Survey;
     [SerializeField] private TextAsset m_DefaultSurvey;
 
     private void Start()
