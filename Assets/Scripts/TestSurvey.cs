@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TestSurvey : MonoBehaviour
 {
-    [SerializeField] private SurveyController m_Survey;
+    [SerializeField] private SurveyVR m_Survey;
     [SerializeField] private TextAsset m_DefaultSurvey;
 
     private void Start()
@@ -15,8 +15,12 @@ public class TestSurvey : MonoBehaviour
 
 public class TestHandler : ISurveyHandler
 {
-    public void HandleSurveyResponse(Dictionary<string, string> surveyResponses)
+    public void HandleSurveyResponse(Dictionary<string, string> surveyResponses, float timeDelta = -1)
     {
-        Debug.Log("Survey submitted.");
+        string stringData = "";
+        foreach (var pair in surveyResponses) {
+            stringData += $"\n{pair.Key}, {pair.Value}";
+        }
+        Debug.Log($"Survey submitted in {timeDelta} seconds. data is as follows: {stringData}");
     }
 }

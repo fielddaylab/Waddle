@@ -517,6 +517,7 @@ GameObject:
   - component: {fileID: 8682024894659518877}
   - component: {fileID: 6394300977753371537}
   - component: {fileID: 8838729238549398209}
+  - component: {fileID: 877228019223021361}
   m_Layer: 0
   m_Name: Question
   m_TagString: Untagged
@@ -572,6 +573,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   answerPrefab: {fileID: 8980386964100210083, guid: f9da9291151bddc4ba235e752f1abbcb, type: 3}
   answerHolder: {fileID: 7430146983177854743}
+  raycastBlocker: {fileID: 0}
   answerCount: 5
   questionText: {fileID: 7567196403370990090}
   button: {fileID: 4486774319229172845}
@@ -582,3 +584,14 @@ MonoBehaviour:
   primaryFocusAlpha: 1
   secondaryFocusAlpha: 0.5
   unfocusedAlpha: 0
+  primaryFocusZ: 0
+  secondaryFocusZ: 200
+  unfocusedZ: 1000
+--- !u!222 &877228019223021361
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8302287910397928406}
+  m_CullTransparentMesh: 1
