@@ -21,16 +21,79 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 	bool _showingUI = false;
 	public bool ShowingUI => _showingUI;
 	
+	bool _wasShowingUserMessage = false;
+	
     // Start is called before the first frame update
     void Start()
     {
         _lineRenderer = transform.GetChild(5).gameObject.GetComponent<LineRenderer>();
     }
-
+	
+	public void StopBackgroundMusic()
+	{
+		AudioSource aSource = GetComponent<AudioSource>();
+		if(aSource != null)
+		{
+			aSource.Stop();
+		}
+	}
+	
+	public void StartBackgroundMusic()
+	{
+		AudioSource aSource = GetComponent<AudioSource>();
+		if(aSource != null)
+		{
+			aSource.Play();
+		}
+	}
+	
+	public void HideUserMessage()
+	{
+		//just for pause screen..
+		if(_userMessageUI != null)
+		{
+			_userMessageUI.SetActive(false);
+		}
+	}
+	
+	public void ShowUserMessage()
+	{
+		if(_userMessageUI != null)
+		{
+			_userMessageUI.SetActive(true);
+		}
+	}
+	
+	public void ForceUserMessageOff()
+	{
+		//for restarting the game
+		if(_userMessageUI != null)
+		{
+			_userMessageUI.GetComponent<UserMessage>().ForceMessageOff();
+		}
+	}
+	
+	public bool UserMessageActive()
+	{
+		if(_userMessageUI != null)
+		{
+			return _userMessageUI.GetComponent<UserMessage>().ShowingMessage;
+		}
+		
+		return false;
+	}
+	
 	public void StopShowingUI()
 	{
 		_showingUI = false;
-					
+		UnityEngine.Time.timeScale = 1;
+		AudioListener.pause = false;
+		if(_wasShowingUserMessage)
+		{
+			ShowUserMessage();
+			_wasShowingUserMessage = false;
+		}
+		
 		_mainUI.SetActive(false);
 		//switch our hands...
 		if(_leftHandController != null)
@@ -56,6 +119,15 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 	{
 		_showingUI = true;
 		_mainUI.SetActive(true);
+		UnityEngine.Time.timeScale = 0;
+		AudioListener.pause = true;
+		
+		_wasShowingUserMessage = UserMessageActive();
+		if(_wasShowingUserMessage)
+		{
+			HideUserMessage();
+		}
+
 		if(_leftHandController != null)
 		{
 			_leftHandController.transform.GetChild(1).gameObject.SetActive(false);

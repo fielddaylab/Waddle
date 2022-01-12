@@ -124,10 +124,20 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		StartCoroutine(ShowMessage("", 5f, 10f));
 		
 		PenguinPlayer.Instance.EnableMovement();
+		
+		UnityEngine.Time.timeScale = 1;
+		//AudioListener.pause = false;
+		PenguinPlayer.Instance.StartBackgroundMusic();
+		
 	}
 	
 	public void HandleHMDUnmounted()
 	{
+		UnityEngine.Time.timeScale = 0;
+		//AudioListener.pause = true;
+		PenguinPlayer.Instance.StopBackgroundMusic();
+		PenguinPlayer.Instance.ForceUserMessageOff();
+		
 		//this should now reset the whole experience in "ShowMode"
 		if(_gameMode == GameMode.ShowMode)
 		{

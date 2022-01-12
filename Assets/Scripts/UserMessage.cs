@@ -6,6 +6,8 @@ public class UserMessage : MonoBehaviour
 {
 	bool _showingMessage = false;
 	
+	public bool ShowingMessage => _showingMessage;
+	
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,15 @@ public class UserMessage : MonoBehaviour
 			_showingMessage = true;
 			StartCoroutine(ShowMessage(message, duration));
 		}
+	}
+	
+	public void ForceMessageOff()
+	{
+		_showingMessage = false;
+		
+		transform.GetChild(0).gameObject.SetActive(false);
+		transform.GetChild(1).gameObject.SetActive(false);
+		transform.GetChild(2).gameObject.SetActive(false);
 	}
 	
 	IEnumerator ShowMessage(string message, float duration)
