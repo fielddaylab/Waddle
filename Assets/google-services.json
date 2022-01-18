@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "475789684664",
+    "firebase_url": "https://penguinsvr-default-rtdb.firebaseio.com",
     "project_id": "penguinsvr",
     "storage_bucket": "penguinsvr.appspot.com"
   },
