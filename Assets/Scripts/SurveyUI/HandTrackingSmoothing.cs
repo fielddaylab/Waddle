@@ -12,9 +12,6 @@ public class HandTrackingSmoothing : MonoBehaviour
     private OVRInput.Controller active;
     private LaserPointer m_Pointer;
     [SerializeField] private SpriteRenderer indicator;
-    [SerializeField] private OVRHand lHand;
-    [SerializeField] private OVRHand rHand;
-
     [SerializeField] private Vector3 positionOffset;
     [SerializeField] private Quaternion[] rotationOffsets;
     //private 
@@ -33,21 +30,15 @@ public class HandTrackingSmoothing : MonoBehaviour
         active = OVRInput.GetActiveController();
         switch (active) {
             case OVRInput.Controller.LHand:
-                target = lHand.PointerPose;
-                break;
-            case OVRInput.Controller.RHand:
-            case OVRInput.Controller.Hands:
-                target = rHand.PointerPose;
-                break;
             case OVRInput.Controller.LTouch:
                 target = m_CameraRig.leftHandAnchor;
                 break;
+            case OVRInput.Controller.RHand:
+            case OVRInput.Controller.Hands:
             case OVRInput.Controller.RTouch:
             case OVRInput.Controller.Touch:
-                target = m_CameraRig.rightHandAnchor;
-                break;
             default:
-                target = rHand.PointerPose;
+                target = m_CameraRig.rightHandAnchor;
                 break;
         }
     }
@@ -75,7 +66,7 @@ public class HandTrackingSmoothing : MonoBehaviour
 
         transform.position = totalPos;
 
-        if (active != OVRInput.Controller.LTouch || active != OVRInput.Controller.RTouch || active != OVRInput.Controller.Touch) {
+        if (active != OVRInput.Controller.LTouch && active != OVRInput.Controller.RTouch && active != OVRInput.Controller.Touch) {
             foreach (var rot in rotationOffsets)
                 finRot *= rot;
             transform.position += (finRot * positionOffset);

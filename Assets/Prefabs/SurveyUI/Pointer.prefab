@@ -129,11 +129,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indicator: {fileID: 5347207773793659527}
-  lHand: {fileID: 0}
-  rHand: {fileID: 0}
   positionOffset: {x: 0, y: 0, z: 0.05}
   rotationOffsets:
-  - {x: 0.21643962, y: 0, z: 0, w: 0.976296}
+  - {x: -0.70710677, y: 0, z: 0, w: 0.70710677}
+  - {x: 0, y: -0.9238795, z: 0, w: 0.38268343}
   frameHistory: 15
 --- !u!1 &8910443887818455260
 GameObject:
