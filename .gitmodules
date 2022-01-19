@@ -2,3 +2,6 @@
 	path = Submodules/opengamedata-unity
 	url = https://github.com/opengamedata/opengamedata-unity.git
 	branch = main
+[submodule "Submodules/BeauUtil"]
+	path = Submodules/BeauUtil
+	url = https://github.com/BeauPrime/BeauUtil.git

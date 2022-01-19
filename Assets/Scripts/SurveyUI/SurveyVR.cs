@@ -60,7 +60,8 @@ public class SurveyVR : MonoBehaviour
         #if UNITY_EDITOR
         surveyData = Survey.ParseSurveyData(string.Empty, defaultJSON);
         #else
-        Survey.FetchSurvey(inSurveyName);
+        //Survey.FetchSurvey(inSurveyName);
+        surveyData = Survey.ParseSurveyData(string.Empty, defaultJSON);
         #endif
 
         questionCount = surveyData.Questions.Count;

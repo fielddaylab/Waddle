@@ -7,6 +7,19 @@
       "dependencies": {},
       "url": "https://package.openupm.com"
     },
+    "com.beauprime.beauroutine": {
+      "version": "0.11.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
+    "com.beauprime.beauutil": {
+      "version": "file:../Submodules/BeauUtil/Assets/BeauUtil",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.fieldday.opengamedata-unity": {
       "version": "file:../Submodules/opengamedata-unity/Assets/FieldDay",
       "depth": 0,
