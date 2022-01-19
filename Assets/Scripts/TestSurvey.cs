@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using FieldDay;
+using Firebase.Analytics;
 using UnityEngine;
 
 public class TestSurvey : MonoBehaviour
@@ -10,6 +11,9 @@ public class TestSurvey : MonoBehaviour
     private void Start()
     {
         m_Survey.Initialize(null, m_DefaultSurvey, new TestHandler());
+
+        // Test Firebase logging
+        FirebaseAnalytics.LogEvent("start");
     }
 }
 
