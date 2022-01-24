@@ -138,6 +138,7 @@ public class SkuaSpawner : MonoBehaviour
 	{
 		_takenSpotList.Clear();
 		
+		
 		foreach(GameObject g in _currentSkuas)
 		{
 			SkuaSpot potentialSpot = null;
@@ -166,7 +167,7 @@ public class SkuaSpawner : MonoBehaviour
 			else if(sc.GetEgg != null)
 			{
 				//if this skua has the egg, and it hasn't retreated to an outer spot yet, do so...
-				if(!sc.CurrentSpot.IsOuter)
+				/*if(!sc.CurrentSpot.IsOuter)
 				{
 					while(potentialSpot == null && numIterations < 10)
 					{
@@ -189,13 +190,16 @@ public class SkuaSpawner : MonoBehaviour
 					}
 					
 					sc.SetNewSpot(potentialSpot);
-					sc.WalkToSpot(SkuaWalkState.WalkDirection.eBACK);
+					
+					//start flying animation here...
+					sc.FlyToSpot(SkuaWalkState.WalkDirection.eBACK);
+					//sc.WalkToSpot(SkuaWalkState.WalkDirection.eBACK);
 				}
 				else
 				{
 					//continue eating...
 					sc.Eat();
-				}
+				}*/
 			}
 			else if(sc.InHitState())
 			{
@@ -273,11 +277,18 @@ public class SkuaSpawner : MonoBehaviour
 					{
 						_theEgg.GetComponent<Egg>().IsTaken = true;
 						sc.SetEggRef(_theEgg.GetComponent<Egg>());
+						//this is where we need to grab the egg eventually..
+						//sc.GetAnimController().SetBool("grab", true);
+						SkuaWalkState.WalkDirection eDir = sc.WhichDirection(potentialSpot);
+						sc.SetNewSpot(potentialSpot);
+						sc.GrabEgg();
 					}
-					
-					SkuaWalkState.WalkDirection eDir = sc.WhichDirection(potentialSpot);
-					sc.SetNewSpot(potentialSpot);
-					sc.WalkToSpot(eDir);
+					else
+					{
+						SkuaWalkState.WalkDirection eDir = sc.WhichDirection(potentialSpot);
+						sc.SetNewSpot(potentialSpot);
+						sc.WalkToSpot(eDir);
+					}
 				}
 			}
 		}

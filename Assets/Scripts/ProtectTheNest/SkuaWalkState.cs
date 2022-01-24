@@ -45,21 +45,21 @@ public class SkuaWalkState : MonoBehaviour, ISkuaState
 			yield return null;
 		}
 
-		if(_sc.CurrentSpot.IsCenter)
+		/*if(_sc.CurrentSpot.IsCenter)
 		{
 			//take egg, then retreat..
 			if(_sc != null && _sc.GetEgg != null)
 			{
 				_sc.GetEgg.gameObject.transform.localPosition = Vector3.zero;
 				_sc.GetEgg.gameObject.transform.SetParent(gameObject.transform.GetChild(0).transform);
-				_sc.GoIdle();
+				_sc.GrabEgg();
 			}
 		}
 		else
-		{
+		{*/
 			transform.rotation = newRot;
 			_sc.GoIdle();
-		}
+		//}
 	}
 	
 	public void Handle(SkuaController sc)

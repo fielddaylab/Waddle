@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class SkuaController : MonoBehaviour
 {
-	ISkuaState _walkState, _hitState, _eatState, _idleState, _removeState;
+	ISkuaState _walkState, _hitState, _eatState, _idleState, _removeState, _grabState, _flyState;
 	
 	SkuaContext _skuaStateContext;
 	
@@ -45,6 +45,8 @@ public class SkuaController : MonoBehaviour
 		_eatState = gameObject.AddComponent<SkuaEatState>();
 		_hitState = gameObject.AddComponent<SkuaHitState>();
 		_removeState = gameObject.AddComponent<SkuaRemoveState>();
+		_grabState = gameObject.AddComponent<SkuaGrabState>();
+		_flyState = gameObject.AddComponent<SkuaFlyState>();
 		
 		_skuaStateContext.Transition(_idleState);
     }
@@ -101,9 +103,21 @@ public class SkuaController : MonoBehaviour
 		_skuaStateContext.Transition(_walkState);
 	}
 	
+	public void FlyToSpot(SkuaWalkState.WalkDirection eDir)
+	{
+		_walkDir = eDir;
+		
+		_skuaStateContext.Transition(_flyState);
+	}
+	
 	public void GoIdle()
 	{
 		_skuaStateContext.Transition(_idleState);
+	}
+	
+	public void GrabEgg()
+	{
+		_skuaStateContext.Transition(_grabState);
 	}
 	
 	public void Eat()
