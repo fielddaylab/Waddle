@@ -75,7 +75,7 @@ public class NavRing : MonoBehaviour
 			transform.position = flatEye;
 			if(_lr != -1)
 			{
-				//this code fudges the centering of the box in the opposite direction, assuming the user's momentum is going the other way
+				//this code fudges the centering of the boxes in the opposite direction, assuming the user's momentum is going the other way
 				Vector3 vR = _centerEye.transform.right;
 				vR.y = 0f;
 				vR = Vector3.Normalize(vR);
@@ -83,13 +83,13 @@ public class NavRing : MonoBehaviour
 				if(_lr == 0)
 				{
 					//Debug.Log("Right" + transform.position.ToString("F3"));
-					transform.position = transform.position - vR * radius*0.5f;
+					transform.position = transform.position - vR * radius*0.75f;
 					//Debug.Log(transform.position.ToString("F3"));
 				}
 				else
 				{
 					//Debug.Log("Left" + transform.position.ToString("F3"));
-					transform.position = transform.position + vR * radius*0.5f;
+					transform.position = transform.position + vR * radius*0.75f;
 					//Debug.Log(transform.position.ToString("F3"));
 				}
 				
