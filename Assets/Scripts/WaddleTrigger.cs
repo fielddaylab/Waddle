@@ -36,34 +36,36 @@ public class WaddleTrigger : MonoBehaviour
     // Update is called once per frame
     /*void Update()
     {
-        
+        Debug.Log(_centerEye.transform.forward.y);
     }*/
 	
 	void OnTriggerEnter(Collider otherCollider)
 	{
 		//happens in physics thread...
+		
 		if(otherCollider.gameObject.name == "CenterEyeAnchor")
 		{
 			//transform.position = otherCollider.gameObject.transform.position;
 			//check that their head is relatively level when entering the collider
-			if(_centerEye.transform.forward.y > -0.25f && _centerEye.transform.forward.y < 0.25f)
+			
+			if(_centerEye.transform.forward.y > -0.6f && _centerEye.transform.forward.y < 0.5f)
 			{
 				_needsUpdate = true;
-				/*int lr = -1;
+				int lr = -1;
 				if(gameObject.name.EndsWith("Right"))
 				{
 					lr = 0;
-					Debug.Log("Right nav ring");
+					//Debug.Log("Right nav ring");
 				}
 				else if(gameObject.name.EndsWith("Left"))
 				{
 					lr = 1;
-					Debug.Log("Left nav ring");
-				}*/
+					//Debug.Log("Left nav ring");
+				}
 				
 				//Debug.Log(gameObject.name);
 				//_rotationTransform.transform.position -= _rotationTransform.transform.forward * _speed * Time.deltaTime;
-				transform.parent.GetComponent<NavRing>().ForceUpdate();
+				transform.parent.GetComponent<NavRing>().ForceUpdate(lr);
 			}
 		}
 	}
@@ -73,7 +75,7 @@ public class WaddleTrigger : MonoBehaviour
 		if(_needsUpdate)
 		{
 			
-			//Debug.Log("Updating: " + updateCount);
+			Debug.Log("Updating");
 			//this moves the entire player
 			_positionTransform.transform.position += _rotationTransform.transform.forward * _speed * Time.deltaTime; 
 			_needsUpdate = false;

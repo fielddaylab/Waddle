@@ -18,8 +18,6 @@ public class HandRaycast : MonoBehaviour
 
 	GameObject _reticleObject;
 	
-	bool _wasPinching = false;
-	
 	const int NUM_LAST_POSITIONS = 10;
 	
 	Vector3 [] _lastPositions = new Vector3[NUM_LAST_POSITIONS];

@@ -111,6 +111,8 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		EnableMovement();
 		
 		//need a way to stop physics for everything but colliding with the pause screen buttons...
+		//hand reticle
+		transform.GetChild(6).gameObject.GetComponent<MeshRenderer>().enabled = false;
 		
 		_lineRenderer.enabled = false;
 	}
@@ -141,6 +143,9 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		}
 		
 		DisableMovement();
+		
+		//hand reticle
+		transform.GetChild(6).gameObject.GetComponent<MeshRenderer>().enabled = true;
 		
 		_lineRenderer.enabled = true;	
 	}

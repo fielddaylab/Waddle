@@ -20,8 +20,6 @@ public class FeetRaycastJack : MonoBehaviour
 	
 	float _penguinCapsuleHeight = 0.7112f;
 	
-	bool _resetHeights = false;
-
 	Vector3 _transformationToApply = new Vector3(0,0,-0.3f);
 
 	Quaternion savedRotationTransform;
