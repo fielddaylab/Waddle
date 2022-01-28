@@ -76,11 +76,11 @@ public class MatingDance : MiniGameController
 					//Debug.Log(d[0]);
 					//parse time stamp
 					_timeSamples[i] = float.Parse(d[0]);
-					if(d[2].StartsWith("Clap"))
+					if(d[2].StartsWith("Clap") || d[2].StartsWith("Croak"))
 					{
 						_bubbleTypes[i] = 0;
 					}
-					else if(d[2].StartsWith("Beat"))
+					else if(d[2].StartsWith("Beat") || d[2].StartsWith("Beep"))
 					{
 						_bubbleTypes[i] = 1;
 					}
@@ -92,7 +92,7 @@ public class MatingDance : MiniGameController
 					{
 						_bubbleTypes[i] = 3;
 					}
-					else if(d[2].StartsWith("Measure"))
+					else if(d[2].StartsWith("Measure") || d[2].StartsWith("Double-beep"))
 					{
 						_bubbleTypes[i] = 4;
 					}
@@ -113,6 +113,12 @@ public class MatingDance : MiniGameController
 		Debug.Log("Starting mating dance");
         base.StartGame();
 
+		AudioSource mainTrack = PenguinPlayer.Instance.GetComponent<AudioSource>();
+		if(mainTrack != null)
+		{
+			mainTrack.Stop();
+		}
+		
         AudioSource audio = GetComponent<AudioSource>();
 		if(audio != null)
 		{
@@ -135,6 +141,12 @@ public class MatingDance : MiniGameController
 		if(audio != null)
 		{
 			audio.Stop();
+		}
+		
+		AudioSource mainTrack = PenguinPlayer.Instance.GetComponent<AudioSource>();
+		if(mainTrack != null)
+		{
+			mainTrack.Play();
 		}
 		
 		_currentSample = 0;
