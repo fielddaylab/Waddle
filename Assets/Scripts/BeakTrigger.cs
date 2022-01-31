@@ -196,6 +196,12 @@ public class BeakTrigger : MonoBehaviour
 					rb.isKinematic = true;
 					rb.detectCollisions = false;
 				}
+				
+				BowlingSlope bs = otherCollider.gameObject.GetComponent<BowlingSlope>();
+				if(bs != null)
+				{
+					bs.SlopeTrigger.GetComponent<MeshRenderer>().enabled = true;
+				}
 			}
 		}
 
@@ -218,6 +224,8 @@ public class BeakTrigger : MonoBehaviour
 						rb.detectCollisions = true;
 						rb.AddForce(ball.transform.forward*10000.0f);
 						StartCoroutine(BowlingBallGrow(ball));
+						
+						otherCollider.gameObject.GetComponent<MeshRenderer>().enabled = false;
 					}
 				}
 			}

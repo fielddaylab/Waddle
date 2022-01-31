@@ -1170,7 +1170,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 765199776}
   m_LocalRotation: {x: -0, y: 0.6642165, z: -0, w: 0.74754024}
-  m_LocalPosition: {x: 3.302, y: 3.011, z: 59.49}
+  m_LocalPosition: {x: -2.456, y: 2.001, z: 56.847}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1319133326}
@@ -3194,6 +3194,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 765199777}
     m_Modifications:
+    - target: {fileID: 9182614964080416881, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: df215c2c6a4d54a4c93c38359f7843fc, type: 2}
     - target: {fileID: 9182614964080416886, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.17
@@ -3382,6 +3386,10 @@ PrefabInstance:
       propertyPath: m_CollisionDetection
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 9182614965881343440, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: df215c2c6a4d54a4c93c38359f7843fc, type: 2}
     - target: {fileID: 9182614965881343441, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.17
