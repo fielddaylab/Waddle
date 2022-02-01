@@ -54,6 +54,18 @@ public class StartGame : MonoBehaviour
 				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.RAY_OF_LIGHT).gameObject.SetActive(false);
 				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.MISC2).gameObject.SetActive(false);
 			}
+			
+			AudioSource mainTrack = PenguinPlayer.Instance.GetComponent<AudioSource>();
+			if(mainTrack != null)
+			{
+				mainTrack.Stop();
+			}
+			
+			AudioSource audio = GetComponent<AudioSource>();
+			if(audio != null)
+			{
+				audio.Play();
+			}
 		}
 		
 		MeshRenderer mr = GetComponent<MeshRenderer>();
@@ -86,6 +98,18 @@ public class StartGame : MonoBehaviour
 				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.SPOT_LIGHT).gameObject.SetActive(true);
 				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.RAY_OF_LIGHT).gameObject.SetActive(true);
 				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.MISC2).gameObject.SetActive(true);
+			}
+			
+			AudioSource audio = GetComponent<AudioSource>();
+			if(audio != null)
+			{
+				audio.Stop();
+			}
+			
+			AudioSource mainTrack = PenguinPlayer.Instance.GetComponent<AudioSource>();
+			if(mainTrack != null)
+			{
+				mainTrack.Play();
 			}
 		}
 		

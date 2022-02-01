@@ -34,6 +34,9 @@ public class MatingDance : MiniGameController
 	GameObject _drumBubbleSpot = null;
 	
 	[SerializeField]
+	GameObject _drumBubbleSpot2 = null;
+	
+	[SerializeField]
 	GameObject _tripletBubbleSpot = null;
 	
 	[SerializeField]
@@ -182,7 +185,14 @@ public class MatingDance : MiniGameController
 					}
 					else if(_bubbleTypes[_currentSample] == 2)
 					{
-						_lastSpawn = GameObject.Instantiate(_bubblePrefab, _drumBubbleSpot.transform);
+						if(_currentSample % 2 == 0)
+						{
+							_lastSpawn = GameObject.Instantiate(_bubblePrefab, _drumBubbleSpot.transform);
+						}
+						else
+						{
+							_lastSpawn = GameObject.Instantiate(_bubblePrefab, _drumBubbleSpot2.transform);
+						}
 					}
 					else if(_bubbleTypes[_currentSample] == 3)
 					{
