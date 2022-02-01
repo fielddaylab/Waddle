@@ -1055,19 +1055,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7014593979956418933, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.4674352
+      value: 0.3793554
       objectReference: {fileID: 0}
     - target: {fileID: 7014593979956418933, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.5305698
+      value: 0.5967323
       objectReference: {fileID: 0}
     - target: {fileID: 7014593979956418933, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.5305698
+      value: 0.5967323
       objectReference: {fileID: 0}
     - target: {fileID: 7014593979956418933, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.4674352
+      value: -0.3793554
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2782799012805737178, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
@@ -1341,8 +1341,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.24869607, y: 0.5269787, z: 0.123702645}
-  m_Center: {x: 0.0021290611, y: 0.26445585, z: -0.019711858}
+  m_Size: {x: 0.36198798, y: 0.52340007, z: 0.33704796}
+  m_Center: {x: 17.750576, y: 1.7926396, z: 2.2773693}
 --- !u!114 &264541319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1363,11 +1363,11 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 264541317}
   serializedVersion: 2
-  m_Mass: 0.1
+  m_Mass: 0.01
   m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
+  m_AngularDrag: 0.01
+  m_UseGravity: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -2760,11 +2760,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.67302203
+      value: 0.59569323
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7396225
+      value: 0.80321205
       objectReference: {fileID: 0}
     - target: {fileID: 6861165212368088839, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_Size
@@ -5245,8 +5245,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.24869607, y: 0.5269787, z: 0.123702645}
-  m_Center: {x: 0.0021290611, y: 0.26445585, z: -0.019711858}
+  m_Size: {x: 0.36198798, y: 0.52340007, z: 0.33704796}
+  m_Center: {x: 17.750576, y: 1.7926396, z: 2.2773693}
 --- !u!114 &950956223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5267,11 +5267,11 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 950956221}
   serializedVersion: 2
-  m_Mass: 0.1
+  m_Mass: 0.01
   m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
+  m_AngularDrag: 0.01
+  m_UseGravity: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -5453,8 +5453,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.24869607, y: 0.5269787, z: 0.123702645}
-  m_Center: {x: 0.0021290611, y: 0.26445585, z: -0.019711858}
+  m_Size: {x: 0.36198798, y: 0.52340007, z: 0.33704796}
+  m_Center: {x: 17.750576, y: 1.7926396, z: 2.2773693}
 --- !u!114 &1015750204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5475,11 +5475,11 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1015750202}
   serializedVersion: 2
-  m_Mass: 0.1
+  m_Mass: 0.01
   m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
+  m_AngularDrag: 0.01
+  m_UseGravity: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -6793,8 +6793,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.24869607, y: 0.5269787, z: 0.123702645}
-  m_Center: {x: 0.0021290611, y: 0.26445585, z: -0.019711858}
+  m_Size: {x: 0.36198798, y: 0.52340007, z: 0.33704796}
+  m_Center: {x: 17.750576, y: 1.7926396, z: 2.2773693}
 --- !u!114 &1290147988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6815,11 +6815,11 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1290147986}
   serializedVersion: 2
-  m_Mass: 0.1
+  m_Mass: 0.01
   m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
+  m_AngularDrag: 0.01
+  m_UseGravity: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -7083,8 +7083,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.24869607, y: 0.5269787, z: 0.123702645}
-  m_Center: {x: 0.0021290611, y: 0.26445585, z: -0.019711858}
+  m_Size: {x: 0.36198798, y: 0.52340007, z: 0.33704796}
+  m_Center: {x: 17.750576, y: 1.7926396, z: 2.2773693}
 --- !u!114 &1325345105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7105,11 +7105,11 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1325345103}
   serializedVersion: 2
-  m_Mass: 0.1
+  m_Mass: 0.01
   m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
+  m_AngularDrag: 0.01
+  m_UseGravity: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -9714,8 +9714,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.24869607, y: 0.5269787, z: 0.123702645}
-  m_Center: {x: 0.0021290611, y: 0.26445585, z: -0.019711858}
+  m_Size: {x: 0.36198798, y: 0.52340007, z: 0.33704796}
+  m_Center: {x: 17.750576, y: 1.7926396, z: 2.2773693}
 --- !u!114 &2000865777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9736,11 +9736,11 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2000865775}
   serializedVersion: 2
-  m_Mass: 0.1
+  m_Mass: 0.01
   m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
+  m_AngularDrag: 0.01
+  m_UseGravity: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -10346,11 +10346,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.66223544
+      value: 0.5383731
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.74929583
+      value: 0.84270656
       objectReference: {fileID: 0}
     - target: {fileID: 7496492113157597932, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: _sceneName

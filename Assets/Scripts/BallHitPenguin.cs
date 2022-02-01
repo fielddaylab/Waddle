@@ -18,9 +18,8 @@ public class BallHitPenguin : MonoBehaviour
 	
 	void OnCollisionEnter(Collision otherCollider)
 	{
-		if(otherCollider.gameObject.name.StartsWith("BowlingBall"))
+		if(otherCollider.gameObject.name.StartsWith("DetachedBall"))
 		{
-			//Debug.Log("Hit penguin!");
 			gameObject.GetComponent<Rigidbody>().useGravity = true;
 			gameObject.GetComponent<Rigidbody>().isKinematic = false;
 			
