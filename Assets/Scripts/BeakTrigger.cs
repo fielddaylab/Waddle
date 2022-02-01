@@ -48,7 +48,7 @@ public class BeakTrigger : MonoBehaviour
 
 	IEnumerator BowlingBallGrow(GameObject ball){
 		for(int i=0; i<40; i++){
-			ball.transform.localScale += new Vector3(0.01f,0.01f,0.01f);
+			ball.transform.localScale += new Vector3(0.1f,0.1f,0.1f);
 			yield return new WaitForSeconds(0.05f);
 		}
 	}

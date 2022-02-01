@@ -56,6 +56,12 @@ public class StartGame : MonoBehaviour
 			}
 		}
 		
+		MeshRenderer mr = GetComponent<MeshRenderer>();
+		if(mr != null)
+		{
+			mr.enabled = false;
+		}
+		
 		//slow down the player...
 		PenguinPlayer.Instance.transform.GetChild(3).GetChild(0).GetComponent<WaddleTrigger>().Speed = 2f;
 		PenguinPlayer.Instance.transform.GetChild(3).GetChild(1).GetComponent<WaddleTrigger>().Speed = 2f;
@@ -81,6 +87,12 @@ public class StartGame : MonoBehaviour
 				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.RAY_OF_LIGHT).gameObject.SetActive(true);
 				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.MISC2).gameObject.SetActive(true);
 			}
+		}
+		
+		MeshRenderer mr = GetComponent<MeshRenderer>();
+		if(mr != null)
+		{
+			mr.enabled = true;
 		}
 		
 		//return the the player to default speed...

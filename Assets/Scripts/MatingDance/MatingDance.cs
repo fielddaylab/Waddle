@@ -88,7 +88,7 @@ public class MatingDance : MiniGameController
 					{
 						_bubbleTypes[i] = 2;
 					}
-					else if(d[2].StartsWith("Triplet"))
+					else if(d[2].StartsWith("Triplet") || d[2].StartsWith("Double-croak"))
 					{
 						_bubbleTypes[i] = 3;
 					}
