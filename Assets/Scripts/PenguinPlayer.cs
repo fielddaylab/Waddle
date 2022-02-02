@@ -16,6 +16,12 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 	[SerializeField]
 	GameObject _rightHandController;
 	
+	[SerializeField]
+	GameObject _waddleIndicatorLeft;
+	
+	[SerializeField]
+	GameObject _waddleIndicatorRight;
+	
 	LineRenderer _lineRenderer;
 	
 	bool _showingUI = false;
@@ -117,6 +123,39 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		_lineRenderer.enabled = false;
 	}
 	
+	IEnumerator BlinkIndicators(float blinkFreq, float totalTime)
+	{
+		float localTime = UnityEngine.Time.time;
+		
+		float startTime = UnityEngine.Time.time;
+		
+		Color cStart = _waddleIndicatorLeft.GetComponent<MeshRenderer>().sharedMaterial.color;
+		
+		_waddleIndicatorLeft.GetComponent<MeshRenderer>().enabled = true;
+		_waddleIndicatorRight.GetComponent<MeshRenderer>().enabled = true;
+		
+		while(UnityEngine.Time.time - startTime < totalTime)
+		{
+			Color c = _waddleIndicatorLeft.GetComponent<MeshRenderer>().sharedMaterial.color;
+			c.a = Mathf.PingPong(UnityEngine.Time.time, 1f);
+			_waddleIndicatorLeft.GetComponent<MeshRenderer>().sharedMaterial.color = c;
+
+			yield return null;
+		}
+		
+		if(_waddleIndicatorLeft != null)
+		{
+			_waddleIndicatorLeft.GetComponent<MeshRenderer>().enabled = false;
+			
+			_waddleIndicatorLeft.GetComponent<MeshRenderer>().sharedMaterial.color = cStart;
+		}
+		
+		if(_waddleIndicatorRight != null)
+		{
+			_waddleIndicatorRight.GetComponent<MeshRenderer>().enabled = false;
+		}
+	}
+	
 	public void StartShowingUI()
 	{
 		_showingUI = true;
@@ -187,6 +226,8 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		if(_userMessageUI != null)
 		{
 			_userMessageUI.GetComponent<UserMessage>().StartShowMessage("", showDuration);
+			
+			StartCoroutine(BlinkIndicators(0.5f, showDuration));
 		}
 	}
 	

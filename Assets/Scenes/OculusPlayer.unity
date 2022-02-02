@@ -1199,6 +1199,8 @@ MonoBehaviour:
   _mainUI: {fileID: 248072219}
   _leftHandController: {fileID: 1319133330}
   _rightHandController: {fileID: 1319133328}
+  _waddleIndicatorLeft: {fileID: 1764491142}
+  _waddleIndicatorRight: {fileID: 1764491141}
 --- !u!114 &765199779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3195,6 +3197,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 765199777}
     m_Modifications:
     - target: {fileID: 9182614964080416881, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9182614964080416881, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: df215c2c6a4d54a4c93c38359f7843fc, type: 2}
@@ -3223,8 +3229,12 @@ PrefabInstance:
       value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 9182614964080416887, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
+      propertyPath: m_Name
+      value: WaddleIndicatorRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 9182614964080416887, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9182614964274413012, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
       propertyPath: m_RootOrder
@@ -3387,6 +3397,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9182614965881343440, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9182614965881343440, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: df215c2c6a4d54a4c93c38359f7843fc, type: 2}
@@ -3415,8 +3429,12 @@ PrefabInstance:
       value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 9182614965881343446, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
+      propertyPath: m_Name
+      value: WaddleIndicatorLeft
+      objectReference: {fileID: 0}
+    - target: {fileID: 9182614965881343446, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9182614965972183936, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
       propertyPath: m_IsActive
@@ -3511,6 +3529,16 @@ PrefabInstance:
 --- !u!4 &1764491140 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9182614964274413012, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
+  m_PrefabInstance: {fileID: 1764491139}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1764491141 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9182614964080416887, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
+  m_PrefabInstance: {fileID: 1764491139}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1764491142 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9182614965881343446, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
   m_PrefabInstance: {fileID: 1764491139}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1822389982
