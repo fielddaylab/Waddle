@@ -186,8 +186,7 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		//store a game object for the UserMessage object..
 		if(_userMessageUI != null)
 		{
-			//disabling with addition of in-game signage...
-			//_userMessageUI.GetComponent<UserMessage>().StartShowMessage("", showDuration);
+			_userMessageUI.GetComponent<UserMessage>().StartShowMessage("", showDuration);
 		}
 	}
 	
