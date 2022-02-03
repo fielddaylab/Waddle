@@ -8,9 +8,9 @@ TagManager:
   - BowlingBall
   - Egg
   - BowlingPenguin
-  - HeightSet
   - PTNPenguin
   - MainMenu
+  - MatingDancePenguin
   layers:
   - Default
   - TransparentFX

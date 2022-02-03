@@ -55,6 +55,8 @@ public class MatingDance : MiniGameController
 	
 	const float BUBBLE_SHRINK_LENGTH = 2f;	//2 seconds...
 	
+	GameObject _matingDancePenguin = null;
+	
     void Start()
     {
         Debug.Log(GetComponent<AudioSource>().clip.samples);
@@ -136,6 +138,20 @@ public class MatingDance : MiniGameController
 				otu.Rotate();
 			}
 		}
+		
+		if(_matingDancePenguin == null)
+		{
+			//todo - not ideal, but for cross-scene reference acquisition..
+			_matingDancePenguin = GameObject.FindWithTag("MatingDancePenguin");
+			if(_matingDancePenguin != null)
+			{
+				_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("bop", true);
+			}
+		}
+		else
+		{
+			_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("bop", true);
+		}
     }
 	
 	public override void EndGame()
@@ -153,7 +169,11 @@ public class MatingDance : MiniGameController
 		}
 		
 		_currentSample = 0;
-
+		if(_matingDancePenguin != null)
+		{
+			_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("bop", false);
+		}
+		
 		base.EndGame();
 	}
 	
