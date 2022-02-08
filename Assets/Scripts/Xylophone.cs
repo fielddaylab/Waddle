@@ -6,7 +6,6 @@ public class Xylophone : MonoBehaviour
 {
     AudioSource audioS;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -20,11 +19,8 @@ public class Xylophone : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider otherCollider){
-        if(otherCollider.gameObject.name.StartsWith("Flipper")){
+        if(otherCollider.gameObject.name.StartsWith("Flipper") || otherCollider.gameObject.name.StartsWith("Beak")){
             audioS.Play();
         }
     }
-
-
-
 }
