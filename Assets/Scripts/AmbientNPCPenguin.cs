@@ -16,6 +16,8 @@ public class AmbientNPCPenguin : MonoBehaviour
 	[SerializeField]
 	float _yOffset = 0.235f;
 	
+	Vector3 _startingPosition;
+	
 	public enum PenguinState {
 		WALKING,
 		IDLE,
@@ -27,6 +29,8 @@ public class AmbientNPCPenguin : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		_startingPosition = transform.position;
+		
         StartCoroutine(StartIdle(_idleTime));
     }
 
@@ -85,7 +89,7 @@ public class AmbientNPCPenguin : MonoBehaviour
 		
 		RaycastHit hitInfo;
 		
-		Vector3 castLocation = transform.position;
+		Vector3 castLocation = _startingPosition;
 		castLocation.y += 10f;
 		castLocation.x += UnityEngine.Random.Range(-_wanderRadius, _wanderRadius);
 		castLocation.z += UnityEngine.Random.Range(-_wanderRadius, _wanderRadius);
