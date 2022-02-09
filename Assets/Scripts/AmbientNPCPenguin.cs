@@ -67,18 +67,17 @@ public class AmbientNPCPenguin : MonoBehaviour
 		
 		float t = 0f;
 		Vector3 startPosition = transform.position;
-		Quaternion startRotation = transform.rotation;
+		//Quaternion startRotation = transform.rotation;
+		transform.rotation = newRot;
 		
 		while(t < duration)
 		{
 			transform.position = Vector3.Lerp(startPosition, newSpot, (t/duration));
-			transform.rotation = Quaternion.Lerp(startRotation, newRot, (t/duration));
+			//transform.rotation = Quaternion.Lerp(startRotation, newRot, (t/duration));
 			
 			t += (Time.deltaTime);	
 			yield return null;
 		}
-
-		transform.rotation = newRot;
 		
 		StartCoroutine(StartIdle(_idleTime));
 	}

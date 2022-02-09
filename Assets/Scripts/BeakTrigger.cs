@@ -213,7 +213,7 @@ public class BeakTrigger : MonoBehaviour
 				GameObject ball = gameObject.transform.GetChild(ballIdx).gameObject;
 				if(ball.tag == "BowlingBall")
 				{
-					ball.name = "DetachedBall";
+					//ball.name = "DetachedBall";
 					ball.transform.parent = null;
 					ball.transform.rotation = Camera.main.transform.rotation;
 					//ball.transform.rotation = Quaternion.Inverse(gameObject.transform.rotation);
