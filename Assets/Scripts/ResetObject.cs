@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class ResetObject : MonoBehaviour
 {
-    // Start is called before the first frame update
+
 	Vector3 _startingPosition;
 	Quaternion _startingOrientation;
 	Vector3 _startingScale;
 	Transform _parentTransform;
-	//use an event for reseting..
-	
+
     void Start()
     {
         _startingPosition = transform.position;
 		_startingOrientation = transform.rotation;
 		_startingScale = transform.localScale;
-		_parentTransform = transform.parent;
+		if(transform.parent != null)
+		{
+			_parentTransform = transform.parent;
+		}
     }
 
 	void OnEnable()
@@ -37,7 +39,11 @@ public class ResetObject : MonoBehaviour
 			 rb.velocity = Vector3.zero;
 		 }*/
 		 
-		 transform.parent = _parentTransform;
+		 if(_parentTransform != null)
+		 {
+			transform.parent = _parentTransform;
+		 }
+		 
 		 transform.position = _startingPosition;
 		 transform.rotation = _startingOrientation;
 		 transform.localScale = _startingScale;
