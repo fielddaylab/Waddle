@@ -9,12 +9,14 @@ public class ResetObject : MonoBehaviour
 	Quaternion _startingOrientation;
 	Vector3 _startingScale;
 	Transform _parentTransform;
-
+	string _startingName;
+	
     void Start()
     {
         _startingPosition = transform.position;
 		_startingOrientation = transform.rotation;
 		_startingScale = transform.localScale;
+		_startingName = gameObject.name;
 		if(transform.parent != null)
 		{
 			_parentTransform = transform.parent;
@@ -47,6 +49,7 @@ public class ResetObject : MonoBehaviour
 		 transform.position = _startingPosition;
 		 transform.rotation = _startingOrientation;
 		 transform.localScale = _startingScale;
+		 gameObject.name = _startingName;
 		 
 		 if(rb != null)
 		 {
