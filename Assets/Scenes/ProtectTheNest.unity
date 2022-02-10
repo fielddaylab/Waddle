@@ -852,7 +852,7 @@ MonoBehaviour:
   _startingPosition: {fileID: 1041657611}
   _skuaSpawner: {fileID: 1365017245}
   _moveFrequency: 2
-  _gameTimeLimit: 90
+  _gameTimeLimit: 45
   _eggTimer: {fileID: 2782799012861213250}
   _theEgg: {fileID: 1078245479}
 --- !u!1001 &629575769
@@ -1837,10 +1837,10 @@ MonoBehaviour:
   _waveTimes:
   - 0
   - 1
+  - 7.5
   - 15
+  - 22.5
   - 30
-  - 45
-  - 60
   _theEgg: {fileID: 1078245479}
 --- !u!82 &1365017246
 AudioSource:
@@ -3137,7 +3137,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 91209559825154743, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
       propertyPath: m_text
-      value: 02:30
+      value: 00:45
       objectReference: {fileID: 0}
     - target: {fileID: 91209559825154743, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
       propertyPath: m_fontStyle
@@ -3249,19 +3249,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7014593979956418933, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.5221978
+      value: 0.5107384
       objectReference: {fileID: 0}
     - target: {fileID: 7014593979956418933, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.4767699
+      value: 0.48902595
       objectReference: {fileID: 0}
     - target: {fileID: 7014593979956418933, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.4767699
+      value: 0.48902595
       objectReference: {fileID: 0}
     - target: {fileID: 7014593979956418933, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.5221978
+      value: -0.5107384
       objectReference: {fileID: 0}
     - target: {fileID: 7014593979956418933, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z

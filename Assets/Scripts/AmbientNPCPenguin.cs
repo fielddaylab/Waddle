@@ -105,7 +105,10 @@ public class AmbientNPCPenguin : MonoBehaviour
 	{
 		RaycastHit hitInfo;
 		
-		if(Physics.Raycast(transform.position, Vector3.down, out hitInfo, Mathf.Infinity, _layerMask, QueryTriggerInteraction.Ignore))
+		Vector3 rayPos = transform.position;
+		rayPos.y += 10f;
+		
+		if(Physics.Raycast(rayPos, Vector3.down, out hitInfo, Mathf.Infinity, _layerMask, QueryTriggerInteraction.Ignore))
 		{
 			//Debug.Log("Hit point: " + hitInfo.point);
 			Vector3 pos = transform.position;
