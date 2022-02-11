@@ -10,6 +10,8 @@ public class ResetObject : MonoBehaviour
 	Vector3 _startingScale;
 	Transform _parentTransform;
 	string _startingName;
+	bool _wasDetectingCollisions;
+	bool _wasKinematic;
 	
     void Start()
     {
@@ -21,6 +23,14 @@ public class ResetObject : MonoBehaviour
 		{
 			_parentTransform = transform.parent;
 		}
+		
+		Rigidbody rb = GetComponent<Rigidbody>();
+		if(rb != null)
+		{
+			_wasDetectingCollisions = rb.detectCollisions;
+			_wasKinematic = rb.isKinematic;
+		}
+		
     }
 
 	void OnEnable()
@@ -51,6 +61,12 @@ public class ResetObject : MonoBehaviour
 		 transform.localScale = _startingScale;
 		 gameObject.name = _startingName;
 		 
+		 MeshRenderer mr = GetComponent<MeshRenderer>();
+		 if(mr != null)
+		 {
+			 mr.enabled = true;
+		 }
+		 
 		 if(rb != null)
 		 {
 			 StartCoroutine(TurnPhysicsOff());
@@ -66,6 +82,9 @@ public class ResetObject : MonoBehaviour
 		{
 			rb.velocity = Vector3.zero;
 			rb.angularVelocity = Vector3.zero;
+
+			rb.isKinematic = _wasKinematic;
+			rb.detectCollisions = _wasDetectingCollisions;
 		}
 	}
 	

@@ -116,7 +116,12 @@ public class BeakTrigger : MonoBehaviour
 			}
 		}
 		
-		pebble.gameObject.SetActive(false);
+		MeshRenderer mr = pebble.gameObject.GetComponent<MeshRenderer>();
+		if(mr != null)
+		{
+			mr.enabled = false;
+			//pebble.gameObject.SetActive(false);
+		}
 		//If the player havn't collected enough pebbles, continue to construct the nest
 		/*if(pebbleCount <= 10){
 			for(int i=0; i<3; i++){
@@ -133,34 +138,38 @@ public class BeakTrigger : MonoBehaviour
 		//todo - get rid of string checks here.
 		if(otherCollider.gameObject.name.StartsWith("Pebble"))
 		{
-			if(_audioFile != null)
+			MeshRenderer mr = otherCollider.gameObject.GetComponent<MeshRenderer>();
+			if(mr.enabled)
 			{
-				_audioFile.Play();
-			}
-			
-			//if these rocks are coming from a mini game, set pebble target dynamically to that mini game's nest
-			Transform p = otherCollider.gameObject.transform.parent;
-			if(p != null)
-			{
-				if(p.gameObject.name == "Pebbles")
+				if(_audioFile != null)
 				{
-					//current assumption - Pebbles and SparseNest object's have the same transform.
-					_pebbleTarget = p.gameObject;
+					_audioFile.Play();
 				}
-			}
-			
-			StartCoroutine(MoveToPos(otherCollider, 1));
-
-			if(gameObject.transform.childCount == 0)
-			{
-				//pick up a rock with your beak - commented out line below...
-				//otherCollider.gameObject.transform.parent = gameObject.transform;
-
-				Rigidbody rb = otherCollider.gameObject.GetComponent<Rigidbody>();
-				if(rb != null)
+				
+				//if these rocks are coming from a mini game, set pebble target dynamically to that mini game's nest
+				Transform p = otherCollider.gameObject.transform.parent;
+				if(p != null)
 				{
-					rb.isKinematic = true;
-					rb.detectCollisions = false;
+					if(p.gameObject.name == "Pebbles")
+					{
+						//current assumption - Pebbles and SparseNest object's have the same transform.
+						_pebbleTarget = p.gameObject;
+					}
+				}
+				
+				StartCoroutine(MoveToPos(otherCollider, 1));
+				
+				//if(gameObject.transform.childCount == 0)
+				{
+					//pick up a rock with your beak - commented out line below...
+					//otherCollider.gameObject.transform.parent = gameObject.transform;
+
+					Rigidbody rb = otherCollider.gameObject.GetComponent<Rigidbody>();
+					if(rb != null)
+					{
+						rb.isKinematic = true;
+						rb.detectCollisions = false;
+					}
 				}
 			}
 			//Debug.Log(otherCollider.gameObject.name);
