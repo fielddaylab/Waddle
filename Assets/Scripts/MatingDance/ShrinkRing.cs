@@ -12,6 +12,8 @@ public class ShrinkRing : MonoBehaviour
 	
 	IEnumerator _coroutine = null;
 	
+	Color _orange = new Color(1f, 0.2862f, 0f, 1f);
+	
     // Start is called before the first frame update
     void Start()
     {
@@ -68,7 +70,8 @@ public class ShrinkRing : MonoBehaviour
 			if((t >= duration && t < (duration + 0.5f)) && !bSet)
             {
                 //only need to set this once...
-				gameObject.transform.parent.GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
+				//gameObject.transform.parent.GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
+				gameObject.transform.parent.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", _orange);
 				bSet = true;
             }
 			
