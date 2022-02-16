@@ -8,6 +8,7 @@ public class ShrinkRing : MonoBehaviour
     bool _isValidWindow = false;
 	bool _wasPopped = false;
 	
+	public bool WasPopped => _wasPopped;
 	public bool IsValidWindow => _isValidWindow;
 	
 	IEnumerator _coroutine = null;
@@ -90,6 +91,8 @@ public class ShrinkRing : MonoBehaviour
 				audio.Play();
 			}
 			
+			MatingDance._popCount = 0;
+		
 			HideBubble();
 			
 			//destroy the bubble
@@ -104,6 +107,8 @@ public class ShrinkRing : MonoBehaviour
 		{
 			StopCoroutine(_coroutine);
 		}
+		
+		MatingDance._popCount++;
 		
 		HideBubble();
 		

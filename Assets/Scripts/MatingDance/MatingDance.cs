@@ -51,11 +51,19 @@ public class MatingDance : MiniGameController
 	[SerializeField]
 	GameObject _pivotPoint = null;
 	
+	[SerializeField]
+	GameObject _heartSpawn = null;
+	
+	[SerializeField]
+	GameObject _heartPrefab = null;
+	
 	GameObject _lastSpawn = null;
 	
 	const float BUBBLE_SHRINK_LENGTH = 2f;	//2 seconds...
 	
 	GameObject _matingDancePenguin = null;
+	
+	public static uint _popCount = 0;
 	
     void Start()
     {
@@ -184,6 +192,12 @@ public class MatingDance : MiniGameController
 		{
 			UpdateTime();
 			
+			if(_popCount >= 3)
+			{
+				GameObject.Instantiate(_heartPrefab, _heartSpawn.transform);
+				_popCount = 0;
+			}
+		
 			if(_currentSample < _timeSamples.Length-1 && (_totalGameTime > _timeSamples[_currentSample] && _totalGameTime < _timeSamples[_currentSample+1]))
 			{
 				if(_bubblePrefab != null)
@@ -256,6 +270,7 @@ public class MatingDance : MiniGameController
 			{
 				if(_currentSample == _timeSamples.Length - 2)
 				{
+					_popCount = 0;
 					EndGame();
 				}
 			}

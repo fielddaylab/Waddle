@@ -840,7 +840,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 271604002194030204, guid: 2a35ca2fd1eca1c478eaa3ebcee5c109, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.231
+      value: 1.382
       objectReference: {fileID: 0}
     - target: {fileID: 271604002194030204, guid: 2a35ca2fd1eca1c478eaa3ebcee5c109, type: 3}
       propertyPath: m_LocalPosition.y
@@ -848,7 +848,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 271604002194030204, guid: 2a35ca2fd1eca1c478eaa3ebcee5c109, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.632
+      value: -0.513
       objectReference: {fileID: 0}
     - target: {fileID: 271604002194030204, guid: 2a35ca2fd1eca1c478eaa3ebcee5c109, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1258,19 +1258,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7014593979956418933, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.44699007
+      value: 0.6170626
       objectReference: {fileID: 0}
     - target: {fileID: 7014593979956418933, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.54790497
+      value: 0.34530237
       objectReference: {fileID: 0}
     - target: {fileID: 7014593979956418933, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.54790497
+      value: 0.34530237
       objectReference: {fileID: 0}
     - target: {fileID: 7014593979956418933, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.44699007
+      value: -0.6170626
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2782799012805737178, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
@@ -3133,11 +3133,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.64895976
+      value: 0.8395255
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7608227
+      value: 0.5433203
       objectReference: {fileID: 0}
     - target: {fileID: 6861165212368088839, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_Size
@@ -3638,6 +3638,10 @@ PrefabInstance:
     - target: {fileID: 5097717058974107333, guid: e5142104defffe141b58125294a572fd, type: 3}
       propertyPath: m_Name
       value: Pebble02 (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5097717058974107333, guid: e5142104defffe141b58125294a572fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8905842071406059275, guid: e5142104defffe141b58125294a572fd, type: 3}
       propertyPath: m_RootOrder
@@ -4215,6 +4219,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pebble00 (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 4534488084655613874, guid: 2a35ca2fd1eca1c478eaa3ebcee5c109, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a35ca2fd1eca1c478eaa3ebcee5c109, type: 3}
 --- !u!4 &652977557 stripped
@@ -4632,6 +4640,10 @@ PrefabInstance:
     - target: {fileID: 1887669042693192627, guid: 1e77345cad79daa40a1dc9c44a28c532, type: 3}
       propertyPath: m_Name
       value: Pebble03 (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1887669042693192627, guid: 1e77345cad79daa40a1dc9c44a28c532, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2817857519362269821, guid: 1e77345cad79daa40a1dc9c44a28c532, type: 3}
       propertyPath: m_RootOrder
@@ -6219,6 +6231,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pebble01 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 8510130521731191865, guid: d27614a2b72b23f4a861c37989fa670c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d27614a2b72b23f4a861c37989fa670c, type: 3}
 --- !u!4 &1068240219 stripped
@@ -7130,6 +7146,10 @@ PrefabInstance:
     - target: {fileID: 8510130521731191865, guid: d27614a2b72b23f4a861c37989fa670c, type: 3}
       propertyPath: m_Name
       value: Pebble01 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8510130521731191865, guid: d27614a2b72b23f4a861c37989fa670c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d27614a2b72b23f4a861c37989fa670c, type: 3}
@@ -8261,6 +8281,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pebble04 (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 2798704373716554881, guid: 5836e0f6385229042822561881dc73ef, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5836e0f6385229042822561881dc73ef, type: 3}
 --- !u!4 &1464489651 stripped
@@ -8354,6 +8378,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2817857519362269821, guid: 1e77345cad79daa40a1dc9c44a28c532, type: 3}
   m_PrefabInstance: {fileID: 1471593857}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1477290580 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c124b7b363b23407da4f5a1f20762c89, type: 3}
+  m_PrefabInstance: {fileID: 963495879}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1477290581
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1477290580}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2872738143208282281, guid: c124b7b363b23407da4f5a1f20762c89, type: 3}
 --- !u!1 &1479323339
 GameObject:
   m_ObjectHideFlags: 0
@@ -8742,6 +8785,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pebble04 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2798704373716554881, guid: 5836e0f6385229042822561881dc73ef, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5836e0f6385229042822561881dc73ef, type: 3}
 --- !u!4 &1562625154 stripped
@@ -8828,7 +8875,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8905842071406059275, guid: e5142104defffe141b58125294a572fd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.538
+      value: 2.445
       objectReference: {fileID: 0}
     - target: {fileID: 8905842071406059275, guid: e5142104defffe141b58125294a572fd, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8836,7 +8883,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8905842071406059275, guid: e5142104defffe141b58125294a572fd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.489
+      value: -1.106
       objectReference: {fileID: 0}
     - target: {fileID: 8905842071406059275, guid: e5142104defffe141b58125294a572fd, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8976,6 +9023,10 @@ PrefabInstance:
     - target: {fileID: 5097717058974107333, guid: e5142104defffe141b58125294a572fd, type: 3}
       propertyPath: m_Name
       value: Pebble02 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5097717058974107333, guid: e5142104defffe141b58125294a572fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8905842071406059275, guid: e5142104defffe141b58125294a572fd, type: 3}
       propertyPath: m_RootOrder
@@ -10370,6 +10421,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pebble01 (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 8510130521731191865, guid: d27614a2b72b23f4a861c37989fa670c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d27614a2b72b23f4a861c37989fa670c, type: 3}
 --- !u!4 &1928055783 stripped
@@ -10506,6 +10561,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pebble04 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 2798704373716554881, guid: 5836e0f6385229042822561881dc73ef, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5836e0f6385229042822561881dc73ef, type: 3}
 --- !u!4 &1962253823 stripped
@@ -10609,6 +10668,25 @@ Transform:
   m_Father: {fileID: 1270731896}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 30, z: 0}
+--- !u!1 &1995376713 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c124b7b363b23407da4f5a1f20762c89, type: 3}
+  m_PrefabInstance: {fileID: 1132161909}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1995376714
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1995376713}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2872738143208282281, guid: c124b7b363b23407da4f5a1f20762c89, type: 3}
 --- !u!1001 &2000865773
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11074,6 +11152,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pebble00 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 4534488084655613874, guid: 2a35ca2fd1eca1c478eaa3ebcee5c109, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a35ca2fd1eca1c478eaa3ebcee5c109, type: 3}
 --- !u!4 &2136878545 stripped
@@ -11399,11 +11481,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6331617
+      value: 0.8733437
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.77401954
+      value: 0.48710448
       objectReference: {fileID: 0}
     - target: {fileID: 7496492113157597932, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: _sceneName

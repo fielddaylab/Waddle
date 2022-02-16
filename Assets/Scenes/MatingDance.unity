@@ -401,6 +401,8 @@ MonoBehaviour:
   _tripletBubbleSpot3: {fileID: 14352552}
   _measureBubbleSpot: {fileID: 1697675071}
   _pivotPoint: {fileID: 1698451898}
+  _heartSpawn: {fileID: 685398480880471643}
+  _heartPrefab: {fileID: 6549710202121445590, guid: 44c2c071a12219946be992c1e34a6965, type: 3}
 --- !u!65 &496783149
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -726,6 +728,7 @@ Transform:
   - {fileID: 873011350}
   - {fileID: 14352553}
   - {fileID: 1697675072}
+  - {fileID: 6752960803707606718}
   m_Father: {fileID: 746006603}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 131.961, z: 0}
@@ -744,3 +747,33 @@ MonoBehaviour:
   _rotateX: 0
   _rotateY: 1
   _rotateZ: 0
+--- !u!1 &685398480880471643
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6752960803707606718}
+  m_Layer: 0
+  m_Name: HeartEffectSpot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6752960803707606718
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 685398480880471643}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.102, y: 0.3341, z: -0.1857}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1698451899}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
