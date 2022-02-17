@@ -46,6 +46,7 @@ public class SkuaIdleState : MonoBehaviour, ISkuaState
 		Animator a = sc.GetAnimController();
 		if(a != null)
 		{
+			//a.enabled = true;
 			//Debug.Log("Setting fly");
 			//a.SetBool("takeoff", false);
 			//a.SetBool("fly", false);
@@ -56,6 +57,10 @@ public class SkuaIdleState : MonoBehaviour, ISkuaState
 			a.SetBool("left", false);
 			a.SetBool("right", false);
 			a.SetBool("idle", true);
+			
+			gameObject.GetComponent<Rigidbody>().useGravity = false;
+			gameObject.GetComponent<Rigidbody>().isKinematic = true;
+
 		}
 
 		//StartCoroutine(CheckForMove(_sc.MoveFrequency));

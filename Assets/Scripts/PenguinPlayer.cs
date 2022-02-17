@@ -125,14 +125,19 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 	
 	IEnumerator BlinkIndicators(float blinkFreq, float totalTime)
 	{
-		float localTime = UnityEngine.Time.time;
-		
 		float startTime = UnityEngine.Time.time;
 		
-		Color cStart = _waddleIndicatorLeft.GetComponent<MeshRenderer>().sharedMaterial.color;
+		Color cStart = Color.black;
+		if(_waddleIndicatorLeft != null)
+		{
+			cStart = _waddleIndicatorLeft.GetComponent<MeshRenderer>().sharedMaterial.color;
+			_waddleIndicatorLeft.GetComponent<MeshRenderer>().enabled = true;
+		}
 		
-		_waddleIndicatorLeft.GetComponent<MeshRenderer>().enabled = true;
-		_waddleIndicatorRight.GetComponent<MeshRenderer>().enabled = true;
+		if(_waddleIndicatorRight != null)
+		{
+			_waddleIndicatorRight.GetComponent<MeshRenderer>().enabled = true;
+		}
 		
 		while(UnityEngine.Time.time - startTime < totalTime)
 		{

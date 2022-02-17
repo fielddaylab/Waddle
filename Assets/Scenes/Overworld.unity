@@ -1258,19 +1258,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7014593979956418933, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6170626
+      value: 0.34370336
       objectReference: {fileID: 0}
     - target: {fileID: 7014593979956418933, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.34530237
+      value: 0.61795473
       objectReference: {fileID: 0}
     - target: {fileID: 7014593979956418933, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.34530237
+      value: 0.61795473
       objectReference: {fileID: 0}
     - target: {fileID: 7014593979956418933, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.6170626
+      value: -0.34370336
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2782799012805737178, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
@@ -1469,6 +1469,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 616664923}
     m_Modifications:
+    - target: {fileID: 1040756671149937274, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3556293901462193823, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_Name
       value: NPCPenguin5
@@ -1483,15 +1487,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.498
+      value: 2.057
       objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.39
+      value: 0.007
       objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.656
+      value: -2.597
       objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1545,7 +1549,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.36198798, y: 0.6234001, z: 0.33704796}
-  m_Center: {x: 17.750576, y: 1.7926396, z: 2.2773693}
+  m_Center: {x: 0, y: 0.39500356, z: 0}
 --- !u!114 &264541319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3133,11 +3137,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.8395255
+      value: 0.5718139
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.5433203
+      value: 0.82038337
       objectReference: {fileID: 0}
     - target: {fileID: 6861165212368088839, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_Size
@@ -5615,6 +5619,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 616664923}
     m_Modifications:
+    - target: {fileID: 1040756671149937274, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3556293901462193823, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_Name
       value: NPCPenguin2
@@ -5629,15 +5637,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.143
+      value: 2.417
       objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.39
+      value: 0.007
       objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.123
+      value: -3.064
       objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5691,7 +5699,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.36198798, y: 0.6234001, z: 0.33704796}
-  m_Center: {x: 17.750576, y: 1.7926396, z: 2.2773693}
+  m_Center: {x: 0, y: 0.39500356, z: 0}
 --- !u!114 &950956223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5901,6 +5909,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 616664923}
     m_Modifications:
+    - target: {fileID: 1040756671149937274, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3556293901462193823, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_Name
       value: NPCPenguin3
@@ -5915,15 +5927,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -14.525
+      value: 3.037
       objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.39
+      value: 0.007
       objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.123
+      value: -3.064
       objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5976,8 +5988,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.36198798, y: 0.6234001, z: 0.33704796}
-  m_Center: {x: 17.750576, y: 1.7926396, z: 2.2773693}
+  m_Size: {x: 0.36198798, y: 0.61343336, z: 0.33704796}
+  m_Center: {x: 0, y: 0.39500356, z: 0}
 --- !u!114 &1015750204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7400,6 +7412,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 616664923}
     m_Modifications:
+    - target: {fileID: 1040756671149937274, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3556293901462193823, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_Name
       value: NPCPenguin
@@ -7414,15 +7430,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.9
+      value: 1.809
       objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.39
+      value: 0.007
       objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.11
+      value: -3.051
       objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7476,7 +7492,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.36198798, y: 0.6234001, z: 0.33704796}
-  m_Center: {x: 17.750576, y: 1.7926396, z: 2.2773693}
+  m_Center: {x: 0, y: 0.39500356, z: 0}
 --- !u!114 &1290147988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7690,6 +7706,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 616664923}
     m_Modifications:
+    - target: {fileID: 1040756671149937274, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3556293901462193823, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_Name
       value: NPCPenguin4
@@ -7704,15 +7724,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -14.794
+      value: 2.767
       objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.39
+      value: 0.007
       objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.656
+      value: -2.597
       objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7766,7 +7786,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.36198798, y: 0.6234001, z: 0.33704796}
-  m_Center: {x: 17.750576, y: 1.7926396, z: 2.2773693}
+  m_Center: {x: 0, y: 0.39500356, z: 0}
 --- !u!114 &1325345105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10694,6 +10714,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 616664923}
     m_Modifications:
+    - target: {fileID: 1040756671149937274, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3556293901462193823, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_Name
       value: NPCPenguin6
@@ -10708,15 +10732,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.184
+      value: 2.377
       objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.39
+      value: 0.007
       objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.218
+      value: -2.159
       objectReference: {fileID: 0}
     - target: {fileID: 8393364085116033691, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -10770,7 +10794,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.36198798, y: 0.6234001, z: 0.33704796}
-  m_Center: {x: 17.750576, y: 1.7926396, z: 2.2773693}
+  m_Center: {x: 0, y: 0.39500356, z: 0}
 --- !u!114 &2000865777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11481,11 +11505,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.8733437
+      value: 0.48824015
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.48710448
+      value: 0.87270933
       objectReference: {fileID: 0}
     - target: {fileID: 7496492113157597932, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: _sceneName
