@@ -185,6 +185,13 @@ public class MatingDance : MiniGameController
 		base.EndGame();
 	}
 	
+	IEnumerator DestroyCo(float duration, GameObject toDestroy)
+	{
+		yield return new WaitForSeconds(duration);
+		
+		Object.Destroy(toDestroy);
+	}
+	
     // Update is called once per frame
     void Update()
     {
@@ -194,7 +201,8 @@ public class MatingDance : MiniGameController
 			
 			if(_popCount >= 3)
 			{
-				GameObject.Instantiate(_heartPrefab, _heartSpawn.transform);
+				GameObject heart = GameObject.Instantiate(_heartPrefab, _heartSpawn.transform);
+				StartCoroutine(DestroyCo(5f, heart));
 				_popCount = 0;
 			}
 		
