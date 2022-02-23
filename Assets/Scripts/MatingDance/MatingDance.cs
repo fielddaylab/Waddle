@@ -205,7 +205,22 @@ public class MatingDance : MiniGameController
 				StartCoroutine(DestroyCo(5f, heart));
 				_popCount = 0;
 			}
-		
+			
+			if(_currentSample == 3)
+			{
+				if(_matingDancePenguin != null)
+				{
+					_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("peck", true);
+				}
+			}
+			else if(_currentSample == 5)
+			{
+				if(_matingDancePenguin != null)
+				{
+					_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("bop", true);
+				}
+			}
+			
 			if(_currentSample < _timeSamples.Length-1 && (_totalGameTime > _timeSamples[_currentSample] && _totalGameTime < _timeSamples[_currentSample+1]))
 			{
 				if(_bubblePrefab != null)

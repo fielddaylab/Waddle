@@ -1155,7 +1155,8 @@ GameObject:
   - component: {fileID: 765199780}
   - component: {fileID: 765199781}
   - component: {fileID: 765199782}
-  m_Layer: 0
+  - component: {fileID: 765199783}
+  m_Layer: 20
   m_Name: PenguinPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1170,7 +1171,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 765199776}
   m_LocalRotation: {x: -0, y: 0.6642165, z: -0, w: 0.74754024}
-  m_LocalPosition: {x: -2.456, y: 2.001, z: 56.847}
+  m_LocalPosition: {x: -2.765, y: 2.076, z: 57.012}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1319133326}
@@ -1429,6 +1430,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!136 &765199783
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765199776}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  m_Radius: 0.3034139
+  m_Height: 0.91202617
+  m_Direction: 1
+  m_Center: {x: 0.00013834283, y: 0.3077786, z: -0.038244486}
 --- !u!1 &767286928
 GameObject:
   m_ObjectHideFlags: 0

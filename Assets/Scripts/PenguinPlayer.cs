@@ -123,6 +123,11 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		_lineRenderer.enabled = false;
 	}
 	
+	/*void OnTriggerEnter(Collider otherCollider)
+	{
+		Debug.Log(otherCollider.gameObject.name);
+	}*/
+	
 	IEnumerator BlinkIndicators(float blinkFreq, float totalTime)
 	{
 		float startTime = UnityEngine.Time.time;
