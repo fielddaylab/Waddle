@@ -196,25 +196,29 @@ public class BeakTrigger : MonoBehaviour
 		if(otherCollider.gameObject.name.StartsWith("BowlingBall"))
 		{
 			//pick up a bowling with your beak
-			if(gameObject.transform.childCount == 4)
+			//if(gameObject.transform.childCount == 4)
 			{
-				otherCollider.gameObject.transform.parent = gameObject.transform;
+				//otherCollider.gameObject.transform.parent = gameObject.transform;
 				Rigidbody rb = otherCollider.gameObject.GetComponent<Rigidbody>();
 				if(rb != null)
 				{
-					rb.isKinematic = true;
-					rb.detectCollisions = false;
+					Vector3 f = transform.forward;
+					rb.AddForce(f*10000.0f);
+					StartCoroutine(BowlingBallGrow(otherCollider.gameObject));
+						
+					//rb.isKinematic = true;
+					//rb.detectCollisions = false;
 				}
 				
-				BowlingSlope bs = otherCollider.gameObject.GetComponent<BowlingSlope>();
+				/*BowlingSlope bs = otherCollider.gameObject.GetComponent<BowlingSlope>();
 				if(bs != null)
 				{
 					bs.SlopeTrigger.GetComponent<MeshRenderer>().enabled = true;
-				}
+				}*/
 			}
 		}
 
-		if(otherCollider.gameObject.name.StartsWith("SlopeTrigger"))
+		/*if(otherCollider.gameObject.name.StartsWith("SlopeTrigger"))
 		{
 			if(gameObject.transform.childCount != 0)
 			{
@@ -241,7 +245,7 @@ public class BeakTrigger : MonoBehaviour
 					}
 				}
 			}
-		}
+		}*/
 
 		if(otherCollider.gameObject.name.StartsWith("SkewerTrigger")){
 			//Debug.Log("Skewer!!!!!!!");

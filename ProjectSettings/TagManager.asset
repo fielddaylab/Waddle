@@ -11,6 +11,7 @@ TagManager:
   - PTNPenguin
   - MainMenu
   - MatingDancePenguin
+  - WorldCollision
   layers:
   - Default
   - TransparentFX

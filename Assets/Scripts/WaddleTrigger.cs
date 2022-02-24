@@ -27,16 +27,20 @@ public class WaddleTrigger : MonoBehaviour
 	
 	//int updateCount = 0;
 	bool _needsUpdate = false;
+	
+	GameObject[] _worldColliders = null;
+	
     // Start is called before the first frame update
     void Start()
     {
-        
+		//_worldColliders = GameObject.FindGameObjectsWithTag("WorldCollision");
+		//Debug.Log(_worldColliders.Length);
     }
 
     // Update is called once per frame
     /*void Update()
     {
-        Debug.Log(_centerEye.transform.forward.y);
+        Debug.Log(_centerEye.transform.right.y);
     }*/
 	
 	void OnTriggerEnter(Collider otherCollider)
@@ -74,10 +78,41 @@ public class WaddleTrigger : MonoBehaviour
 	{
 		if(_needsUpdate)
 		{
-			
-			Debug.Log("Updating");
+			//Debug.Log("Updating");
 			//this moves the entire player
-			_positionTransform.transform.position += _rotationTransform.transform.forward * _speed * Time.deltaTime; 
+			
+			Vector3 potentialPos = _positionTransform.transform.position + _rotationTransform.transform.forward * _speed * Time.deltaTime; 
+			/*Vector3 checkPos = _centerEye.transform.position + _rotationTransform.transform.forward * 0.3f + _rotationTransform.transform.forward * _speed * Time.deltaTime; 
+			Vector3 heightPos = _centerEye.transform.position + _rotationTransform.transform.forward * 0.3f;
+			
+			for(int i = 0; i < _worldColliders.Length; ++i)
+			{
+				//check from height of person...
+				
+				Collider c = _worldColliders[i].GetComponent<Collider>();
+				if(c != null)
+				{
+					if(c.bounds.Contains(heightPos))
+					{
+						Ray r = new Ray();
+						r.origin = heightPos;
+						r.direction = Vector3.Normalize(checkPos - heightPos);
+						float d = 0f;
+						if(c.bounds.IntersectRay(r, out d))
+						{
+							//Debug.Log("Intersects ray!");
+							potentialPos = r.origin + (d) * r.direction;
+							potentialPos = potentialPos - r.direction * 0.3f;
+							potentialPos.y -= 0.28f;
+						}
+						//potentialPos = c.ClosestPointOnBounds(potentialPos);
+						//Debug.Log(potentialPos.ToString("F4"));
+					}
+				}
+			}*/
+			
+			_positionTransform.transform.position = potentialPos;
+			//_positionTransform.transform.position += _rotationTransform.transform.forward * _speed * Time.deltaTime; 
 			_needsUpdate = false;
 			//updateCount++;
 			

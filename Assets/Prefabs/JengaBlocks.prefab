@@ -639,7 +639,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4642717878877722146}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: JengaBlocks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -675,7 +675,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4642717878898091382}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: JengaRow1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -708,7 +708,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4642717878915051568}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: JengaRow2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -741,7 +741,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4642717878915341497}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: JengaUnit1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -899,7 +899,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4642717879048207695}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: JengaRow2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -932,7 +932,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4642717879049183033}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: JengaRow1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -965,7 +965,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4642717879058392859}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: JengaUnit5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1123,7 +1123,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4642717879080832271}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: JengaRow1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1156,7 +1156,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4642717879109055531}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: JengaUnit3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1692,7 +1692,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4642717879243670178}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: JengaRow2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1977,7 +1977,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4642717879455327079}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: JengaRow2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2514,7 +2514,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4642717879620966029}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: JengaRow2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2673,7 +2673,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4642717879632157845}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: JengaRow1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2958,7 +2958,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4642717880008793189}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: JengaUnit2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3998,7 +3998,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4642717880330064420}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: JengaRow2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4031,7 +4031,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4642717880350717249}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: JengaRow1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4694,7 +4694,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4642717880576172918}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: JengaUnit4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4726,7 +4726,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4642717880629916916}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: JengaRow1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4759,7 +4759,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4642717880679934713}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: JengaUnit6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
