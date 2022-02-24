@@ -29,11 +29,12 @@ public class WaddleTrigger : MonoBehaviour
 	bool _needsUpdate = false;
 	
 	GameObject[] _worldColliders = null;
+	float _triggerTimer = 0f;
 	
     // Start is called before the first frame update
     void Start()
     {
-		//_worldColliders = GameObject.FindGameObjectsWithTag("WorldCollision");
+		_worldColliders = GameObject.FindGameObjectsWithTag("WorldCollision");
 		//Debug.Log(_worldColliders.Length);
     }
 
@@ -51,8 +52,9 @@ public class WaddleTrigger : MonoBehaviour
 		{
 			//transform.position = otherCollider.gameObject.transform.position;
 			//check that their head is relatively level when entering the collider
+			float currTime = UnityEngine.Time.time;
 			
-			if(_centerEye.transform.forward.y > -0.6f && _centerEye.transform.forward.y < 0.5f)
+			if(_centerEye.transform.forward.y > -0.6f && _centerEye.transform.forward.y < 0.5f && currTime - _triggerTimer > 0.5f)
 			{
 				_needsUpdate = true;
 				int lr = -1;
@@ -70,6 +72,7 @@ public class WaddleTrigger : MonoBehaviour
 				//Debug.Log(gameObject.name);
 				//_rotationTransform.transform.position -= _rotationTransform.transform.forward * _speed * Time.deltaTime;
 				transform.parent.GetComponent<NavRing>().ForceUpdate(lr);
+				_triggerTimer = currTime;
 			}
 		}
 	}
@@ -82,8 +85,11 @@ public class WaddleTrigger : MonoBehaviour
 			//this moves the entire player
 			
 			Vector3 potentialPos = _positionTransform.transform.position + _rotationTransform.transform.forward * _speed * Time.deltaTime; 
-			/*Vector3 checkPos = _centerEye.transform.position + _rotationTransform.transform.forward * 0.3f + _rotationTransform.transform.forward * _speed * Time.deltaTime; 
-			Vector3 heightPos = _centerEye.transform.position + _rotationTransform.transform.forward * 0.3f;
+			Vector3 startFromOffset = _rotationTransform.transform.forward * 0.3f;
+			Vector3 checkPos = _centerEye.transform.position + startFromOffset + _rotationTransform.transform.forward * _speed * Time.deltaTime; 
+			Vector3 heightPos = _centerEye.transform.position + startFromOffset;
+			float d = 0f;
+			bool validMove = true;
 			
 			for(int i = 0; i < _worldColliders.Length; ++i)
 			{
@@ -92,35 +98,48 @@ public class WaddleTrigger : MonoBehaviour
 				Collider c = _worldColliders[i].GetComponent<Collider>();
 				if(c != null)
 				{
-					if(c.bounds.Contains(heightPos))
+					if(c.bounds.Contains(checkPos))
 					{
 						Ray r = new Ray();
 						r.origin = heightPos;
 						r.direction = Vector3.Normalize(checkPos - heightPos);
-						float d = 0f;
+						
 						if(c.bounds.IntersectRay(r, out d))
 						{
-							//Debug.Log("Intersects ray!");
-							potentialPos = r.origin + (d) * r.direction;
-							potentialPos = potentialPos - r.direction * 0.3f;
-							potentialPos.y -= 0.28f;
+							if(d > 0.5f)
+							{
+								//Debug.Log("Intersects ray!");
+								potentialPos = _positionTransform.transform.position + (d) * r.direction;// r.origin + (d) * r.direction;
+								//potentialPos = potentialPos - r.direction * 0.3f;
+								//potentialPos.y -= 0.28f;
+							}
+							else
+							{
+								validMove = false;
+							}
+							break;
 						}
 						//potentialPos = c.ClosestPointOnBounds(potentialPos);
 						//Debug.Log(potentialPos.ToString("F4"));
+						
 					}
 				}
-			}*/
+			}
 			
-			_positionTransform.transform.position = potentialPos;
+			if(validMove)
+			{
+				_positionTransform.transform.position = potentialPos;
+				AudioSource audioClip = GetComponent<AudioSource>();
+				if(audioClip != null)
+				{
+					audioClip.Play();
+				}
+			}
 			//_positionTransform.transform.position += _rotationTransform.transform.forward * _speed * Time.deltaTime; 
 			_needsUpdate = false;
 			//updateCount++;
 			
-			AudioSource audioClip = GetComponent<AudioSource>();
-			if(audioClip != null)
-			{
-				audioClip.Play();
-			}
+			
 		}
 	}
 }
