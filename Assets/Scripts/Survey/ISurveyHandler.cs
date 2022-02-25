@@ -4,6 +4,6 @@ namespace FieldDay
 {
     public interface ISurveyHandler
     {
-        void HandleSurveyResponse(Dictionary<string, string> surveyResponses);
+        void HandleSurveyResponse(Dictionary<string, string> surveyResponses, float timedelta = -1);
     }
 }

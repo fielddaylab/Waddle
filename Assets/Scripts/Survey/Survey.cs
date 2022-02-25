@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using BeauData;
+using Firebase.RemoteConfig;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,9 +9,6 @@ namespace FieldDay
 {
     public class Survey : MonoBehaviour
     {
-        [DllImport("__Internal")]
-        public static extern string FetchSurvey(string surveyName);
-    
         #region Inspector
 
         [Header("UI Dependencies")]
@@ -90,6 +87,17 @@ namespace FieldDay
         {
             m_SurveyHandler.HandleSurveyResponse(m_SelectedAnswers);
             Destroy(this.gameObject);
+        }
+
+        private void FetchSurvey(string surveyName)
+        {
+            Dictionary<string, object> defaults = new Dictionary<string, object>();
+            defaults.Add("survey_string", m_DefaultJSON);
+
+            FirebaseRemoteConfig.DefaultInstance.SetDefaultsAsync(defaults)
+                .ContinueWith(task => {
+                    ReadSurveyData(FirebaseRemoteConfig.DefaultInstance.GetValue("survey_string").StringValue);
+                });
         }
     }
 }

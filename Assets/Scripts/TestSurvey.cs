@@ -1,26 +1,26 @@
 using System.Collections.Generic;
 using FieldDay;
-using Firebase.Analytics;
 using UnityEngine;
 
 public class TestSurvey : MonoBehaviour
 {
-    [SerializeField] private Survey m_Survey;
+    [SerializeField] private SurveyVR m_Survey;
     [SerializeField] private TextAsset m_DefaultSurvey;
 
     private void Start()
     {
         m_Survey.Initialize(null, m_DefaultSurvey, new TestHandler());
-
-        // Test Firebase logging
-        FirebaseAnalytics.LogEvent("start");
     }
 }
 
 public class TestHandler : ISurveyHandler
 {
-    public void HandleSurveyResponse(Dictionary<string, string> surveyResponses)
+    public void HandleSurveyResponse(Dictionary<string, string> surveyResponses, float timeDelta = -1)
     {
-        Debug.Log("Survey submitted.");
+        string stringData = "";
+        foreach (var pair in surveyResponses) {
+            stringData += $"\n{pair.Key}, {pair.Value}";
+        }
+        Debug.Log($"Survey submitted in {timeDelta} seconds. data is as follows: {stringData}");
     }
 }

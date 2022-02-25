@@ -81,6 +81,8 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		OVRManager.HMDUnmounted += HandleHMDUnmounted;
 		
 		OVRManager.HMDMounted += HandleHMDMounted;
+
+		PenguinAnalytics.LogStartGame();
     }
 
 	IEnumerator ShowMessage(string message, float startDuration, float duration)
