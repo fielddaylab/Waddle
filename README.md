@@ -30,7 +30,7 @@ Firebase automatically logs the following meaningful events, documented [here](h
 * user_engagement
 
 ### Change Log
-1. Initial version (2/4/22)
+1. Initial version
 
 ### Events
 
