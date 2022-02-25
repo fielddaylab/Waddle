@@ -41,7 +41,7 @@ Firebase automatically logs the following meaningful events, documented [here](h
 
 #### start_game
 
-Player starts the game.
+Player starts the game
 
 | Parameter | Description |
 | --- | --- |
