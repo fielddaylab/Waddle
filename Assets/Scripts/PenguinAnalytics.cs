@@ -1,33 +1,60 @@
 using System.Collections.Generic;
+using System.Text;
 using FieldDay;
+using Firebase;
 using Firebase.Analytics;
+using UnityEngine;
 
 public class PenguinAnalytics : Singleton<PenguinAnalytics>
 {
-    private static int m_LogVersion = 0;
+    private static int logVersion = 0;
+    private static FirebaseApp firebaseApp = null;
+    private static bool loggingEnabled = false;
 
-    public static void LogStartGame()
+    private void Start()
     {
-        FirebaseAnalytics.LogEvent("start_game", 
-            new Firebase.Analytics.Parameter("app_version", m_LogVersion));
+        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task => {
+	        var dependencyStatus = task.Result;
+		    if (dependencyStatus == DependencyStatus.Available) {
+			    firebaseApp = FirebaseApp.DefaultInstance;
+                FirebaseAnalytics.SetAnalyticsCollectionEnabled(true);
+                loggingEnabled = true;
+                FirebaseAnalytics.LogEvent("start_game", 
+                    new Parameter("log_version", logVersion));
+	        } else {
+		        Debug.LogError(System.String.Format("Could not resolve all Firebase dependencies: {0}", dependencyStatus));
+	        }
+		});
     }
 
     public static void LogLoadMiniGame(PenguinGameManager.MiniGame minigame)
     {
-        FirebaseAnalytics.LogEvent("load_minigame",
-            new Firebase.Analytics.Parameter("app_version", m_LogVersion),
+        if (loggingEnabled)
+        {
+            FirebaseAnalytics.LogEvent("load_minigame",
+            new Firebase.Analytics.Parameter("log_version", logVersion),
             new Firebase.Analytics.Parameter("minigame", minigame.ToString()));
+        }
     }
 }
 
 public class PenguinSurveyHandler : ISurveyHandler
 {
-    public void HandleSurveyResponse(Dictionary<string, string> surveyResponses, float timedelta = -1)
+    private static readonly StringBuilder stringBuilder = new StringBuilder();
+
+    public void HandleSurveyResponse(Dictionary<string, string> surveyResponses, float timeDelta = -1)
     {
-        foreach (KeyValuePair<string, string> kvp in surveyResponses)
-        {
-            FirebaseAnalytics.LogEvent($"survey_question_{kvp.Key}",
-                new Firebase.Analytics.Parameter("response", kvp.Value));
+        foreach (var pair in surveyResponses) {
+            stringBuilder.AppendFormat("{0},", pair.Value);
         }
+
+        stringBuilder.Length--;
+
+        string responseString = stringBuilder.ToString();
+        stringBuilder.Length = 0;
+
+        FirebaseAnalytics.LogEvent("submit_survey", 
+            new Parameter("responses", responseString),
+            new Parameter("time", timeDelta));
     }
 }

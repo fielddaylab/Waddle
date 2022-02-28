@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using BeauData;
-using Firebase.RemoteConfig;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,7 +34,7 @@ namespace FieldDay
             #if UNITY_EDITOR
             ReadSurveyData(string.Empty);
             #else
-            FetchSurvey(inSurveyName);
+            ReadSurveyData(string.Empty);
             #endif
         }
 
@@ -87,17 +86,6 @@ namespace FieldDay
         {
             m_SurveyHandler.HandleSurveyResponse(m_SelectedAnswers);
             Destroy(this.gameObject);
-        }
-
-        private void FetchSurvey(string surveyName)
-        {
-            Dictionary<string, object> defaults = new Dictionary<string, object>();
-            defaults.Add("survey_string", m_DefaultJSON);
-
-            FirebaseRemoteConfig.DefaultInstance.SetDefaultsAsync(defaults)
-                .ContinueWith(task => {
-                    ReadSurveyData(FirebaseRemoteConfig.DefaultInstance.GetValue("survey_string").StringValue);
-                });
         }
     }
 }

@@ -1,9 +1,10 @@
-using BeauRoutine;
 using System.Collections.Generic;
+using BeauData;
+using BeauRoutine;
+using FieldDay;
+using Firebase.RemoteConfig;
 using UnityEngine;
 using UnityEngine.UI;
-using FieldDay;
-using BeauData;
 
 public class SurveyVR : MonoBehaviour
 {
@@ -62,7 +63,7 @@ public class SurveyVR : MonoBehaviour
         surveyData = ReadSurveyData(string.Empty);
         #else
         //Survey.FetchSurvey(inSurveyName);
-        surveyData = ReadSurveyData(string.Empty);
+        surveyData = ReadSurveyData(inSurveyName);
         #endif
 
         questionCount = surveyData.Questions.Count;

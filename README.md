@@ -34,18 +34,7 @@ Firebase automatically logs the following meaningful events, documented [here](h
 
 ### Events
 
-1. [start_game](#start_game)
-2. [load_minigame](#load_minigame)
-
-<a name="start_game"/>
-
-#### start_game
-
-Player starts the game
-
-| Parameter | Description |
-| --- | --- |
-| app_version | Current logging version |
+1. [load_minigame](#load_minigame)
 
 <a name="load_minigame"/>
 
