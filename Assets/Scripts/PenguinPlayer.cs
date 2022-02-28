@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class PenguinPlayer : Singleton<PenguinPlayer>
 {
+	public enum PenguinPlayerObjects
+	{
+		CONTROLLER,
+		PENGUIN_BODY,
+		MIRROR_BODY,
+		NAV_RING,
+		SNOW_RING,
+		SELECT_LINE,
+		SELECT_DOT,
+		PAUSE_UI
+	}
+	
 	[SerializeField]
 	GameObject _userMessageUI;
 	
@@ -32,7 +44,7 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
     // Start is called before the first frame update
     void Start()
     {
-        _lineRenderer = transform.GetChild(5).gameObject.GetComponent<LineRenderer>();
+        _lineRenderer = transform.GetChild((int)PenguinPlayerObjects.SELECT_LINE).gameObject.GetComponent<LineRenderer>();
     }
 	
 	public void StopBackgroundMusic()
@@ -118,7 +130,7 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		
 		//need a way to stop physics for everything but colliding with the pause screen buttons...
 		//hand reticle
-		transform.GetChild(6).gameObject.GetComponent<MeshRenderer>().enabled = false;
+		transform.GetChild((int)PenguinPlayerObjects.SELECT_DOT).gameObject.GetComponent<MeshRenderer>().enabled = false;
 		
 		_lineRenderer.enabled = false;
 	}
@@ -222,12 +234,12 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 	
 	public void DisableMovement()
 	{
-		transform.GetChild(3).gameObject.SetActive(false);
+		transform.GetChild((int)PenguinPlayerObjects.NAV_RING).gameObject.SetActive(false);
 	}
 	
 	public void EnableMovement()
 	{
-		transform.GetChild(3).gameObject.SetActive(true);
+		transform.GetChild((int)PenguinPlayerObjects.NAV_RING).gameObject.SetActive(true);
 	}
 	
 	public void ShowWaddleMessage(float showDuration)
@@ -244,6 +256,6 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 	public void ShowEndGamePrefab()
 	{
 		//play the snow storm...
-		transform.GetChild(4).gameObject.SetActive(true);
+		transform.GetChild((int)PenguinPlayerObjects.SNOW_RING).gameObject.SetActive(true);
 	}
 }
