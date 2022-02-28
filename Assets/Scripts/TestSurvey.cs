@@ -43,15 +43,13 @@ public class TestSurvey : MonoBehaviour
     {
         if (fetchTask.IsCompleted)
         {
-            Debug.Log("COMPLETE");
-
             survey = FirebaseRemoteConfig.DefaultInstance.GetValue("survey_string").StringValue;
-            Debug.Log($"survey {survey}");
         }
     }
 
     private void InitSurvey()
     {
+        m_Survey.gameObject.SetActive(true);
         m_Survey.Initialize(survey, m_DefaultSurvey, new TestHandler());
         Destroy(startButton.gameObject);
     }
