@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using BeauData;
 using BeauRoutine;
 using FieldDay;
-using Firebase.RemoteConfig;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +21,7 @@ public class SurveyVR : MonoBehaviour
     private List<SurveyProgressNode> progressPoints = new List<SurveyProgressNode>();
     private int currentQuestion = 0;
     private int answerCount = 0;
-// OpenGameData variables
+    // OpenGameData variables
     private SurveyData surveyData;
     private TextAsset defaultJSON;
     private ISurveyHandler surveyHandler;
@@ -50,20 +49,19 @@ public class SurveyVR : MonoBehaviour
 
     /// <summary>
     /// Should be called immediately after prefab instantiation,
-    ///performs setup operations propogating the input survey into the question prefabs generated
+    /// performs setup operations propogating the input survey into the question prefabs generated
     /// </summary>
-    /// <param name="inSurveyName"> Name of the desired survey to fetch.</param>
+    /// <param name="inSurveyString"> Name of the desired survey to fetch.</param>
     /// <param name="inDefaultJSON"> JSON represeting the survey to show in case survey fetch fails.</param>
     /// <param name="inSurveyHandler"> Survey Handler defining submit functionality of the survey.</param>
-    public void Initialize(string inSurveyName, TextAsset inDefaultJSON, ISurveyHandler inSurveyHandler) {
+    public void Initialize(string inSurveyString, TextAsset inDefaultJSON, ISurveyHandler inSurveyHandler) {
         defaultJSON = inDefaultJSON;
         surveyHandler = inSurveyHandler;
 
         #if UNITY_EDITOR
         surveyData = ReadSurveyData(string.Empty);
         #else
-        //Survey.FetchSurvey(inSurveyName);
-        surveyData = ReadSurveyData(inSurveyName);
+        surveyData = ReadSurveyData(inSurveyString);
         #endif
 
         questionCount = surveyData.Questions.Count;

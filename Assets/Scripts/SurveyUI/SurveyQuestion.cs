@@ -30,8 +30,8 @@ public class SurveyQuestion : MonoBehaviour
     [SerializeField] private float unfocusedZ;
     
     
-// OpenGameData variables
-    private string id;
+    // OpenGameData variables
+    private string currentText;
 
     /// <summary>
     /// Called on creation internally, performs setup for question prefab.
@@ -46,7 +46,7 @@ public class SurveyQuestion : MonoBehaviour
             answers.Add(answer);
         }
         SetText(question.Text);
-        id = question.Id;
+        currentText = question.Text;
     }
 
     /// <summary>
@@ -101,7 +101,7 @@ public class SurveyQuestion : MonoBehaviour
         string text;
         foreach (var ans in answers) {
             if ((text = ans.TryGetSelected()) != null) {
-                allAnswers[id] = text;
+                allAnswers[currentText] = text;
                 break;
             }
         }
