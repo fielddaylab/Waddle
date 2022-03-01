@@ -20,7 +20,6 @@ public class SkuaWalkState : MonoBehaviour, ISkuaState
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -30,16 +29,26 @@ public class SkuaWalkState : MonoBehaviour, ISkuaState
     }
 
 	
-	IEnumerator StartMove(Vector3 newSpot, Quaternion newRot, float duration)
+	IEnumerator StartMove(Vector3 newSpot, Quaternion newRot, float duration, bool isUp)
 	{
 		float t = 0f;
 		Vector3 startPosition = transform.position;
 		Quaternion startRotation = transform.rotation;
+		Vector3 toNewSpot = newSpot - transform.position;
+		toNewSpot = Vector3.Normalize(toNewSpot);
+		Quaternion rotNewSpot = Quaternion.LookRotation(toNewSpot, Vector3.up);
+		if(!isUp)
+		{
+			transform.rotation = rotNewSpot;
+		}
 		
 		while(t < duration)
 		{
 			transform.position = Vector3.Lerp(startPosition, newSpot, (t/duration));
-			transform.rotation = Quaternion.Lerp(startRotation, newRot, (t/duration));
+			if(isUp)
+			{
+				transform.rotation = Quaternion.Lerp(startRotation, newRot, (t/duration));
+			}
 			
 			t += (Time.deltaTime);	
 			yield return null;
@@ -57,6 +66,7 @@ public class SkuaWalkState : MonoBehaviour, ISkuaState
 		}
 		else
 		{*/
+		
 			transform.rotation = newRot;
 			_sc.GoIdle();
 		//}
@@ -70,6 +80,9 @@ public class SkuaWalkState : MonoBehaviour, ISkuaState
 		}
 		
 		//we can assume that the new spot we want to walk to has already been set before reaching this spot...
+		bool isUp = _sc.CurrentSpot.IsUp;
+		
+		//_wasUp = isUp;
 		
 		//orient skua in the direction of the new spot
 		Vector3 p =  _sc.CurrentSpot.gameObject.transform.position;
@@ -87,37 +100,40 @@ public class SkuaWalkState : MonoBehaviour, ISkuaState
 		Animator a = sc.GetAnimController();
 		if(a != null)
 		{
-			//Debug.Log("Setting fly");
-			//a.SetBool("takeoff", false);
-			//a.SetBool("fly", false);
-			//a.SetBool("walkleft", false);
-			//a.SetBool("walkright", false);
-			//a.SetBool("eat", false);
 			a.SetBool("right", false);
 			a.SetBool("left", false);
 			a.SetBool("back", false);
 			a.SetBool("forward", false);
 			a.SetBool("idle", false);
 			a.SetBool("slapped", false);
+			a.SetBool("walk", false);
 			
-			if(_sc.WalkDir == SkuaWalkState.WalkDirection.eFORWARD)
+			if(isUp || sc.WasUp)
 			{
-				a.SetBool("forward", true);
+				if(_sc.WalkDir == SkuaWalkState.WalkDirection.eFORWARD)
+				{
+					a.SetBool("forward", true);
+				}
+				else if(_sc.WalkDir == SkuaWalkState.WalkDirection.eBACK)
+				{
+					a.SetBool("back", true);
+				}
+				else if(_sc.WalkDir == SkuaWalkState.WalkDirection.eLEFT)
+				{
+					a.SetBool("left", true);
+				}
+				else if(_sc.WalkDir == SkuaWalkState.WalkDirection.eRIGHT)
+				{
+					a.SetBool("right", true);
+				}
 			}
-			else if(_sc.WalkDir == SkuaWalkState.WalkDirection.eBACK)
+			else
 			{
-				a.SetBool("back", true);
-			}
-			else if(_sc.WalkDir == SkuaWalkState.WalkDirection.eLEFT)
-			{
-				a.SetBool("left", true);
-			}
-			else if(_sc.WalkDir == SkuaWalkState.WalkDirection.eRIGHT)
-			{
-				a.SetBool("right", true);
+				//Debug.Log("Setting walk");
+				a.SetBool("walk", true);
 			}
 		}
 		
-		StartCoroutine(StartMove(_sc.CurrentSpot.transform.position, Quaternion.Euler(e), _sc.MoveFrequency));
+		StartCoroutine(StartMove(_sc.CurrentSpot.transform.position, Quaternion.Euler(e), _sc.MoveFrequency, isUp || sc.WasUp));
 	}
 }

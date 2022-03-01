@@ -46,17 +46,12 @@ public class SkuaIdleState : MonoBehaviour, ISkuaState
 		Animator a = sc.GetAnimController();
 		if(a != null)
 		{
-			//a.enabled = true;
-			//Debug.Log("Setting fly");
-			//a.SetBool("takeoff", false);
-			//a.SetBool("fly", false);
-			//a.SetBool("walkleft", false);
-			//a.SetBool("walkright", false);
 			a.SetBool("forward", false);
 			a.SetBool("back", false);
 			a.SetBool("left", false);
 			a.SetBool("right", false);
 			a.SetBool("idle", true);
+			a.SetBool("walk", false);
 			
 			gameObject.GetComponent<Rigidbody>().useGravity = false;
 			gameObject.GetComponent<Rigidbody>().isKinematic = true;

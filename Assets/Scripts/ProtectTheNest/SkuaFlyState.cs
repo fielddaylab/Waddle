@@ -69,7 +69,7 @@ public class SkuaFlyState : MonoBehaviour, ISkuaState
 		//q.SetFromToRotation(gameObject.transform.forward, );
 		//Vector3 e = q.eulerAngles;
 		e.y -= 90.0f;//due to skua model's local rotation.
-		gameObject.transform.rotation = q;
+		//gameObject.transform.rotation = q;
 		
 		
 		Animator a = sc.GetAnimController();

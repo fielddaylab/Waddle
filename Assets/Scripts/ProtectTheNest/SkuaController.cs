@@ -25,6 +25,10 @@ public class SkuaController : MonoBehaviour
 	
 	Egg _theEgg;
 	
+	bool _wasUp = false;
+	
+	public bool WasUp => _wasUp;
+	
 	public Egg GetEgg => _theEgg;
 	
 	private SkuaSpot _centerSpot = null;
@@ -59,8 +63,10 @@ public class SkuaController : MonoBehaviour
 	
 	public void SetNewSpot(SkuaSpot newSpot)
 	{
+		
 		if(_currentSpot != null)
 		{
+			_wasUp = _currentSpot.IsUp;
 			_currentSpot.CurrentSkua = null;
 		}
 		
@@ -85,7 +91,7 @@ public class SkuaController : MonoBehaviour
 	{
 		if(_animController == null)
 		{
-			_animController = GetComponent<Animator>();
+			_animController = transform.GetChild(0).GetComponent<Animator>();
 		}
 		
 		return _animController; 
@@ -257,7 +263,12 @@ public class SkuaController : MonoBehaviour
 					_theEgg = null;
 				}
 				
-				SkuaHit();
+				//Vector3 toSkua = Vector3.Normalize(transform.position - PenguinPlayer.Instance.gameObject.transform.GetChild(0).position);
+				//add check here to ensure we're facing a skua...
+				//if(Vector3.Dot(toSkua, PenguinPlayer.Instance.gameObject.transform.GetChild(0).forward) < 0f)
+				{
+					SkuaHit();
+				}
 			}
 		}
 	}

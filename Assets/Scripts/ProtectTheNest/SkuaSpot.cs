@@ -45,6 +45,10 @@ public class SkuaSpot : MonoBehaviour
 	public bool IsInner => _isInner;
 	
 	[SerializeField]
+	bool _isUp = false;
+	public bool IsUp => _isUp;
+	
+	[SerializeField]
 	GameObject _currentSkua;
 	
 	public GameObject CurrentSkua

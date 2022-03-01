@@ -25,6 +25,9 @@ public class WaddleTrigger : MonoBehaviour
 		set { _speed = value; }
 	}
 	
+	[SerializeField]
+	AudioClip _collideClip;
+	
 	//int updateCount = 0;
 	bool _needsUpdate = false;
 	
@@ -135,11 +138,20 @@ public class WaddleTrigger : MonoBehaviour
 					audioClip.Play();
 				}
 			}
+			else
+			{
+				AudioSource audioClip = GetComponent<AudioSource>();
+				if(audioClip != null)
+				{
+					if(_collideClip != null)
+					{
+						audioClip.PlayOneShot(_collideClip);
+					}
+				}
+			}
 			//_positionTransform.transform.position += _rotationTransform.transform.forward * _speed * Time.deltaTime; 
 			_needsUpdate = false;
 			//updateCount++;
-			
-			
 		}
 	}
 }

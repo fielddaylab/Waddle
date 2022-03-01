@@ -37,7 +37,7 @@ public class StartAnim : MonoBehaviour
 			if(a != null)
 			{
 				a.enabled = true;
-				if(_startTransition.Length == 0)
+				if(_startTransition.Length != 0)
 				{
 					a.SetBool(_startTransition, true);
 				}

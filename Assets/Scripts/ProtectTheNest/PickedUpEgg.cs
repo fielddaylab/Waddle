@@ -8,7 +8,7 @@ public class PickedUpEgg : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         //Debug.Log("Picked up egg");
-		SkuaController sc = animator.gameObject.GetComponent<SkuaController>();
+		SkuaController sc = animator.gameObject.transform.parent.GetComponent<SkuaController>();
 			
 		if(sc.GetEgg != null)
 		{

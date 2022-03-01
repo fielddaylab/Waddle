@@ -39,6 +39,7 @@ public class SkuaHitState : MonoBehaviour, ISkuaState
 			//a.SetBool("eat", false);
 			a.SetBool("idle", false);
 			a.SetBool("slapped", true);
+			a.SetBool("break", false);
 			
 			gameObject.GetComponent<Rigidbody>().useGravity = true;
 			gameObject.GetComponent<Rigidbody>().isKinematic = false;

@@ -38,6 +38,7 @@ public class SkuaEatState : MonoBehaviour, ISkuaState
 			//a.SetBool("walk", false);
 			//a.SetBool("idle", false);
 			//a.SetBool("eat", true);
+			transform.rotation = _sc.CurrentSpot.transform.rotation;
 			
 			_sc.GetEgg.gameObject.transform.localPosition = Vector3.zero;
 			

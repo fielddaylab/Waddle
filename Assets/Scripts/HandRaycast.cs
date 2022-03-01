@@ -75,20 +75,20 @@ public class HandRaycast : MonoBehaviour
 						}
 					}
 					
-					if(_lineRenderer != null)
+					/*if(_lineRenderer != null)
 					{
 						_lineRenderer.SetPosition(0, castOrigin);
 						_lineRenderer.SetPosition(1, hitInfo.point);
-					}
+					}*/
 					//Debug.Log("Hit " + hitInfo.collider.transform.gameObject.name);
 				}
 				else
 				{
-					if(_lineRenderer != null)
+					/*if(_lineRenderer != null)
 					{
 						_lineRenderer.SetPosition(0, castOrigin);
 						_lineRenderer.SetPosition(1, _rightHand.transform.position - _rightHand.transform.right*0.11f - _rightHand.transform.forward*0.025f - _rightHand.transform.up * 10f);
-					}
+					}*/
 					
 					if(_reticleObject != null)
 					{
@@ -130,11 +130,11 @@ public class HandRaycast : MonoBehaviour
 				}
 				else
 				{
-					if(_lineRenderer != null)
+					/*if(_lineRenderer != null)
 					{
 						_lineRenderer.SetPosition(0, Vector3.zero);
 						_lineRenderer.SetPosition(1, Vector3.zero);
-					}
+					}*/
 					
 					if(_reticleObject != null)
 					{

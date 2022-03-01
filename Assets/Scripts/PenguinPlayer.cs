@@ -114,7 +114,7 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		
 		_mainUI.SetActive(false);
 		//switch our hands...
-		if(_leftHandController != null)
+		/*if(_leftHandController != null)
 		{
 			_leftHandController.transform.GetChild(1).gameObject.SetActive(true);
 			_leftHandController.transform.GetChild(2).gameObject.SetActive(false);
@@ -124,7 +124,7 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		{
 			_rightHandController.transform.GetChild(1).gameObject.SetActive(true);
 			_rightHandController.transform.GetChild(2).gameObject.SetActive(false);
-		}
+		}*/
 		
 		EnableMovement();
 		
@@ -191,7 +191,7 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 			HideUserMessage();
 		}
 
-		if(_leftHandController != null)
+		/*if(_leftHandController != null)
 		{
 			_leftHandController.transform.GetChild(1).gameObject.SetActive(false);
 			_leftHandController.transform.GetChild(2).gameObject.SetActive(true);
@@ -201,12 +201,12 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		{
 			_rightHandController.transform.GetChild(1).gameObject.SetActive(false);
 			_rightHandController.transform.GetChild(2).gameObject.SetActive(true);
-		}
+		}*/
 		
 		DisableMovement();
 		
 		//hand reticle
-		transform.GetChild(6).gameObject.GetComponent<MeshRenderer>().enabled = true;
+		transform.GetChild((int)PenguinPlayerObjects.SELECT_DOT).gameObject.GetComponent<MeshRenderer>().enabled = true;
 		
 		_lineRenderer.enabled = true;	
 	}

@@ -88,6 +88,8 @@ public class MiniGameUnlocker : MonoBehaviour
 	
 		if(_lockable)
 		{
+			_numPebblesCollected = 0;
+			
 			transform.GetChild((int)MiniGameCommonObjects.ICON).GetComponent<MeshRenderer>().sharedMaterial = _lockMaterials[0];
 			
 			for(int i = 0; i < transform.GetChild((int)MiniGameCommonObjects.NEST).childCount; ++i)

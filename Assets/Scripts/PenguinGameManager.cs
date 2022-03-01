@@ -123,12 +123,13 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	{
 		StartCoroutine(ShowMessage("", 5f, 10f));
 		
+		_overallStartTime = UnityEngine.Time.time;
+		
 		PenguinPlayer.Instance.EnableMovement();
 		
 		UnityEngine.Time.timeScale = 1;
 		//AudioListener.pause = false;
 		PenguinPlayer.Instance.StartBackgroundMusic();
-		
 	}
 	
 	public void HandleHMDUnmounted()
