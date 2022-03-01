@@ -57,6 +57,9 @@ public class MatingDance : MiniGameController
 	[SerializeField]
 	GameObject _heartPrefab = null;
 	
+	[SerializeField]
+	GameObject _demoBubble = null;
+	
 	GameObject _lastSpawn = null;
 	
 	const float BUBBLE_SHRINK_LENGTH = 2f;	//2 seconds...
@@ -65,9 +68,11 @@ public class MatingDance : MiniGameController
 	
 	public static uint _popCount = 0;
 	
+	bool _demoDone = false;
+	
     void Start()
     {
-        Debug.Log(GetComponent<AudioSource>().clip.samples);
+        //Debug.Log(GetComponent<AudioSource>().clip.samples);
         _sampleData = new float[GetComponent<AudioSource>().clip.samples];
         GetComponent<AudioSource>().clip.GetData(_sampleData, 0);
 		
@@ -125,27 +130,6 @@ public class MatingDance : MiniGameController
     {
 		Debug.Log("Starting mating dance");
         base.StartGame();
-
-		AudioSource mainTrack = PenguinPlayer.Instance.GetComponent<AudioSource>();
-		if(mainTrack != null)
-		{
-			mainTrack.Stop();
-		}
-		
-        AudioSource audio = GetComponent<AudioSource>();
-		if(audio != null)
-		{
-			audio.Play();
-		}
-		
-		if(_pivotPoint != null)
-		{
-			OrientToUser otu = _pivotPoint.GetComponent<OrientToUser>();
-			if(otu != null)
-			{
-				otu.Rotate();
-			}
-		}
 		
 		if(_matingDancePenguin == null)
 		{
@@ -160,6 +144,11 @@ public class MatingDance : MiniGameController
 		{
 			_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("bop", true);
 		}
+		
+		GameObject bub = GameObject.Instantiate(_bubblePrefab, _demoBubble.transform);
+		
+		StartCoroutine(DemoPop(0.7f));
+		StartCoroutine(DestroyCo(3.3f, bub, true));
     }
 	
 	public override void EndGame()
@@ -182,13 +171,36 @@ public class MatingDance : MiniGameController
 			_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("bop", false);
 		}
 		
+		_currentSample = 0;
+		_demoDone = false;
+		
 		base.EndGame();
 	}
 	
-	IEnumerator DestroyCo(float duration, GameObject toDestroy)
+	IEnumerator DemoPop(float duration)
 	{
 		yield return new WaitForSeconds(duration);
 		
+		if(_matingDancePenguin != null)
+		{
+			_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("peck", true);
+		}
+	}
+	
+	IEnumerator DestroyCo(float duration, GameObject toDestroy, bool playSound)
+	{
+		yield return new WaitForSeconds(duration);
+		
+		if(playSound)
+		{
+			AudioSource audio = toDestroy.GetComponent<AudioSource>();
+			if(audio != null)
+			{
+				//Debug.Log("Bubble Hit!");
+				audio.Play();
+				_demoDone = true;
+			}
+		}
 		Object.Destroy(toDestroy);
 	}
 	
@@ -197,105 +209,132 @@ public class MatingDance : MiniGameController
     {
 		if(_isGameActive)
 		{
-			UpdateTime();
-			
-			if(_popCount >= 3)
+			if(_demoDone)
 			{
-				GameObject heart = GameObject.Instantiate(_heartPrefab, _heartSpawn.transform);
-				StartCoroutine(DestroyCo(5f, heart));
-				_popCount = 0;
-			}
-			
-			if(_currentSample == 3)
-			{
-				if(_matingDancePenguin != null)
+				if(_currentSample == 0)
 				{
-					_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("peck", true);
+					AudioSource mainTrack = PenguinPlayer.Instance.GetComponent<AudioSource>();
+					if(mainTrack != null)
+					{
+						mainTrack.Stop();
+					}
+					
+					AudioSource audio = GetComponent<AudioSource>();
+					if(audio != null)
+					{
+						audio.Play();
+					}
+					
+					if(_pivotPoint != null)
+					{
+						OrientToUser otu = _pivotPoint.GetComponent<OrientToUser>();
+						if(otu != null)
+						{
+							otu.Rotate();
+						}
+					}
+					
+					if(_matingDancePenguin == null)
+					{
+						//todo - not ideal, but for cross-scene reference acquisition..
+						_matingDancePenguin = GameObject.FindWithTag("MatingDancePenguin");
+						if(_matingDancePenguin != null)
+						{
+							_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("peck", false);
+							_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("bop", true);
+						}
+					}
+					else
+					{
+						_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("peck", false);
+						_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("bop", true);
+					}
 				}
-			}
-			else if(_currentSample == 5)
-			{
-				if(_matingDancePenguin != null)
+				
+				UpdateTime();
+				
+				if(_popCount >= 3)
 				{
-					//_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("peck", false);
-					_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("bop", true);
+					GameObject heart = GameObject.Instantiate(_heartPrefab, _heartSpawn.transform);
+					StartCoroutine(DestroyCo(5f, heart, false));
+					_popCount = 0;
 				}
-			}
-			
-			if(_currentSample < _timeSamples.Length-1 && (_totalGameTime > _timeSamples[_currentSample] && _totalGameTime < _timeSamples[_currentSample+1]))
-			{
-				if(_bubblePrefab != null)
+				
+				if(_currentSample < _timeSamples.Length-1 && (_totalGameTime > _timeSamples[_currentSample] && _totalGameTime < _timeSamples[_currentSample+1]))
 				{
-					if(_bubbleTypes[_currentSample] == 0)
+					if(_bubblePrefab != null)
 					{
-						if(_currentSample % 2 == 0)
+						if(_bubbleTypes[_currentSample] == 0)
 						{
-							_lastSpawn = GameObject.Instantiate(_bubblePrefab, _clapBubbleSpot.transform);
-						}
-						else
-						{
-							_lastSpawn = GameObject.Instantiate(_bubblePrefab, _clapBubbleSpot2.transform);
-						}
-					}
-					else if(_bubbleTypes[_currentSample] == 1)
-					{
-						_lastSpawn = GameObject.Instantiate(_bubblePrefab, _beatBubbleSpot.transform);
-					}
-					else if(_bubbleTypes[_currentSample] == 2)
-					{
-						if(_currentSample % 2 == 0)
-						{
-							_lastSpawn = GameObject.Instantiate(_bubblePrefab, _drumBubbleSpot.transform);
-						}
-						else
-						{
-							_lastSpawn = GameObject.Instantiate(_bubblePrefab, _drumBubbleSpot2.transform);
-						}
-					}
-					else if(_bubbleTypes[_currentSample] == 3)
-					{
-						GameObject o = null;
-						
-						if(_currentSample % 3 == 0)
-						{
-							o = GameObject.Instantiate(_bubblePrefab, _tripletBubbleSpot.transform);
-						}
-						else if(_currentSample % 3 == 1)
-						{
-							o = GameObject.Instantiate(_bubblePrefab, _tripletBubbleSpot2.transform);
-						}
-						else
-						{
-							o = GameObject.Instantiate(_bubblePrefab, _tripletBubbleSpot3.transform);
-						}
-						
-						if(_bubbleTypes[_currentSample-1] == 3)
-						{
-							if(_bubbleLinePrefab != null)
+							if(_currentSample % 2 == 0)
 							{
-								GameObject bubbleLine = GameObject.Instantiate(_bubbleLinePrefab, _tripletBubbleSpot.transform);
-								//set the line vertices to this sample and last sample..
-								bubbleLine.GetComponent<LineRenderer>().SetPosition(0, _lastSpawn.transform.position);
-								bubbleLine.GetComponent<LineRenderer>().SetPosition(1, o.transform.position);
-								StartCoroutine(DestroyLine(bubbleLine, BUBBLE_SHRINK_LENGTH));
+								_lastSpawn = GameObject.Instantiate(_bubblePrefab, _clapBubbleSpot.transform);
+							}
+							else
+							{
+								_lastSpawn = GameObject.Instantiate(_bubblePrefab, _clapBubbleSpot2.transform);
 							}
 						}
-						
-						_lastSpawn = o;
+						else if(_bubbleTypes[_currentSample] == 1)
+						{
+							_lastSpawn = GameObject.Instantiate(_bubblePrefab, _beatBubbleSpot.transform);
+						}
+						else if(_bubbleTypes[_currentSample] == 2)
+						{
+							if(_currentSample % 2 == 0)
+							{
+								_lastSpawn = GameObject.Instantiate(_bubblePrefab, _drumBubbleSpot.transform);
+							}
+							else
+							{
+								_lastSpawn = GameObject.Instantiate(_bubblePrefab, _drumBubbleSpot2.transform);
+							}
+						}
+						else if(_bubbleTypes[_currentSample] == 3)
+						{
+							GameObject o = null;
+							
+							if(_currentSample % 3 == 0)
+							{
+								o = GameObject.Instantiate(_bubblePrefab, _tripletBubbleSpot.transform);
+							}
+							else if(_currentSample % 3 == 1)
+							{
+								o = GameObject.Instantiate(_bubblePrefab, _tripletBubbleSpot2.transform);
+							}
+							else
+							{
+								o = GameObject.Instantiate(_bubblePrefab, _tripletBubbleSpot3.transform);
+							}
+							
+							if(_bubbleTypes[_currentSample-1] == 3)
+							{
+								if(_bubbleLinePrefab != null)
+								{
+									GameObject bubbleLine = GameObject.Instantiate(_bubbleLinePrefab, _tripletBubbleSpot.transform);
+									//set the line vertices to this sample and last sample..
+									bubbleLine.GetComponent<LineRenderer>().SetPosition(0, _lastSpawn.transform.position);
+									bubbleLine.GetComponent<LineRenderer>().SetPosition(1, o.transform.position);
+									StartCoroutine(DestroyLine(bubbleLine, BUBBLE_SHRINK_LENGTH));
+								}
+							}
+							
+							_lastSpawn = o;
+						}
+						else if(_bubbleTypes[_currentSample] == 4)
+						{
+							_lastSpawn = GameObject.Instantiate(_bubblePrefab, _measureBubbleSpot.transform);
+						}
 					}
-					else if(_bubbleTypes[_currentSample] == 4)
-					{
-						_lastSpawn = GameObject.Instantiate(_bubblePrefab, _measureBubbleSpot.transform);
-					}
+					_currentSample++;
 				}
-				_currentSample++;
-			}
-			else
-			{
-				if(_currentSample == _timeSamples.Length - 2)
+				else
 				{
-					_popCount = 0;
-					EndGame();
+					if(_currentSample == _timeSamples.Length - 2)
+					{
+						_popCount = 0;
+						EndGame();
+					}
 				}
 			}
 		}
