@@ -177,8 +177,12 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 				{
 					PenguinPlayer.Instance.ShowEndGamePrefab();
 					_showingEndGamePrefab = true;
+					
+					//fade out here...
+					OVRScreenFade.instance.FadeOut();
+					PenguinPlayer.Instance.StopBackgroundMusic();
 				}
-			}
+			}	
 		}
     }
 

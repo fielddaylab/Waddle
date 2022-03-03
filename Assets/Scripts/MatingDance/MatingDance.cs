@@ -102,7 +102,7 @@ public class MatingDance : MiniGameController
 					{
 						_bubbleTypes[i] = 1;
 					}
-					else if(d[2].StartsWith("Drum"))
+					else if(d[2].StartsWith("Drum") || d[2].StartsWith("Saxophone"))
 					{
 						_bubbleTypes[i] = 2;
 					}
