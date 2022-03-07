@@ -174,6 +174,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 8337bb938a3c703eb83443fbf26a68c4, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 8337bb938a3c703eb83443fbf26a68c4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a6a0753d0674bed4ea9b87f86ac8b1bc, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 8337bb938a3c703eb83443fbf26a68c4, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: fb00c5139f8986349852d041504561ae, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 8337bb938a3c703eb83443fbf26a68c4, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: e1364df22340367438f9abee1a696013, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 8337bb938a3c703eb83443fbf26a68c4, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: 61ba35e5a03fd7142b9b42a3c5b1987d, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 8337bb938a3c703eb83443fbf26a68c4, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8be48208e889070439310b94d36ae6f5, type: 2}
     - target: {fileID: 919132149155446097, guid: 8337bb938a3c703eb83443fbf26a68c4, type: 3}
       propertyPath: m_Name
       value: PebNest04
@@ -660,6 +684,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1380812007}
     m_Modifications:
+    - target: {fileID: 4188748475512497110, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5535574703997069961, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: _texturesToAnimate.Array.size
       value: 3
@@ -676,6 +704,10 @@ PrefabInstance:
       propertyPath: _texturesToAnimate.Array.data[2]
       value: 
       objectReference: {fileID: 2800000, guid: 76b02a206fbaf874b85b9e650414245f, type: 3}
+    - target: {fileID: 7356108554249965209, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8381929603819327016, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: m_Name
       value: SignPostJenga
@@ -1008,7 +1040,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &189574704 stripped
 Transform:
@@ -1258,19 +1290,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7014593979956418933, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.44745508
+      value: 0.43237695
       objectReference: {fileID: 0}
     - target: {fileID: 7014593979956418933, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.54752535
+      value: 0.5595089
       objectReference: {fileID: 0}
     - target: {fileID: 7014593979956418933, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.54752535
+      value: 0.5595089
       objectReference: {fileID: 0}
     - target: {fileID: 7014593979956418933, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.44745508
+      value: -0.43237695
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2782799012805737178, guid: 7e70add44b3c3134aa95847a66e3755c, type: 3}
@@ -3161,11 +3193,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.60687953
+      value: 0.5639124
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7947939
+      value: 0.82583463
       objectReference: {fileID: 0}
     - target: {fileID: 6861165212368088839, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_Size
@@ -4292,7 +4324,7 @@ Transform:
   - {fileID: 2146088386}
   - {fileID: 1380812007}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &666900387
 PrefabInstance:
@@ -6082,7 +6114,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 83.244, z: 0}
 --- !u!1001 &1034792604
 PrefabInstance:
@@ -6135,6 +6167,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 5df37308290a1fbb4bf9ef8801089af5, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 5df37308290a1fbb4bf9ef8801089af5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8be48208e889070439310b94d36ae6f5, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 5df37308290a1fbb4bf9ef8801089af5, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: fb00c5139f8986349852d041504561ae, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 5df37308290a1fbb4bf9ef8801089af5, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: e1364df22340367438f9abee1a696013, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 5df37308290a1fbb4bf9ef8801089af5, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: 61ba35e5a03fd7142b9b42a3c5b1987d, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 5df37308290a1fbb4bf9ef8801089af5, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: a6a0753d0674bed4ea9b87f86ac8b1bc, type: 2}
     - target: {fileID: 919132149155446097, guid: 5df37308290a1fbb4bf9ef8801089af5, type: 3}
       propertyPath: m_Name
       value: PebNest00
@@ -6328,6 +6384,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 80c1d7555090cf8b58ce2b1f815cb685, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 80c1d7555090cf8b58ce2b1f815cb685, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 80c1d7555090cf8b58ce2b1f815cb685, type: 3}
       propertyPath: m_Name
@@ -7622,6 +7682,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: f8509377d318075beaf6a1979bae58a6, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f8509377d318075beaf6a1979bae58a6, type: 3}
       propertyPath: m_Name
       value: PebNest
@@ -7646,7 +7710,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1380812007}
     m_Modifications:
     - target: {fileID: 2526803820393479846, guid: 10871217122af4efbb23085d84eca4da, type: 3}
       propertyPath: m_Name
@@ -7654,7 +7718,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2907867421779387420, guid: 10871217122af4efbb23085d84eca4da, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2907867421779387420, guid: 10871217122af4efbb23085d84eca4da, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7674,15 +7738,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2907867421779387420, guid: 10871217122af4efbb23085d84eca4da, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2907867421779387420, guid: 10871217122af4efbb23085d84eca4da, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2907867421779387420, guid: 10871217122af4efbb23085d84eca4da, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2907867421779387420, guid: 10871217122af4efbb23085d84eca4da, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -7698,6 +7762,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10871217122af4efbb23085d84eca4da, type: 3}
+--- !u!4 &1312289578 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2907867421779387420, guid: 10871217122af4efbb23085d84eca4da, type: 3}
+  m_PrefabInstance: {fileID: 1312289577}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1324811581
 GameObject:
   m_ObjectHideFlags: 0
@@ -8061,6 +8130,7 @@ Transform:
   - {fileID: 434990439}
   - {fileID: 1338983582}
   - {fileID: 1074337652}
+  - {fileID: 1312289578}
   m_Father: {fileID: 657427685}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8329,6 +8399,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: bfc970799be9bf71e8599423f4883e1d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: bfc970799be9bf71e8599423f4883e1d, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bfc970799be9bf71e8599423f4883e1d, type: 3}
       propertyPath: m_Name
@@ -9130,7 +9204,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 35.737, y: 0, z: 0}
 --- !u!1001 &1624348946
 PrefabInstance:
@@ -9248,6 +9322,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: bfc970799be9bf71e8599423f4883e1d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: bfc970799be9bf71e8599423f4883e1d, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bfc970799be9bf71e8599423f4883e1d, type: 3}
       propertyPath: m_Name
@@ -9399,6 +9477,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1380812007}
     m_Modifications:
+    - target: {fileID: 4188748475512497110, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5535574703997069961, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: _texturesToAnimate.Array.size
       value: 3
@@ -9419,6 +9501,10 @@ PrefabInstance:
       propertyPath: _texturesToAnimate.Array.data[3]
       value: 
       objectReference: {fileID: 2800000, guid: 547e7d4a0a75c0349a22a327f24573b4, type: 3}
+    - target: {fileID: 7356108554249965209, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8381929603819327016, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: m_Name
       value: SignPostPebbles
@@ -9617,6 +9703,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: cc638aa76716d61b0b372ffc1fb3e920, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: cc638aa76716d61b0b372ffc1fb3e920, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 61ba35e5a03fd7142b9b42a3c5b1987d, type: 2}
+    - target: {fileID: -7511558181221131132, guid: cc638aa76716d61b0b372ffc1fb3e920, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: e1364df22340367438f9abee1a696013, type: 2}
+    - target: {fileID: -7511558181221131132, guid: cc638aa76716d61b0b372ffc1fb3e920, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8be48208e889070439310b94d36ae6f5, type: 2}
+    - target: {fileID: -7511558181221131132, guid: cc638aa76716d61b0b372ffc1fb3e920, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: fb00c5139f8986349852d041504561ae, type: 2}
+    - target: {fileID: -7511558181221131132, guid: cc638aa76716d61b0b372ffc1fb3e920, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: a6a0753d0674bed4ea9b87f86ac8b1bc, type: 2}
     - target: {fileID: 919132149155446097, guid: cc638aa76716d61b0b372ffc1fb3e920, type: 3}
       propertyPath: m_Name
       value: PebNest03 (1)
@@ -9682,6 +9792,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a004e9a6451a18fc3a6479672769f3fe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a004e9a6451a18fc3a6479672769f3fe, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a004e9a6451a18fc3a6479672769f3fe, type: 3}
       propertyPath: m_Name
@@ -9753,6 +9867,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 7a5d9566ecc1a90569e21ec2a528b5f3, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 7a5d9566ecc1a90569e21ec2a528b5f3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e1364df22340367438f9abee1a696013, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 7a5d9566ecc1a90569e21ec2a528b5f3, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: fb00c5139f8986349852d041504561ae, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 7a5d9566ecc1a90569e21ec2a528b5f3, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 61ba35e5a03fd7142b9b42a3c5b1987d, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 7a5d9566ecc1a90569e21ec2a528b5f3, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8be48208e889070439310b94d36ae6f5, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 7a5d9566ecc1a90569e21ec2a528b5f3, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: a6a0753d0674bed4ea9b87f86ac8b1bc, type: 2}
     - target: {fileID: 919132149155446097, guid: 7a5d9566ecc1a90569e21ec2a528b5f3, type: 3}
       propertyPath: m_Name
       value: PebNest01
@@ -10008,6 +10146,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1380812007}
     m_Modifications:
+    - target: {fileID: 4188748475512497110, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5535574703997069961, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: _texturesToAnimate.Array.data[0]
       value: 
@@ -10024,6 +10166,10 @@ PrefabInstance:
       propertyPath: _texturesToAnimate.Array.data[3]
       value: 
       objectReference: {fileID: 2800000, guid: b7cee1514a454c844b45217baf1b63f3, type: 3}
+    - target: {fileID: 7356108554249965209, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8381929603819327016, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: m_Name
       value: SignPostXylophone
@@ -10166,6 +10312,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: cc638aa76716d61b0b372ffc1fb3e920, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: cc638aa76716d61b0b372ffc1fb3e920, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 61ba35e5a03fd7142b9b42a3c5b1987d, type: 2}
+    - target: {fileID: -7511558181221131132, guid: cc638aa76716d61b0b372ffc1fb3e920, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: e1364df22340367438f9abee1a696013, type: 2}
+    - target: {fileID: -7511558181221131132, guid: cc638aa76716d61b0b372ffc1fb3e920, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8be48208e889070439310b94d36ae6f5, type: 2}
+    - target: {fileID: -7511558181221131132, guid: cc638aa76716d61b0b372ffc1fb3e920, type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: fb00c5139f8986349852d041504561ae, type: 2}
+    - target: {fileID: -7511558181221131132, guid: cc638aa76716d61b0b372ffc1fb3e920, type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: a6a0753d0674bed4ea9b87f86ac8b1bc, type: 2}
     - target: {fileID: 919132149155446097, guid: cc638aa76716d61b0b372ffc1fb3e920, type: 3}
       propertyPath: m_Name
       value: PebNest03
@@ -10188,6 +10358,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1380812007}
     m_Modifications:
+    - target: {fileID: 4188748475512497110, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5535574703997069961, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: _texturesToAnimate.Array.size
       value: 3
@@ -10204,6 +10378,10 @@ PrefabInstance:
       propertyPath: _texturesToAnimate.Array.data[2]
       value: 
       objectReference: {fileID: 2800000, guid: c30deaeac27e6c443acf41f17b3a9ca0, type: 3}
+    - target: {fileID: 7356108554249965209, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8381929603819327016, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: m_Name
       value: SignPostBowling
@@ -10594,6 +10772,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1380812007}
     m_Modifications:
+    - target: {fileID: 4188748475512497110, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5535574703997069961, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: _texturesToAnimate.Array.size
       value: 2
@@ -10606,6 +10788,10 @@ PrefabInstance:
       propertyPath: _texturesToAnimate.Array.data[1]
       value: 
       objectReference: {fileID: 2800000, guid: 419fd094baf0edf46aa967389c8e844e, type: 3}
+    - target: {fileID: 7356108554249965209, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8381929603819327016, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: m_Name
       value: SignPostMating
@@ -11023,6 +11209,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1380812007}
     m_Modifications:
+    - target: {fileID: 4188748475512497110, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5535574703997069961, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: _texturesToAnimate.Array.data[0]
       value: 
@@ -11039,6 +11229,10 @@ PrefabInstance:
       propertyPath: _texturesToAnimate.Array.data[3]
       value: 
       objectReference: {fileID: 2800000, guid: 547e7d4a0a75c0349a22a327f24573b4, type: 3}
+    - target: {fileID: 7356108554249965209, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8381929603819327016, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: m_Name
       value: SignPostWaddle
@@ -11439,6 +11633,10 @@ PrefabInstance:
       value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 671160612004445302, guid: 0d291b4c1296f4e12a7d30f1b5f7e009, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.2048
+      objectReference: {fileID: 0}
+    - target: {fileID: 671160612004445302, guid: 0d291b4c1296f4e12a7d30f1b5f7e009, type: 3}
       propertyPath: m_LightmapParameters
       value: 
       objectReference: {fileID: 15200, guid: 0000000000000000f000000000000000, type: 0}
@@ -11640,11 +11838,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.632797
+      value: 0.6114731
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.77431774
+      value: 0.79126525
       objectReference: {fileID: 0}
     - target: {fileID: 7496492113157597932, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: _sceneName
@@ -12188,6 +12386,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1380812007}
     m_Modifications:
+    - target: {fileID: 4188748475512497110, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5535574703997069961, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: _texturesToAnimate.Array.size
       value: 2
@@ -12200,6 +12402,10 @@ PrefabInstance:
       propertyPath: _texturesToAnimate.Array.data[1]
       value: 
       objectReference: {fileID: 2800000, guid: c896dfc2c29b49c41895653f2e7e8330, type: 3}
+    - target: {fileID: 7356108554249965209, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8381929603819327016, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: m_Name
       value: SignPostNest

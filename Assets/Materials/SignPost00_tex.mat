@@ -8,18 +8,25 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SignPost00_tex
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_ShaderKeywords: 
+  m_Shader: {fileID: -6465566751694194690, guid: 3479894afbec744da85b7e6ab6c7be54, type: 3}
+  m_ShaderKeywords: _RECEIVE_SHADOWS_OFF
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - BaseTexture:
+        m_Texture: {fileID: 2800000, guid: 27a2a2f0fad7d9d15b7b13135975d04f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Spec_Map:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: 27a2a2f0fad7d9d15b7b13135975d04f, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -78,6 +85,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - Vector1_38BD3441: 0.4
+    - Vector1_CF8B0D8D: 2.85
+    - Vector1_ED5ABFD9: 0.018
+    - Vector1_F3F6B787: -0.03
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -97,7 +108,7 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueOffset: 0
-    - _ReceiveShadows: 1
+    - _ReceiveShadows: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -107,6 +118,9 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Color_28180829: {r: 0.38679248, g: 0.29750404, b: 0.18792278, a: 1}
+    - Color_57D43A16: {r: 0.95283014, g: 0.95283014, b: 0.95283014, a: 0}
+    - Color_F689E8B9: {r: 0.6792453, g: 0.57361704, b: 0.44535422, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
