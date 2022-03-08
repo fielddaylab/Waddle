@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SignPost00_tex
-  m_Shader: {fileID: -6465566751694194690, guid: 3479894afbec744da85b7e6ab6c7be54, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 4aa46d33b0afb5e49bb0703218e42e0e, type: 3}
   m_ShaderKeywords: _RECEIVE_SHADOWS_OFF
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -87,7 +87,7 @@ Material:
     m_Floats:
     - Vector1_38BD3441: 0.4
     - Vector1_CF8B0D8D: 2.85
-    - Vector1_ED5ABFD9: 0.018
+    - Vector1_ED5ABFD9: 0
     - Vector1_F3F6B787: -0.03
     - _AlphaClip: 0
     - _Blend: 0
