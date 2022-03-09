@@ -7,11 +7,11 @@ using UnityEngine;
 
 public class BeakTrigger : MonoBehaviour
 {
-	float _gackTimer = 0.0f;
+	/*float _gackTimer = 0.0f;
 
 	[SerializeField]
 	float _gackTimerLimit = 1.5f;
-	float GackTimerLimit => _gackTimerLimit;
+	float GackTimerLimit => _gackTimerLimit;*/
 	
 	GameObject _pebbleTarget = null;
 	GameObject PebbleTarget => _pebbleTarget;
@@ -269,7 +269,7 @@ public class BeakTrigger : MonoBehaviour
 		}*/
 	}
 	
-	void OnTriggerStay(Collider otherCollider)
+	/*void OnTriggerStay(Collider otherCollider)
 	{
 		if(otherCollider.gameObject.name == "SqwaukBox")
 		{
@@ -285,23 +285,15 @@ public class BeakTrigger : MonoBehaviour
 	
 	void OnTriggerExit(Collider otherCollider)
 	{
-		/*if(otherCollider.gameObject.name == "NavigationTrigger")
-		{
-			//Debug.Log("Beak left navigation trigger");
-			_isInNav = false;
-			if(_playerObject != null)
-			{
-				OVRPlayerController ovrPC = _playerObject.GetComponent<OVRPlayerController>();
-				ovrPC.OverrideOculusForward = false;
-			}
-		}*/
+		
 		if(otherCollider.gameObject.name == "SqwaukBox")
 		{
 			_gackTimer = 0f;
 		}
 		
 		//have on trigger exit cause movement?
-	}
+	}*/
+	
 	//Jack's edit
     Vector3 GetPoint (float t, Vector3[] points) {
 		//return transform.TransformPoint(GetBezierPoint(points[0], points[1], points[2], points[3], t));
