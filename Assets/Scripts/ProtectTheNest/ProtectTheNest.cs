@@ -28,10 +28,15 @@ public class ProtectTheNest : MiniGameController
     float _skuaMoveTime = 0f;
     float _timeWithoutEgg = 0f;
     
+	bool _playingEggSequence = false;
+	bool _finishingEggSequence = false;
+	
+	GameObject _mainCam = null;
+	
     // Start is called before the first frame update
     void Start()
     {
-        
+        _mainCam = Camera.main.gameObject;
     }
 
     // Update is called once per frame
@@ -41,14 +46,40 @@ public class ProtectTheNest : MiniGameController
         {
             return;
         }
-
+		
+		if(_playingEggSequence)
+		{
+			if(!_finishingEggSequence)
+			{
+				Vector3 toEgg = Vector3.Normalize(_theEgg.transform.position - _mainCam.transform.position);
+				Vector3 lookDir = _mainCam.transform.forward;
+				if(Vector3.Dot(toEgg, lookDir) > 0.5f)
+				{
+					_finishingEggSequence = true;
+					StartCoroutine(FinishChickSequence(30f));
+				}
+			}
+			
+			return;
+		}
+		
         UpdateTime();
-
+		
         if(_timeWithoutEgg - _startTime > _gameTimeLimit)
 		{
-			//eventually end game and return to overworld, for now, just restart.
-            EndGame();
-            //RestartGame();
+			_timeWithoutEgg = 0f;
+			_skuaMoveTime = 0f;
+
+			if(_skuaSpawner != null)
+			{
+				_skuaSpawner.ClearGame();
+			}
+			
+			_playingEggSequence = true;
+			_eggTimer.SetActive(false);
+			
+			StartCoroutine(StartChickSequence(2.0f));
+            //EndGame();
             return;
 		}
 
@@ -82,8 +113,6 @@ public class ProtectTheNest : MiniGameController
                 }
             }
         }
-
-
     }
 
 	bool EggIsTaken()
@@ -99,24 +128,20 @@ public class ProtectTheNest : MiniGameController
     public override void StartGame()
     {
         base.StartGame();
-
+		
+		if(_theEgg != null)
+		{
+			_theEgg.transform.GetChild(0).gameObject.SetActive(true);
+		}
+		
         _skuaMoveTime = _startTime;
         _timeWithoutEgg = _startTime;
     }
 
     public override void RestartGame()
     {
+		//double check this after addition of chick sequence..
         EndGame();
-        
-        //for purposes of the demo, only want to move player back to starting point and fade in
-        //that way start of skua demo occurs again when reaching the nest...
-        //also - re-enable the start volume - demo hack
-        //PenguinPlayer.Instance.transform.rotation = _startingPosition.transform.rotation;
-        //Debug.Log("Restarting game");
-		//PenguinPlayer.Instance.transform.position =  _startingPosition.transform.position;
-        //Debug.Log(PenguinPlayer.Instance.transform.position);
-		
-        //StartCoroutine(StartNextFrame());
     }
 
     IEnumerator StartNextFrame()
@@ -135,29 +160,56 @@ public class ProtectTheNest : MiniGameController
 
     public override void EndGame()
     {
-		//todo - fix two egg bug at end of game...
-        _timeWithoutEgg = 0f;
-        _skuaMoveTime = 0f;
-
-        if(_skuaSpawner != null)
-        {
-            _skuaSpawner.ClearGame();
-        }
-        
+		 
         if(_theEgg != null)
         {
 		     _theEgg.GetComponent<Egg>().IsTaken = false;
              _theEgg.GetComponent<Egg>().Reset();
         }
-
+		
         if(_eggTimer != null)
         {
+			_eggTimer.SetActive(true);
             System.TimeSpan ts = System.TimeSpan.FromSeconds(_gameTimeLimit);
             _eggTimer.GetComponent<TMPro.TextMeshPro>().text = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
         }
 
         //Camera.main.gameObject.GetComponent<OVRScreenFade>().FadeOut();
-        
+        _playingEggSequence = false;
+		_finishingEggSequence = false;
+		
         base.EndGame();
     }
+	
+	IEnumerator StartChickSequence(float delay)
+	{
+		yield return new WaitForSeconds(delay);
+		
+		if(_theEgg != null)
+		{
+			_theEgg.transform.GetChild(0).gameObject.GetComponent<Animator>().SetTrigger("shake");
+		}
+	}
+	
+	IEnumerator FinishChickSequence(float waitTime)
+	{
+		if(_theEgg != null)
+		{
+			_theEgg.transform.GetChild(1).gameObject.GetComponent<Animator>().SetTrigger("break");
+			
+			_theEgg.transform.GetChild(2).gameObject.GetComponent<Animator>().SetTrigger("break");
+		}
+		
+		yield return new WaitForSeconds(8f);
+		
+		_theEgg.transform.GetChild(0).gameObject.GetComponent<Animator>().SetTrigger("stop");
+		_theEgg.transform.GetChild(0).gameObject.SetActive(false);
+		
+		yield return new WaitForSeconds(waitTime-8f);
+		
+		_theEgg.transform.GetChild(1).gameObject.GetComponent<Animator>().SetTrigger("stop");
+		_theEgg.transform.GetChild(2).gameObject.GetComponent<Animator>().SetTrigger("stop");
+		
+		EndGame();
+	}
 }
