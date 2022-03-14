@@ -251,9 +251,17 @@ public class BeakTrigger : MonoBehaviour
 			//Debug.Log("Skewer!!!!!!!");
 			AudioSource audioS = otherCollider.gameObject.transform.parent.parent.gameObject.GetComponent<AudioSource>();
 			GameObject fish = otherCollider.gameObject.transform.parent.gameObject;
-
-			audioS.Play();
-            fish.SetActive(false);
+			if(fish != null)
+			{
+				if(fish.GetComponent<MeshRenderer>().enabled)
+				{
+					audioS.Play();
+				}
+				
+				fish.GetComponent<MeshRenderer>().enabled = false;
+			}
+			
+            //fish.SetActive(false);
 		}
 
 

@@ -32,6 +32,13 @@ public class SkuaGrabState : MonoBehaviour, ISkuaState
 			t += (Time.deltaTime);	
 			yield return null;
 		}
+		
+		Animator a = _sc.GetAnimController();
+		if(a != null)
+		{
+			a.SetBool("grab", false);
+			a.SetBool("flyegg", true);
+		}
 	}
 	
 	public void Handle(SkuaController sc)
@@ -53,7 +60,7 @@ public class SkuaGrabState : MonoBehaviour, ISkuaState
 		e.y -= 90.0f;
 		
 		Animator a = _sc.GetAnimController();
-		if(a != null && !a.GetCurrentAnimatorStateInfo(0).IsName("grab"))
+		if(a != null)
 		{
 			//Debug.Log("Setting fly");
 			//a.SetBool("takeoff", false);

@@ -75,8 +75,7 @@ public class StartGame : MonoBehaviour
 		}
 		
 		//slow down the player...
-		PenguinPlayer.Instance.transform.GetChild(3).GetChild(0).GetComponent<WaddleTrigger>().Speed = 2f;
-		PenguinPlayer.Instance.transform.GetChild(3).GetChild(1).GetComponent<WaddleTrigger>().Speed = 2f;
+		PenguinPlayer.Instance.SlowDownMovement();
 	}
 	
 	void OnEndGame()
@@ -120,8 +119,7 @@ public class StartGame : MonoBehaviour
 		}
 		
 		//return the the player to default speed...
-		PenguinPlayer.Instance.transform.GetChild(3).GetChild(0).GetComponent<WaddleTrigger>().Speed = 20f;
-		PenguinPlayer.Instance.transform.GetChild(3).GetChild(1).GetComponent<WaddleTrigger>().Speed = 20f;
+		PenguinPlayer.Instance.SpeedUpMovement();
 		
 		//only want to re-enable here when reseting..
 		//

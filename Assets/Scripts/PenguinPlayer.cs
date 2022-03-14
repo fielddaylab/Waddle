@@ -101,6 +101,18 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		return false;
 	}
 	
+	public void SlowDownMovement()
+	{
+		transform.GetChild(3).GetChild(0).GetComponent<WaddleTrigger>().Speed = 2f;
+		transform.GetChild(3).GetChild(1).GetComponent<WaddleTrigger>().Speed = 2f;
+	}
+	
+	public void SpeedUpMovement()
+	{
+		transform.GetChild(3).GetChild(0).GetComponent<WaddleTrigger>().Speed = 20f;
+		transform.GetChild(3).GetChild(1).GetComponent<WaddleTrigger>().Speed = 20f;
+	}
+	
 	public void StopShowingUI()
 	{
 		_showingUI = false;

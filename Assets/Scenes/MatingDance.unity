@@ -432,7 +432,7 @@ MonoBehaviour:
   _measureBubbleSpot: {fileID: 1697675071}
   _pivotPoint: {fileID: 1698451898}
   _heartSpawn: {fileID: 685398480880471643}
-  _heartPrefab: {fileID: 6549710202121445590, guid: 44c2c071a12219946be992c1e34a6965, type: 3}
+  _heartPrefab: {fileID: 8037065422372829758, guid: 5f5b73ae6ea394c3ab9f6ab9ac4f06ce, type: 3}
   _demoBubble: {fileID: 32813775}
 --- !u!65 &496783149
 BoxCollider:

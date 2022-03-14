@@ -282,6 +282,7 @@ public class SkuaSpawner : MonoBehaviour
 						SkuaWalkState.WalkDirection eDir = sc.WhichDirection(potentialSpot);
 						sc.SetNewSpot(potentialSpot);
 						sc.GrabEgg();
+						PenguinPlayer.Instance.SpeedUpMovement();
 					}
 					else
 					{
@@ -344,6 +345,7 @@ public class SkuaSpawner : MonoBehaviour
 				Animator anima = _npcPenguins[cI].GetComponent<Animator>();
 				if(anima != null)
 				{
+					//Debug.Log("Calling");
 					anima.SetBool("call", true);
 					StartCoroutine(ResetCall(cI, 2f));
 				}

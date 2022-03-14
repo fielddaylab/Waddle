@@ -24,13 +24,16 @@ public class Egg : MonoBehaviour
 		set { _wasReset = value; }
 	}
 	
+	GameObject _parentObject;
+	
     // Start is called before the first frame update
     void Start()
     {
         _isTaken = false;
 		_wasReset = false;
-		_startPosition = transform.position;
+		_startPosition = transform.localPosition;
 		_startRotation = transform.rotation;
+		_parentObject = transform.parent.gameObject;
     }
 
     // Update is called once per frame
@@ -41,10 +44,26 @@ public class Egg : MonoBehaviour
 	
 	public void Reset()
 	{
-		gameObject.transform.SetParent(null, false);
-		transform.position = _startPosition;
+		PenguinPlayer.Instance.SlowDownMovement();
+		gameObject.transform.SetParent(_parentObject.transform, true);
+		//transform.position = _startPosition;
+		StartCoroutine(MoveBackToCenter(3f));
 		transform.rotation = _startRotation;
 		_isTaken = false;
 		_wasReset = true;
+	}
+	
+	IEnumerator MoveBackToCenter(float duration)
+	{
+		float t = 0f;
+		Vector3 startPosition = transform.localPosition;
+		Vector3 newSpot = _startPosition;
+		
+		while(t < duration)
+		{
+			transform.localPosition = Vector3.Lerp(startPosition, newSpot, (t/duration));
+			t += (Time.deltaTime);	
+			yield return null;
+		}
 	}
 }

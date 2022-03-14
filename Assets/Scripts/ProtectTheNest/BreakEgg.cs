@@ -9,6 +9,11 @@ public class BreakEgg : StateMachineBehaviour
     {
         //Debug.Log("In break egg");
 		animator.SetBool("break", true);
+		/*SkuaController sc = animator.gameObject.transform.parent.GetComponent<SkuaController>();
+		if(sc != null)
+		{
+			sc.GetEgg.gameObject.transform.position = sc.gameObject.transform.GetChild(1).transform.localPosition;
+		}*/
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

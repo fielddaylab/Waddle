@@ -76,7 +76,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		
 		_overallStartTime = UnityEngine.Time.time;
 		
-		StartCoroutine(ShowMessage("", 5f, 10f));
+		//StartCoroutine(ShowMessage("", 5f, 10f));
 		
 		OVRManager.HMDUnmounted += HandleHMDUnmounted;
 		
@@ -121,7 +121,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	
 	public void HandleHMDMounted()
 	{
-		StartCoroutine(ShowMessage("", 5f, 10f));
+		//StartCoroutine(ShowMessage("", 5f, 10f));
 		
 		_overallStartTime = UnityEngine.Time.time;
 		

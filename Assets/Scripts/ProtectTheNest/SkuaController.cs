@@ -39,6 +39,7 @@ public class SkuaController : MonoBehaviour
 	
 	public SkuaWalkState.WalkDirection WalkDir => _walkDir;
 	
+	GameObject _mainCamera;
     // Start is called before the first frame update
     void Start()
     {
@@ -53,6 +54,8 @@ public class SkuaController : MonoBehaviour
 		_flyState = gameObject.AddComponent<SkuaFlyState>();
 		
 		_skuaStateContext.Transition(_idleState);
+		
+		_mainCamera = Camera.main.gameObject;
     }
 
     // Update is called once per frame
@@ -263,9 +266,9 @@ public class SkuaController : MonoBehaviour
 					_theEgg = null;
 				}
 				
-				//Vector3 toSkua = Vector3.Normalize(transform.position - PenguinPlayer.Instance.gameObject.transform.GetChild(0).position);
-				//add check here to ensure we're facing a skua...
-				//if(Vector3.Dot(toSkua, PenguinPlayer.Instance.gameObject.transform.GetChild(0).forward) < 0f)
+				//Vector3 toSkua = Vector3.Normalize(transform.position - _mainCamera.transform.position);
+				//Vector3 lookDir = _mainCamera.transform.forward;
+				//if(Vector3.Dot(toSkua, lookDir) > 0.5f)
 				{
 					SkuaHit();
 				}

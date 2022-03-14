@@ -5,15 +5,20 @@ using UnityEngine;
 public class PickedUpEgg : StateMachineBehaviour
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //Debug.Log("Picked up egg");
+        Debug.Log("Picked up egg");
 		SkuaController sc = animator.gameObject.transform.parent.GetComponent<SkuaController>();
 			
 		if(sc.GetEgg != null)
 		{
-			sc.GetEgg.gameObject.transform.SetParent(sc.gameObject.transform.GetChild(1).transform, true);
 			sc.GetEgg.gameObject.transform.localPosition = Vector3.zero;
+			sc.GetEgg.gameObject.transform.SetParent(sc.gameObject.transform.GetChild(1).transform, true);
+			
+			/*for(int i = 0; i < sc.GetEgg.gameObject.transform.childCount; ++i)
+			{
+				sc.GetEgg.gameObject.transform.GetChild(i).transform.localPosition = Vector3.zero;
+			}*/
 		}
 		
 		SkuaSpot potentialSpot = sc.SearchForOuterSpot();
@@ -22,8 +27,7 @@ public class PickedUpEgg : StateMachineBehaviour
 		//start flying animation here...
 		sc.FlyToSpot(SkuaWalkState.WalkDirection.eBACK);
 		//animator.gameObject.GetComponent<SkuaController>().FlyToSpot();
-		animator.SetBool("grab", false);
-		animator.SetBool("flyegg", true);
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

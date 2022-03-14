@@ -50,20 +50,26 @@ public class HandRaycast : MonoBehaviour
 				{
 					GameObject pObject = hitInfo.collider.transform.parent.gameObject;
 					
-					
-					if(pObject.transform.GetChild(0).gameObject == hitInfo.collider.transform.gameObject)
+					if(pObject.transform.childCount > 1)
 					{
-						pObject.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
-						pObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
-					}
-					else if(pObject.transform.GetChild(1).gameObject == hitInfo.collider.transform.gameObject)
-					{
-						pObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
-						pObject.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);		
-					}
-					else
-					{
-			
+						if(pObject.transform.GetChild(0).gameObject == hitInfo.collider.transform.gameObject)
+						{
+							pObject.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
+							pObject.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
+							pObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
+							pObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
+						}
+						else if(pObject.transform.GetChild(1).gameObject == hitInfo.collider.transform.gameObject)
+						{
+							pObject.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
+							pObject.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
+							pObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
+							pObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);		
+						}
+						else
+						{
+				
+						}
 					}
 					
 					if(_reticleObject != null)
@@ -101,27 +107,30 @@ public class HandRaycast : MonoBehaviour
 				if(Physics.Raycast(castOrigin, -_rightHand.transform.up, out hitInfo, Mathf.Infinity, _mask, QueryTriggerInteraction.Ignore))
 				{
 					GameObject pObject = hitInfo.collider.transform.parent.gameObject;
-						
-					//raycast the UI...
-					//Debug.Log("Pressing button with hand");
-					if(pObject.transform.GetChild(0).gameObject == hitInfo.collider.transform.gameObject)
+					
+					if(pObject.transform.childCount > 1)
 					{
-						//resume (just close the menu)
-						PenguinPlayer.Instance.StopShowingUI();
-					}
-					else if(pObject.transform.GetChild(1).gameObject == hitInfo.collider.transform.gameObject)
-					{
-						//restart
-						PenguinGameManager.Instance.HandleHMDUnmounted();
-						PenguinGameManager.Instance.HandleHMDMounted();
-						PenguinPlayer.Instance.StopShowingUI();
+						//raycast the UI...
+						//Debug.Log("Pressing button with hand");
+						if(pObject.transform.GetChild(0).gameObject == hitInfo.collider.transform.gameObject || pObject.transform.GetChild(2).gameObject == hitInfo.collider.transform.gameObject)
+						{
+							//resume (just close the menu)
+							PenguinPlayer.Instance.StopShowingUI();
+						}
+						else if(pObject.transform.GetChild(1).gameObject == hitInfo.collider.transform.gameObject)
+						{
+							//restart
+							PenguinGameManager.Instance.HandleHMDUnmounted();
+							PenguinGameManager.Instance.HandleHMDMounted();
+							PenguinPlayer.Instance.StopShowingUI();
+						}
 					}
 					
-					if(_lineRenderer != null)
+					/*if(_lineRenderer != null)
 					{
 						_lineRenderer.SetPosition(0, Vector3.zero);
 						_lineRenderer.SetPosition(1, Vector3.zero);
-					}
+					}*/
 					
 					if(_reticleObject != null)
 					{
@@ -149,16 +158,31 @@ public class HandRaycast : MonoBehaviour
 					if(Physics.Raycast(castOrigin, -_rightHand.transform.up, out hitInfo, Mathf.Infinity, _mask, QueryTriggerInteraction.Ignore))
 					{
 						GameObject pObject = hitInfo.collider.transform.parent.gameObject;
-					
-						if(pObject.transform.GetChild(0).gameObject == hitInfo.collider.transform.gameObject)
+						
+						if(pObject.transform.childCount > 1)
 						{
-							pObject.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
-							pObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
+							if(pObject.transform.GetChild(0).gameObject == hitInfo.collider.transform.gameObject)
+							{
+								pObject.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
+								pObject.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
+								pObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
+								pObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
+							}
+							else if(pObject.transform.GetChild(1).gameObject == hitInfo.collider.transform.gameObject)
+							{
+								pObject.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
+								pObject.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
+								pObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
+								pObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);			
+							}
+							
 						}
-						else if(pObject.transform.GetChild(1).gameObject == hitInfo.collider.transform.gameObject)
+						else
 						{
-							pObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
-							pObject.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);		
+							pObject.transform.GetChild(0).GetChild(1).GetChild(0).gameObject.SetActive(true);
+							pObject.transform.GetChild(0).GetChild(1).GetChild(1).gameObject.SetActive(false);
+							pObject.transform.GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(true);
+							pObject.transform.GetChild(0).GetChild(0).GetChild(1).gameObject.SetActive(false);
 						}
 						
 						Vector3 hp = hitInfo.point;

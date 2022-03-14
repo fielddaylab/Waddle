@@ -283,6 +283,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.34969333, y: 0.071761206, z: 0.121919684}
   m_Center: {x: -0.0000038146977, y: -0.0000004768367, z: 4.9333042e-14}
+--- !u!114 &6891880575708440512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 697696073701285718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a3b2fa6adde5cf448e2d06c1d1fb836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &391777090093670919
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -348,7 +360,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: bebbda927ad92dc4899f70e981e6f814, type: 3}
       propertyPath: m_StaticShadowCaster
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bebbda927ad92dc4899f70e981e6f814, type: 3}
       propertyPath: m_Name
@@ -356,7 +368,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bebbda927ad92dc4899f70e981e6f814, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bebbda927ad92dc4899f70e981e6f814, type: 3}
