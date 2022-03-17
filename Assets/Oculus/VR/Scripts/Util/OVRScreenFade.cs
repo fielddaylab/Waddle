@@ -190,7 +190,12 @@ public class OVRScreenFade : MonoBehaviour
 		explicitFadeAlpha = level;
 		SetMaterialAlpha();
 	}
-
+	
+	public void TurnOff()
+	{
+		fadeRenderer.enabled = false;
+	}
+	
 	/// <summary>
 	/// Fades alpha from 1.0 to 0.0
 	/// </summary>

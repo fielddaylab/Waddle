@@ -14,183 +14,317 @@ public class HandRaycast : MonoBehaviour
 	[SerializeField]
 	LayerMask _mask;
 	
+	[SerializeField]
+	GameObject _leftButton;
+	
+	[SerializeField]
+	GameObject _rightButton;
+	
+	[SerializeField]
+	GameObject _middleButton;
+	
+	[SerializeField]
+	GameObject _creditsBack;
+	
+	[SerializeField]
+	GameObject _rayStartPoint;
+	
 	LineRenderer _lineRenderer;
 
 	GameObject _reticleObject;
 	
 	const int NUM_LAST_POSITIONS = 10;
 	
-	Vector3 [] _lastPositions = new Vector3[NUM_LAST_POSITIONS];
+	Vector3 _avgPosition = Vector3.zero;
+	Vector3 _avgDirection = Vector3.zero;
+	
+	int _currPosition = 0;
+	
+	OVRHand _handTracker = null;
 	
     // Start is called before the first frame update
     void Start()
     {
-        _lineRenderer = transform.GetChild(5).gameObject.GetComponent<LineRenderer>();
-		_reticleObject = transform.GetChild(6).gameObject;
+        _lineRenderer = transform.GetChild((int)PenguinPlayer.PenguinPlayerObjects.SELECT_LINE).gameObject.GetComponent<LineRenderer>();
+		_reticleObject = transform.GetChild((int)PenguinPlayer.PenguinPlayerObjects.SELECT_DOT).gameObject;
 		
-		for(int i = 0; i < NUM_LAST_POSITIONS; ++i)
+		if(_rightHand != null)
 		{
-			_lastPositions[i] = Vector3.zero;
+			_handTracker = _rightHand.transform.GetChild(1).GetComponent<OVRHand>();
 		}
     }
 
+	void SelectButton(GameObject button, bool bOn)
+	{
+		//assumes highlight is in child slot 1
+		button.transform.GetChild(0).gameObject.SetActive(!bOn);
+		button.transform.GetChild(1).gameObject.SetActive(bOn);
+	}
+	
     // Update is called once per frame
     void Update()
     {
 		//add check for hand tracking being active...
-		if(PenguinPlayer.Instance.ShowingUI && _rightHand != null)
+		if(PenguinPlayer.Instance.ShowingUI && _rightHand != null && _handTracker != null)
 		{
-			RaycastHit hitInfo;
-			
-			Vector3 castOrigin = _rightHand.transform.position - _rightHand.transform.right*0.11f - _rightHand.transform.forward*0.025f - _rightHand.transform.up * 0.075f;
-			
-			if(OVRInput.Get(OVRInput.Button.One, OVRInput.Controller.Hands))
+			//if(_handTracker.IsTracked && _handTracker.IsDataHighConfidence)
 			{
-				if(Physics.Raycast(castOrigin, -_rightHand.transform.up, out hitInfo, Mathf.Infinity, _mask, QueryTriggerInteraction.Ignore))
+				RaycastHit hitInfo;
+				
+				Vector3 castOrigin = _rightHand.transform.position - _rightHand.transform.forward*0.025f;// - _rightHand.transform.right*0.11f - _rightHand.transform.forward*0.025f - _rightHand.transform.up * 0.075f;
+				
+				//_avgPosition += castOrigin;
+				_avgDirection += ((-_rightHand.transform.right - _rightHand.transform.up) * 0.5f);
+				_currPosition++;
+				if(_currPosition == 10)
 				{
-					GameObject pObject = hitInfo.collider.transform.parent.gameObject;
-					
-					if(pObject.transform.childCount > 1)
+					_currPosition = 1;
+				}
+				
+				_avgPosition = castOrigin;//(float)_currPosition;
+				_avgDirection /= (float)_currPosition;
+				_avgDirection = Vector3.Normalize(_avgDirection);
+				
+				//Debug.Log(_avgPosition.ToString("F3") + " " + _avgDirection.ToString("F3"));
+				
+				if(OVRInput.Get(OVRInput.Button.One, OVRInput.Controller.Hands))
+				{
+					if(Physics.Raycast(_avgPosition, _avgDirection, out hitInfo, Mathf.Infinity, _mask, QueryTriggerInteraction.Ignore))
 					{
-						if(pObject.transform.GetChild(0).gameObject == hitInfo.collider.transform.gameObject)
+					
+						if(hitInfo.collider.transform.gameObject == _rightButton)
 						{
-							pObject.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
-							pObject.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
-							pObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
-							pObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
+							SelectButton(_leftButton, false);
+							SelectButton(_rightButton, true);
+							SelectButton(_middleButton, false);
+							SelectButton(_creditsBack, false);
 						}
-						else if(pObject.transform.GetChild(1).gameObject == hitInfo.collider.transform.gameObject)
+						else if(hitInfo.collider.transform.gameObject == _leftButton)
 						{
-							pObject.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
-							pObject.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
-							pObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
-							pObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);		
+							SelectButton(_leftButton, true);
+							SelectButton(_rightButton, false);
+							SelectButton(_middleButton, false);	
+							SelectButton(_creditsBack, false);							
+						}
+						else if(hitInfo.collider.transform.gameObject == _middleButton)
+						{
+							SelectButton(_leftButton, false);
+							SelectButton(_rightButton, false);
+							SelectButton(_middleButton, true);
+							SelectButton(_creditsBack, false);	
+						}
+						else if(hitInfo.collider.transform.gameObject == _creditsBack)
+						{
+							SelectButton(_leftButton, false);
+							SelectButton(_rightButton, false);
+							SelectButton(_middleButton, false);
+							SelectButton(_creditsBack, true);		
 						}
 						else
 						{
-				
+							SelectButton(_leftButton, false);
+							SelectButton(_rightButton, false);
+							SelectButton(_middleButton, false);
+							SelectButton(_creditsBack, false);	
 						}
-					}
-					
-					if(_reticleObject != null)
-					{
-						if(Physics.Raycast(castOrigin, -_rightHand.transform.up, out hitInfo, Mathf.Infinity, _mask, QueryTriggerInteraction.Ignore))
+						
+						
+						if(_reticleObject != null)
 						{
-							Vector3 hp = hitInfo.point;
-							_reticleObject.transform.position = hp;
+							_reticleObject.transform.position = hitInfo.point;
+						}
+						
+						if(_lineRenderer != null)
+						{
+							_lineRenderer.SetPosition(0, _avgPosition);
+							_lineRenderer.SetPosition(1, hitInfo.point);
+						}
+						//Debug.Log("Hit " + hitInfo.collider.transform.gameObject.name);
+					}
+					else
+					{
+						if(_lineRenderer != null)
+						{
+							_lineRenderer.SetPosition(0, _avgPosition);
+							_lineRenderer.SetPosition(1, _avgPosition + _avgDirection * 5f);// - _rightHand.transform.right*0.11f - _rightHand.transform.forward*0.025f - _rightHand.transform.up * 10f);
+						}
+						
+						if(_reticleObject != null)
+						{
+							_reticleObject.transform.position = Vector3.zero;
 						}
 					}
-					
-					/*if(_lineRenderer != null)
-					{
-						_lineRenderer.SetPosition(0, castOrigin);
-						_lineRenderer.SetPosition(1, hitInfo.point);
-					}*/
-					//Debug.Log("Hit " + hitInfo.collider.transform.gameObject.name);
 				}
-				else
+				else if(OVRInput.GetUp(OVRInput.Button.One, OVRInput.Controller.Hands))
 				{
-					/*if(_lineRenderer != null)
+					if(Physics.Raycast(_avgPosition, _avgDirection, out hitInfo, Mathf.Infinity, _mask, QueryTriggerInteraction.Ignore))
 					{
-						_lineRenderer.SetPosition(0, castOrigin);
-						_lineRenderer.SetPosition(1, _rightHand.transform.position - _rightHand.transform.right*0.11f - _rightHand.transform.forward*0.025f - _rightHand.transform.up * 10f);
-					}*/
-					
-					if(_reticleObject != null)
-					{
-						_reticleObject.transform.position = Vector3.zero;
-					}
-				}
-			}
-			else if(OVRInput.GetUp(OVRInput.Button.One, OVRInput.Controller.Hands))
-			{
-				if(Physics.Raycast(castOrigin, -_rightHand.transform.up, out hitInfo, Mathf.Infinity, _mask, QueryTriggerInteraction.Ignore))
-				{
-					GameObject pObject = hitInfo.collider.transform.parent.gameObject;
-					
-					if(pObject.transform.childCount > 1)
-					{
+
 						//raycast the UI...
 						//Debug.Log("Pressing button with hand");
-						if(pObject.transform.GetChild(0).gameObject == hitInfo.collider.transform.gameObject || pObject.transform.GetChild(2).gameObject == hitInfo.collider.transform.gameObject)
+						if(PenguinMenuSystem.Instance.GetCurrentMenu() == PenguinMenuSystem.MenuType.MainMenu)
 						{
-							//resume (just close the menu)
-							PenguinPlayer.Instance.StopShowingUI();
+							if(hitInfo.collider.transform.gameObject == _leftButton)
+							{
+								PenguinGameManager.Instance.BeginTheGame(PenguinGameManager.GameMode.ShowMode);
+							}
+							else if(hitInfo.collider.transform.gameObject == _rightButton)
+							{
+								PenguinGameManager.Instance.BeginTheGame(PenguinGameManager.GameMode.HomeMode);
+							}
+							else if(hitInfo.collider.transform.gameObject == _middleButton)
+							{
+								//credits
+								PenguinGameManager.Instance.ShowCredits(true);
+							}
+							else if(hitInfo.collider.transform.gameObject == _creditsBack)
+							{
+								PenguinGameManager.Instance.ShowCredits(false);
+							}
 						}
-						else if(pObject.transform.GetChild(1).gameObject == hitInfo.collider.transform.gameObject)
+						else if(PenguinMenuSystem.Instance.GetCurrentMenu() == PenguinMenuSystem.MenuType.PauseMenu)
 						{
-							//restart
-							PenguinGameManager.Instance.HandleHMDUnmounted();
-							PenguinGameManager.Instance.HandleHMDMounted();
-							PenguinPlayer.Instance.StopShowingUI();
+							if(hitInfo.collider.transform.gameObject == _leftButton)
+							{
+								//resume (just close the menu)
+								//PenguinPlayer.Instance.StopShowingUI();
+								//restart
+								PenguinGameManager.Instance.RestartGame();
+							}
+							else if(hitInfo.collider.transform.gameObject == _rightButton)
+							{
+								//Resume
+								PenguinPlayer.Instance.StopShowingUI();
+								//PenguinGameManager.Instance.HandleHMDUnmounted();
+								//PenguinMenuSystem.Instance.ChangeMenuTo(PenguinMenuSystem.MenuType.MainMenu);
+							}
+							else if(hitInfo.collider.transform.gameObject == _middleButton)
+							{
+								//credits
+								PenguinGameManager.Instance.ShowCredits(true);
+							}
+							else if(hitInfo.collider.transform.gameObject == _creditsBack)
+							{
+								PenguinGameManager.Instance.ShowCredits(false);
+							}
+						}
+						else if(PenguinMenuSystem.Instance.GetCurrentMenu() == PenguinMenuSystem.MenuType.EndMenu)
+						{
+							if(hitInfo.collider.transform.gameObject == _leftButton)
+							{
+								//resume (just close the menu)
+								//PenguinPlayer.Instance.StopShowingUI();
+								//restart
+								PenguinGameManager.Instance.RestartGame();
+							}
+							else if(hitInfo.collider.transform.gameObject == _rightButton)
+							{
+								//show survey
+								
+							}
+							else if(hitInfo.collider.transform.gameObject == _middleButton)
+							{
+								PenguinGameManager.Instance.ShowCredits(true);
+							}
+							else if(hitInfo.collider.transform.gameObject == _creditsBack)
+							{
+								PenguinGameManager.Instance.ShowCredits(false);
+							}
+						}
+					
+						
+						if(_lineRenderer != null)
+						{
+							_lineRenderer.SetPosition(0, Vector3.zero);
+							_lineRenderer.SetPosition(1, Vector3.zero);
+						}
+						
+						if(_reticleObject != null)
+						{
+							_reticleObject.transform.position = Vector3.zero;
 						}
 					}
-					
-					/*if(_lineRenderer != null)
+					else
 					{
-						_lineRenderer.SetPosition(0, Vector3.zero);
-						_lineRenderer.SetPosition(1, Vector3.zero);
-					}*/
-					
-					if(_reticleObject != null)
-					{
-						_reticleObject.transform.position = Vector3.zero;
+						if(_lineRenderer != null)
+						{
+							_lineRenderer.SetPosition(0, Vector3.zero);
+							_lineRenderer.SetPosition(1, Vector3.zero);
+						}
+						
+						if(_reticleObject != null)
+						{
+							_reticleObject.transform.position = Vector3.zero;
+						}
 					}
 				}
 				else
 				{
-					/*if(_lineRenderer != null)
-					{
-						_lineRenderer.SetPosition(0, Vector3.zero);
-						_lineRenderer.SetPosition(1, Vector3.zero);
-					}*/
-					
 					if(_reticleObject != null)
 					{
-						_reticleObject.transform.position = Vector3.zero;
-					}
-				}
-			}
-			else
-			{
-				if(_reticleObject != null)
-				{
-					if(Physics.Raycast(castOrigin, -_rightHand.transform.up, out hitInfo, Mathf.Infinity, _mask, QueryTriggerInteraction.Ignore))
-					{
-						GameObject pObject = hitInfo.collider.transform.parent.gameObject;
-						
-						if(pObject.transform.childCount > 1)
+						if(Physics.Raycast(_avgPosition, _avgDirection, out hitInfo, Mathf.Infinity, _mask, QueryTriggerInteraction.Ignore))
 						{
-							if(pObject.transform.GetChild(0).gameObject == hitInfo.collider.transform.gameObject)
+							//Debug.Log(hitInfo.collider.transform.gameObject.name);
+							if(hitInfo.collider.transform.gameObject == _rightButton)
 							{
-								pObject.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
-								pObject.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
-								pObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
-								pObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
+								SelectButton(_leftButton, false);
+								SelectButton(_rightButton, true);
+								SelectButton(_middleButton, false);
+								SelectButton(_creditsBack, false);
 							}
-							else if(pObject.transform.GetChild(1).gameObject == hitInfo.collider.transform.gameObject)
+							else if(hitInfo.collider.transform.gameObject == _leftButton)
 							{
-								pObject.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
-								pObject.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
-								pObject.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
-								pObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);			
+								SelectButton(_leftButton, true);
+								SelectButton(_rightButton, false);
+								SelectButton(_middleButton, false);	
+								SelectButton(_creditsBack, false);							
 							}
+							else if(hitInfo.collider.transform.gameObject == _middleButton)
+							{
+								SelectButton(_leftButton, false);
+								SelectButton(_rightButton, false);
+								SelectButton(_middleButton, true);
+								SelectButton(_creditsBack, false);	
+							}
+							else if(hitInfo.collider.transform.gameObject == _creditsBack)
+							{
+								SelectButton(_leftButton, false);
+								SelectButton(_rightButton, false);
+								SelectButton(_middleButton, false);
+								SelectButton(_creditsBack, true);		
+							}
+							else
+							{
+								SelectButton(_leftButton, false);
+								SelectButton(_rightButton, false);
+								SelectButton(_middleButton, false);
+								SelectButton(_creditsBack, false);	
+							}
+							
+							if(_lineRenderer != null)
+							{
+								_lineRenderer.SetPosition(0, _avgPosition);
+								_lineRenderer.SetPosition(1, hitInfo.point);
+							}
+							
+							_reticleObject.transform.position = hitInfo.point;
 							
 						}
 						else
 						{
-							pObject.transform.GetChild(0).GetChild(1).GetChild(0).gameObject.SetActive(true);
-							pObject.transform.GetChild(0).GetChild(1).GetChild(1).gameObject.SetActive(false);
-							pObject.transform.GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(true);
-							pObject.transform.GetChild(0).GetChild(0).GetChild(1).gameObject.SetActive(false);
-						}
+							SelectButton(_leftButton, false);
+							SelectButton(_rightButton, false);
+							SelectButton(_middleButton, false);
+							SelectButton(_creditsBack, false);	
 						
-						Vector3 hp = hitInfo.point;
-						_reticleObject.transform.position = hp;
-					}
-					else
-					{
-						_reticleObject.transform.position = Vector3.zero;
+							_reticleObject.transform.position = Vector3.zero;
+							
+							if(_lineRenderer != null)
+							{
+								_lineRenderer.SetPosition(0, _avgPosition);
+								_lineRenderer.SetPosition(1, _avgPosition + _avgDirection * 5f);// - _rightHand.transform.right*0.11f - _rightHand.transform.forward*0.025f - _rightHand.transform.up * 10f);
+							}
+						}
 					}
 				}
 			}

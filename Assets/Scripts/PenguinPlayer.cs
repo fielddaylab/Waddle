@@ -36,7 +36,7 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 	
 	LineRenderer _lineRenderer;
 	
-	bool _showingUI = false;
+	bool _showingUI = true;
 	public bool ShowingUI => _showingUI;
 	
 	bool _wasShowingUserMessage = false;
@@ -113,6 +113,18 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		transform.GetChild(3).GetChild(1).GetComponent<WaddleTrigger>().Speed = 20f;
 	}
 	
+	public void HideMenu()
+	{
+		_mainUI.SetActive(false);
+		//_showingUI = false;
+	}
+	
+	public void ShowMenu()
+	{
+		_mainUI.SetActive(true);
+		//_showingUI = false;
+	}
+	
 	public void StopShowingUI()
 	{
 		_showingUI = false;
@@ -144,7 +156,12 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		//hand reticle
 		transform.GetChild((int)PenguinPlayerObjects.SELECT_DOT).gameObject.GetComponent<MeshRenderer>().enabled = false;
 		
-		_lineRenderer.enabled = false;
+		if(_lineRenderer != null)
+		{
+			_lineRenderer.enabled = false;
+		}
+		
+		PenguinGameManager._isGamePaused = false;
 	}
 	
 	/*void OnTriggerEnter(Collider otherCollider)
@@ -190,12 +207,18 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		}
 	}
 	
-	public void StartShowingUI()
+	public void StartShowingUI(bool isStartMenu=false)
 	{
 		_showingUI = true;
 		_mainUI.SetActive(true);
-		UnityEngine.Time.timeScale = 0;
-		AudioListener.pause = true;
+		
+		PenguinGameManager._isGamePaused = true;
+		
+		if(!isStartMenu)
+		{
+			UnityEngine.Time.timeScale = 0;
+			AudioListener.pause = true;
+		}
 		
 		_wasShowingUserMessage = UserMessageActive();
 		if(_wasShowingUserMessage)
@@ -220,7 +243,10 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		//hand reticle
 		transform.GetChild((int)PenguinPlayerObjects.SELECT_DOT).gameObject.GetComponent<MeshRenderer>().enabled = true;
 		
-		_lineRenderer.enabled = true;	
+		if(_lineRenderer != null)
+		{
+			_lineRenderer.enabled = true;	
+		}
 	}
 	
     // Update is called once per frame
@@ -269,5 +295,12 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 	{
 		//play the snow storm...
 		transform.GetChild((int)PenguinPlayerObjects.SNOW_RING).gameObject.SetActive(true);
+	}
+	
+	public void HideEndGamePrefab()
+	{
+		//play the snow storm...
+		transform.GetChild((int)PenguinPlayerObjects.SNOW_RING).gameObject.transform.localScale = new Vector3(5.0f, 5.0f, 5.0f);
+		transform.GetChild((int)PenguinPlayerObjects.SNOW_RING).gameObject.SetActive(false);
 	}
 }

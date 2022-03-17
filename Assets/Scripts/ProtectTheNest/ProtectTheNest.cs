@@ -148,7 +148,7 @@ public class ProtectTheNest : MiniGameController
     {
         yield return null;
         
-        Camera.main.gameObject.GetComponent<OVRScreenFade>().FadeIn();
+        //Camera.main.gameObject.GetComponent<OVRScreenFade>().FadeIn();
 
         if(_skuaSpawner != null)
         {

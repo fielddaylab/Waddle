@@ -76,6 +76,8 @@ public class StartGame : MonoBehaviour
 		
 		//slow down the player...
 		PenguinPlayer.Instance.SlowDownMovement();
+		
+		PenguinGameManager._isInMiniGame = true;
 	}
 	
 	void OnEndGame()
@@ -122,7 +124,7 @@ public class StartGame : MonoBehaviour
 		PenguinPlayer.Instance.SpeedUpMovement();
 		
 		//only want to re-enable here when reseting..
-		//
+		PenguinGameManager._isInMiniGame = false;
 	}
 	
 	void OnResetGame()

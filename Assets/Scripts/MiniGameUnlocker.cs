@@ -17,7 +17,6 @@ public class MiniGameUnlocker : MonoBehaviour
 		SNOW,
 		POLE,
 		PENGUINS,
-		MISC,
 		SPOT_LIGHT,
 		RAY_OF_LIGHT,
 		MISC2

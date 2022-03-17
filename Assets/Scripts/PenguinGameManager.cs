@@ -40,11 +40,27 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	
 	float _overallStartTime = 0f;
 	
+	float _totalGameTime = 0f;
+	
 	[SerializeField]
 	float _showModeTimeLimit = 420f;	//7 minutes
 	
+	bool _wasUnmounted = false;
+	
+	public static bool _isGamePaused = true;
+	
+	public static bool _isInMiniGame = false;
+	
+	bool _wasInMiniGame = false;
+	//bool _gameWasStarted = false;
+	
 	public delegate void OnResetDelegate();
 	public static event OnResetDelegate _resetGameDelegate;
+	
+	[SerializeField]
+	GameObject _creditsLocation;
+	
+	static Vector3 _priorLocation = Vector3.zero;
 	
     void Start()
     {
@@ -74,25 +90,39 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 			//}
 		//}
 		
-		_overallStartTime = UnityEngine.Time.time;
+		//UnityEngine.Time.timeScale = 0;
+		//PenguinPlayer.Instance.StopBackgroundMusic();
+		
+		//AudioListener.pause = true;
 		
 		//StartCoroutine(ShowMessage("", 5f, 10f));
 		
 		OVRManager.HMDUnmounted += HandleHMDUnmounted;
 		
 		OVRManager.HMDMounted += HandleHMDMounted;
+		
+		PenguinPlayer.Instance.StartShowingUI(true);
     }
-
+	
+	public void BeginTheGame(PenguinGameManager.GameMode mode)
+	{
+		PenguinPlayer.Instance.StopShowingUI();
+		_gameMode = mode;
+		_overallStartTime = UnityEngine.Time.time;
+		_totalGameTime = 0f;
+		UnityEngine.Time.timeScale = 1;
+		//AudioListener.pause = false;
+		PenguinPlayer.Instance.StartBackgroundMusic();
+		_isGamePaused = false;
+		//_gameWasStarted = true;
+		PenguinMenuSystem.Instance.ChangeMenuTo(PenguinMenuSystem.MenuType.PauseMenu);
+	}
+	
 	IEnumerator ShowMessage(string message, float startDuration, float duration)
 	{
 		yield return new WaitForSeconds(startDuration);
 		
 		PenguinPlayer.Instance.ShowWaddleMessage(duration);
-	}
-	
-	float GetGameTime()
-	{
-		return UnityEngine.Time.time - _overallStartTime;
 	}
 	
 	void SetTheNest()
@@ -122,19 +152,61 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	public void HandleHMDMounted()
 	{
 		//StartCoroutine(ShowMessage("", 5f, 10f));
+		if(_wasUnmounted)
+		{
+			/*_overallStartTime = UnityEngine.Time.time;
+			
+			PenguinPlayer.Instance.EnableMovement();
+			
+			UnityEngine.Time.timeScale = 1;
+			//AudioListener.pause = false;
+			PenguinPlayer.Instance.StartBackgroundMusic();*/
+		}
+	}
+	
+	public void RestartGame()
+	{
+		//if we had been playing previously...
+		if(_totalGameTime != 0f)
+		{
+			PenguinPlayer.Instance.HideEndGamePrefab();
+			OVRScreenFade.instance.FadeIn();
+		}
 		
 		_overallStartTime = UnityEngine.Time.time;
+		_totalGameTime = 0f;
 		
-		PenguinPlayer.Instance.EnableMovement();
-		
-		UnityEngine.Time.timeScale = 1;
 		//AudioListener.pause = false;
 		PenguinPlayer.Instance.StartBackgroundMusic();
+		PenguinPlayer.Instance.transform.position = _playerStartLocation.transform.position;
+		
+		if(_nestGame != null)
+		{
+			_nestGame.RestartGame();
+			
+			UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(MiniGame.ProtectTheNest.ToString());
+		}
+		
+		if(_matingDance != null)
+		{
+			_matingDance.RestartGame();
+			
+			UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(MiniGame.MatingDance.ToString());
+		}
+		
+		_resetGameDelegate();
+		
+		PenguinPlayer.Instance.StopShowingUI();
+		
+		PenguinMenuSystem.Instance.ChangeMenuTo(PenguinMenuSystem.MenuType.PauseMenu);
 	}
 	
 	public void HandleHMDUnmounted()
 	{
-		UnityEngine.Time.timeScale = 0;
+		_wasUnmounted = true;
+		PenguinPlayer.Instance.StartShowingUI(false);
+		
+		/*UnityEngine.Time.timeScale = 0;
 		//AudioListener.pause = true;
 		PenguinPlayer.Instance.StopBackgroundMusic();
 		PenguinPlayer.Instance.ForceUserMessageOff();
@@ -161,31 +233,107 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 			_resetGameDelegate();
 			
 			PenguinPlayer.Instance.DisableMovement();
-		}
+		}*/
 	}
 
+	public void ShowCredits(bool toCredits)
+	{
+		if(toCredits)
+		{
+			_priorLocation = PenguinPlayer.Instance.transform.position;
+			
+			if(_creditsLocation != null)
+			{
+				PenguinPlayer.Instance.transform.position = _creditsLocation.transform.position;
+			}
+			
+			PenguinPlayer.Instance.HideMenu();
+			PenguinPlayer.Instance.DisableMovement();
+		}
+		else
+		{
+			PenguinPlayer.Instance.ShowMenu();
+			PenguinPlayer.Instance.transform.position = _priorLocation;
+			//if(_gameWasStarted)
+			//{
+			//	PenguinPlayer.Instance.EnableMovement();
+			//}
+		}
+	}
+	
     // Update is called once per frame
     void Update()
     {
-        
+		if(!_isGamePaused)
+		{
+			_totalGameTime += UnityEngine.Time.deltaTime;
+		}
+		
 		if(_gameMode == GameMode.ShowMode)
 		{
 			//7 minutes
-			if(GetGameTime() > _showModeTimeLimit)
+			if(_totalGameTime > _showModeTimeLimit)
 			{
-				if(!_showingEndGamePrefab)
+				if(!_isInMiniGame)
 				{
-					PenguinPlayer.Instance.ShowEndGamePrefab();
-					_showingEndGamePrefab = true;
-					
-					//fade out here...
-					OVRScreenFade.instance.FadeOut();
-					PenguinPlayer.Instance.StopBackgroundMusic();
+					if(!_showingEndGamePrefab)
+					{
+						if(_wasInMiniGame)
+						{
+							StartCoroutine(StartBlizzard(15f, 6f));
+							StartCoroutine(FinishEndGame(25f));
+						}
+						else
+						{
+							StartCoroutine(StartBlizzard(0f, 6f));
+							StartCoroutine(FinishEndGame(10f));
+						}
+					}
+				}
+				else
+				{
+					_wasInMiniGame = true;
 				}
 			}	
 		}
     }
+	
+	IEnumerator StartBlizzard(float initialWaitDuration, float approachDuration)
+	{
+		yield return new WaitForSeconds(initialWaitDuration);
+		
+		PenguinPlayer.Instance.ShowEndGamePrefab();
+		Vector3 startScale = PenguinPlayer.Instance.transform.GetChild((int)PenguinPlayer.PenguinPlayerObjects.SNOW_RING).localScale;
+		Vector3 endScale = new Vector3(0.5f, 0.5f, 0.5f);
+		
+		_showingEndGamePrefab = true;
 
+		float t = 0f;
+		
+		while(t < approachDuration)
+		{
+			PenguinPlayer.Instance.transform.GetChild((int)PenguinPlayer.PenguinPlayerObjects.SNOW_RING).localScale = Vector3.Lerp(startScale, endScale, (t/approachDuration));
+			t += UnityEngine.Time.deltaTime;
+			yield return null;
+		}
+		
+		OVRScreenFade.instance.FadeOut();
+	}
+	
+	IEnumerator FinishEndGame(float waitTime)
+	{
+		yield return new WaitForSeconds(waitTime);
+		
+		OVRScreenFade.instance.TurnOff();
+		
+		yield return null;
+		
+		PenguinPlayer.Instance.StopBackgroundMusic();
+		//show survey menu..
+		PenguinMenuSystem.Instance.ChangeMenuTo(PenguinMenuSystem.MenuType.EndMenu);
+		PenguinPlayer.Instance.StartShowingUI();
+	}
+	
 	public void LoadMiniGame(MiniGame mg)
 	{
 		if(mg == MiniGame.ProtectTheNest)
