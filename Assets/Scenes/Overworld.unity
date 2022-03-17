@@ -3076,11 +3076,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6280724
+      value: 0.40699798
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.77815497
+      value: 0.9134291
       objectReference: {fileID: 0}
     - target: {fileID: 6861165212368088839, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_Size
@@ -3595,7 +3595,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 537049238}
-  m_LocalRotation: {x: 0.0089569185, y: 0.7045779, z: 0.0147918565, w: 0.709416}
+  m_LocalRotation: {x: 0.0064756125, y: 0.8089787, z: 0.016034083, w: 0.5875836}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.15274511, y: 0.10162681, z: 0.10315122}
   m_Children:
@@ -4093,7 +4093,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4241035025332424002, guid: e03c0d5196108d34aa777fd96bce2cf9, type: 3}
       propertyPath: m_text
-      value: 'NSF Office of Polar Programs Grant # '
+      value: "NSF Office of Polar Programs \nGrant # 2028478"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4241035025332424002, guid: e03c0d5196108d34aa777fd96bce2cf9, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4283112469
       objectReference: {fileID: 0}
     - target: {fileID: 9102353572805139002, guid: e03c0d5196108d34aa777fd96bce2cf9, type: 3}
       propertyPath: m_Name
@@ -5020,13 +5024,25 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 314495640364253932, guid: e03c0d5196108d34aa777fd96bce2cf9, type: 3}
       propertyPath: m_text
-      value: Art
+      value: 'Art
+
+
+
+        QA / Testing'
       objectReference: {fileID: 0}
     - target: {fileID: 4241035025332424002, guid: e03c0d5196108d34aa777fd96bce2cf9, type: 3}
       propertyPath: m_text
       value: 'Forest SanFillipo
 
-        Mary Benetti'
+        Mary Benetti
+
+
+
+        Jim Matthews'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4241035025332424002, guid: e03c0d5196108d34aa777fd96bce2cf9, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4283112469
       objectReference: {fileID: 0}
     - target: {fileID: 9102353572805139002, guid: e03c0d5196108d34aa777fd96bce2cf9, type: 3}
       propertyPath: m_Name
@@ -5548,8 +5564,14 @@ PrefabInstance:
 
         Eric Lang
 
-        Jean
-        Pennycook'
+        Phil
+        Dougherty
+
+        Jean Pennycook'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4241035025332424002, guid: e03c0d5196108d34aa777fd96bce2cf9, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4283112469
       objectReference: {fileID: 0}
     - target: {fileID: 9102353572805139002, guid: e03c0d5196108d34aa777fd96bce2cf9, type: 3}
       propertyPath: m_Name
@@ -12445,11 +12467,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6040033
+      value: 0.46874774
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7969818
+      value: 0.88333213
       objectReference: {fileID: 0}
     - target: {fileID: 7496492113157597932, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: _sceneName

@@ -100,8 +100,6 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		OVRManager.HMDUnmounted += HandleHMDUnmounted;
 		
 		OVRManager.HMDMounted += HandleHMDMounted;
-		
-		PenguinPlayer.Instance.StartShowingUI(true);
     }
 	
 	public void BeginTheGame(PenguinGameManager.GameMode mode)
@@ -162,6 +160,10 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 			//AudioListener.pause = false;
 			PenguinPlayer.Instance.StartBackgroundMusic();*/
 		}
+		else
+		{
+			PenguinPlayer.Instance.StartShowingUI(true);
+		}
 	}
 	
 	public void RestartGame()
@@ -204,7 +206,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	public void HandleHMDUnmounted()
 	{
 		_wasUnmounted = true;
-		PenguinPlayer.Instance.StartShowingUI(false);
+		PenguinPlayer.Instance.StartShowingUI(true);
 		
 		/*UnityEngine.Time.timeScale = 0;
 		//AudioListener.pause = true;
