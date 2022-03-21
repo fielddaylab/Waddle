@@ -32,7 +32,7 @@ public class ProtectTheNest : MiniGameController
 	bool _finishingEggSequence = false;
 	
 	GameObject _mainCam = null;
-	
+	GameObject _ptnUnlocker = null;
     // Start is called before the first frame update
     void Start()
     {
@@ -56,6 +56,22 @@ public class ProtectTheNest : MiniGameController
 				if(Vector3.Dot(toEgg, lookDir) > 0.5f)
 				{
 					_finishingEggSequence = true;
+					
+					AudioSource aSource = _theEgg.GetComponent<AudioSource>();
+					if(aSource != null)
+					{
+						GameObject ptnUnlocker = GameObject.Find("ProtectTheNestUnlocker");
+						if(ptnUnlocker != null)
+						{
+							AudioSource aSource2 = ptnUnlocker.GetComponent<AudioSource>();
+							if(aSource2 != null)
+							{
+								aSource2.Stop();
+								aSource.Play();
+							}
+						}
+					}
+					
 					StartCoroutine(FinishChickSequence(30f));
 				}
 			}
@@ -141,7 +157,19 @@ public class ProtectTheNest : MiniGameController
     public override void RestartGame()
     {
 		//double check this after addition of chick sequence..
-        EndGame();
+        if(_theEgg != null)
+        {
+		     _theEgg.GetComponent<Egg>().IsTaken = false;
+             _theEgg.GetComponent<Egg>().Reset();
+        }
+		
+        if(_eggTimer != null)
+        {
+			_eggTimer.SetActive(true);
+            System.TimeSpan ts = System.TimeSpan.FromSeconds(_gameTimeLimit);
+            _eggTimer.GetComponent<TMPro.TextMeshPro>().text = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
+        }
+
     }
 
     IEnumerator StartNextFrame()
@@ -160,20 +188,6 @@ public class ProtectTheNest : MiniGameController
 
     public override void EndGame()
     {
-		 
-        if(_theEgg != null)
-        {
-		     _theEgg.GetComponent<Egg>().IsTaken = false;
-             _theEgg.GetComponent<Egg>().Reset();
-        }
-		
-        if(_eggTimer != null)
-        {
-			_eggTimer.SetActive(true);
-            System.TimeSpan ts = System.TimeSpan.FromSeconds(_gameTimeLimit);
-            _eggTimer.GetComponent<TMPro.TextMeshPro>().text = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
-        }
-
         //Camera.main.gameObject.GetComponent<OVRScreenFade>().FadeOut();
         _playingEggSequence = false;
 		_finishingEggSequence = false;
@@ -207,8 +221,16 @@ public class ProtectTheNest : MiniGameController
 		
 		yield return new WaitForSeconds(waitTime-8f);
 		
-		_theEgg.transform.GetChild(1).gameObject.GetComponent<Animator>().SetTrigger("stop");
-		_theEgg.transform.GetChild(2).gameObject.GetComponent<Animator>().SetTrigger("stop");
+		//_theEgg.transform.GetChild(1).gameObject.GetComponent<Animator>().SetTrigger("stop");
+		
+		//loop the chick here instead?
+		//_theEgg.transform.GetChild(2).gameObject.GetComponent<Animator>().SetTrigger("stop");
+		
+		AudioSource mainTrack = PenguinPlayer.Instance.GetComponent<AudioSource>();
+		if(mainTrack != null)
+		{
+			mainTrack.Play();
+		}
 		
 		EndGame();
 	}

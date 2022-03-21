@@ -50,7 +50,6 @@ public class StartGame : MonoBehaviour
 			//if protect the nest, turn off ray of light...
 			if(_miniGame == PenguinGameManager.MiniGame.ProtectTheNest)
 			{
-				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.SPOT_LIGHT).gameObject.SetActive(false);
 				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.RAY_OF_LIGHT).gameObject.SetActive(false);
 				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.MISC2).gameObject.SetActive(false);
 			}
@@ -89,17 +88,16 @@ public class StartGame : MonoBehaviour
 			//turn off the borders...
 			transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.SNOW).gameObject.SetActive(false);
 			
-			//turn on icon and Pole...eventually fade and fade back in when leaving
-			transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.ICON).gameObject.SetActive(true);
+			//update:  keep icon and pole off until the game is reset...
+			/*transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.ICON).gameObject.SetActive(true);
 			transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.POLE).gameObject.SetActive(true);
 			
 			//if protect the nest, turn on ray of light...
 			if(_miniGame == PenguinGameManager.MiniGame.ProtectTheNest)
 			{
-				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.SPOT_LIGHT).gameObject.SetActive(true);
 				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.RAY_OF_LIGHT).gameObject.SetActive(true);
 				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.MISC2).gameObject.SetActive(true);
-			}
+			}*/
 			
 			AudioSource audio = GetComponent<AudioSource>();
 			if(audio != null)
@@ -114,12 +112,6 @@ public class StartGame : MonoBehaviour
 			}
 		}
 		
-		MeshRenderer mr = GetComponent<MeshRenderer>();
-		if(mr != null)
-		{
-			mr.enabled = true;
-		}
-		
 		//return the the player to default speed...
 		PenguinPlayer.Instance.SpeedUpMovement();
 		
@@ -132,6 +124,12 @@ public class StartGame : MonoBehaviour
 		if(_miniGame == PenguinGameManager.MiniGame.MatingDance)
 		{
 			gameObject.GetComponent<Collider>().enabled = true;
+			
+			MeshRenderer mr = GetComponent<MeshRenderer>();
+			if(mr != null)
+			{
+				mr.enabled = true;
+			}
 		}
 	}
 	

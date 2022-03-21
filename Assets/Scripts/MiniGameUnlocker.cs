@@ -17,7 +17,6 @@ public class MiniGameUnlocker : MonoBehaviour
 		SNOW,
 		POLE,
 		PENGUINS,
-		SPOT_LIGHT,
 		RAY_OF_LIGHT,
 		MISC2
 	}
@@ -99,7 +98,6 @@ public class MiniGameUnlocker : MonoBehaviour
 		
 		if(transform.childCount > 7)
 		{
-			transform.GetChild((int)MiniGameCommonObjects.SPOT_LIGHT).gameObject.SetActive(true);
 			transform.GetChild((int)MiniGameCommonObjects.RAY_OF_LIGHT).gameObject.SetActive(true);
 			transform.GetChild((int)MiniGameCommonObjects.MISC2).gameObject.SetActive(true);
 		}

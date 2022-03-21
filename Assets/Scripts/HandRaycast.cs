@@ -74,15 +74,15 @@ public class HandRaycast : MonoBehaviour
 				Vector3 castOrigin = _rightHand.transform.position - _rightHand.transform.forward*0.025f;// - _rightHand.transform.right*0.11f - _rightHand.transform.forward*0.025f - _rightHand.transform.up * 0.075f;
 				
 				//_avgPosition += castOrigin;
-				_avgDirection = ((-_rightHand.transform.right - _rightHand.transform.up) * 0.5f);
+				_avgDirection += ((-_rightHand.transform.right - _rightHand.transform.up) * 0.5f);
 				_currPosition++;
-				/*if(_currPosition == 10)
+				if(_currPosition == 10)
 				{
 					_currPosition = 1;
-				}*/
+				}
 				
 				_avgPosition = castOrigin;//(float)_currPosition;
-				//_avgDirection /= (float)_currPosition;
+				_avgDirection /= (float)_currPosition;
 				_avgDirection = Vector3.Normalize(_avgDirection);
 				
 				//Debug.Log(_avgPosition.ToString("F3") + " " + _avgDirection.ToString("F3"));
@@ -264,7 +264,7 @@ public class HandRaycast : MonoBehaviour
 					{
 						if(Physics.Raycast(_avgPosition, _avgDirection, out hitInfo, Mathf.Infinity, _mask, QueryTriggerInteraction.Ignore))
 						{
-							Debug.Log(hitInfo.collider.transform.gameObject.name);
+							//Debug.Log(hitInfo.collider.transform.gameObject.name);
 							if(hitInfo.collider.transform.gameObject == _rightButton)
 							{
 								SelectButton(_leftButton, false);

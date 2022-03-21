@@ -136,7 +136,10 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 			_wasShowingUserMessage = false;
 		}
 		
-		_mainUI.SetActive(false);
+		if(_mainUI != null)
+		{
+			_mainUI.SetActive(false);
+		}
 		//switch our hands...
 		/*if(_leftHandController != null)
 		{
@@ -161,6 +164,7 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 			_lineRenderer.enabled = false;
 		}
 		
+		Physics.autoSimulation = true;
 		PenguinGameManager._isGamePaused = false;
 	}
 	
@@ -210,15 +214,13 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 	public void StartShowingUI(bool isStartMenu=false)
 	{
 		_showingUI = true;
-		_mainUI.SetActive(true);
+		
+		if(_mainUI != null)
+		{
+			_mainUI.SetActive(true);
+		}
 		
 		PenguinGameManager._isGamePaused = true;
-		
-		if(!isStartMenu)
-		{
-			UnityEngine.Time.timeScale = 0;
-			AudioListener.pause = true;
-		}
 		
 		_wasShowingUserMessage = UserMessageActive();
 		if(_wasShowingUserMessage)
@@ -246,6 +248,14 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		if(_lineRenderer != null)
 		{
 			_lineRenderer.enabled = true;	
+		}
+		
+		UnityEngine.Time.timeScale = 0;
+		Physics.autoSimulation = false;
+		
+		if(!isStartMenu)
+		{
+			AudioListener.pause = true;
 		}
 	}
 	

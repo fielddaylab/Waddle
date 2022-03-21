@@ -53,7 +53,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	
 	bool _wasInMiniGame = false;
 	//bool _gameWasStarted = false;
-	
+
 	public delegate void OnResetDelegate();
 	public static event OnResetDelegate _resetGameDelegate;
 	
@@ -100,6 +100,8 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		OVRManager.HMDUnmounted += HandleHMDUnmounted;
 		
 		OVRManager.HMDMounted += HandleHMDMounted;
+		
+		//BeginTheGame(PenguinGameManager.GameMode.ShowMode);
     }
 	
 	public void BeginTheGame(PenguinGameManager.GameMode mode)
@@ -108,6 +110,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		_gameMode = mode;
 		_overallStartTime = UnityEngine.Time.time;
 		_totalGameTime = 0f;
+		Physics.autoSimulation = true;
 		UnityEngine.Time.timeScale = 1;
 		//AudioListener.pause = false;
 		PenguinPlayer.Instance.StartBackgroundMusic();
@@ -206,7 +209,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	public void HandleHMDUnmounted()
 	{
 		_wasUnmounted = true;
-		PenguinPlayer.Instance.StartShowingUI(true);
+		PenguinPlayer.Instance.StartShowingUI(false);
 		
 		/*UnityEngine.Time.timeScale = 0;
 		//AudioListener.pause = true;
@@ -269,6 +272,13 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		if(!_isGamePaused)
 		{
 			_totalGameTime += UnityEngine.Time.deltaTime;
+		}
+		else
+		{
+			if(Time.timeScale == 0f)
+			{
+				Physics.Simulate(Time.fixedDeltaTime);
+			}
 		}
 		
 		if(_gameMode == GameMode.ShowMode)

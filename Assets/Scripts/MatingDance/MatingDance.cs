@@ -70,6 +70,9 @@ public class MatingDance : MiniGameController
 	
 	bool _demoDone = false;
 	
+	[SerializeField]
+	GameObject _walkToSpot = null;
+	
     void Start()
     {
         //Debug.Log(GetComponent<AudioSource>().clip.samples);
@@ -151,6 +154,29 @@ public class MatingDance : MiniGameController
 		StartCoroutine(DestroyCo(3.3f, bub, true));
     }
 	
+	IEnumerator StartMove(Vector3 newSpot, float duration)
+	{
+		float t = 0f;
+		Vector3 startPosition = _matingDancePenguin.transform.position;
+		Quaternion startRotation = _matingDancePenguin.transform.rotation;
+		Vector3 toNewSpot = newSpot - _matingDancePenguin.transform.position;
+		toNewSpot = Vector3.Normalize(toNewSpot);
+		Quaternion rotNewSpot = Quaternion.LookRotation(toNewSpot, Vector3.up);
+
+		_matingDancePenguin.transform.rotation = rotNewSpot;
+		
+		while(t < duration)
+		{
+			_matingDancePenguin.transform.position = Vector3.Lerp(startPosition, newSpot, (t/duration));
+
+			t += (Time.deltaTime);	
+			yield return null;
+		}
+		
+		_matingDancePenguin.transform.rotation = startRotation;
+		_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("walk", false);
+	}
+	
 	public override void EndGame()
 	{
 		AudioSource audio = GetComponent<AudioSource>();
@@ -166,9 +192,13 @@ public class MatingDance : MiniGameController
 		}
 		
 		_currentSample = 0;
+		
+		//walk this penguin towards protect the nest
 		if(_matingDancePenguin != null)
 		{
 			_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("bop", false);
+			_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("walk", true);
+			StartCoroutine(StartMove(_walkToSpot.transform.position, 20f));
 		}
 		
 		_currentSample = 0;
