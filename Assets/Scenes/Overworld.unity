@@ -3076,11 +3076,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.6900161
+      value: 0.6429166
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.72379404
+      value: 0.76593626
       objectReference: {fileID: 0}
     - target: {fileID: 6861165212368088839, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_Size
@@ -3595,7 +3595,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 537049238}
-  m_LocalRotation: {x: 0.008392049, y: 0.7308603, z: 0.015119487, w: 0.6823081}
+  m_LocalRotation: {x: 0.010223777, y: 0.63942003, z: 0.013946318, w: 0.76866317}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.15274511, y: 0.10162681, z: 0.10315122}
   m_Children:
@@ -10578,11 +10578,11 @@ PrefabInstance:
     - target: {fileID: 5535574703997069961, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: _texturesToAnimate.Array.data[0]
       value: 
-      objectReference: {fileID: 2800000, guid: a362dc63f79d896439ed4d5183315209, type: 3}
+      objectReference: {fileID: 2800000, guid: ec5096db43f75444fa63b106dc2d03a9, type: 3}
     - target: {fileID: 5535574703997069961, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: _texturesToAnimate.Array.data[1]
       value: 
-      objectReference: {fileID: 2800000, guid: b915712cf7041464cb8e14aa8cf57802, type: 3}
+      objectReference: {fileID: 2800000, guid: 36b9fad7fb6fe014cb356e57ed3ba55c, type: 3}
     - target: {fileID: 5535574703997069961, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: _texturesToAnimate.Array.data[2]
       value: 
@@ -12404,11 +12404,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.57386905
+      value: 0.6717909
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.8189471
+      value: 0.74074084
       objectReference: {fileID: 0}
     - target: {fileID: 7496492113157597932, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: _sceneName
@@ -13010,11 +13010,11 @@ PrefabInstance:
     - target: {fileID: 5535574703997069961, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: _texturesToAnimate.Array.data[0]
       value: 
-      objectReference: {fileID: 2800000, guid: 4bf6c9851b9b31d47b9f2155549d1264, type: 3}
+      objectReference: {fileID: 2800000, guid: b54f898b3274a5c42bb6feae6bf21078, type: 3}
     - target: {fileID: 5535574703997069961, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: _texturesToAnimate.Array.data[1]
       value: 
-      objectReference: {fileID: 2800000, guid: c896dfc2c29b49c41895653f2e7e8330, type: 3}
+      objectReference: {fileID: 2800000, guid: 64dcd7a297c44224e90b63d1c9e5fbc1, type: 3}
     - target: {fileID: 7356108554249965209, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: m_StaticShadowCaster
       value: 1
