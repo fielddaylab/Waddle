@@ -32,7 +32,7 @@ public class ProtectTheNest : MiniGameController
 	bool _finishingEggSequence = false;
 	
 	GameObject _mainCam = null;
-	GameObject _ptnUnlocker = null;
+	
     // Start is called before the first frame update
     void Start()
     {

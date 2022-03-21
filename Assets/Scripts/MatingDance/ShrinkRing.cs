@@ -13,7 +13,7 @@ public class ShrinkRing : MonoBehaviour
 	
 	IEnumerator _coroutine = null;
 	
-	Color _orange = new Color(1f, 0.2862f, 0f, 1f);
+	Color _orange = new Color(1f, 0.0f, 0.592f, 0.27f);
 	
     // Start is called before the first frame update
     void Start()

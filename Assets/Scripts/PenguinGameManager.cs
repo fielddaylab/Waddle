@@ -269,6 +269,12 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
     // Update is called once per frame
     void Update()
     {
+		/*if(!_gameWasStarted)
+		{
+			PenguinPlayer.Instance.StartShowingUI(true);
+			_gameWasStarted = true;
+		}*/
+		
 		if(!_isGamePaused)
 		{
 			_totalGameTime += UnityEngine.Time.deltaTime;

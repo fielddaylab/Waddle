@@ -250,11 +250,10 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 			_lineRenderer.enabled = true;	
 		}
 		
-		UnityEngine.Time.timeScale = 0;
-		Physics.autoSimulation = false;
-		
 		if(!isStartMenu)
 		{
+			UnityEngine.Time.timeScale = 0;
+			Physics.autoSimulation = false;
 			AudioListener.pause = true;
 		}
 	}
