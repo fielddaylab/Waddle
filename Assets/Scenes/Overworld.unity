@@ -1742,8 +1742,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0649095, y: 1.6767781, z: 1.0190759}
-  m_Center: {x: 0.03245481, y: 0.33838904, z: -0.009538161}
+  m_Size: {x: 1.0649095, y: 1.0309417, z: 0.7303669}
+  m_Center: {x: 0.032454766, y: 0.015470862, z: 0.13481541}
 --- !u!23 &400683217
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3076,11 +3076,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.4110103
+      value: 0.44932038
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9116307
+      value: 0.8933707
       objectReference: {fileID: 0}
     - target: {fileID: 6861165212368088839, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_Size
@@ -3595,7 +3595,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 537049238}
-  m_LocalRotation: {x: 0.006529731, y: 0.8069895, z: 0.016012121, w: 0.5903126}
+  m_LocalRotation: {x: 0.008326938, y: 0.73378825, z: 0.015155441, w: 0.67915815}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.15274511, y: 0.10162681, z: 0.10315122}
   m_Children:
@@ -9971,13 +9971,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1700017383}
-  m_LocalRotation: {x: -0, y: 0.42807552, z: -0, w: 0.903743}
+  m_LocalRotation: {x: -0, y: 0.4691123, z: -0, w: 0.8831385}
   m_LocalPosition: {x: 15.786, y: 2.269, z: 53.548}
   m_LocalScale: {x: 1.9183, y: 1, z: 2.2724}
   m_Children: []
   m_Father: {fileID: 1961641619}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 50.691, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 55.953, z: 0}
 --- !u!65 &1700017385
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9989,8 +9989,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.4209607, y: 1.6741722, z: 1.0294391}
-  m_Center: {x: 0.023801867, y: 0.33708608, z: 0.014720123}
+  m_Size: {x: 1.2875304, y: 1.1814213, z: 0.7773885}
+  m_Center: {x: 0.090517215, y: 0.09071064, z: -0.1113027}
 --- !u!23 &1700017386
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12441,11 +12441,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.47173893
+      value: 0.5699747
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.88173825
+      value: 0.82166225
       objectReference: {fileID: 0}
     - target: {fileID: 7496492113157597932, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: _sceneName
