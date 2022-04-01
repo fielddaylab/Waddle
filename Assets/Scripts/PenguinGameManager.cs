@@ -101,6 +101,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		
 		OVRManager.HMDMounted += HandleHMDMounted;
 		
+		//uncomment this if wanting to test things in editor without hmd
 		//BeginTheGame(PenguinGameManager.GameMode.ShowMode);
     }
 	

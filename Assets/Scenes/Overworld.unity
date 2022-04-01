@@ -1635,6 +1635,10 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3213634451294876018, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 9ba6463f4e494c74a8aeba38b4d988b4, type: 3}
     - target: {fileID: 3556293901462193823, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_Name
       value: NPCPenguin
@@ -3076,11 +3080,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.64179844
+      value: 0.49300718
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.76687336
+      value: 0.8700252
       objectReference: {fileID: 0}
     - target: {fileID: 6861165212368088839, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_Size
@@ -3595,7 +3599,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 537049238}
-  m_LocalRotation: {x: 0.0099357385, y: 0.6550428, z: 0.014152969, w: 0.7553939}
+  m_LocalRotation: {x: 0.008605181, y: 0.721131, z: 0.014999209, w: 0.69258296}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.15274511, y: 0.10162681, z: 0.10315122}
   m_Children:
@@ -4017,6 +4021,10 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3213634451294876018, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 9ba6463f4e494c74a8aeba38b4d988b4, type: 3}
     - target: {fileID: 3556293901462193823, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_Name
       value: NPCPenguin5
@@ -4177,6 +4185,10 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3213634451294876018, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: a447334c28ff3db45a7388ba142a095e, type: 3}
     - target: {fileID: 3556293901462193823, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_Name
       value: NPCPenguin2
@@ -4338,7 +4350,6 @@ Transform:
   - {fileID: 95989290}
   - {fileID: 2057154124}
   - {fileID: 2146088386}
-  - {fileID: 703605329}
   - {fileID: 1380812007}
   - {fileID: 1961641619}
   m_Father: {fileID: 0}
@@ -4595,11 +4606,11 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 657427685}
+    m_TransformParent: {fileID: 1380812007}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 5f41a7fa669732b43940739c83583f38, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5f41a7fa669732b43940739c83583f38, type: 3}
       propertyPath: m_LocalScale.x
@@ -4687,6 +4698,10 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3213634451294876018, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: a447334c28ff3db45a7388ba142a095e, type: 3}
     - target: {fileID: 3556293901462193823, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_Name
       value: NPCPenguin4
@@ -8485,8 +8500,9 @@ Transform:
   - {fileID: 1074337652}
   - {fileID: 1312289578}
   - {fileID: 864353128}
+  - {fileID: 703605329}
   m_Father: {fileID: 657427685}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1397241658
 GameObject:
@@ -10388,6 +10404,10 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3213634451294876018, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: a447334c28ff3db45a7388ba142a095e, type: 3}
     - target: {fileID: 3556293901462193823, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_Name
       value: NPCPenguin6
@@ -10463,13 +10483,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5535574703997069961, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
+      propertyPath: _texturesToAnimate.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5535574703997069961, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: _texturesToAnimate.Array.data[0]
       value: 
       objectReference: {fileID: 2800000, guid: 8c0f5d6e2f405014cae1c2db9fc7a81c, type: 3}
     - target: {fileID: 5535574703997069961, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: _texturesToAnimate.Array.data[1]
       value: 
-      objectReference: {fileID: 2800000, guid: 6d226103e30a4834994949502a3b03ba, type: 3}
+      objectReference: {fileID: 2800000, guid: b7cee1514a454c844b45217baf1b63f3, type: 3}
     - target: {fileID: 5535574703997069961, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: _texturesToAnimate.Array.data[2]
       value: 
@@ -11354,7 +11378,7 @@ Transform:
   - {fileID: 1700017384}
   - {fileID: 400683215}
   m_Father: {fileID: 657427685}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1962253822
 PrefabInstance:
@@ -11883,6 +11907,10 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3213634451294876018, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 9ba6463f4e494c74a8aeba38b4d988b4, type: 3}
     - target: {fileID: 3556293901462193823, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_Name
       value: NPCPenguin3
@@ -12528,11 +12556,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.65647477
+      value: 0.5850393
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.754348
+      value: 0.81100494
       objectReference: {fileID: 0}
     - target: {fileID: 7496492113157597932, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: _sceneName
