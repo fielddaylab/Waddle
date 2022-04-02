@@ -5,34 +5,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickedUpEgg : StateMachineBehaviour
+public class CheepCheep : StateMachineBehaviour
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Debug.Log("Picked up egg");
-		SkuaController sc = animator.gameObject.transform.parent.GetComponent<SkuaController>();
-			
-		if(sc.GetEgg != null)
+        AudioSource aSource = animator.gameObject.GetComponent<AudioSource>();
+		
+		if(aSource != null)
 		{
-			sc.GetEgg.gameObject.transform.localPosition = Vector3.zero;
-			sc.GetEgg.gameObject.transform.SetParent(sc.gameObject.transform.GetChild(1).transform, true);
-			
-			/*for(int i = 0; i < sc.GetEgg.gameObject.transform.childCount; ++i)
-			{
-				sc.GetEgg.gameObject.transform.GetChild(i).transform.localPosition = Vector3.zero;
-			}*/
+			aSource.Play();
 		}
 		
-		SkuaSpot potentialSpot = sc.SearchForOuterSpot();
-		sc.SetNewSpot(potentialSpot);
-		
-		//start flying animation here...
-		sc.FlyToSpot(SkuaWalkState.WalkDirection.eBACK);
-		//animator.gameObject.GetComponent<SkuaController>().FlyToSpot();
-
+		DelayStartSound(0.25f, animator.gameObject.transform.GetChild(0).gameObject);
     }
-
+	
+	IEnumerable DelayStartSound(float duration, GameObject g)
+	{
+		yield return new WaitForSeconds(duration);
+		AudioSource aSource = g.GetComponent<AudioSource>();
+		
+		if(aSource != null)
+		{
+			aSource.Play();
+		}
+	}
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
@@ -40,10 +37,10 @@ public class PickedUpEgg : StateMachineBehaviour
     //}
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-   /* override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-
-    }*/
+    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+    //    
+    //}
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

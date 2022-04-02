@@ -1761,6 +1761,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3213634451294876018, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
+      propertyPath: MaxDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3213634451294876018, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 9ba6463f4e494c74a8aeba38b4d988b4, type: 3}
@@ -3205,11 +3209,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.43298864
+      value: -0.22086717
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9013994
+      value: 0.97530395
       objectReference: {fileID: 0}
     - target: {fileID: 6861165212368088839, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_Size
@@ -3728,7 +3732,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 537049238}
-  m_LocalRotation: {x: 0.008141158, y: 0.74203104, z: 0.015256045, w: 0.67014253}
+  m_LocalRotation: {x: 0.0075134384, y: 0.7686932, z: 0.015574775, w: 0.6393839}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.15274511, y: 0.10162681, z: 0.10315122}
   m_Children:
@@ -4151,6 +4155,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3213634451294876018, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
+      propertyPath: MaxDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3213634451294876018, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 9ba6463f4e494c74a8aeba38b4d988b4, type: 3}
@@ -4313,6 +4321,10 @@ PrefabInstance:
     - target: {fileID: 1040756671149937274, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3213634451294876018, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
+      propertyPath: MaxDistance
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3213634451294876018, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_audioClip
@@ -4826,6 +4838,10 @@ PrefabInstance:
     - target: {fileID: 1040756671149937274, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3213634451294876018, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
+      propertyPath: MaxDistance
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3213634451294876018, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_audioClip
@@ -11269,6 +11285,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3213634451294876018, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
+      propertyPath: MaxDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3213634451294876018, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: a447334c28ff3db45a7388ba142a095e, type: 3}
@@ -12772,6 +12792,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3213634451294876018, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
+      propertyPath: MaxDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3213634451294876018, guid: 6c46a9a77257c7044807adae749c4ea7, type: 3}
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 9ba6463f4e494c74a8aeba38b4d988b4, type: 3}
@@ -13420,11 +13444,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.5598942
+      value: 0.525734
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.8285641
+      value: 0.85064906
       objectReference: {fileID: 0}
     - target: {fileID: 7496492113157597932, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: _sceneName
