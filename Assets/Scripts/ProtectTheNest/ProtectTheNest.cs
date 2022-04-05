@@ -170,20 +170,6 @@ public class ProtectTheNest : MiniGameController
             _eggTimer.GetComponent<TMPro.TextMeshPro>().text = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
         }
 		
-		if(_theEgg != null)
-        {
-			AudioSource aSource = _theEgg.transform.GetChild(2).GetComponent<AudioSource>();
-			if(aSource != null)
-			{
-				aSource.Stop();
-				
-				AudioSource aSource2 = aSource.gameObject.transform.GetChild(0).GetComponent<AudioSource>();
-				if(aSource2 != null)
-				{
-					aSource2.Stop();
-				}
-			}
-		}
     }
 
     IEnumerator StartNextFrame()
@@ -201,6 +187,21 @@ public class ProtectTheNest : MiniGameController
         //Camera.main.gameObject.GetComponent<OVRScreenFade>().FadeOut();
         _playingEggSequence = false;
 		_finishingEggSequence = false;
+		
+		if(_theEgg != null)
+        {
+			AudioSource aSource = _theEgg.transform.GetChild(2).GetComponent<AudioSource>();
+			if(aSource != null)
+			{
+				aSource.Stop();
+				
+				AudioSource aSource2 = aSource.gameObject.transform.GetChild(0).GetComponent<AudioSource>();
+				if(aSource2 != null)
+				{
+					aSource2.Stop();
+				}
+			}
+		}
 		
         base.EndGame();
     }
