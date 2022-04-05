@@ -180,6 +180,14 @@ public class MatingDance : MiniGameController
 		_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("walk", false);
 	}
 	
+	public override void RestartGame()
+    {
+		if(_matingDancePenguin != null)
+		{
+			_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("walk", false);
+		}
+	}
+
 	public override void EndGame()
 	{
 		AudioSource audio = GetComponent<AudioSource>();
@@ -199,8 +207,8 @@ public class MatingDance : MiniGameController
 		//walk this penguin towards protect the nest
 		if(_matingDancePenguin != null)
 		{
-			_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("bop", false);
 			_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("walk", true);
+			_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("bop", false);
 			StartCoroutine(StartMove(_walkToSpot.transform.position, 20f));
 		}
 		
