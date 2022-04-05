@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18336155, g: 0.22897387, b: 0.30613446, a: 1}
+  m_IndirectSpecularColor: {r: 0.18336104, g: 0.22897325, b: 0.30613345, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -132,6 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 14352553}
+  - component: {fileID: 14352554}
   m_Layer: 0
   m_Name: TripletBubbleSpot3
   m_TagString: Untagged
@@ -147,12 +148,53 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 14352552}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.09019089, y: 0.12840009, z: 0.013404846}
+  m_LocalPosition: {x: -0.211, y: 0.059, z: 0.013404846}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1698451899}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &14352554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 14352552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45f3fc0e8a99a814b9ea32d5cbd66a95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
+  Color: {r: 0, g: 0, b: 1, a: 1}
+  Size: 0.04
+  UseWorldScale: 1
+  DrawMode: 1
+  LineStart: {x: 0, y: 0, z: 0}
+  LineEnd: {x: 0, y: 0, z: 1}
+  FrustumFOV: 60
+  FrustumMaxRange: 1
+  FrustumMinRange: 0.1
+  FrustumAspect: 1
+  IconFilename: 
+  IconAllowScaling: 1
+  TextureRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  Texture: {fileID: 0}
+  TextureMaterial: {fileID: 0}
+  TextureLeftBorder: 0
+  TextureRightBorder: 0
+  TextureTopBorder: 0
+  TextureBottomBorder: 0
+  Mesh: {fileID: 0}
+  MeshPosition: {x: 0, y: 0, z: 0}
+  MeshRotation: {x: 0, y: 0, z: 0}
+  MeshScale: {x: 1, y: 1, z: 1}
 --- !u!1 &32813775
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,6 +234,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 223780824}
+  - component: {fileID: 223780825}
   m_Layer: 0
   m_Name: TripletBubbleSpot
   m_TagString: Untagged
@@ -207,12 +250,53 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 223780823}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.1587944, y: -0.0025997162, z: 0.013404846}
+  m_LocalPosition: {x: -0.211, y: 0.157, z: 0.013404846}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1698451899}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &223780825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 223780823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45f3fc0e8a99a814b9ea32d5cbd66a95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
+  Color: {r: 0, g: 0, b: 1, a: 1}
+  Size: 0.04
+  UseWorldScale: 1
+  DrawMode: 1
+  LineStart: {x: 0, y: 0, z: 0}
+  LineEnd: {x: 0, y: 0, z: 1}
+  FrustumFOV: 60
+  FrustumMaxRange: 1
+  FrustumMinRange: 0.1
+  FrustumAspect: 1
+  IconFilename: 
+  IconAllowScaling: 1
+  TextureRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  Texture: {fileID: 0}
+  TextureMaterial: {fileID: 0}
+  TextureLeftBorder: 0
+  TextureRightBorder: 0
+  TextureTopBorder: 0
+  TextureBottomBorder: 0
+  Mesh: {fileID: 0}
+  MeshPosition: {x: 0, y: 0, z: 0}
+  MeshRotation: {x: 0, y: 0, z: 0}
+  MeshScale: {x: 1, y: 1, z: 1}
 --- !u!1 &391047832
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,6 +306,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 391047833}
+  - component: {fileID: 391047834}
   m_Layer: 0
   m_Name: DrumBubbleSpot
   m_TagString: Untagged
@@ -243,6 +328,47 @@ Transform:
   m_Father: {fileID: 1698451899}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &391047834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 391047832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45f3fc0e8a99a814b9ea32d5cbd66a95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
+  Color: {r: 0, g: 0, b: 1, a: 1}
+  Size: 0.04
+  UseWorldScale: 1
+  DrawMode: 1
+  LineStart: {x: 0, y: 0, z: 0}
+  LineEnd: {x: 0, y: 0, z: 1}
+  FrustumFOV: 60
+  FrustumMaxRange: 1
+  FrustumMinRange: 0.1
+  FrustumAspect: 1
+  IconFilename: 
+  IconAllowScaling: 1
+  TextureRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  Texture: {fileID: 0}
+  TextureMaterial: {fileID: 0}
+  TextureLeftBorder: 0
+  TextureRightBorder: 0
+  TextureTopBorder: 0
+  TextureBottomBorder: 0
+  Mesh: {fileID: 0}
+  MeshPosition: {x: 0, y: 0, z: 0}
+  MeshRotation: {x: 0, y: 0, z: 0}
+  MeshScale: {x: 1, y: 1, z: 1}
 --- !u!1 &396817489
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,6 +678,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 873011350}
+  - component: {fileID: 873011351}
   m_Layer: 0
   m_Name: TripletBubbleSpot2
   m_TagString: Untagged
@@ -567,12 +694,53 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 873011349}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.1587944, y: 0.10000014, z: 0.013404846}
+  m_LocalPosition: {x: -0.289, y: 0.10000014, z: 0.013404846}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1698451899}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &873011351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873011349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45f3fc0e8a99a814b9ea32d5cbd66a95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
+  Color: {r: 0, g: 0, b: 1, a: 1}
+  Size: 0.04
+  UseWorldScale: 1
+  DrawMode: 1
+  LineStart: {x: 0, y: 0, z: 0}
+  LineEnd: {x: 0, y: 0, z: 1}
+  FrustumFOV: 60
+  FrustumMaxRange: 1
+  FrustumMinRange: 0.1
+  FrustumAspect: 1
+  IconFilename: 
+  IconAllowScaling: 1
+  TextureRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  Texture: {fileID: 0}
+  TextureMaterial: {fileID: 0}
+  TextureLeftBorder: 0
+  TextureRightBorder: 0
+  TextureTopBorder: 0
+  TextureBottomBorder: 0
+  Mesh: {fileID: 0}
+  MeshPosition: {x: 0, y: 0, z: 0}
+  MeshRotation: {x: 0, y: 0, z: 0}
+  MeshScale: {x: 1, y: 1, z: 1}
 --- !u!1 &877679914
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,6 +750,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 877679915}
+  - component: {fileID: 877679916}
   m_Layer: 0
   m_Name: DrumBubbleSpot2
   m_TagString: Untagged
@@ -597,12 +766,53 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 877679914}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.15, y: 0.156, z: 0.112}
+  m_LocalPosition: {x: -0.117, y: 0.068, z: 0.027}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1698451899}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &877679916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877679914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45f3fc0e8a99a814b9ea32d5cbd66a95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
+  Color: {r: 0, g: 0, b: 1, a: 1}
+  Size: 0.04
+  UseWorldScale: 1
+  DrawMode: 1
+  LineStart: {x: 0, y: 0, z: 0}
+  LineEnd: {x: 0, y: 0, z: 1}
+  FrustumFOV: 60
+  FrustumMaxRange: 1
+  FrustumMinRange: 0.1
+  FrustumAspect: 1
+  IconFilename: 
+  IconAllowScaling: 1
+  TextureRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  Texture: {fileID: 0}
+  TextureMaterial: {fileID: 0}
+  TextureLeftBorder: 0
+  TextureRightBorder: 0
+  TextureTopBorder: 0
+  TextureBottomBorder: 0
+  Mesh: {fileID: 0}
+  MeshPosition: {x: 0, y: 0, z: 0}
+  MeshRotation: {x: 0, y: 0, z: 0}
+  MeshScale: {x: 1, y: 1, z: 1}
 --- !u!1 &937623765
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,6 +822,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 937623766}
+  - component: {fileID: 937623767}
   m_Layer: 0
   m_Name: BeatBubbleSpot
   m_TagString: Untagged
@@ -627,12 +838,53 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 937623765}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.152, y: -0.0025997162, z: 0.013}
+  m_LocalPosition: {x: -0.043, y: 0.11, z: 0.013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1698451899}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &937623767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937623765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45f3fc0e8a99a814b9ea32d5cbd66a95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
+  Color: {r: 0, g: 0, b: 1, a: 1}
+  Size: 0.04
+  UseWorldScale: 1
+  DrawMode: 1
+  LineStart: {x: 0, y: 0, z: 0}
+  LineEnd: {x: 0, y: 0, z: 1}
+  FrustumFOV: 60
+  FrustumMaxRange: 1
+  FrustumMinRange: 0.1
+  FrustumAspect: 1
+  IconFilename: 
+  IconAllowScaling: 1
+  TextureRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  Texture: {fileID: 0}
+  TextureMaterial: {fileID: 0}
+  TextureLeftBorder: 0
+  TextureRightBorder: 0
+  TextureTopBorder: 0
+  TextureBottomBorder: 0
+  Mesh: {fileID: 0}
+  MeshPosition: {x: 0, y: 0, z: 0}
+  MeshRotation: {x: 0, y: 0, z: 0}
+  MeshScale: {x: 1, y: 1, z: 1}
 --- !u!1 &941710281
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,6 +894,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 941710282}
+  - component: {fileID: 941710283}
   m_Layer: 0
   m_Name: ClapBubbleSpot
   m_TagString: Untagged
@@ -657,12 +910,53 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 941710281}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.055, y: 0.018, z: 0.013}
+  m_LocalPosition: {x: 0.031, y: 0.153, z: 0.013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1698451899}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &941710283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941710281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45f3fc0e8a99a814b9ea32d5cbd66a95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
+  Color: {r: 0, g: 0, b: 1, a: 1}
+  Size: 0.04
+  UseWorldScale: 1
+  DrawMode: 1
+  LineStart: {x: 0, y: 0, z: 0}
+  LineEnd: {x: 0, y: 0, z: 1}
+  FrustumFOV: 60
+  FrustumMaxRange: 1
+  FrustumMinRange: 0.1
+  FrustumAspect: 1
+  IconFilename: 
+  IconAllowScaling: 1
+  TextureRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  Texture: {fileID: 0}
+  TextureMaterial: {fileID: 0}
+  TextureLeftBorder: 0
+  TextureRightBorder: 0
+  TextureTopBorder: 0
+  TextureBottomBorder: 0
+  Mesh: {fileID: 0}
+  MeshPosition: {x: 0, y: 0, z: 0}
+  MeshRotation: {x: 0, y: 0, z: 0}
+  MeshScale: {x: 1, y: 1, z: 1}
 --- !u!1 &1621943195
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,6 +996,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1653805254}
+  - component: {fileID: 1653805255}
   m_Layer: 0
   m_Name: ClapBubbleSpot2
   m_TagString: Untagged
@@ -717,12 +1012,53 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1653805253}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.073, y: 0.08, z: 0.013}
+  m_LocalPosition: {x: 0.031, y: 0.05, z: 0.013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1698451899}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1653805255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653805253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45f3fc0e8a99a814b9ea32d5cbd66a95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
+  Color: {r: 0, g: 0, b: 1, a: 1}
+  Size: 0.04
+  UseWorldScale: 1
+  DrawMode: 1
+  LineStart: {x: 0, y: 0, z: 0}
+  LineEnd: {x: 0, y: 0, z: 1}
+  FrustumFOV: 60
+  FrustumMaxRange: 1
+  FrustumMinRange: 0.1
+  FrustumAspect: 1
+  IconFilename: 
+  IconAllowScaling: 1
+  TextureRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  Texture: {fileID: 0}
+  TextureMaterial: {fileID: 0}
+  TextureLeftBorder: 0
+  TextureRightBorder: 0
+  TextureTopBorder: 0
+  TextureBottomBorder: 0
+  Mesh: {fileID: 0}
+  MeshPosition: {x: 0, y: 0, z: 0}
+  MeshRotation: {x: 0, y: 0, z: 0}
+  MeshScale: {x: 1, y: 1, z: 1}
 --- !u!1 &1697675071
 GameObject:
   m_ObjectHideFlags: 0
@@ -732,6 +1068,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1697675072}
+  - component: {fileID: 1697675073}
   m_Layer: 0
   m_Name: MeasureBubbleSpot
   m_TagString: Untagged
@@ -753,6 +1090,47 @@ Transform:
   m_Father: {fileID: 1698451899}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1697675073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697675071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45f3fc0e8a99a814b9ea32d5cbd66a95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
+  Color: {r: 0, g: 0, b: 1, a: 1}
+  Size: 0.04
+  UseWorldScale: 1
+  DrawMode: 1
+  LineStart: {x: 0, y: 0, z: 0}
+  LineEnd: {x: 0, y: 0, z: 1}
+  FrustumFOV: 60
+  FrustumMaxRange: 1
+  FrustumMinRange: 0.1
+  FrustumAspect: 1
+  IconFilename: 
+  IconAllowScaling: 1
+  TextureRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  Texture: {fileID: 0}
+  TextureMaterial: {fileID: 0}
+  TextureLeftBorder: 0
+  TextureRightBorder: 0
+  TextureTopBorder: 0
+  TextureBottomBorder: 0
+  Mesh: {fileID: 0}
+  MeshPosition: {x: 0, y: 0, z: 0}
+  MeshRotation: {x: 0, y: 0, z: 0}
+  MeshScale: {x: 1, y: 1, z: 1}
 --- !u!1 &1698451898
 GameObject:
   m_ObjectHideFlags: 0
