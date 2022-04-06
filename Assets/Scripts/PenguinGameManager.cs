@@ -52,7 +52,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	public static bool _isInMiniGame = false;
 	
 	bool _wasInMiniGame = false;
-	//bool _gameWasStarted = false;
+	bool _gameWasStarted = false;
 
 	public delegate void OnResetDelegate();
 	public static event OnResetDelegate _resetGameDelegate;
@@ -60,6 +60,9 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	[SerializeField]
 	GameObject _creditsLocation;
 	
+	[SerializeField]
+	bool _demoMode = false;	//demo mode makes it so the game will auto-restart if taking off and putting on the HMD
+
 	static Vector3 _priorLocation = Vector3.zero;
 	
     void Start()
@@ -116,7 +119,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		//AudioListener.pause = false;
 		PenguinPlayer.Instance.StartBackgroundMusic();
 		_isGamePaused = false;
-		//_gameWasStarted = true;
+		_gameWasStarted = true;
 		PenguinMenuSystem.Instance.ChangeMenuTo(PenguinMenuSystem.MenuType.PauseMenu);
 	}
 	
@@ -156,6 +159,17 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		//StartCoroutine(ShowMessage("", 5f, 10f));
 		if(_wasUnmounted)
 		{
+			if(_demoMode)
+			{
+				if(_gameWasStarted)
+				{
+					RestartGame();
+				}
+				else
+				{
+					BeginTheGame(PenguinGameManager.GameMode.ShowMode);
+				}
+			}
 			/*_overallStartTime = UnityEngine.Time.time;
 			
 			PenguinPlayer.Instance.EnableMovement();
@@ -166,7 +180,21 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		}
 		else
 		{
-			PenguinPlayer.Instance.StartShowingUI(true);
+			if(_demoMode)
+			{
+				if(_gameWasStarted)
+				{
+					RestartGame();
+				}
+				else
+				{
+					BeginTheGame(PenguinGameManager.GameMode.ShowMode);
+				}
+			}
+			else
+			{
+				PenguinPlayer.Instance.StartShowingUI(true);
+			}
 		}
 	}
 	
@@ -210,36 +238,14 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	public void HandleHMDUnmounted()
 	{
 		_wasUnmounted = true;
-		PenguinPlayer.Instance.StartShowingUI(false);
-		
-		/*UnityEngine.Time.timeScale = 0;
-		//AudioListener.pause = true;
-		PenguinPlayer.Instance.StopBackgroundMusic();
-		PenguinPlayer.Instance.ForceUserMessageOff();
-		
-		//this should now reset the whole experience in "ShowMode"
-		if(_gameMode == GameMode.ShowMode)
+		if(!_demoMode)
 		{
-			PenguinPlayer.Instance.transform.position = _playerStartLocation.transform.position;
-			
-			if(_nestGame != null)
-			{
-				_nestGame.RestartGame();
-				
-				UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(MiniGame.ProtectTheNest.ToString());
-			}
-			
-			if(_matingDance != null)
-			{
-				_matingDance.RestartGame();
-				
-				UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(MiniGame.MatingDance.ToString());
-			}
-			
-			_resetGameDelegate();
-			
-			PenguinPlayer.Instance.DisableMovement();
-		}*/
+			PenguinPlayer.Instance.StartShowingUI(false);
+		}
+		else
+		{
+			PenguinPlayer.Instance.StartShowingUI(false, true);
+		}
 	}
 
 	public void ShowCredits(bool toCredits)

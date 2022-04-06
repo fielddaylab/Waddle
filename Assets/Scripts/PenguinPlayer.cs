@@ -214,13 +214,16 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		}
 	}
 	
-	public void StartShowingUI(bool isStartMenu=false)
+	public void StartShowingUI(bool isStartMenu=false, bool skipUI=false)
 	{
-		_showingUI = true;
-		
-		if(_mainUI != null)
+		if(!skipUI)
 		{
-			_mainUI.SetActive(true);
+			_showingUI = true;
+			
+			if(_mainUI != null)
+			{
+				_mainUI.SetActive(true);
+			}
 		}
 		
 		PenguinGameManager._isGamePaused = true;
