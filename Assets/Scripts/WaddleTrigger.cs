@@ -109,7 +109,7 @@ public class WaddleTrigger : MonoBehaviour
 						
 						if(c.bounds.IntersectRay(r, out d))
 						{
-							if(d > 0.5f)
+							if(d > 0.25f)
 							{
 								//Debug.Log("Intersects ray!");
 								potentialPos = _positionTransform.transform.position + (d) * r.direction;// r.origin + (d) * r.direction;
