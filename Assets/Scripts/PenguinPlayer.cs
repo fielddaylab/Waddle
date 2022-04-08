@@ -122,6 +122,11 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		//_showingUI = false;
 	}
 	
+	public void ResetHeight()
+	{	
+		transform.GetChild(0).GetChild(1).GetComponent<HeightSetter>().ResetHeight();
+	}
+	
 	public void ShowMenu()
 	{
 		_mainUI.SetActive(true);

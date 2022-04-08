@@ -196,6 +196,8 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 				PenguinPlayer.Instance.StartShowingUI(true);
 			}
 		}
+		
+		PenguinPlayer.Instance.ResetHeight();
 	}
 	
 	public void RestartGame()
