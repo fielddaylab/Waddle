@@ -170,13 +170,8 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 					BeginTheGame(PenguinGameManager.GameMode.ShowMode);
 				}
 			}
-			/*_overallStartTime = UnityEngine.Time.time;
-			
-			PenguinPlayer.Instance.EnableMovement();
-			
-			UnityEngine.Time.timeScale = 1;
-			//AudioListener.pause = false;
-			PenguinPlayer.Instance.StartBackgroundMusic();*/
+
+			_isGamePaused = false;
 		}
 		else
 		{
@@ -196,6 +191,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 				PenguinPlayer.Instance.StartShowingUI(true);
 			}
 		}
+		
 		
 		PenguinPlayer.Instance.ResetHeight();
 	}
@@ -248,6 +244,8 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		{
 			PenguinPlayer.Instance.StartShowingUI(false, true);
 		}
+		
+		_isGamePaused = true;
 	}
 
 	public void ShowCredits(bool toCredits)
