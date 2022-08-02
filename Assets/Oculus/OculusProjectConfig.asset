@@ -16,10 +16,16 @@ MonoBehaviour:
   allowOptional3DofHeadTracking: 0
   handTrackingSupport: 1
   handTrackingFrequency: 2
+  handTrackingVersion: 2
+  spatialAnchorsSupport: 0
+  renderModelSupport: 0
+  trackedKeyboardSupport: 0
   disableBackups: 1
   enableNSCConfig: 1
   securityXmlPath: 
   skipUnneededShaders: 0
   focusAware: 1
   requiresSystemKeyboard: 0
+  experimentalFeaturesEnabled: 0
+  insightPassthroughEnabled: 0
   systemSplashScreen: {fileID: 0}
