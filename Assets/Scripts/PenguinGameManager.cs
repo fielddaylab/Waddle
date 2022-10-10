@@ -81,7 +81,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 			if (rate < newRate)
 			{*/
 		//float newRate = 90.0f;
-		
+
 		if(_targetFrameRate != 72f)
 		{
 			if (Unity.XR.Oculus.Performance.TrySetDisplayRefreshRate(_targetFrameRate))
@@ -109,7 +109,9 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
     }
 	
 	public void BeginTheGame(PenguinGameManager.GameMode mode)
-	{
+	{		
+		PenguinAnalytics.Instance.LogStartGame();
+		
 		PenguinPlayer.Instance.StopShowingUI();
 		_gameMode = mode;
 		_overallStartTime = UnityEngine.Time.time;
@@ -211,6 +213,8 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		//AudioListener.pause = false;
 		PenguinPlayer.Instance.StartBackgroundMusic();
 		PenguinPlayer.Instance.transform.position = _playerStartLocation.transform.position;
+				
+		PenguinAnalytics.Instance.LogStartGame();
 		
 		if(_nestGame != null)
 		{

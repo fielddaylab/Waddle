@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using BeauData;
 using TMPro;
 using UnityEngine;
@@ -9,9 +8,6 @@ namespace FieldDay
 {
     public class Survey : MonoBehaviour
     {
-        [DllImport("__Internal")]
-        public static extern string FetchSurvey(string surveyName);
-    
         #region Inspector
 
         [Header("UI Dependencies")]
@@ -38,7 +34,7 @@ namespace FieldDay
             #if UNITY_EDITOR
             ReadSurveyData(string.Empty);
             #else
-            FetchSurvey(inSurveyName);
+            ReadSurveyData(string.Empty);
             #endif
         }
 

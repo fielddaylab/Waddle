@@ -7,6 +7,20 @@
       "dependencies": {},
       "url": "https://package.openupm.com"
     },
+    "com.beauprime.beauroutine": {
+      "version": "0.11.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
+    "com.beauprime.beauutil": {
+      "version": "0.7.10",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
     "com.unity.burst": {
       "version": "1.6.5",
       "depth": 1,
