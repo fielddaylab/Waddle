@@ -194,7 +194,8 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 			}
 		}
 		
-		
+		PenguinAnalytics.Instance.LogHeadsetOn();
+		PenguinAnalytics.Instance.LogStartGame();
 		PenguinPlayer.Instance.ResetHeight();
 	}
 	
@@ -239,6 +240,8 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	
 	public void HandleHMDUnmounted()
 	{
+		PenguinAnalytics.Instance.LogHeadsetOff();
+		
 		_wasUnmounted = true;
 		if(!_demoMode)
 		{
@@ -346,6 +349,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 			yield return null;
 		}
 		
+		
 		OVRScreenFade.instance.FadeOut();
 	}
 	
@@ -357,6 +361,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		
 		yield return null;
 		
+		PenguinAnalytics.Instance.LogEndGame();
 		PenguinPlayer.Instance.StopBackgroundMusic();
 		//show survey menu..
 		PenguinMenuSystem.Instance.ChangeMenuTo(PenguinMenuSystem.MenuType.EndMenu);

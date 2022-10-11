@@ -21,6 +21,15 @@
       "dependencies": {},
       "url": "https://package.openupm.com"
     },
+    "com.fieldday.opengamedata-unity": {
+      "version": "0.1.5",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.beauprime.beaudata": "0.3.1"
+      },
+      "url": "https://package.openupm.com"
+    },
     "com.unity.burst": {
       "version": "1.6.5",
       "depth": 1,
