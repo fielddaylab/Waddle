@@ -195,7 +195,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		}
 		
 		PenguinAnalytics.Instance.LogHeadsetOn();
-		PenguinAnalytics.Instance.LogStartGame();
+		//PenguinAnalytics.Instance.LogStartGame();
 		PenguinPlayer.Instance.ResetHeight();
 	}
 	

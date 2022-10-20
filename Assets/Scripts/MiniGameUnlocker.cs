@@ -113,6 +113,17 @@ public class MiniGameUnlocker : MonoBehaviour
 		{
 			c.enabled = true;
 		}
+		
+		//10/19/2022 - ensure protect the nest audio turns off right away if user restarts during it
+		if(_sceneName == "ProtectTheNest")
+		{
+			AudioSource audio = GetComponent<AudioSource>();
+			if(audio != null)
+			{
+				audio.Stop();
+			}
+		
+		}
 	}
 	
     // Update is called once per frame

@@ -184,6 +184,7 @@ public class MatingDance : MiniGameController
     {
 		if(_matingDancePenguin != null)
 		{
+			_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("bop", false);
 			_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("walk", false);
 		}
 	}
