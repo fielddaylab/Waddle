@@ -28,7 +28,7 @@ public class NavRing : MonoBehaviour
 		BoxCollider _leftTrigger = transform.GetChild(1).GetComponent<BoxCollider>();
 		_colliderRadius = Vector3.Distance(_rightTrigger.center, _leftTrigger.center);
 		
-		Debug.Log(_colliderRadius);
+		//Debug.Log(_colliderRadius);
     }
 
 	public void ForceUpdate(int lr)

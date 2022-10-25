@@ -19,7 +19,7 @@ public class AdjustHeight : MonoBehaviour
 		{
 			//grab height value of capsule...
 			_penguinCapsuleHeight = _eyeObject.transform.parent.parent.parent.GetComponent<CharacterController>().height;
-			Debug.Log(_penguinCapsuleHeight);
+			//Debug.Log(_penguinCapsuleHeight);
 		}
 		
 		//OVRManager.TrackingAcquired += SetHeights;
