@@ -1,7 +1,7 @@
 using Firebase;
 using Firebase.Analytics;
 using UnityEngine;
-using FieldDay;
+//using FieldDay;
 
 public class PenguinAnalytics : Singleton<PenguinAnalytics>
 {
@@ -12,9 +12,9 @@ public static bool FirebaseEnabled { get; set; }
 	
     float seconds_from_start = 0f;
 	
-	OGDLog _ogdLog;
+	FieldDay.OGDLog _ogdLog;
 	
-	FirebaseConsts _firebase;
+	FieldDay.FirebaseConsts _firebase;
 	 
     private void Start()
     {
@@ -31,7 +31,7 @@ public static bool FirebaseEnabled { get; set; }
 	        }
 		});*/
 		
-		_ogdLog = new OGDLog(_DB_NAME, UnityEngine.Application.version);
+		_ogdLog = new FieldDay.OGDLog(_DB_NAME, UnityEngine.Application.version);
 		_ogdLog.UseFirebase(_firebase);
         //_ogdLog.SetDebug(true);
     }
