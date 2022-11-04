@@ -36,11 +36,14 @@ public class HandRaycast : MonoBehaviour
 
 	GameObject _reticleObject;
 	
-	const int NUM_LAST_POSITIONS = 10;
+	const int NUM_LAST_POSITIONS = 20;
 	
 	Vector3 _avgPosition = Vector3.zero;
 	Vector3 _avgDirection = Vector3.zero;
 	
+	Vector3[] _accumDirection = new Vector3[NUM_LAST_POSITIONS];
+	Vector3[] _accumPosition = new Vector3[NUM_LAST_POSITIONS];
+
 	int _currPosition = 0;
 	
 	OVRHand _handTracker = null;
@@ -54,6 +57,12 @@ public class HandRaycast : MonoBehaviour
 		if(_rightHand != null)
 		{
 			_handTracker = _rightHand.transform.GetChild(1).GetComponent<OVRHand>();
+		}
+
+		for(int i = 0; i < NUM_LAST_POSITIONS; ++i)
+		{
+			_accumDirection[i] = Vector3.zero;
+			_accumPosition[i] = Vector3.zero;
 		}
     }
 
@@ -77,16 +86,31 @@ public class HandRaycast : MonoBehaviour
 				Vector3 castOrigin = _rightHand.transform.position - _rightHand.transform.forward*0.025f;// - _rightHand.transform.right*0.11f - _rightHand.transform.forward*0.025f - _rightHand.transform.up * 0.075f;
 				
 				//_avgPosition += castOrigin;
-				_avgDirection += ((-_rightHand.transform.right - _rightHand.transform.up) * 0.5f);
-				_currPosition++;
-				if(_currPosition == 10)
-				{
-					_currPosition = 1;
-				}
+				_accumPosition[_currPosition] = castOrigin;
+				_accumDirection[_currPosition] = Vector3.Normalize((-_rightHand.transform.right - _rightHand.transform.up) * 0.5f);
 				
-				_avgPosition = castOrigin;//(float)_currPosition;
-				_avgDirection /= (float)_currPosition;
-				_avgDirection = Vector3.Normalize(_avgDirection);
+				//_avgPosition = castOrigin;//(float)_currPosition;
+				//_avgDirection /= (float)_currPosition;
+				
+				Vector3 avgDir = Vector3.zero;
+				Vector3 avgPos = Vector3.zero;
+
+				for(int i = 0; i < NUM_LAST_POSITIONS; ++i)
+				{
+					avgDir += _accumDirection[i];
+					avgPos += _accumPosition[i];
+				}
+
+				_avgPosition = avgPos / (float)NUM_LAST_POSITIONS;
+				_avgDirection = avgDir / (float)NUM_LAST_POSITIONS; //_accumDirection[_currPosition];
+				//_avgDirection = Vector3.Normalize(_avgDirection);
+				
+				_currPosition++;
+				
+				if(_currPosition == NUM_LAST_POSITIONS)
+				{
+					_currPosition = 0;
+				}
 				
 				//Debug.Log(_avgPosition.ToString("F3") + " " + _avgDirection.ToString("F3"));
 				
