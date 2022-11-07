@@ -193,19 +193,23 @@ public class HandRaycast : MonoBehaviour
 						{
 							if(hitInfo.collider.transform.gameObject == _leftButton)
 							{
+								PenguinAnalytics.Instance.LogSelectMenu("show_mode");
 								PenguinGameManager.Instance.BeginTheGame(PenguinGameManager.GameMode.ShowMode);
 							}
 							else if(hitInfo.collider.transform.gameObject == _rightButton)
 							{
+								PenguinAnalytics.Instance.LogSelectMenu("home_mode");
 								PenguinGameManager.Instance.BeginTheGame(PenguinGameManager.GameMode.HomeMode);
 							}
 							else if(hitInfo.collider.transform.gameObject == _middleButton)
 							{
 								//credits
+								PenguinAnalytics.Instance.LogSelectMenu("credits");
 								PenguinGameManager.Instance.ShowCredits(true);
 							}
 							else if(hitInfo.collider.transform.gameObject == _creditsBack)
 							{
+								PenguinAnalytics.Instance.LogSelectMenu("credits_back");
 								PenguinGameManager.Instance.ShowCredits(false);
 							}
 						}
@@ -216,11 +220,13 @@ public class HandRaycast : MonoBehaviour
 								//resume (just close the menu)
 								//PenguinPlayer.Instance.StopShowingUI();
 								//restart
+								PenguinAnalytics.Instance.LogSelectMenu("restart");
 								PenguinGameManager.Instance.RestartGame();
 							}
 							else if(hitInfo.collider.transform.gameObject == _rightButton)
 							{
 								//Resume
+								PenguinAnalytics.Instance.LogSelectMenu("resume");
 								PenguinPlayer.Instance.StopShowingUI();
 								//PenguinGameManager.Instance.HandleHMDUnmounted();
 								//PenguinMenuSystem.Instance.ChangeMenuTo(PenguinMenuSystem.MenuType.MainMenu);
@@ -228,10 +234,12 @@ public class HandRaycast : MonoBehaviour
 							else if(hitInfo.collider.transform.gameObject == _middleButton)
 							{
 								//credits
+								PenguinAnalytics.Instance.LogSelectMenu("credits");
 								PenguinGameManager.Instance.ShowCredits(true);
 							}
 							else if(hitInfo.collider.transform.gameObject == _creditsBack)
 							{
+								PenguinAnalytics.Instance.LogSelectMenu("credits_back");
 								PenguinGameManager.Instance.ShowCredits(false);
 							}
 						}
@@ -242,6 +250,7 @@ public class HandRaycast : MonoBehaviour
 								//resume (just close the menu)
 								//PenguinPlayer.Instance.StopShowingUI();
 								//restart
+								PenguinAnalytics.Instance.LogSelectMenu("restart");
 								PenguinGameManager.Instance.RestartGame();
 							}
 							else if(hitInfo.collider.transform.gameObject == _rightButton)
@@ -251,10 +260,12 @@ public class HandRaycast : MonoBehaviour
 							}
 							else if(hitInfo.collider.transform.gameObject == _middleButton)
 							{
+								PenguinAnalytics.Instance.LogSelectMenu("credits");
 								PenguinGameManager.Instance.ShowCredits(true);
 							}
 							else if(hitInfo.collider.transform.gameObject == _creditsBack)
 							{
+								PenguinAnalytics.Instance.LogSelectMenu("credits_back");
 								PenguinGameManager.Instance.ShowCredits(false);
 							}
 						}

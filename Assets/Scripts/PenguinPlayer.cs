@@ -147,7 +147,9 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		if(_mainUI != null)
 		{
 			_mainUI.SetActive(false);
+			PenguinAnalytics.Instance.LogCloseMenu();
 		}
+		
 		//switch our hands...
 		/*if(_leftHandController != null)
 		{
@@ -228,6 +230,8 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 			if(_mainUI != null)
 			{
 				_mainUI.SetActive(true);
+
+				PenguinAnalytics.Instance.LogOpenMenu();
 			}
 		}
 		

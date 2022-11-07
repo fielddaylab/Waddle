@@ -226,6 +226,16 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
         }
     }
 
+    public void LogFeedbackEvent(string eventName)
+    {
+        if(_loggingEnabled)
+        {
+            _ogdLog.BeginEvent(eventName);
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+    }
+
     public void LogObjectDisplayed(bool hasIndicator, string obj, Vector3 pos, Quaternion rot)
     {
         if(_loggingEnabled)
@@ -257,6 +267,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
             _ogdLog.EventParam("rotY", rot.y);
             _ogdLog.EventParam("rotZ", rot.z);
             _ogdLog.EventParam("rotW", rot.w);
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
             _ogdLog.SubmitEvent();
         }
     }
@@ -274,6 +285,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
             _ogdLog.EventParam("rotZ", rot.z);
             _ogdLog.EventParam("rotW", rot.w);
             _ogdLog.EventParam("total_picked_up", howMany);
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
             _ogdLog.SubmitEvent();
         }
     }
@@ -290,6 +302,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
             _ogdLog.EventParam("rotY", rot.y);
             _ogdLog.EventParam("rotZ", rot.z);
             _ogdLog.EventParam("rotW", rot.w);
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
             _ogdLog.SubmitEvent();
         }
     }
@@ -300,6 +313,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 		{
             _ogdLog.BeginEvent("ring_chime");
             _ogdLog.EventParam("note_played", whichChime);
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
             _ogdLog.SubmitEvent();
         }
     }
@@ -311,9 +325,250 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
             _ogdLog.BeginEvent("bubble_pop");
             _ogdLog.EventParam("object_id", bubbleID);
 			_ogdLog.EventParam("timing", timing);
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
             _ogdLog.SubmitEvent();
         }
 	}
+    
+    public void LogBubbleAppeared(int bubbleID, Vector3 pos)
+    {
+        if(_loggingEnabled)
+		{
+            _ogdLog.BeginEvent("bubble_appeared");
+            _ogdLog.EventParam("object_id", bubbleID);
+            _ogdLog.EventParam("posX", pos.x);
+            _ogdLog.EventParam("posY", pos.y);
+            _ogdLog.EventParam("posZ", pos.z);
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+    }
+
+    public void LogBubbleDisappeared(int bubbleID)
+    {
+        if(_loggingEnabled)
+		{
+            _ogdLog.BeginEvent("bubble_expired");
+            _ogdLog.EventParam("object_id", bubbleID);
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+    }
+
+    public void LogFlipperBash(int skuaID, bool right)
+    {
+        if(_loggingEnabled)
+		{
+            _ogdLog.BeginEvent("flipper_bash_skua");
+            _ogdLog.EventParam("object_id", skuaID);
+			_ogdLog.EventParam("rightFlipper", right);
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+    }
+
+    public void LogSkuaSpawned(int skuaID, Vector3 pos)
+    {
+        if(_loggingEnabled)
+		{
+            _ogdLog.BeginEvent("skua_spawn");
+            _ogdLog.EventParam("object_id", skuaID);
+            _ogdLog.EventParam("posX", pos.x);
+            _ogdLog.EventParam("posY", pos.y);
+            _ogdLog.EventParam("posZ", pos.z);
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+    }
+
+    public void LogSkuaMove(int skuaID, Vector3 pos, Vector3 toPos))
+    {
+        if(_loggingEnabled)
+		{
+            _ogdLog.BeginEvent("skua_move");
+            _ogdLog.EventParam("object_id", skuaID);
+            _ogdLog.EventParam("from_position_x", pos.x);
+            _ogdLog.EventParam("from_position_y", pos.y);
+            _ogdLog.EventParam("from_position_z", pos.z);
+            _ogdLog.EventParam("to_position_x", toPos.x);
+            _ogdLog.EventParam("to_position_y", toPos.y);
+            _ogdLog.EventParam("to_position_z", toPos.z);
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+    }
+
+    public void LogBubbleDisappeared(float percent)
+    {
+        if(_loggingEnabled)
+		{
+            _ogdLog.BeginEvent("mating_dance_complete_indicator_updated");
+            _ogdLog.EventParam("percent_full", percent);
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+    }
+
+    public void LogEggTimer(float timeRemaining)
+    {
+        if(_loggingEnabled)
+		{
+            _ogdLog.BeginEvent("egg_hatch_indicator_updated");
+            _ogdLog.EventParam("time_remaining", timeRemaining);
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+    }
+
+    public void LogEggLost(int whichSkua)
+    {
+        if(_loggingEnabled)
+		{
+            _ogdLog.BeginEvent("lost_egg");
+            _ogdLog.EventParam("object_id", whichSkua);
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+    }
+
+    public void LogBeginMode(int mode)
+    {
+        if(_loggingEnabled)
+		{
+            //0 = Show Mode, 1 = Home mode
+            _ogdLog.BeginEvent("begin_mode");
+            _ogdLog.EventParam("mode", mode);
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+    }
+
+    public void LogEnterRegion(string region_name, Vector3 pos, Quaternion gaze, string gaze_object)
+    {
+        if(_loggingEnabled)
+		{
+            //0 = Show Mode, 1 = Home mode
+            _ogdLog.BeginEvent("enter_region");
+            _ogdLog.EventParam("region_name", region_name);
+            _ogdLog.EventParam("gaze_object", gaze_object);
+            _ogdLog.EventParam("gaze_pos_x", pos.x);
+            _ogdLog.EventParam("gaze_pos_y", pos.y);
+            _ogdLog.EventParam("gaze_pos_z", pos.z);
+            _ogdLog.EventParam("gaze_rot_x", gaze.x);
+            _ogdLog.EventParam("gaze_rot_y", gaze.y);
+            _ogdLog.EventParam("gaze_rot_z", gaze.z);
+            _ogdLog.EventParam("gaze_rot_w", gaze.w);
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+    }
+
+    public void LogExitRegion(string region_name, Vector3 pos, Quaternion gaze, string gaze_object)
+    {
+        if(_loggingEnabled)
+		{
+            //0 = Show Mode, 1 = Home mode
+            _ogdLog.BeginEvent("exit_region");
+            _ogdLog.EventParam("region_name", region_name);
+            _ogdLog.EventParam("gaze_object", gaze_object);
+            _ogdLog.EventParam("gaze_pos_x", pos.x);
+            _ogdLog.EventParam("gaze_pos_y", pos.y);
+            _ogdLog.EventParam("gaze_pos_z", pos.z);
+            _ogdLog.EventParam("gaze_rot_x", gaze.x);
+            _ogdLog.EventParam("gaze_rot_y", gaze.y);
+            _ogdLog.EventParam("gaze_rot_z", gaze.z);
+            _ogdLog.EventParam("gaze_rot_w", gaze.w);
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+    }
+
+    public void LogActivityBegin(string activity)
+    {
+        if(_loggingEnabled)
+		{
+            _ogdLog.BeginEvent("activity_begin");
+            _ogdLog.EventParam("activity_name", activity);
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+    }
+
+    public void LogActivityEnd(string activity)
+    {
+        if(_loggingEnabled)
+		{
+            _ogdLog.BeginEvent("activity_end");
+            _ogdLog.EventParam("activity_name", activity);
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+    }
+
+    public void LogTimerBegin(float timeLength)
+    {
+        if(_loggingEnabled)
+		{
+            _ogdLog.BeginEvent("global_timer_begin");
+            _ogdLog.EventParam("time_remaining", timeLength);
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+    }
+
+    public void LogTimerPause(float timeLength)
+    {
+        if(_loggingEnabled)
+		{
+            _ogdLog.BeginEvent("global_timer_pause");
+            _ogdLog.EventParam("time_remaining", timeLength);
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+    }
+
+    public void LogMove(Vector3 oldPos, Vector3 pos, Quaternion gaze, int object_id)
+    {
+        if(_loggingEnabled)
+		{
+            _ogdLog.BeginEvent("move");
+            _ogdLog.EventParam("object_id", object_id);     //left or right waddle (0 or 1)
+            _ogdLog.EventParam("old_pos_x", oldPos.x);
+            _ogdLog.EventParam("old_pos_y", oldPos.y);
+            _ogdLog.EventParam("old_pos_z", oldPos.z);
+            _ogdLog.EventParam("gaze_pos_x", pos.x);
+            _ogdLog.EventParam("gaze_pos_y", pos.y);
+            _ogdLog.EventParam("gaze_pos_z", pos.z);
+            _ogdLog.EventParam("gaze_rot_x", gaze.x);
+            _ogdLog.EventParam("gaze_rot_y", gaze.y);
+            _ogdLog.EventParam("gaze_rot_z", gaze.z);
+            _ogdLog.EventParam("gaze_rot_w", gaze.w);
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+    }
+
+    public void LogGazeBegin(string object_id)
+    {
+        if(_loggingEnabled)
+		{
+            _ogdLog.BeginEvent("gaze_object_begin");
+            _ogdLog.EventParam("object_id", object_id);
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+    }
+
+    public void LogGazeEnd(string object_id)
+    {
+        if(_loggingEnabled)
+		{
+            _ogdLog.BeginEvent("gaze_object_end");
+            _ogdLog.EventParam("object_id", object_id);
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+    }
 
     #endregion // Logging
 }
