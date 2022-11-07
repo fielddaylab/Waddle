@@ -381,7 +381,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
         }
     }
 
-    public void LogSkuaMove(int skuaID, Vector3 pos, Vector3 toPos))
+    public void LogSkuaMove(int skuaID, Vector3 pos, Vector3 toPos)
     {
         if(_loggingEnabled)
 		{
