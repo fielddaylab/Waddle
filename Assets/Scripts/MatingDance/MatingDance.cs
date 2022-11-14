@@ -311,25 +311,30 @@ public class MatingDance : MiniGameController
 							if(_currentSample % 2 == 0)
 							{
 								_lastSpawn = GameObject.Instantiate(_bubblePrefab, _clapBubbleSpot.transform);
+								PenguinAnalytics.Instance.LogBubbleAppeared(_currentSample, _clapBubbleSpot.transform.position);
 							}
 							else
 							{
 								_lastSpawn = GameObject.Instantiate(_bubblePrefab, _clapBubbleSpot2.transform);
+								PenguinAnalytics.Instance.LogBubbleAppeared(_currentSample, _clapBubbleSpot2.transform.position);
 							}
 						}
 						else if(_bubbleTypes[_currentSample] == 1)
 						{
 							_lastSpawn = GameObject.Instantiate(_bubblePrefab, _beatBubbleSpot.transform);
+							PenguinAnalytics.Instance.LogBubbleAppeared(_currentSample, _beatBubbleSpot.transform.position);
 						}
 						else if(_bubbleTypes[_currentSample] == 2)
 						{
 							if(_currentSample % 2 == 0)
 							{
 								_lastSpawn = GameObject.Instantiate(_bubblePrefab, _drumBubbleSpot.transform);
+								PenguinAnalytics.Instance.LogBubbleAppeared(_currentSample, _drumBubbleSpot.transform.position);
 							}
 							else
 							{
 								_lastSpawn = GameObject.Instantiate(_bubblePrefab, _drumBubbleSpot2.transform);
+								PenguinAnalytics.Instance.LogBubbleAppeared(_currentSample, _drumBubbleSpot2.transform.position);
 							}
 						}
 						else if(_bubbleTypes[_currentSample] == 3)
@@ -339,14 +344,17 @@ public class MatingDance : MiniGameController
 							if(_currentSample % 3 == 0)
 							{
 								o = GameObject.Instantiate(_bubblePrefab, _tripletBubbleSpot.transform);
+								PenguinAnalytics.Instance.LogBubbleAppeared(_currentSample, _tripletBubbleSpot.transform.position);
 							}
 							else if(_currentSample % 3 == 1)
 							{
 								o = GameObject.Instantiate(_bubblePrefab, _tripletBubbleSpot2.transform);
+								PenguinAnalytics.Instance.LogBubbleAppeared(_currentSample, _tripletBubbleSpot2.transform.position);
 							}
 							else
 							{
 								o = GameObject.Instantiate(_bubblePrefab, _tripletBubbleSpot3.transform);
+								PenguinAnalytics.Instance.LogBubbleAppeared(_currentSample, _tripletBubbleSpot3.transform.position);
 							}
 							
 							if(_bubbleTypes[_currentSample-1] == 3)
@@ -366,6 +374,7 @@ public class MatingDance : MiniGameController
 						else if(_bubbleTypes[_currentSample] == 4)
 						{
 							_lastSpawn = GameObject.Instantiate(_bubblePrefab, _measureBubbleSpot.transform);
+							PenguinAnalytics.Instance.LogBubbleAppeared(_currentSample, _measureBubbleSpot.transform.position);
 						}
 					}
 					_currentSample++;

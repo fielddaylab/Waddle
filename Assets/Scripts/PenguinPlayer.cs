@@ -37,6 +37,12 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 	[SerializeField]
 	GameObject _waddleIndicatorRight;
 	
+	[SerializeField]
+	GameObject _centerEye;
+	
+	[SerializeField]
+	LayerMask _mask;
+	
 	LineRenderer _lineRenderer;
 	
 	bool _showingUI = true;
@@ -49,6 +55,29 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
     {
         _lineRenderer = transform.GetChild((int)PenguinPlayerObjects.SELECT_LINE).gameObject.GetComponent<LineRenderer>();
     }
+	
+	public void GetGaze(out Vector3 pos, out Quaternion view)
+	{
+		pos = transform.position;
+		view = Quaternion.identity;
+		
+		if(_centerEye != null)
+		{
+			view = _centerEye.transform.rotation;
+		}
+	}
+	
+	public void GazeRaycast(Vector3 rayStart, Vector3 rayDir, out GameObject gazeObject)
+	{
+		RaycastHit hitInfo;
+		
+		gazeObject = null;
+		
+		if(Physics.Raycast(rayStart, rayDir, out hitInfo, Mathf.Infinity, _mask, QueryTriggerInteraction.Ignore))
+		{
+			gazeObject = hitInfo.collider.gameObject;
+		}
+	}
 	
 	public void StopBackgroundMusic()
 	{

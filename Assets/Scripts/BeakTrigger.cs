@@ -185,6 +185,7 @@ public class BeakTrigger : MonoBehaviour
 				if(audio != null)
 				{
 					//Debug.Log("Bubble Hit!");
+					PenguinAnalytics.Instance.LogBubblePop(otherCollider.gameObject.name, sr.GetTiming());
 					audio.Play();
 				}
 				
@@ -205,7 +206,11 @@ public class BeakTrigger : MonoBehaviour
 					Vector3 f = transform.forward;
 					rb.AddForce(f*10000.0f);
 					StartCoroutine(BowlingBallGrow(otherCollider.gameObject));
-						
+					
+					Vector3 pos = Vector3.zero;
+					Quaternion view = Quaternion.identity;
+					PenguinPlayer.Instance.GetGaze(out pos, out view);
+					PenguinAnalytics.Instance.LogPushSnowball(pos, view);
 					//rb.isKinematic = true;
 					//rb.detectCollisions = false;
 				}
@@ -259,6 +264,11 @@ public class BeakTrigger : MonoBehaviour
 				}
 				
 				fish.GetComponent<MeshRenderer>().enabled = false;
+				
+				Vector3 pos = Vector3.zero;
+				Quaternion view = Quaternion.identity;
+				PenguinPlayer.Instance.GetGaze(out pos, out view);
+				PenguinAnalytics.Instance.LogEatFish(pos, view);
 			}
 			
             //fish.SetActive(false);

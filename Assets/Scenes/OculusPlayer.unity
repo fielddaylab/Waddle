@@ -1772,6 +1772,10 @@ MonoBehaviour:
   _rightHandController: {fileID: 1319133328}
   _waddleIndicatorLeft: {fileID: 1764491142}
   _waddleIndicatorRight: {fileID: 1764491141}
+  _centerEye: {fileID: 1319133324}
+  _mask:
+    serializedVersion: 2
+    m_Bits: 2097152
 --- !u!114 &765199779
 MonoBehaviour:
   m_ObjectHideFlags: 0

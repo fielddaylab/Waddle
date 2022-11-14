@@ -49,6 +49,7 @@ public class MiniGameUnlocker : MonoBehaviour
 	public int NumPebblesToUnlock => _numPebblesToUnlock;
 	
 	int _numPebblesCollected = 0;
+	public int NumPebblesCollected => _numPebblesCollected;
 
 	bool _isGameUnlocked = false;
 	public bool IsGameUnlocked => _isGameUnlocked;

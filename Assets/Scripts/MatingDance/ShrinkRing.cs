@@ -14,6 +14,10 @@ public class ShrinkRing : MonoBehaviour
 	public bool WasPopped => _wasPopped;
 	public bool IsValidWindow => _isValidWindow;
 	
+	float _timing = 0f;
+	
+	public float GetTiming() => _timing;
+	
 	IEnumerator _coroutine = null;
 	
 	Color _orange = new Color(1f, 0.0f, 0.592f, 0.27f);
@@ -97,6 +101,8 @@ public class ShrinkRing : MonoBehaviour
 			MatingDance._popCount = 0;
 		
 			HideBubble();
+			
+			PenguinAnalytics.Instance.LogBubbleDisappeared(0);
 			
 			//destroy the bubble
 			StartCoroutine(DestroyCo(5f));

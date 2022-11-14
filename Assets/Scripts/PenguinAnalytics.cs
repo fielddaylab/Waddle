@@ -318,7 +318,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
         }
     }
 	
-	public void LogBubblePop(int bubbleID, float timing)
+	public void LogBubblePop(string bubbleID, float timing)
 	{
 		if(_loggingEnabled)
 		{
