@@ -18,8 +18,12 @@ public class Xylophone : MonoBehaviour
         
     }
 
-    void OnTriggerEnter(Collider otherCollider){
-        if(otherCollider.gameObject.name.StartsWith("Flipper") || otherCollider.gameObject.name.StartsWith("Beak")){
+    void OnTriggerEnter(Collider otherCollider)
+    {
+        if(otherCollider.gameObject.name.StartsWith("Flipper") || otherCollider.gameObject.name.StartsWith("Beak"))
+        {
+            string audioFile = gameObject.GetComponent<AudioSource>().clip.name;
+            PenguinAnalytics.Instance.LogChimes(audioFile);
             audioS.Play();
         }
     }

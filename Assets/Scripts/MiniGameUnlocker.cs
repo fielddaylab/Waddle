@@ -172,6 +172,13 @@ public class MiniGameUnlocker : MonoBehaviour
 					transform.GetChild((int)MiniGameCommonObjects.POLE).gameObject.SetActive(false);
 				}
 				
+				Vector3 pos = Vector3.zero;
+				Quaternion view = Quaternion.identity;
+				PenguinPlayer.Instance.GetGaze(out pos, out view);
+				PenguinAnalytics.Instance.LogMatingDanceIndicator(pos, view, 100f);
+
+				PenguinAnalytics.Instance.LogNestComplete();
+				
 				//slow down the speed of the user, so harder for them to leave...
 				
 				//accumulate a pebble onto the nest...
@@ -189,7 +196,11 @@ public class MiniGameUnlocker : MonoBehaviour
 				{
 					transform.GetChild(1).GetComponent<MeshRenderer>().sharedMaterial = _lockMaterials[_numPebblesCollected];
 				}
-
+				
+				Vector3 pos = Vector3.zero;
+				Quaternion view = Quaternion.identity;
+				PenguinPlayer.Instance.GetGaze(out pos, out view);
+				PenguinAnalytics.Instance.LogMatingDanceIndicator(pos, view, (float)_numPebblesCollected/(float)_numPebblesToUnlock);
 				//accumulate a pebble onto the nest...
 				if(_numPebblesCollected % 2 == 0)
 				{

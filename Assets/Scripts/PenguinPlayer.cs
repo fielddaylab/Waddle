@@ -159,6 +159,8 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 	public void ShowMenu()
 	{
 		_mainUI.SetActive(true);
+		PenguinAnalytics.Instance.LogMenuAppeared();
+		
 		//_showingUI = false;
 	}
 	

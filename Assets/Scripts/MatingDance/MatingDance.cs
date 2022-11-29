@@ -155,6 +155,8 @@ public class MatingDance : MiniGameController
 		
 		StartCoroutine(DemoPop(0.7f));
 		StartCoroutine(DestroyCo(3.3f, bub, true));
+
+		PenguinAnalytics.Instance.LogActivityBegin("mating_dance");
     }
 	
 	IEnumerator StartMove(Vector3 newSpot, float duration)
@@ -216,6 +218,8 @@ public class MatingDance : MiniGameController
 		_currentSample = 0;
 		_demoDone = false;
 		
+		PenguinAnalytics.Instance.LogActivityEnd("mating_dance");
+
 		base.EndGame();
 	}
 	

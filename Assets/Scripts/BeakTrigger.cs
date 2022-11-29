@@ -157,6 +157,11 @@ public class BeakTrigger : MonoBehaviour
 					}
 				}
 				
+				Vector3 pos = Vector3.zero;
+				Quaternion view = Quaternion.identity;
+				PenguinPlayer.Instance.GetGaze(out pos, out view);
+				PenguinAnalytics.Instance.LogPickupRock(pos, view);
+
 				StartCoroutine(MoveToPos(otherCollider, 1));
 				
 				//if(gameObject.transform.childCount == 0)

@@ -12,6 +12,9 @@ public class BreakEgg : StateMachineBehaviour
     {
         //Debug.Log("In break egg");
 		animator.SetBool("break", true);
+
+        PenguinAnalytics.Instance.LogEggHatched();
+        
 		/*SkuaController sc = animator.gameObject.transform.parent.GetComponent<SkuaController>();
 		if(sc != null)
 		{

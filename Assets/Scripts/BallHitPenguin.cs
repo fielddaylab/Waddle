@@ -26,6 +26,8 @@ public class BallHitPenguin : MonoBehaviour
 			
 			GameObject animModel = transform.GetChild(0).gameObject;
 			
+			PenguinAnalytics.Instance.LogPinFell();
+			
 			if(animModel)
 			{
 				Animator a = animModel.GetComponent<Animator>();

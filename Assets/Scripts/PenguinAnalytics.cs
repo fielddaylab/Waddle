@@ -19,6 +19,8 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 	[SerializeField]
 	bool _loggingEnabled = true;
 	
+    int _numPebblesCollected = 0;
+
     private void Start()
     {
         // Try to initialize Firebase and fix dependencies (will always be false in editor)
@@ -41,10 +43,28 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 
     #region Logging
 
+	public void LogApplicationStart()
+	{
+        if(_loggingEnabled)
+		{
+            _ogdLog.BeginEvent("application_start");
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+		/*if (FirebaseEnabled)
+        {
+            FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelStart, new Parameter(FirebaseAnalytics.ParameterLevelName, "antarctica"), new Parameter("start", UnityEngine.Time.time-seconds_from_start));
+                //new Parameter("app_version", logVersion));
+        }	*/
+	}
+	
+
 	public void LogStartGame()
 	{
         if(_loggingEnabled)
 		{
+            _numPebblesCollected = 0;
+
             _ogdLog.BeginEvent("start");
             _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
             _ogdLog.SubmitEvent();
@@ -130,6 +150,17 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
         }*/
     }
 	
+    public void LogBeginMode(string mode)
+	{
+		if(_loggingEnabled)
+		{
+			_ogdLog.BeginEvent("begin");
+            _ogdLog.EventParam("mode", mode);
+			_ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+			_ogdLog.SubmitEvent();
+		}
+	}
+
 	public void LogOpenMenu()
 	{
 		if(_loggingEnabled)
@@ -226,16 +257,6 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
         }
     }
 
-    public void LogFeedbackEvent(string eventName)
-    {
-        if(_loggingEnabled)
-        {
-            _ogdLog.BeginEvent(eventName);
-            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
-            _ogdLog.SubmitEvent();
-        }
-    }
-
     public void LogObjectDisplayed(bool hasIndicator, string obj, Vector3 pos, Quaternion rot)
     {
         if(_loggingEnabled)
@@ -272,10 +293,12 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
         }
     }
 
-    public void LogPickupRock(Vector3 pos, Quaternion rot, int howMany)
+    public void LogPickupRock(Vector3 pos, Quaternion rot)
     {
         if(_loggingEnabled)
 		{
+            _numPebblesCollected++;
+
             _ogdLog.BeginEvent("pickup_rock");
             _ogdLog.EventParam("posX", pos.x);
             _ogdLog.EventParam("posY", pos.y);
@@ -284,11 +307,12 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
             _ogdLog.EventParam("rotY", rot.y);
             _ogdLog.EventParam("rotZ", rot.z);
             _ogdLog.EventParam("rotW", rot.w);
-            _ogdLog.EventParam("total_picked_up", howMany);
+            _ogdLog.EventParam("total_picked_up", _numPebblesCollected);
             _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
             _ogdLog.SubmitEvent();
         }
     }
+
 
     public void LogPushSnowball(Vector3 pos, Quaternion rot)
     {
@@ -307,7 +331,27 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
         }
     }
 
-    public void LogChimes(int whichChime)
+    public void LogNestComplete()
+    {
+        if(_loggingEnabled)
+		{
+            _ogdLog.BeginEvent("nest_complete");
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+    }
+
+    public void LogMenuAppeared()
+    {
+        if(_loggingEnabled)
+		{
+            _ogdLog.BeginEvent("menu_appeared");
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+    }
+
+    public void LogChimes(string whichChime)
     {
         if(_loggingEnabled)
 		{
@@ -355,6 +399,16 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
         }
     }
 
+    public void LogPinFell()
+    {
+        if(_loggingEnabled)
+		{
+            _ogdLog.BeginEvent("penguin_pin_fell");
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+    }
+
     public void LogFlipperBash(int skuaID, bool right)
     {
         if(_loggingEnabled)
@@ -381,7 +435,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
         }
     }
 
-    public void LogSkuaMove(int skuaID, Vector3 pos, Vector3 toPos)
+    public void LogSkuaMove(string skuaID, Vector3 pos, Vector3 toPos)
     {
         if(_loggingEnabled)
 		{
@@ -398,7 +452,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
         }
     }
 
-    public void LogBubbleDisappeared(float percent)
+    public void LogMatingDanceIndicator(float percent)
     {
         if(_loggingEnabled)
 		{
@@ -420,7 +474,28 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
         }
     }
 
-    public void LogEggLost(int whichSkua)
+    public void LogEggHatched()
+    {
+        if(_loggingEnabled)
+		{
+            _ogdLog.BeginEvent("egg_hatched");
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+    }
+    
+    public void LogEggReturn()
+    {
+        if(_loggingEnabled)
+		{
+            _ogdLog.BeginEvent("recover_egg");
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+    }
+
+
+    public void LogEggLost(string whichSkua)
     {
         if(_loggingEnabled)
 		{
@@ -527,6 +602,27 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
         }
     }
 
+    public void LogTimerUnpause(float timeLength)
+    {
+        if(_loggingEnabled)
+		{
+            _ogdLog.BeginEvent("global_timer_unpause");
+            _ogdLog.EventParam("time_remaining", timeLength);
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+    }
+
+    public void LogTimerExpired()
+    {
+        if(_loggingEnabled)
+		{
+            _ogdLog.BeginEvent("global_timer_expired");
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+        }
+    }
+
     public void LogMove(Vector3 oldPos, Vector3 pos, Quaternion gaze, int object_id)
     {
         if(_loggingEnabled)
@@ -547,6 +643,29 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
             _ogdLog.SubmitEvent();
         }
     }
+
+	public void LogGaze(Vector3 p, Quaternion g, string scene)
+	{
+		if(_loggingEnabled)
+		{
+			_ogdLog.BeginEvent("viewport_data");
+            _ogdLog.EventParam("px", p.x);
+			_ogdLog.EventParam("py", p.y);
+			_ogdLog.EventParam("pz", p.z);
+			_ogdLog.EventParam("qx", g.x);
+			_ogdLog.EventParam("qy", g.y);
+			_ogdLog.EventParam("qz", g.z);
+			_ogdLog.EventParam("qw", g.w);
+			_ogdLog.EventParam("scene_name", scene);
+			_ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+			_ogdLog.SubmitEvent();
+		}
+		/*if (FirebaseEnabled)
+        {
+            FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelStart, new Parameter(FirebaseAnalytics.ParameterLevelName, "antarctica"), new Parameter("start", UnityEngine.Time.time-seconds_from_start));
+                //new Parameter("app_version", logVersion));
+        }	*/
+	}
 
     public void LogGazeBegin(string object_id)
     {

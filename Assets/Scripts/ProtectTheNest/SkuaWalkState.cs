@@ -67,6 +67,8 @@ public class SkuaWalkState : MonoBehaviour, ISkuaState
 		else
 		{*/
 		
+			PenguinAnalytics.Instance.LogSkuaMove(_sc.gameObject.name, startPosition, transform.position);
+			
 			transform.rotation = newRot;
 			_sc.GoIdle();
 		//}

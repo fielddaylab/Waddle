@@ -104,6 +104,8 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		
 		OVRManager.HMDMounted += HandleHMDMounted;
 		
+		PenguinAnalytics.Instance.LogApplicationStart();
+
 		//uncomment this if wanting to test things in editor without hmd
 		//BeginTheGame(PenguinGameManager.GameMode.ShowMode);
     }
@@ -111,11 +113,22 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	public void BeginTheGame(PenguinGameManager.GameMode mode)
 	{		
 		PenguinAnalytics.Instance.LogStartGame();
+
+		if(_gameMode == GameMode.Show)
+		{
+			PenguinAnalytics.Instance.LogBeginMode("show_mode");
+		}
+		else
+		{
+			PenguinAnalytics.Instance.LogBeginMode("home_mode");
+		}
 		
 		PenguinPlayer.Instance.StopShowingUI();
 		_gameMode = mode;
 		_overallStartTime = UnityEngine.Time.time;
 		_totalGameTime = 0f;
+		PenguinAnalytics.Instance.LogTimerBegin(_showModeTimeLimit);
+
 		Physics.autoSimulation = true;
 		UnityEngine.Time.timeScale = 1;
 		//AudioListener.pause = false;
@@ -210,6 +223,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		
 		_overallStartTime = UnityEngine.Time.time;
 		_totalGameTime = 0f;
+		PenguinAnalytics.Instance.LogTimerBegin(_showModeTimeLimit);
 		
 		//AudioListener.pause = false;
 		PenguinPlayer.Instance.StartBackgroundMusic();
@@ -253,6 +267,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		}
 		
 		_isGamePaused = true;
+		//PenguinAnalytics.Instance.LogTimerPause();
 	}
 
 	public void ShowCredits(bool toCredits)
@@ -310,6 +325,8 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 				{
 					if(!_showingEndGamePrefab)
 					{
+						PenguinAnalytics.Instance.LogTimerExpired();
+
 						if(_wasInMiniGame)
 						{
 							StartCoroutine(StartBlizzard(15f, 6f));

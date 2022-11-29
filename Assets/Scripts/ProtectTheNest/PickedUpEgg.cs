@@ -10,7 +10,7 @@ public class PickedUpEgg : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Debug.Log("Picked up egg");
+        //Debug.Log("Picked up egg");
 		SkuaController sc = animator.gameObject.transform.parent.GetComponent<SkuaController>();
 			
 		if(sc.GetEgg != null)
@@ -18,6 +18,7 @@ public class PickedUpEgg : StateMachineBehaviour
 			sc.GetEgg.gameObject.transform.localPosition = Vector3.zero;
 			sc.GetEgg.gameObject.transform.SetParent(sc.gameObject.transform.GetChild(1).transform, true);
 			
+            PenguinAnalytics.Instance.LogEggLost(sc.gameObject.name);
 			/*for(int i = 0; i < sc.GetEgg.gameObject.transform.childCount; ++i)
 			{
 				sc.GetEgg.gameObject.transform.GetChild(i).transform.localPosition = Vector3.zero;

@@ -34,6 +34,8 @@ public class WaddleTrigger : MonoBehaviour
 	GameObject[] _worldColliders = null;
 	float _triggerTimer = 0f;
 	
+	int _wasRight = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,12 +66,14 @@ public class WaddleTrigger : MonoBehaviour
 				if(gameObject.name.EndsWith("Right"))
 				{
 					lr = 0;
+					_wasRight = 1;
 					//Debug.Log("Right nav ring");
 				}
 				else if(gameObject.name.EndsWith("Left"))
 				{
 					lr = 1;
 					//Debug.Log("Left nav ring");
+					_wasRight = 0;
 				}
 				
 				//Debug.Log(gameObject.name);
@@ -131,6 +135,8 @@ public class WaddleTrigger : MonoBehaviour
 			
 			if(validMove)
 			{
+				//PenguinAnalytics.Instance.LogMove(_positionTransform.transform.position, potentialPos, _rotationTransform.transform.rotation, _wasRight);
+				
 				_positionTransform.transform.position = potentialPos;
 				AudioSource audioClip = GetComponent<AudioSource>();
 				if(audioClip != null)

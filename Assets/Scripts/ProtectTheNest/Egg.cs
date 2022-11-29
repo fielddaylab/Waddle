@@ -44,6 +44,11 @@ public class Egg : MonoBehaviour
 	
 	public void Reset()
 	{
+		if(_isTaken)
+		{
+			PenguinAnalytics.Instance.LogEggReturn();
+		}
+		
 		PenguinPlayer.Instance.SlowDownMovement();
 		gameObject.transform.SetParent(_parentObject.transform, true);
 		//transform.position = _startPosition;
