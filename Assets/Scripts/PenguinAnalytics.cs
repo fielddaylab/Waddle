@@ -409,7 +409,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
         }
     }
 
-    public void LogFlipperBash(int skuaID, bool right)
+    public void LogFlipperBash(string skuaID, bool right)
     {
         if(_loggingEnabled)
 		{

@@ -44,7 +44,7 @@ public class SkuaHitState : MonoBehaviour, ISkuaState
 			gameObject.GetComponent<Rigidbody>().useGravity = true;
 			gameObject.GetComponent<Rigidbody>().isKinematic = false;
 			
-			PenguinAnalytics.Instance.LogFlipperBash(sc.gameObject.name);
+			PenguinAnalytics.Instance.LogFlipperBash(sc.gameObject.name, false);
 
 			//a.enabled = false;
 			

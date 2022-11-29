@@ -120,13 +120,13 @@ public class ProtectTheNest : MiniGameController
                     {
                         System.TimeSpan ts = System.TimeSpan.FromSeconds(timeLeft);
                         _eggTimer.GetComponent<TMPro.TextMeshPro>().text = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
-						PenguinAnalytics.LogEggTimer(timeLeft);
+						PenguinAnalytics.Instance.LogEggTimer(timeLeft);
                     }
                     else
                     {
                         System.TimeSpan ts = System.TimeSpan.FromSeconds(0);
                         _eggTimer.GetComponent<TMPro.TextMeshPro>().text = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
-						PenguinAnalytics.LogEggTimer(0f);
+						PenguinAnalytics.Instance.LogEggTimer(0f);
                     }					
                 }
             }

@@ -114,7 +114,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	{		
 		PenguinAnalytics.Instance.LogStartGame();
 
-		if(_gameMode == GameMode.Show)
+		if(_gameMode == GameMode.ShowMode)
 		{
 			PenguinAnalytics.Instance.LogBeginMode("show_mode");
 		}
