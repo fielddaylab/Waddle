@@ -49,11 +49,17 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 	public bool ShowingUI => _showingUI;
 	
 	bool _wasShowingUserMessage = false;
-	
+
+	GameObject _lastGazeObject = null;
+	float _gazeTimer = 0f;
+	const float GAZE_TIMER_SEND = 0.5f;
+	string _currentRegion = "";
+
     // Start is called before the first frame update
     void Start()
     {
         _lineRenderer = transform.GetChild((int)PenguinPlayerObjects.SELECT_LINE).gameObject.GetComponent<LineRenderer>();
+		_gazeTimer = 0f;
     }
 	
 	public void GetGaze(out Vector3 pos, out Quaternion view)
@@ -320,6 +326,50 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 				else
 				{
 					StartShowingUI();
+				}
+			}
+		}
+
+		float t = UnityEngine.Time.time;
+		if(t - _gazeTimer > GAZE_TIMER_SEND)
+		{
+			_gazeTimer = t;
+			Vector3 pos = Vector3.zero;
+			Quaternion quat = Quaternion.identity;
+			GetGaze(out pos, out quat);
+
+			PenguinAnalytics.Instance.LogGaze(pos, quat);
+
+			//check if we're in a certain region here...
+
+			GameObject gazeObject = null;
+			GazeRaycast(pos, _centerEye.transform.forward, out gazeObject);
+			
+			if(gazeObject != null)
+			{
+				if(gazeObject != _lastGazeObject)
+				{
+					if(_lastGazeObject != null)
+					{
+						//end gaze log
+						PenguinAnalytics.Instance.LogGazeEnd(gazeObject.name);
+					}
+					
+					_lastGazeObject = gazeObject;
+				}
+				else
+				{
+					//log begin gaze new object - if we reach here it means we've been gazing on it for at least GAZE_TIMER_SEND seconds...
+					PenguinAnalytics.Instance.LogGazeBegin(gazeObject.name);
+				}
+			}
+			else
+			{
+				if(_lastGazeObject != null)
+				{
+					//log end gaze...
+					PenguinAnalytics.Instance.LogGazeEnd(_lastGazeObject.name);
+					_lastGazeObject = null;
 				}
 			}
 		}

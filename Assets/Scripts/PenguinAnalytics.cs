@@ -36,6 +36,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 	        }
 		});*/
 		
+        Debug.Log("Starting analytics");
 		_ogdLog = new FieldDay.OGDLog(_DB_NAME, UnityEngine.Application.version);
 		_ogdLog.UseFirebase(_firebase);
         //_ogdLog.SetDebug(true);
@@ -644,7 +645,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
         }
     }
 
-	public void LogGaze(Vector3 p, Quaternion g, string scene)
+	public void LogGaze(Vector3 p, Quaternion g)//, string scene)
 	{
 		if(_loggingEnabled)
 		{
@@ -656,7 +657,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 			_ogdLog.EventParam("qy", g.y);
 			_ogdLog.EventParam("qz", g.z);
 			_ogdLog.EventParam("qw", g.w);
-			_ogdLog.EventParam("scene_name", scene);
+			//_ogdLog.EventParam("scene_name", scene);
 			_ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
 			_ogdLog.SubmitEvent();
 		}

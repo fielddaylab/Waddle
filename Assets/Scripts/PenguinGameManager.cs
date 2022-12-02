@@ -65,6 +65,8 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 
 	static Vector3 _priorLocation = Vector3.zero;
 	
+	bool _logAppStarted = false;
+
     void Start()
     {
 		//temporary for demo as we're just restarting one game.
@@ -104,8 +106,6 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		
 		OVRManager.HMDMounted += HandleHMDMounted;
 		
-		PenguinAnalytics.Instance.LogApplicationStart();
-
 		//uncomment this if wanting to test things in editor without hmd
 		//BeginTheGame(PenguinGameManager.GameMode.ShowMode);
     }
@@ -304,6 +304,12 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 			_gameWasStarted = true;
 		}*/
 		
+		if(!_logAppStarted)
+		{
+			PenguinAnalytics.Instance.LogApplicationStart();
+			_logAppStarted = true;
+		}
+
 		if(!_isGamePaused)
 		{
 			_totalGameTime += UnityEngine.Time.deltaTime;
