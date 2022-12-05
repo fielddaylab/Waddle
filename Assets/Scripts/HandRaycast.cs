@@ -27,7 +27,13 @@ public class HandRaycast : MonoBehaviour
 	GameObject _middleButton;
 	
 	[SerializeField]
+	GameObject _surveyButton;
+	
+	[SerializeField]
 	GameObject _creditsBack;
+	
+	[SerializeField]
+	GameObject _surveyKeypad;
 	
 	//[SerializeField]
 	//GameObject _rayStartPoint;
@@ -124,6 +130,7 @@ public class HandRaycast : MonoBehaviour
 							SelectButton(_leftButton, false);
 							SelectButton(_rightButton, true);
 							SelectButton(_middleButton, false);
+							SelectButton(_surveyButton, false);	
 							SelectButton(_creditsBack, false);
 						}
 						else if(hitInfo.collider.transform.gameObject == _leftButton)
@@ -131,6 +138,7 @@ public class HandRaycast : MonoBehaviour
 							SelectButton(_leftButton, true);
 							SelectButton(_rightButton, false);
 							SelectButton(_middleButton, false);	
+							SelectButton(_surveyButton, false);	
 							SelectButton(_creditsBack, false);							
 						}
 						else if(hitInfo.collider.transform.gameObject == _middleButton)
@@ -138,6 +146,15 @@ public class HandRaycast : MonoBehaviour
 							SelectButton(_leftButton, false);
 							SelectButton(_rightButton, false);
 							SelectButton(_middleButton, true);
+							SelectButton(_surveyButton, false);	
+							SelectButton(_creditsBack, false);	
+						}
+						else if(hitInfo.collider.transform.gameObject == _surveyButton)
+						{
+							SelectButton(_leftButton, false);
+							SelectButton(_rightButton, false);
+							SelectButton(_middleButton, false);
+							SelectButton(_surveyButton, true);	
 							SelectButton(_creditsBack, false);	
 						}
 						else if(hitInfo.collider.transform.gameObject == _creditsBack)
@@ -145,6 +162,7 @@ public class HandRaycast : MonoBehaviour
 							SelectButton(_leftButton, false);
 							SelectButton(_rightButton, false);
 							SelectButton(_middleButton, false);
+							SelectButton(_surveyButton, false);	
 							SelectButton(_creditsBack, true);		
 						}
 						else
@@ -152,6 +170,7 @@ public class HandRaycast : MonoBehaviour
 							SelectButton(_leftButton, false);
 							SelectButton(_rightButton, false);
 							SelectButton(_middleButton, false);
+							SelectButton(_surveyButton, false);	
 							SelectButton(_creditsBack, false);	
 						}
 						
@@ -212,6 +231,12 @@ public class HandRaycast : MonoBehaviour
 								PenguinAnalytics.Instance.LogSelectMenu("credits_back");
 								PenguinGameManager.Instance.ShowCredits(false);
 							}
+							else if(hitInfo.collider.transform.gameObject == _surveyButton)
+							{
+								PenguinAnalytics.Instance.LogSelectMenu("survey_code");
+								_middleButton.transform.parent.gameObject.SetActive(false);
+								_surveyKeypad.SetActive(true);
+							}
 						}
 						else if(PenguinMenuSystem.Instance.GetCurrentMenu() == PenguinMenuSystem.MenuType.PauseMenu)
 						{
@@ -242,6 +267,7 @@ public class HandRaycast : MonoBehaviour
 								PenguinAnalytics.Instance.LogSelectMenu("credits_back");
 								PenguinGameManager.Instance.ShowCredits(false);
 							}
+
 						}
 						else if(PenguinMenuSystem.Instance.GetCurrentMenu() == PenguinMenuSystem.MenuType.EndMenu)
 						{
