@@ -8,6 +8,13 @@ using Oculus;
 
 public class HandRaycast : MonoBehaviour
 {
+	public enum MenuPanel {
+		eMAIN,
+		eSURVEY_CODE
+	};
+	
+	MenuPanel _panel;
+	
 	[SerializeField]
 	GameObject _rightHand;
 	
@@ -18,25 +25,10 @@ public class HandRaycast : MonoBehaviour
 	LayerMask _mask;
 	
 	[SerializeField]
-	GameObject _leftButton;
+	MainPanel _mainPanel;
 	
 	[SerializeField]
-	GameObject _rightButton;
-	
-	[SerializeField]
-	GameObject _middleButton;
-	
-	[SerializeField]
-	GameObject _surveyButton;
-	
-	[SerializeField]
-	GameObject _creditsBack;
-	
-	[SerializeField]
-	GameObject _surveyKeypad;
-	
-	//[SerializeField]
-	//GameObject _rayStartPoint;
+	SurveyCodePanel _surveyCodePanel;
 	
 	LineRenderer _lineRenderer;
 
@@ -72,11 +64,9 @@ public class HandRaycast : MonoBehaviour
 		}
     }
 
-	void SelectButton(GameObject button, bool bOn)
+	public void SwitchPanel(MenuPanel p)
 	{
-		//assumes highlight is in child slot 1
-		button.transform.GetChild(0).gameObject.SetActive(!bOn);
-		button.transform.GetChild(1).gameObject.SetActive(bOn);
+		_panel = p;
 	}
 	
     // Update is called once per frame
@@ -124,56 +114,15 @@ public class HandRaycast : MonoBehaviour
 				{
 					if(Physics.Raycast(_avgPosition, _avgDirection, out hitInfo, Mathf.Infinity, _mask, QueryTriggerInteraction.Ignore))
 					{
-					
-						if(hitInfo.collider.transform.gameObject == _rightButton)
-						{
-							SelectButton(_leftButton, false);
-							SelectButton(_rightButton, true);
-							SelectButton(_middleButton, false);
-							SelectButton(_surveyButton, false);	
-							SelectButton(_creditsBack, false);
-						}
-						else if(hitInfo.collider.transform.gameObject == _leftButton)
-						{
-							SelectButton(_leftButton, true);
-							SelectButton(_rightButton, false);
-							SelectButton(_middleButton, false);	
-							SelectButton(_surveyButton, false);	
-							SelectButton(_creditsBack, false);							
-						}
-						else if(hitInfo.collider.transform.gameObject == _middleButton)
-						{
-							SelectButton(_leftButton, false);
-							SelectButton(_rightButton, false);
-							SelectButton(_middleButton, true);
-							SelectButton(_surveyButton, false);	
-							SelectButton(_creditsBack, false);	
-						}
-						else if(hitInfo.collider.transform.gameObject == _surveyButton)
-						{
-							SelectButton(_leftButton, false);
-							SelectButton(_rightButton, false);
-							SelectButton(_middleButton, false);
-							SelectButton(_surveyButton, true);	
-							SelectButton(_creditsBack, false);	
-						}
-						else if(hitInfo.collider.transform.gameObject == _creditsBack)
-						{
-							SelectButton(_leftButton, false);
-							SelectButton(_rightButton, false);
-							SelectButton(_middleButton, false);
-							SelectButton(_surveyButton, false);	
-							SelectButton(_creditsBack, true);		
-						}
-						else
-						{
-							SelectButton(_leftButton, false);
-							SelectButton(_rightButton, false);
-							SelectButton(_middleButton, false);
-							SelectButton(_surveyButton, false);	
-							SelectButton(_creditsBack, false);	
-						}
 						
+						if(_panel == HandRaycast.MenuPanel.eMAIN)
+						{
+							_mainPanel.HandleButtonDown(hitInfo);
+						}
+						else if(_panel == HandRaycast.MenuPanel.eSURVEY_CODE)
+						{
+							_surveyCodePanel.HandleButtonDown(hitInfo);
+						}
 						
 						if(_reticleObject != null)
 						{
@@ -208,94 +157,15 @@ public class HandRaycast : MonoBehaviour
 
 						//raycast the UI...
 						//Debug.Log("Pressing button with hand");
-						if(PenguinMenuSystem.Instance.GetCurrentMenu() == PenguinMenuSystem.MenuType.MainMenu)
+						
+						if(_panel == HandRaycast.MenuPanel.eMAIN)
 						{
-							if(hitInfo.collider.transform.gameObject == _leftButton)
-							{
-								PenguinAnalytics.Instance.LogSelectMenu("show_mode");
-								PenguinGameManager.Instance.BeginTheGame(PenguinGameManager.GameMode.ShowMode);
-							}
-							else if(hitInfo.collider.transform.gameObject == _rightButton)
-							{
-								PenguinAnalytics.Instance.LogSelectMenu("home_mode");
-								PenguinGameManager.Instance.BeginTheGame(PenguinGameManager.GameMode.HomeMode);
-							}
-							else if(hitInfo.collider.transform.gameObject == _middleButton)
-							{
-								//credits
-								PenguinAnalytics.Instance.LogSelectMenu("credits");
-								PenguinGameManager.Instance.ShowCredits(true);
-							}
-							else if(hitInfo.collider.transform.gameObject == _creditsBack)
-							{
-								PenguinAnalytics.Instance.LogSelectMenu("credits_back");
-								PenguinGameManager.Instance.ShowCredits(false);
-							}
-							else if(hitInfo.collider.transform.gameObject == _surveyButton)
-							{
-								PenguinAnalytics.Instance.LogSelectMenu("survey_code");
-								_middleButton.transform.parent.gameObject.SetActive(false);
-								_surveyKeypad.SetActive(true);
-							}
+							_mainPanel.HandleButtonUp(hitInfo);
 						}
-						else if(PenguinMenuSystem.Instance.GetCurrentMenu() == PenguinMenuSystem.MenuType.PauseMenu)
+						else if(_panel == HandRaycast.MenuPanel.eSURVEY_CODE)
 						{
-							if(hitInfo.collider.transform.gameObject == _leftButton)
-							{
-								//resume (just close the menu)
-								//PenguinPlayer.Instance.StopShowingUI();
-								//restart
-								PenguinAnalytics.Instance.LogSelectMenu("restart");
-								PenguinGameManager.Instance.RestartGame();
-							}
-							else if(hitInfo.collider.transform.gameObject == _rightButton)
-							{
-								//Resume
-								PenguinAnalytics.Instance.LogSelectMenu("resume");
-								PenguinPlayer.Instance.StopShowingUI();
-								//PenguinGameManager.Instance.HandleHMDUnmounted();
-								//PenguinMenuSystem.Instance.ChangeMenuTo(PenguinMenuSystem.MenuType.MainMenu);
-							}
-							else if(hitInfo.collider.transform.gameObject == _middleButton)
-							{
-								//credits
-								PenguinAnalytics.Instance.LogSelectMenu("credits");
-								PenguinGameManager.Instance.ShowCredits(true);
-							}
-							else if(hitInfo.collider.transform.gameObject == _creditsBack)
-							{
-								PenguinAnalytics.Instance.LogSelectMenu("credits_back");
-								PenguinGameManager.Instance.ShowCredits(false);
-							}
-
+							_surveyCodePanel.HandleButtonUp(hitInfo);
 						}
-						else if(PenguinMenuSystem.Instance.GetCurrentMenu() == PenguinMenuSystem.MenuType.EndMenu)
-						{
-							if(hitInfo.collider.transform.gameObject == _leftButton)
-							{
-								//resume (just close the menu)
-								//PenguinPlayer.Instance.StopShowingUI();
-								//restart
-								PenguinAnalytics.Instance.LogSelectMenu("restart");
-								PenguinGameManager.Instance.RestartGame();
-							}
-							else if(hitInfo.collider.transform.gameObject == _rightButton)
-							{
-								//show survey
-								
-							}
-							else if(hitInfo.collider.transform.gameObject == _middleButton)
-							{
-								PenguinAnalytics.Instance.LogSelectMenu("credits");
-								PenguinGameManager.Instance.ShowCredits(true);
-							}
-							else if(hitInfo.collider.transform.gameObject == _creditsBack)
-							{
-								PenguinAnalytics.Instance.LogSelectMenu("credits_back");
-								PenguinGameManager.Instance.ShowCredits(false);
-							}
-						}
-					
 						
 						if(_lineRenderer != null)
 						{
@@ -328,42 +198,15 @@ public class HandRaycast : MonoBehaviour
 					{
 						if(Physics.Raycast(_avgPosition, _avgDirection, out hitInfo, Mathf.Infinity, _mask, QueryTriggerInteraction.Ignore))
 						{
-							//Debug.Log(hitInfo.collider.transform.gameObject.name);
-							if(hitInfo.collider.transform.gameObject == _rightButton)
+							if(_panel == HandRaycast.MenuPanel.eMAIN)
 							{
-								SelectButton(_leftButton, false);
-								SelectButton(_rightButton, true);
-								SelectButton(_middleButton, false);
-								SelectButton(_creditsBack, false);
+								_mainPanel.HandleHover(hitInfo);
 							}
-							else if(hitInfo.collider.transform.gameObject == _leftButton)
+							else if(_panel == HandRaycast.MenuPanel.eSURVEY_CODE)
 							{
-								SelectButton(_leftButton, true);
-								SelectButton(_rightButton, false);
-								SelectButton(_middleButton, false);	
-								SelectButton(_creditsBack, false);							
+								_surveyCodePanel.HandleHover(hitInfo);
 							}
-							else if(hitInfo.collider.transform.gameObject == _middleButton)
-							{
-								SelectButton(_leftButton, false);
-								SelectButton(_rightButton, false);
-								SelectButton(_middleButton, true);
-								SelectButton(_creditsBack, false);	
-							}
-							else if(hitInfo.collider.transform.gameObject == _creditsBack)
-							{
-								SelectButton(_leftButton, false);
-								SelectButton(_rightButton, false);
-								SelectButton(_middleButton, false);
-								SelectButton(_creditsBack, true);		
-							}
-							else
-							{
-								SelectButton(_leftButton, false);
-								SelectButton(_rightButton, false);
-								SelectButton(_middleButton, false);
-								SelectButton(_creditsBack, false);	
-							}
+							
 							
 							if(_lineRenderer != null)
 							{
@@ -376,12 +219,15 @@ public class HandRaycast : MonoBehaviour
 						}
 						else
 						{
-							//Debug.Log("Didn't hit anything");
-							SelectButton(_leftButton, false);
-							SelectButton(_rightButton, false);
-							SelectButton(_middleButton, false);
-							SelectButton(_creditsBack, false);	
-						
+							if(_panel == HandRaycast.MenuPanel.eMAIN)
+							{
+								_mainPanel.HandleNoHit(hitInfo);
+							}
+							else if(_panel == HandRaycast.MenuPanel.eSURVEY_CODE)
+							{
+								_surveyCodePanel.HandleNoHit(hitInfo);
+							}
+							
 							_reticleObject.transform.position = Vector3.zero;
 							
 							if(_lineRenderer != null)

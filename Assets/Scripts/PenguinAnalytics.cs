@@ -44,6 +44,17 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 
     #region Logging
 
+	public void LogSurveyCode(int code)
+    {
+		if(_loggingEnabled)
+		{
+			_ogdLog.BeginEvent("survey_code");
+			_ogdLog.EventParam("survey_code_number", code);
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitEvent();
+		}
+	}
+	
 	public void LogApplicationStart()
 	{
         if(_loggingEnabled)
