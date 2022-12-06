@@ -530,41 +530,25 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
         }
     }
 
-    public void LogEnterRegion(string region_name, Vector3 pos, Quaternion gaze, string gaze_object)
+    public void LogEnterRegion(string region_name)
     {
         if(_loggingEnabled)
 		{
             //0 = Show Mode, 1 = Home mode
             _ogdLog.BeginEvent("enter_region");
             _ogdLog.EventParam("region_name", region_name);
-            _ogdLog.EventParam("gaze_object", gaze_object);
-            _ogdLog.EventParam("gaze_pos_x", pos.x);
-            _ogdLog.EventParam("gaze_pos_y", pos.y);
-            _ogdLog.EventParam("gaze_pos_z", pos.z);
-            _ogdLog.EventParam("gaze_rot_x", gaze.x);
-            _ogdLog.EventParam("gaze_rot_y", gaze.y);
-            _ogdLog.EventParam("gaze_rot_z", gaze.z);
-            _ogdLog.EventParam("gaze_rot_w", gaze.w);
             _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
             _ogdLog.SubmitEvent();
         }
     }
 
-    public void LogExitRegion(string region_name, Vector3 pos, Quaternion gaze, string gaze_object)
+    public void LogExitRegion(string region_name)
     {
         if(_loggingEnabled)
 		{
             //0 = Show Mode, 1 = Home mode
             _ogdLog.BeginEvent("exit_region");
             _ogdLog.EventParam("region_name", region_name);
-            _ogdLog.EventParam("gaze_object", gaze_object);
-            _ogdLog.EventParam("gaze_pos_x", pos.x);
-            _ogdLog.EventParam("gaze_pos_y", pos.y);
-            _ogdLog.EventParam("gaze_pos_z", pos.z);
-            _ogdLog.EventParam("gaze_rot_x", gaze.x);
-            _ogdLog.EventParam("gaze_rot_y", gaze.y);
-            _ogdLog.EventParam("gaze_rot_z", gaze.z);
-            _ogdLog.EventParam("gaze_rot_w", gaze.w);
             _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
             _ogdLog.SubmitEvent();
         }
