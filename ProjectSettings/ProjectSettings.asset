@@ -134,7 +134,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.0.549
+  bundleVersion: 0.0.551
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -158,11 +158,11 @@ PlayerSettings:
     Android: com.WIDVE.PenguinsVR
     Standalone: com.DefaultCompany.PenguinsVR
   buildNumber:
-    Standalone: 0.0.549
+    Standalone: 0.0.551
     iPhone: 0
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
-  AndroidBundleVersionCode: 549
+  AndroidBundleVersionCode: 551
   AndroidMinSdkVersion: 23
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 0
