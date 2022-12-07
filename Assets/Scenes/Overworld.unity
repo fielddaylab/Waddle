@@ -3641,11 +3641,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.65042114
+      value: 0.6434721
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7595738
+      value: 0.7654696
       objectReference: {fileID: 0}
     - target: {fileID: 6861165212368088839, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_Size
@@ -4223,7 +4223,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 537049238}
-  m_LocalRotation: {x: 0.010079377, y: 0.6473148, z: 0.014051034, w: 0.7620266}
+  m_LocalRotation: {x: 0.009976563, y: 0.6528588, z: 0.014124218, w: 0.7572822}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.15274511, y: 0.10162681, z: 0.10315122}
   m_ConstrainProportionsScale: 0
@@ -8547,7 +8547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b065a37426776f409256b5a91018b6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loggingEnabled: 0
+  _loggingEnabled: 1
 --- !u!1001 &1199887984
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14589,11 +14589,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6641257
+      value: 0.6586505
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.74762094
+      value: 0.752449
       objectReference: {fileID: 0}
     - target: {fileID: 7496492113157597932, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: _sceneName

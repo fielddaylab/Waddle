@@ -427,13 +427,13 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 		{
             _ogdLog.BeginEvent("flipper_bash_skua");
             _ogdLog.EventParam("object_id", skuaID);
-			_ogdLog.EventParam("rightFlipper", right);
+			//_ogdLog.EventParam("rightFlipper", right);
             _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
             _ogdLog.SubmitEvent();
         }
     }
 
-    public void LogSkuaSpawned(int skuaID, Vector3 pos)
+    public void LogSkuaSpawned(string skuaID, Vector3 pos)
     {
         if(_loggingEnabled)
 		{

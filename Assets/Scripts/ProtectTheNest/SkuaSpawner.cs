@@ -304,12 +304,13 @@ public class SkuaSpawner : MonoBehaviour
 	{
 		GameObject newSkua = Instantiate(_skuaPrefab);
 		
-		
 		//newSkua.GetComponent<Skua>().WalkForward();
 		
 		Vector3 spawnSpot = _spawnLocations[spawnLocation].gameObject.transform.position;
 		
-		PenguinAnalytics.Instance.LogSkuaSpawned(_currentSkuas.Count, spawnSpot);
+		newSkua.name = "Skua"+_currentSkuas.Count.ToString();
+		
+		PenguinAnalytics.Instance.LogSkuaSpawned(newSkua.name, spawnSpot);
 
 		//spawnSpot.y += 0.05f;
 		Vector3 spawnRot = _spawnLocations[spawnLocation].gameObject.transform.rotation.eulerAngles;
