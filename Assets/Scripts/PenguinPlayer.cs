@@ -26,12 +26,6 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 	GameObject _mainUI;
 	
 	[SerializeField]
-	GameObject _leftHandController;
-	
-	[SerializeField]
-	GameObject _rightHandController;
-	
-	[SerializeField]
 	GameObject _waddleIndicatorLeft;
 	
 	[SerializeField]
@@ -187,19 +181,6 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 			PenguinAnalytics.Instance.LogCloseMenu();
 		}
 		
-		//switch our hands...
-		/*if(_leftHandController != null)
-		{
-			_leftHandController.transform.GetChild(1).gameObject.SetActive(true);
-			_leftHandController.transform.GetChild(2).gameObject.SetActive(false);
-		}
-		
-		if(_rightHandController != null)
-		{
-			_rightHandController.transform.GetChild(1).gameObject.SetActive(true);
-			_rightHandController.transform.GetChild(2).gameObject.SetActive(false);
-		}*/
-		
 		EnableMovement();
 		
 		//need a way to stop physics for everything but colliding with the pause screen buttons...
@@ -280,18 +261,6 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 			HideUserMessage();
 		}
 
-		/*if(_leftHandController != null)
-		{
-			_leftHandController.transform.GetChild(1).gameObject.SetActive(false);
-			_leftHandController.transform.GetChild(2).gameObject.SetActive(true);
-		}
-		
-		if(_rightHandController != null)
-		{
-			_rightHandController.transform.GetChild(1).gameObject.SetActive(false);
-			_rightHandController.transform.GetChild(2).gameObject.SetActive(true);
-		}*/
-		
 		DisableMovement();
 		
 		//hand reticle

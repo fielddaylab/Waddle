@@ -220,6 +220,16 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 20653654}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &35957847 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1505273372371151208, guid: f91d46b41e320764581654de9e63bf5c, type: 3}
+  m_PrefabInstance: {fileID: 479849312}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &35957848 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 893992868309750088, guid: f91d46b41e320764581654de9e63bf5c, type: 3}
+  m_PrefabInstance: {fileID: 479849312}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &56282905
 GameObject:
   m_ObjectHideFlags: 0
@@ -2316,6 +2326,7 @@ GameObject:
   - component: {fileID: 765199780}
   - component: {fileID: 765199782}
   - component: {fileID: 765199783}
+  - component: {fileID: 765199784}
   m_Layer: 20
   m_Name: PenguinPlayer
   m_TagString: Untagged
@@ -2359,8 +2370,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _userMessageUI: {fileID: 767286928}
   _mainUI: {fileID: 248072219}
-  _leftHandController: {fileID: 1319133330}
-  _rightHandController: {fileID: 1319133328}
   _waddleIndicatorLeft: {fileID: 1764491142}
   _waddleIndicatorRight: {fileID: 1764491141}
   _centerEye: {fileID: 1319133324}
@@ -2512,6 +2521,24 @@ CapsuleCollider:
   m_Height: 0.91202617
   m_Direction: 1
   m_Center: {x: 0.00013834283, y: 0.3077786, z: -0.038244486}
+--- !u!114 &765199784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765199776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29988cd7a01c71f4086ee7b72c061a74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _leftHand: {fileID: 1319133330}
+  _rightHand: {fileID: 1319133328}
+  _leftController: {fileID: 1437709870}
+  _rightController: {fileID: 1437709869}
+  _leftIK: {fileID: 35957848}
+  _rightIK: {fileID: 35957847}
 --- !u!1 &767286928
 GameObject:
   m_ObjectHideFlags: 0
@@ -4939,6 +4966,16 @@ Transform:
   m_Father: {fileID: 1319133339}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1437709869 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1125068011842588, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
+  m_PrefabInstance: {fileID: 1319133323}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1437709870 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1660603843503870, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
+  m_PrefabInstance: {fileID: 1319133323}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1470187489
 GameObject:
   m_ObjectHideFlags: 0

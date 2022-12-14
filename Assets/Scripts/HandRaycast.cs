@@ -46,6 +46,9 @@ public class HandRaycast : MonoBehaviour
 	
 	OVRHand _handTracker = null;
 	
+	bool _isLeftUsingController = false;
+	bool _isRightUsingController = false;
+	
     // Start is called before the first frame update
     void Start()
     {
@@ -69,13 +72,25 @@ public class HandRaycast : MonoBehaviour
 		_panel = p;
 	}
 	
+	public void SetRightHand(GameObject hand, bool isController=false)
+	{
+		_rightHand = hand;
+		_isRightUsingController = isController;
+	}
+	
+	public void SetLeftHand(GameObject hand, bool isController=false)
+	{
+		_leftHand = hand;
+		_isLeftUsingController = isController;
+	}
+	
     // Update is called once per frame
     void Update()
     {
 		//add check for hand tracking being active...
 		if(PenguinPlayer.Instance.ShowingUI && _rightHand != null && _handTracker != null)
 		{
-			if(_handTracker.IsTracked && _handTracker.IsDataHighConfidence)
+			if((_handTracker.IsTracked && _handTracker.IsDataHighConfidence) || _isRightUsingController)
 			{
 				RaycastHit hitInfo;
 				

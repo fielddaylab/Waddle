@@ -194,13 +194,15 @@ public class MainPanel : MonoBehaviour
 			SelectButton(_rightButton, true);
 			SelectButton(_middleButton, false);
 			SelectButton(_creditsBack, false);
+			SelectButton(_surveyButton, false);	
 		}
 		else if(hitInfo.collider.transform.gameObject == _leftButton)
 		{
 			SelectButton(_leftButton, true);
 			SelectButton(_rightButton, false);
 			SelectButton(_middleButton, false);	
-			SelectButton(_creditsBack, false);							
+			SelectButton(_creditsBack, false);	
+			SelectButton(_surveyButton, false);				
 		}
 		else if(hitInfo.collider.transform.gameObject == _middleButton)
 		{
@@ -208,20 +210,31 @@ public class MainPanel : MonoBehaviour
 			SelectButton(_rightButton, false);
 			SelectButton(_middleButton, true);
 			SelectButton(_creditsBack, false);	
+			SelectButton(_surveyButton, false);	
+		}
+		else if(hitInfo.collider.transform.gameObject == _surveyButton)
+		{
+			SelectButton(_leftButton, false);
+			SelectButton(_rightButton, false);
+			SelectButton(_middleButton, false);
+			SelectButton(_creditsBack, false);
+			SelectButton(_surveyButton, true);	
 		}
 		else if(hitInfo.collider.transform.gameObject == _creditsBack)
 		{
 			SelectButton(_leftButton, false);
 			SelectButton(_rightButton, false);
 			SelectButton(_middleButton, false);
-			SelectButton(_creditsBack, true);		
+			SelectButton(_creditsBack, true);
+			SelectButton(_surveyButton, false);				
 		}
 		else
 		{
 			SelectButton(_leftButton, false);
 			SelectButton(_rightButton, false);
 			SelectButton(_middleButton, false);
-			SelectButton(_creditsBack, false);	
+			SelectButton(_creditsBack, false);
+			SelectButton(_surveyButton, false);	
 		}
 	}
 	
