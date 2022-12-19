@@ -135,7 +135,7 @@ public class WaddleTrigger : MonoBehaviour
 			
 			if(validMove)
 			{
-				//PenguinAnalytics.Instance.LogMove(_positionTransform.transform.position, potentialPos, _rotationTransform.transform.rotation, _wasRight);
+				PenguinAnalytics.Instance.LogMove(_positionTransform.transform.position, potentialPos, _rotationTransform.transform.rotation, _wasRight);
 				
 				_positionTransform.transform.position = potentialPos;
 				AudioSource audioClip = GetComponent<AudioSource>();

@@ -250,6 +250,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		PenguinPlayer.Instance.StopShowingUI();
 		
 		PenguinMenuSystem.Instance.ChangeMenuTo(PenguinMenuSystem.MenuType.PauseMenu);
+		PenguinPlayer.Instance.gameObject.GetComponent<HandRaycast>().SwitchPanel(HandRaycast.MenuPanel.eMAIN);
 	}
 	
 	public void HandleHMDUnmounted()

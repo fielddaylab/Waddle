@@ -25,6 +25,9 @@ public class PenguinMenuSystem : Singleton<PenguinMenuSystem>
 	
 	[SerializeField]
 	GameObject _middleButton;
+
+	[SerializeField]
+	GameObject _surveyButton;
 	
 	[SerializeField]
 	GameObject _titleText;
@@ -69,9 +72,9 @@ public class PenguinMenuSystem : Singleton<PenguinMenuSystem>
 		}
 		else if(menu == MenuType.EndMenu)
 		{
-			_titleText.GetComponent<TMPro.TextMeshPro>().text = "Thanks for Playing!";
-			_leftButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Restart";
-			_rightButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Survey";
+			_titleText.GetComponent<TMPro.TextMeshPro>().text = "You did it!\nYou hatched a chick!";
+			_leftButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Keep Playing";
+			_rightButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Restart";
 			_closeButton.SetActive(false);
 		}
 	}
