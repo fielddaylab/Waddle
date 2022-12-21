@@ -58,24 +58,36 @@ public class PenguinMenuSystem : Singleton<PenguinMenuSystem>
 		_currentType = menu;
 		if(menu == MenuType.MainMenu)
 		{
-			_titleText.GetComponent<TMPro.TextMeshPro>().text = "Penguins VR";
+			_leftButton.SetActive(true);
+			_rightButton.SetActive(true);
+			_titleText.GetComponent<MeshRenderer>().enabled = false;
+			//_titleText.GetComponent<TMPro.TextMeshPro>().text = "Penguins VR";
 			_leftButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Show Mode";
 			_rightButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Home Mode";
+			_middleButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Credits";
+			_surveyButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Research Mode";
 			_closeButton.SetActive(false);
 		}
 		else if(menu == MenuType.PauseMenu)
 		{
-			_titleText.GetComponent<TMPro.TextMeshPro>().text = "Options";
+			_leftButton.SetActive(true);
+			_rightButton.SetActive(true);
+			//_titleText.GetComponent<TMPro.TextMeshPro>().text = "Options";
+			_titleText.GetComponent<MeshRenderer>().enabled = false;
 			_leftButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Restart";
 			_rightButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Resume";
-			_closeButton.SetActive(true);
+			_middleButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Credits";
+			_surveyButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Research Mode";
+			//_closeButton.SetActive(true);
 		}
 		else if(menu == MenuType.EndMenu)
 		{
-			_titleText.GetComponent<TMPro.TextMeshPro>().text = "You did it!\nYou hatched a chick!";
-			_leftButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Keep Playing";
-			_rightButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Restart";
-			_closeButton.SetActive(false);
+			_leftButton.SetActive(false);
+			_rightButton.SetActive(false);
+			_titleText.GetComponent<MeshRenderer>().enabled = true;//GetComponent<TMPro.TextMeshPro>().text = "You did it!\nYou hatched a chick!";
+			_middleButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Keep Playing";
+			_surveyButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Restart";
+			//_closeButton.SetActive(false);
 		}
 	}
 	

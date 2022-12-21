@@ -39,6 +39,14 @@ public class SurveyCodePanel : MonoBehaviour
         
     }
 	
+	public void Reset()
+	{
+		_buttonHundreds.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "";
+		_buttonTens.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "";
+		_buttonOnes.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "";
+		_currDigit = 0;
+	}
+	
 	public void HandleButtonDown(RaycastHit hitInfo)
 	{
 		if(hitInfo.collider.transform.gameObject == _doneButton)
@@ -82,17 +90,34 @@ public class SurveyCodePanel : MonoBehaviour
 	{
 		if(hitInfo.collider.transform.gameObject == _doneButton)
 		{
-			int h = int.Parse(_buttonHundreds.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text);
-			int t = int.Parse(_buttonTens.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text);
-			int o = int.Parse(_buttonOnes.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text);
+			string hundreds = _buttonHundreds.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text;
+			string tens = _buttonTens.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text;
+			string ones = _buttonOnes.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text;
 			
-			PenguinAnalytics.Instance.LogSurveyCode(h * 100 + t * 10 + o);
-			_mainPanel.SetActive(true);
-			gameObject.SetActive(false);
-			
-			if(_handRay != null)
+			if(hundreds.Length > 0 && tens.Length > 0 && ones.Length > 0)
 			{
-				_handRay.SwitchPanel(HandRaycast.MenuPanel.eMAIN);
+				int h = int.Parse(hundreds);
+				int t = int.Parse(tens);
+				int o = int.Parse(ones);
+				
+				PenguinAnalytics.Instance.LogSurveyCode(h * 100 + t * 10 + o);
+				_mainPanel.SetActive(true);
+				gameObject.SetActive(false);
+				
+				if(_handRay != null)
+				{
+					_handRay.SwitchPanel(HandRaycast.MenuPanel.eMAIN);
+				}
+				
+				//or restart game?
+				if(PenguinGameManager.Instance.GameWasStarted)
+				{
+					PenguinGameManager.Instance.RestartGame();
+				}
+				else
+				{
+					PenguinGameManager.Instance.BeginTheGame(PenguinGameManager.GameMode.ResearchMode);
+				}
 			}
 		}
 		else if(hitInfo.collider.transform.gameObject == _eraseButton)

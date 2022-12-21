@@ -20,9 +20,6 @@ public class MainPanel : MonoBehaviour
 	GameObject _creditsBack;
 	
 	[SerializeField]
-	GameObject _surveyPanel;
-	
-	[SerializeField]
 	HandRaycast _handRay;
 	
     // Start is called before the first frame update
@@ -118,8 +115,7 @@ public class MainPanel : MonoBehaviour
 			{
 				PenguinAnalytics.Instance.LogSelectMenu("survey_code");
 				_middleButton.transform.parent.gameObject.SetActive(false);
-				_surveyPanel.SetActive(true);
-				gameObject.SetActive(false);
+
 				if(_handRay != null)
 				{
 					_handRay.SwitchPanel(HandRaycast.MenuPanel.eSURVEY_CODE);
@@ -169,18 +165,26 @@ public class MainPanel : MonoBehaviour
 			}
 			else if(hitInfo.collider.transform.gameObject == _rightButton)
 			{
-				//show survey
-				
+	
 			}
 			else if(hitInfo.collider.transform.gameObject == _middleButton)
 			{
-				PenguinAnalytics.Instance.LogSelectMenu("credits");
-				PenguinGameManager.Instance.ShowCredits(true);
+				//resume...
+				PenguinAnalytics.Instance.LogSelectMenu("resume");
+				PenguinPlayer.Instance.StopShowingUI();
+				//PenguinAnalytics.Instance.LogSelectMenu("credits");
+				//PenguinGameManager.Instance.ShowCredits(true);
 			}
 			else if(hitInfo.collider.transform.gameObject == _creditsBack)
 			{
 				PenguinAnalytics.Instance.LogSelectMenu("credits_back");
 				PenguinGameManager.Instance.ShowCredits(false);
+			}
+			else if(hitInfo.collider.transform.gameObject == _surveyButton)
+			{
+				//restart...
+				PenguinAnalytics.Instance.LogSelectMenu("restart");
+				PenguinGameManager.Instance.RestartGame();
 			}
 		}
 	}

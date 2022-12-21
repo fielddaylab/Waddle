@@ -85,6 +85,8 @@ public class ShrinkRing : MonoBehaviour
 			
 			t += UnityEngine.Time.deltaTime;
 			
+			_timing = t - duration;
+			
             yield return null;
         }
 

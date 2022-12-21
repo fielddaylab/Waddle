@@ -380,7 +380,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 		{
             _ogdLog.BeginEvent("bubble_pop");
             _ogdLog.EventParam("object_id", bubbleID);
-			_ogdLog.EventParam("timing", timing);
+			_ogdLog.EventParam("timing_error", timing);
             _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
             _ogdLog.SubmitEvent();
         }

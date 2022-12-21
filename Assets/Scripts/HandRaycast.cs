@@ -69,6 +69,18 @@ public class HandRaycast : MonoBehaviour
 
 	public void SwitchPanel(MenuPanel p)
 	{
+		if(p == MenuPanel.eMAIN)
+		{
+			_surveyCodePanel.gameObject.SetActive(true);
+			_mainPanel.gameObject.SetActive(false);		
+		}
+		else if(p == MenuPanel.eSURVEY_CODE)
+		{
+			_surveyCodePanel.gameObject.SetActive(true);
+			_surveyCodePanel.Reset();
+			_mainPanel.gameObject.SetActive(false);
+		}
+		
 		_panel = p;
 	}
 	

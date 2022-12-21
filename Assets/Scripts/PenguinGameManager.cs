@@ -19,7 +19,8 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	public enum GameMode
 	{
 		ShowMode,
-		HomeMode
+		HomeMode,
+		ResearchMode
 	}
 	
 	[SerializeField]
@@ -45,6 +46,8 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	[SerializeField]
 	float _showModeTimeLimit = 420f;	//7 minutes
 	
+	float _homeModeTimeLimit = 999999f;
+	
 	bool _wasUnmounted = false;
 	
 	public static bool _isGamePaused = true;
@@ -52,8 +55,10 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	public static bool _isInMiniGame = false;
 	
 	bool _wasInMiniGame = false;
+	
 	bool _gameWasStarted = false;
-
+	public bool GameWasStarted => _gameWasStarted;
+	
 	public delegate void OnResetDelegate();
 	public static event OnResetDelegate _resetGameDelegate;
 	
@@ -117,18 +122,27 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		if(_gameMode == GameMode.ShowMode)
 		{
 			PenguinAnalytics.Instance.LogBeginMode("show_mode");
+			PenguinAnalytics.Instance.LogTimerBegin(_showModeTimeLimit);
 		}
 		else
 		{
-			PenguinAnalytics.Instance.LogBeginMode("home_mode");
+			if(_gameMode == GameMode.ResearchMode)
+			{
+				PenguinAnalytics.Instance.LogBeginMode("research_mode");
+			}
+			else
+			{
+				PenguinAnalytics.Instance.LogBeginMode("home_mode");
+			}
+			PenguinAnalytics.Instance.LogTimerBegin(_homeModeTimeLimit);
+
 		}
 		
 		PenguinPlayer.Instance.StopShowingUI();
 		_gameMode = mode;
 		_overallStartTime = UnityEngine.Time.time;
 		_totalGameTime = 0f;
-		PenguinAnalytics.Instance.LogTimerBegin(_showModeTimeLimit);
-
+		
 		Physics.autoSimulation = true;
 		UnityEngine.Time.timeScale = 1;
 		//AudioListener.pause = false;
@@ -185,7 +199,14 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 					BeginTheGame(PenguinGameManager.GameMode.ShowMode);
 				}
 			}
-
+			
+			if(_gameMode == GameMode.ResearchMode)
+			{
+				//show the menu w/ the key entry panel...
+				PenguinPlayer.Instance.gameObject.GetComponent<HandRaycast>().SwitchPanel(HandRaycast.MenuPanel.eSURVEY_CODE);
+				PenguinPlayer.Instance.StartShowingUI();
+			}
+			
 			_isGamePaused = false;
 		}
 		else
@@ -220,10 +241,26 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 			PenguinPlayer.Instance.HideEndGamePrefab();
 			OVRScreenFade.instance.FadeIn();
 		}
-		
+
 		_overallStartTime = UnityEngine.Time.time;
 		_totalGameTime = 0f;
-		PenguinAnalytics.Instance.LogTimerBegin(_showModeTimeLimit);
+		if(_gameMode == GameMode.ShowMode)
+		{
+			PenguinAnalytics.Instance.LogBeginMode("show_mode");
+			PenguinAnalytics.Instance.LogTimerBegin(_showModeTimeLimit);
+		}
+		else
+		{
+			if(_gameMode == GameMode.ResearchMode)
+			{
+				PenguinAnalytics.Instance.LogBeginMode("research_mode");
+			}
+			else
+			{
+				PenguinAnalytics.Instance.LogBeginMode("home_mode");
+			}
+			PenguinAnalytics.Instance.LogTimerBegin(_homeModeTimeLimit);
+		}
 		
 		//AudioListener.pause = false;
 		PenguinPlayer.Instance.StartBackgroundMusic();
@@ -255,6 +292,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	
 	public void HandleHMDUnmounted()
 	{
+		Debug.Log("UNMOUNTED");
 		PenguinAnalytics.Instance.LogHeadsetOff();
 		
 		_wasUnmounted = true;
