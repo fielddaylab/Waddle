@@ -453,12 +453,12 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 		{
             _ogdLog.BeginEvent("skua_move");
             _ogdLog.EventParam("object_id", skuaID);
-            _ogdLog.EventParam("from_position_x", pos.x);
-            _ogdLog.EventParam("from_position_y", pos.y);
-            _ogdLog.EventParam("from_position_z", pos.z);
-            _ogdLog.EventParam("to_position_x", toPos.x);
-            _ogdLog.EventParam("to_position_y", toPos.y);
-            _ogdLog.EventParam("to_position_z", toPos.z);
+            _ogdLog.EventParam("from_posX", pos.x);
+            _ogdLog.EventParam("from_posY", pos.y);
+            _ogdLog.EventParam("from_posZ", pos.z);
+            _ogdLog.EventParam("to_posX", toPos.x);
+            _ogdLog.EventParam("to_posY", toPos.y);
+            _ogdLog.EventParam("to_posZ", toPos.z);
             _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
             _ogdLog.SubmitEvent();
         }
@@ -468,7 +468,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
     {
         if(_loggingEnabled)
 		{
-            _ogdLog.BeginEvent("mating_dance_complete_indicator_updated");
+            _ogdLog.BeginEvent("mating_dance_indicator_updated");
             _ogdLog.EventParam("percent_full", percent);
             _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
             _ogdLog.SubmitEvent();
@@ -500,7 +500,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
     {
         if(_loggingEnabled)
 		{
-            _ogdLog.BeginEvent("recover_egg");
+            _ogdLog.BeginEvent("egg_recovered");
             _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
             _ogdLog.SubmitEvent();
         }
@@ -511,7 +511,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
     {
         if(_loggingEnabled)
 		{
-            _ogdLog.BeginEvent("lost_egg");
+            _ogdLog.BeginEvent("egg_lost");
             _ogdLog.EventParam("object_id", whichSkua);
             _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
             _ogdLog.SubmitEvent();
