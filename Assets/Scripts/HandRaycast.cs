@@ -34,7 +34,7 @@ public class HandRaycast : MonoBehaviour
 
 	GameObject _reticleObject;
 	
-	const int NUM_LAST_POSITIONS = 20;
+	const int NUM_LAST_POSITIONS = 14;
 	
 	Vector3 _avgPosition = Vector3.zero;
 	Vector3 _avgDirection = Vector3.zero;

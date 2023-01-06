@@ -107,9 +107,6 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		
 		//StartCoroutine(ShowMessage("", 5f, 10f));
 		
-		OVRManager.HMDUnmounted += HandleHMDUnmounted;
-		
-		OVRManager.HMDMounted += HandleHMDMounted;
 		
 		//uncomment this if wanting to test things in editor without hmd
 		//BeginTheGame(PenguinGameManager.GameMode.ShowMode);
@@ -347,6 +344,9 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		{
 			PenguinAnalytics.Instance.LogApplicationStart();
 			_logAppStarted = true;
+			
+			OVRManager.HMDUnmounted += HandleHMDUnmounted;
+			OVRManager.HMDMounted += HandleHMDMounted;
 		}
 
 		if(!_isGamePaused)
