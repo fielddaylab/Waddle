@@ -284,12 +284,20 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		PenguinPlayer.Instance.StopShowingUI();
 		
 		PenguinMenuSystem.Instance.ChangeMenuTo(PenguinMenuSystem.MenuType.PauseMenu);
-		PenguinPlayer.Instance.gameObject.GetComponent<HandRaycast>().SwitchPanel(HandRaycast.MenuPanel.eMAIN);
+		
+		if(_gameMode != GameMode.ResearchMode)
+		{
+			PenguinPlayer.Instance.gameObject.GetComponent<HandRaycast>().SwitchPanel(HandRaycast.MenuPanel.eMAIN);
+		}
+		else
+		{
+			PenguinPlayer.Instance.gameObject.GetComponent<HandRaycast>().SwitchPanel(HandRaycast.MenuPanel.eSURVEY_CODE);
+		}
 	}
 	
 	public void HandleHMDUnmounted()
 	{
-		Debug.Log("UNMOUNTED");
+		//Debug.Log("UNMOUNTED");
 		PenguinAnalytics.Instance.LogHeadsetOff();
 		
 		_wasUnmounted = true;
@@ -304,6 +312,22 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		
 		_isGamePaused = true;
 		//PenguinAnalytics.Instance.LogTimerPause();
+	}
+	
+	public void ShowEndGameMenu()
+	{
+		_wasUnmounted = true;
+		if(!_demoMode)
+		{
+			PenguinPlayer.Instance.StartShowingUI(false);
+		}
+		else
+		{
+			PenguinPlayer.Instance.StartShowingUI(false, true);
+		}
+		
+		_isGamePaused = true;
+		//PenguinAnalytics.Instance.LogTimerPause();	
 	}
 
 	public void ShowCredits(bool toCredits)

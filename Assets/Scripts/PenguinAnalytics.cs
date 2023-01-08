@@ -623,18 +623,18 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
     {
         if(_loggingEnabled)
 		{
-            _ogdLog.BeginEvent("move");
+            _ogdLog.BeginEvent("player_waddle");
             _ogdLog.EventParam("object_id", object_id);     //left or right waddle (0 or 1)
-            _ogdLog.EventParam("old_pos_x", oldPos.x);
-            _ogdLog.EventParam("old_pos_y", oldPos.y);
-            _ogdLog.EventParam("old_pos_z", oldPos.z);
-            _ogdLog.EventParam("gaze_pos_x", pos.x);
-            _ogdLog.EventParam("gaze_pos_y", pos.y);
-            _ogdLog.EventParam("gaze_pos_z", pos.z);
-            _ogdLog.EventParam("gaze_rot_x", gaze.x);
-            _ogdLog.EventParam("gaze_rot_y", gaze.y);
-            _ogdLog.EventParam("gaze_rot_z", gaze.z);
-            _ogdLog.EventParam("gaze_rot_w", gaze.w);
+            _ogdLog.EventParam("old_posX", oldPos.x);
+            _ogdLog.EventParam("old_posY", oldPos.y);
+            _ogdLog.EventParam("old_posZ", oldPos.z);
+            _ogdLog.EventParam("posX", pos.x);
+            _ogdLog.EventParam("posY", pos.y);
+            _ogdLog.EventParam("posZ", pos.z);
+            _ogdLog.EventParam("rotX", gaze.x);
+            _ogdLog.EventParam("rotY", gaze.y);
+            _ogdLog.EventParam("rotZ", gaze.z);
+            _ogdLog.EventParam("rotW", gaze.w);
             _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
             _ogdLog.SubmitEvent();
         }
@@ -645,13 +645,13 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 		if(_loggingEnabled)
 		{
 			_ogdLog.BeginEvent("viewport_data");
-            _ogdLog.EventParam("px", p.x);
-			_ogdLog.EventParam("py", p.y);
-			_ogdLog.EventParam("pz", p.z);
-			_ogdLog.EventParam("qx", g.x);
-			_ogdLog.EventParam("qy", g.y);
-			_ogdLog.EventParam("qz", g.z);
-			_ogdLog.EventParam("qw", g.w);
+            _ogdLog.EventParam("posX", p.x);
+			_ogdLog.EventParam("posY", p.y);
+			_ogdLog.EventParam("posZ", p.z);
+			_ogdLog.EventParam("rotX", g.x);
+			_ogdLog.EventParam("rotY", g.y);
+			_ogdLog.EventParam("rotZ", g.z);
+			_ogdLog.EventParam("rotW", g.w);
 			//_ogdLog.EventParam("scene_name", scene);
 			_ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
 			_ogdLog.SubmitEvent();

@@ -232,8 +232,17 @@ public class ProtectTheNest : MiniGameController
 		}
 		
 		PenguinAnalytics.Instance.LogActivityEnd("skuas");
-
+		
         base.EndGame();
+		
+		if(PenguinGameManager.Instance.GetGameMode == PenguinGameManager.GameMode.ResearchMode)
+		{
+			PenguinPlayer.Instance.gameObject.GetComponent<HandRaycast>().SwitchPanel(HandRaycast.MenuPanel.eMAIN);
+		}
+		
+		PenguinMenuSystem.Instance.ChangeMenuTo(PenguinMenuSystem.MenuType.EndMenu);
+		
+		PenguinGameManager.Instance.ShowEndGameMenu();
     }
 	
 	IEnumerator StartChickSequence(float delay)
@@ -267,6 +276,8 @@ public class ProtectTheNest : MiniGameController
 		//loop the chick here instead?
 		//_theEgg.transform.GetChild(2).gameObject.GetComponent<Animator>().SetTrigger("stop");
 		
+		//show the ending menu...!
+
 		AudioSource mainTrack = PenguinPlayer.Instance.GetComponent<AudioSource>();
 		if(mainTrack != null)
 		{
