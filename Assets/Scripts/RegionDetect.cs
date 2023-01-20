@@ -30,7 +30,7 @@ public class RegionDetect : MonoBehaviour
 		if(otherCollider.gameObject.name == "AdelieBody")
 		{
 			//Debug.Log("Leaving " + gameObject.name);
-			PenguinAnalytics.Instance.LogEnterRegion(gameObject.name);
+			PenguinAnalytics.Instance.LogExitRegion(gameObject.name);
 		}
 	}
 }

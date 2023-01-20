@@ -325,6 +325,8 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 					}
 					
 					_lastGazeObject = gazeObject;
+					
+					PenguinAnalytics.Instance.LogGazeBegin(gazeObject.name);
 				}
 				else
 				{
