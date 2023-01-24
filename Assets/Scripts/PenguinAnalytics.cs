@@ -448,7 +448,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
         }
     }
 	
-	public void LogBubblePop(string bubbleID, float timing)
+	public void LogBubblePop(int bubbleID, float timing)
 	{
 		if(_loggingEnabled)
 		{
@@ -803,8 +803,11 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 		{
             _ogdLog.BeginEvent("gaze_object_begin");
             _ogdLog.EventParam("object_id", object_id);
-            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
             _ogdLog.SubmitEvent();
+
+            _ogdLog.BeginGameState();
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitGameState();
         }
     }
 
@@ -814,8 +817,11 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 		{
             _ogdLog.BeginEvent("gaze_object_end");
             _ogdLog.EventParam("object_id", object_id);
-            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
             _ogdLog.SubmitEvent();
+
+            _ogdLog.BeginGameState();
+            _ogdLog.EventParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.SubmitGameState();
         }
     }
 

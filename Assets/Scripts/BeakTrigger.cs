@@ -190,7 +190,7 @@ public class BeakTrigger : MonoBehaviour
 				if(audio != null)
 				{
 					//Debug.Log("Bubble Hit!");
-					PenguinAnalytics.Instance.LogBubblePop(otherCollider.gameObject.name, sr.GetTiming());
+					PenguinAnalytics.Instance.LogBubblePop(sr.GetWhichBubble(), sr.GetTiming());
 					audio.Play();
 				}
 				

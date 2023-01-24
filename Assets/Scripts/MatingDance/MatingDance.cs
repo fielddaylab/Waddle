@@ -381,6 +381,12 @@ public class MatingDance : MiniGameController
 							PenguinAnalytics.Instance.LogBubbleAppeared(_currentSample, _measureBubbleSpot.transform.position);
 						}
 					}
+
+					if(_lastSpawn != null)
+					{
+						_lastSpawn.transform.GetChild(0).gameObject.GetComponent<ShrinkRing>().SetWhichBubble(_currentSample);
+					}
+					
 					_currentSample++;
 				}
 				else

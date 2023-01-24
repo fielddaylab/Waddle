@@ -18,6 +18,11 @@ public class ShrinkRing : MonoBehaviour
 	
 	public float GetTiming() => _timing;
 	
+	int _whichBubble = -1;
+
+	public int GetWhichBubble() => _whichBubble;
+	public void SetWhichBubble(int b) { _whichBubble = b;}
+
 	IEnumerator _coroutine = null;
 	
 	Color _orange = new Color(1f, 0.0f, 0.592f, 0.27f);
@@ -107,7 +112,7 @@ public class ShrinkRing : MonoBehaviour
 		
 			HideBubble();
 			
-			PenguinAnalytics.Instance.LogBubbleDisappeared(0);
+			PenguinAnalytics.Instance.LogBubbleDisappeared(_whichBubble);
 			
 			//destroy the bubble
 			StartCoroutine(DestroyCo(5f));
