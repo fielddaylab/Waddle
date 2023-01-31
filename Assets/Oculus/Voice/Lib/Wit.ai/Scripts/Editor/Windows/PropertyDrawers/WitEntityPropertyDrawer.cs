@@ -1,14 +1,13 @@
 ﻿/*
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ * All rights reserved.
  *
  * This source code is licensed under the license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
 using UnityEditor;
-using UnityEngine;
 using System.Reflection;
-using Facebook.WitAi.Data.Entities;
 
 namespace Facebook.WitAi.Windows
 {
@@ -28,13 +27,13 @@ namespace Facebook.WitAi.Windows
                         }
                         break;
                     case "id":
-                        return WitStyles.Texts.ConfigurationEntitiesIdLabel;
+                        return WitTexts.Texts.ConfigurationEntitiesIdLabel;
                     case "lookups":
-                        return WitStyles.Texts.ConfigurationEntitiesLookupsLabel;
+                        return WitTexts.Texts.ConfigurationEntitiesLookupsLabel;
                     case "roles":
-                        return WitStyles.Texts.ConfigurationEntitiesRolesLabel;
+                        return WitTexts.Texts.ConfigurationEntitiesRolesLabel;
             }
-            
+
             // Default to base
             return base.GetLocalizedText(property, key);
         }

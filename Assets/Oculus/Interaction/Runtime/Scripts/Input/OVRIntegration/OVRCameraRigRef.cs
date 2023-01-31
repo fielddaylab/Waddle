@@ -1,14 +1,22 @@
-/************************************************************************************
-Copyright : Copyright (c) Facebook Technologies, LLC and its affiliates. All rights reserved.
-
-Your use of this SDK or tool is subject to the Oculus SDK License Agreement, available at
-https://developer.oculus.com/licenses/oculussdk/
-
-Unless required by applicable law or agreed to in writing, the Utilities SDK distributed
-under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
-ANY KIND, either express or implied. See the License for the specific language governing
-permissions and limitations under the License.
-************************************************************************************/
+/*
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ * All rights reserved.
+ *
+ * Licensed under the Oculus SDK License Agreement (the "License");
+ * you may not use the Oculus SDK except in compliance with the License,
+ * which is provided at the time of installation or download, or which
+ * otherwise accompanies this software in either electronic or hard copy form.
+ *
+ * You may obtain a copy of the License at
+ *
+ * https://developer.oculus.com/licenses/oculussdk/
+ *
+ * Unless required by applicable law or agreed to in writing, the Oculus SDK
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 using System;
 using UnityEngine;
@@ -46,7 +54,7 @@ namespace Oculus.Interaction.Input
     {
         [Header("Configuration")]
         [SerializeField]
-        private InteractionOVRCameraRig _ovrCameraRig;
+        private OVRCameraRig _ovrCameraRig;
 
         [SerializeField]
         private bool _requireOvrHands = true;
@@ -65,6 +73,8 @@ namespace Oculus.Interaction.Input
 
         protected bool _started = false;
 
+        private bool _isLateUpdate;
+
         protected virtual void Start()
         {
             this.BeginStart(ref _started);
@@ -72,11 +82,26 @@ namespace Oculus.Interaction.Input
             this.EndStart(ref _started);
         }
 
+        protected virtual void FixedUpdate()
+        {
+            _isLateUpdate = false;
+        }
+
+        protected virtual void Update()
+        {
+            _isLateUpdate = false;
+        }
+
+        protected virtual void LateUpdate()
+        {
+            _isLateUpdate = true;
+        }
+
         protected virtual void OnEnable()
         {
             if (_started)
             {
-                _ovrCameraRig.WhenInputDataDirtied += HandleInputDataDirtied;
+                CameraRig.UpdatedAnchors += HandleInputDataDirtied;
             }
         }
 
@@ -84,7 +109,7 @@ namespace Oculus.Interaction.Input
         {
             if (_started)
             {
-                _ovrCameraRig.WhenInputDataDirtied -= HandleInputDataDirtied;
+                CameraRig.UpdatedAnchors -= HandleInputDataDirtied;
             }
         }
 
@@ -104,19 +129,19 @@ namespace Oculus.Interaction.Input
             return cachedValue;
         }
 
-        private void HandleInputDataDirtied(bool isLateUpdate)
+        private void HandleInputDataDirtied(OVRCameraRig cameraRig)
         {
-            WhenInputDataDirtied(isLateUpdate);
+            WhenInputDataDirtied(_isLateUpdate);
         }
 
         #region Inject
-        public void InjectAllOVRCameraRigRef(InteractionOVRCameraRig ovrCameraRig, bool requireHands)
+        public void InjectAllOVRCameraRigRef(OVRCameraRig ovrCameraRig, bool requireHands)
         {
             InjectInteractionOVRCameraRig(ovrCameraRig);
             InjectRequireHands(requireHands);
         }
 
-        public void InjectInteractionOVRCameraRig(InteractionOVRCameraRig ovrCameraRig)
+        public void InjectInteractionOVRCameraRig(OVRCameraRig ovrCameraRig)
         {
             _ovrCameraRig = ovrCameraRig;
             // Clear the cached values to force new values to be read on next access

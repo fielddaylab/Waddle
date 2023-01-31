@@ -1,5 +1,6 @@
 ﻿/*
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ * All rights reserved.
  *
  * This source code is licensed under the license found in the
  * LICENSE file in the root directory of this source tree.
@@ -15,7 +16,7 @@ namespace Facebook.WitAi.Windows
     {
         protected WitConfigurationEditor witInspector;
         protected string serverToken;
-        protected override GUIContent Title => WitStyles.SettingsTitleContent;
+        protected override GUIContent Title => WitTexts.SettingsTitleContent;
         protected override string HeaderUrl => witInspector ? witInspector.HeaderUrl : base.HeaderUrl;
 
         protected override void OnEnable()
@@ -36,6 +37,11 @@ namespace Facebook.WitAi.Windows
                 witInspector.drawHeader = false;
                 witInspector.Initialize();
             }
+            else if (witInspector != null)
+            {
+                DestroyImmediate(witInspector);
+                witInspector = null;
+            }
         }
 
         protected override void LayoutContent()
@@ -43,16 +49,16 @@ namespace Facebook.WitAi.Windows
             // Server access token
             GUILayout.BeginHorizontal();
             bool updated = false;
-            WitEditorUI.LayoutPasswordField(WitStyles.SettingsServerTokenContent, ref serverToken, ref updated);
-            if (updated && witInspector != null)
+            WitEditorUI.LayoutPasswordField(WitTexts.SettingsServerTokenContent, ref serverToken, ref updated);
+            if (updated)
             {
-                witInspector.ApplyServerToken(serverToken);
+                RelinkServerToken(false);
             }
-            if (WitEditorUI.LayoutTextButton(WitStyles.Texts.SettingsRelinkButtonLabel))
+            if (WitEditorUI.LayoutTextButton(WitTexts.Texts.SettingsRelinkButtonLabel))
             {
-                RelinkServerToken();
+                RelinkServerToken(true);
             }
-            if (WitEditorUI.LayoutTextButton(WitStyles.Texts.SettingsAddButtonLabel))
+            if (WitEditorUI.LayoutTextButton(WitTexts.Texts.SettingsAddButtonLabel))
             {
                 int newIndex = WitConfigurationUtility.CreateConfiguration(serverToken);
                 if (newIndex != -1)
@@ -66,7 +72,7 @@ namespace Facebook.WitAi.Windows
             // Configuration select
             base.LayoutContent();
             // Update inspector if needed
-            if (witInspector == null || witInspector.configuration != witConfiguration)
+            if (witInspector == null || witConfiguration == null || witInspector.configuration != witConfiguration)
             {
                 SetWitEditor();
             }
@@ -78,22 +84,31 @@ namespace Facebook.WitAi.Windows
             }
         }
         // Apply server token
-        private void RelinkServerToken()
+        private void RelinkServerToken(bool closeIfInvalid)
         {
             // Open Setup if Invalid
-            if (!WitConfigurationUtility.IsServerTokenValid(serverToken))
+            bool invalid = !WitConfigurationUtility.IsServerTokenValid(serverToken);
+            if (invalid)
             {
-                // Open Setup
-                WitWindowUtility.OpenSetupWindow(WitWindowUtility.OpenConfigurationWindow);
-                // Close this Window
-                Close();
+                // Clear if desired
+                if (string.IsNullOrEmpty(serverToken))
+                {
+                    WitAuthUtility.ServerToken = serverToken;
+                }
+                // Close if desired
+                if (closeIfInvalid)
+                {
+                    // Open Setup
+                    WitWindowUtility.OpenSetupWindow(WitWindowUtility.OpenConfigurationWindow);
+                    // Close this Window
+                    Close();
+                }
                 return;
             }
-            // Set server token
-            WitConfigurationUtility.SetServerToken(serverToken, (e) =>
-            {
-                serverToken = WitAuthUtility.ServerToken;
-            });
+
+            // Set valid server token
+            WitAuthUtility.ServerToken = serverToken;
+            WitConfigurationUtility.SetServerToken(serverToken);
         }
     }
 }

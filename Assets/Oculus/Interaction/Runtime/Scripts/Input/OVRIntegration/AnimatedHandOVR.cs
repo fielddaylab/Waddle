@@ -1,14 +1,22 @@
-/************************************************************************************
-Copyright : Copyright (c) Facebook Technologies, LLC and its affiliates. All rights reserved.
-
-Your use of this SDK or tool is subject to the Oculus SDK License Agreement, available at
-https://developer.oculus.com/licenses/oculussdk/
-
-Unless required by applicable law or agreed to in writing, the Utilities SDK distributed
-under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
-ANY KIND, either express or implied. See the License for the specific language governing
-permissions and limitations under the License.
-************************************************************************************/
+/*
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ * All rights reserved.
+ *
+ * Licensed under the Oculus SDK License Agreement (the "License");
+ * you may not use the Oculus SDK except in compliance with the License,
+ * which is provided at the time of installation or download, or which
+ * otherwise accompanies this software in either electronic or hard copy form.
+ *
+ * You may obtain a copy of the License at
+ *
+ * https://developer.oculus.com/licenses/oculussdk/
+ *
+ * Unless required by applicable law or agreed to in writing, the Oculus SDK
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 using UnityEngine;
 
@@ -16,9 +24,16 @@ namespace Oculus.Interaction.Input
 {
     public class AnimatedHandOVR : MonoBehaviour
     {
+        public enum AllowThumbUp
+        {
+            Always,
+            GripRequired,
+            TriggerAndGripRequired,
+        }
         public const string ANIM_LAYER_NAME_POINT = "Point Layer";
         public const string ANIM_LAYER_NAME_THUMB = "Thumb Layer";
         public const string ANIM_PARAM_NAME_FLEX = "Flex";
+        public const string ANIM_PARAM_NAME_PINCH = "Pinch";
 
         public const float INPUT_RATE_CHANGE = 20.0f;
 
@@ -26,21 +41,27 @@ namespace Oculus.Interaction.Input
         private OVRInput.Controller _controller = OVRInput.Controller.None;
         [SerializeField]
         private Animator _animator = null;
+        [SerializeField]
+        private AllowThumbUp _allowThumbUp = AllowThumbUp.TriggerAndGripRequired;
 
         private int _animLayerIndexThumb = -1;
         private int _animLayerIndexPoint = -1;
         private int _animParamIndexFlex = -1;
+        private int _animParamIndexPinch = -1;
 
         private bool _isPointing = false;
         private bool _isGivingThumbsUp = false;
         private float _pointBlend = 0.0f;
         private float _thumbsUpBlend = 0.0f;
 
+        private const float TRIGGER_MAX = 0.95f;
+
         protected virtual void Start()
         {
             _animLayerIndexPoint = _animator.GetLayerIndex(ANIM_LAYER_NAME_POINT);
             _animLayerIndexThumb = _animator.GetLayerIndex(ANIM_LAYER_NAME_THUMB);
             _animParamIndexFlex = Animator.StringToHash(ANIM_PARAM_NAME_FLEX);
+            _animParamIndexPinch = Animator.StringToHash(ANIM_PARAM_NAME_PINCH);
         }
 
         protected virtual void Update()
@@ -55,8 +76,24 @@ namespace Oculus.Interaction.Input
 
         private void UpdateCapTouchStates()
         {
-            _isPointing = !OVRInput.Get(OVRInput.NearTouch.PrimaryIndexTrigger, _controller);
-            _isGivingThumbsUp = !OVRInput.Get(OVRInput.NearTouch.PrimaryThumbButtons, _controller);
+            _isPointing = !OVRInput.Get(OVRInput.NearTouch.PrimaryIndexTrigger, _controller)
+               && OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, _controller) == 0f;
+
+            bool triggerThumbsUp = _allowThumbUp == AllowThumbUp.Always ||
+                (_allowThumbUp == AllowThumbUp.GripRequired
+                    && OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, _controller) >= TRIGGER_MAX) ||
+                (_allowThumbUp == AllowThumbUp.TriggerAndGripRequired
+                    && OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, _controller) >= TRIGGER_MAX
+                    && OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, _controller) >= TRIGGER_MAX);
+
+            _isGivingThumbsUp = !OVRInput.Get(OVRInput.NearTouch.PrimaryThumbButtons, _controller)
+                && !OVRInput.Get(OVRInput.Button.One, _controller)
+                && !OVRInput.Get(OVRInput.Button.Two, _controller)
+                && !OVRInput.Get(OVRInput.Button.Three, _controller)
+                && !OVRInput.Get(OVRInput.Button.Four, _controller)
+                && !OVRInput.Get(OVRInput.Button.PrimaryThumbstick, _controller)
+                && OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, _controller).magnitude == 0
+                && triggerThumbsUp;
         }
 
         /// <summary>
@@ -87,7 +124,7 @@ namespace Oculus.Interaction.Input
             _animator.SetLayerWeight(_animLayerIndexThumb, _thumbsUpBlend);
 
             float pinch = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, _controller);
-            _animator.SetFloat("Pinch", pinch);
+            _animator.SetFloat(_animParamIndexPinch, pinch);
         }
 
 

@@ -48,13 +48,26 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 	float _gazeTimer = 0f;
 	const float GAZE_TIMER_SEND = 0.5f;
 	string _currentRegion = "";
+	
+	const float GAZE_LOG_TIMER_SEND = 1.0f;
+	float _gazeLogTimer = 0f;
+	uint _gazeLogFrameCount = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         _lineRenderer = transform.GetChild((int)PenguinPlayerObjects.SELECT_LINE).gameObject.GetComponent<LineRenderer>();
-		_gazeTimer = 0f;
+		
+		ResetGazeLogging();
     }
+	
+	public void ResetGazeLogging()
+	{
+		float t = UnityEngine.Time.time;
+		_gazeTimer = t;
+		_gazeLogTimer = t;
+		_gazeLogFrameCount = 0;
+	}
 	
 	public void GetGaze(out Vector3 pos, out Quaternion view)
 	{
@@ -300,6 +313,7 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		}
 
 		float t = UnityEngine.Time.time;
+		//this gaze is for objects...
 		if(t - _gazeTimer > GAZE_TIMER_SEND)
 		{
 			_gazeTimer = t;
@@ -307,7 +321,7 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 			Quaternion quat = Quaternion.identity;
 			GetGaze(out pos, out quat);
 
-			PenguinAnalytics.Instance.LogGaze(pos, quat);
+			//PenguinAnalytics.Instance.LogGaze(pos, quat, true);
 
 			//check if we're in a certain region here...
 
@@ -343,6 +357,32 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 					_lastGazeObject = null;
 				}
 			}
+		}
+		
+		if(t - _gazeLogTimer > GAZE_LOG_TIMER_SEND)
+		{
+			_gazeLogTimer = t;
+			
+			Vector3 pos = Vector3.zero;
+			Quaternion quat = Quaternion.identity;
+			GetGaze(out pos, out quat);
+
+			PenguinAnalytics.Instance.LogGaze(pos, quat, _gazeLogFrameCount, true);
+			
+			_gazeLogFrameCount++;
+		}
+		else
+		{
+			if(_gazeLogFrameCount % 2 == 0)
+			{
+				Vector3 pos = Vector3.zero;
+				Quaternion quat = Quaternion.identity;
+				GetGaze(out pos, out quat);
+
+				PenguinAnalytics.Instance.LogGaze(pos, quat, _gazeLogFrameCount);
+			}
+			
+			_gazeLogFrameCount++;
 		}
     }
 	

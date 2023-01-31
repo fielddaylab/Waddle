@@ -1,19 +1,28 @@
-/************************************************************************************
-Copyright : Copyright (c) Facebook Technologies, LLC and its affiliates. All rights reserved.
-
-Your use of this SDK or tool is subject to the Oculus SDK License Agreement, available at
-https://developer.oculus.com/licenses/oculussdk/
-
-Unless required by applicable law or agreed to in writing, the Utilities SDK distributed
-under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
-ANY KIND, either express or implied. See the License for the specific language governing
-permissions and limitations under the License.
-************************************************************************************/
+/*
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ * All rights reserved.
+ *
+ * Licensed under the Oculus SDK License Agreement (the "License");
+ * you may not use the Oculus SDK except in compliance with the License,
+ * which is provided at the time of installation or download, or which
+ * otherwise accompanies this software in either electronic or hard copy form.
+ *
+ * You may obtain a copy of the License at
+ *
+ * https://developer.oculus.com/licenses/oculussdk/
+ *
+ * Unless required by applicable law or agreed to in writing, the Oculus SDK
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Oculus.Interaction.Surfaces;
+using UnityEngine.Serialization;
 
 namespace Oculus.Interaction
 {
@@ -25,41 +34,85 @@ namespace Oculus.Interaction
     public class PokeInteractor : PointerInteractor<PokeInteractor, PokeInteractable>
     {
         [SerializeField]
+        [Tooltip("The poke origin tracks the provided transform.")]
         private Transform _pointTransform;
 
         [SerializeField]
-        private float _touchReleaseThreshold = 0.002f;
+        [Tooltip("(Meters, World) The radius of the sphere positioned at the origin.")]
+        private float _radius = 0.005f;
 
         [SerializeField]
-        private ProgressCurve _dragStartCurve;
+        [Tooltip("(Meters, World) A poke unselect fires when the poke origin surpasses this " +
+                 "distance above a surface.")]
+        private float _touchReleaseThreshold = 0.002f;
+
+        [FormerlySerializedAs("_zThreshold")]
+        [SerializeField]
+        [Tooltip("(Meters, World) The threshold below which distances to a surface " +
+                 "are treated as equal for the purposes of ranking.")]
+        private float _equalDistanceThreshold = 0.001f;
 
         public Vector3 ClosestPoint { get; private set; }
 
         public Vector3 TouchPoint { get; private set; }
+        public Vector3 TouchNormal { get; private set; }
+
+        public float Radius => _radius;
 
         public Vector3 Origin { get; private set; }
 
-        private Vector3 _previousOrigin;
-        private Vector3 _previousTouchPoint;
-        private Vector3 _capturedTouchPoint;
-        private Vector3 _startDragOffset;
+        private Vector3 _previousPokeOrigin;
 
         private PokeInteractable _previousCandidate = null;
         private PokeInteractable _hitInteractable = null;
 
-        private bool _dragging;
+        private Vector3 _previousSurfacePointLocal;
+        private Vector3 _firstTouchPointLocal;
+        private Vector3 _targetTouchPointLocal;
+        private Vector3 _easeTouchPointLocal;
+
+        private bool _isDragging;
+        private ProgressCurve _dragEaseCurve;
+        private Vector3 _dragCompareSurfacePointLocal;
+        private float _maxDistanceFromFirstTouchPoint;
+
+        private Dictionary<PokeInteractable, Matrix4x4> _previousSurfaceTransformMap;
+        private float _previousProgress;
 
         protected override void Start()
         {
             base.Start();
             Assert.IsNotNull(_pointTransform);
+            _dragEaseCurve = new ProgressCurve();
+            _previousSurfaceTransformMap = new Dictionary<PokeInteractable, Matrix4x4>();
         }
 
-        protected override void DoEveryUpdate()
+        protected override void DoPreprocess()
         {
-            _hitInteractable = null;
-            _previousOrigin = Origin;
+            base.DoPreprocess();
+            _previousPokeOrigin = Origin;
             Origin = _pointTransform.position;
+        }
+
+        protected override void DoPostprocess()
+        {
+            base.DoPostprocess();
+            var interactables = PokeInteractable.Registry.List(this);
+            foreach (PokeInteractable interactable in interactables)
+            {
+                _previousSurfaceTransformMap[interactable] =
+                    interactable.Surface.Transform.worldToLocalMatrix;
+            }
+        }
+
+        protected override bool ComputeShouldSelect()
+        {
+            return _hitInteractable != null;
+        }
+
+        protected override bool ComputeShouldUnselect()
+        {
+            return _hitInteractable == null;
         }
 
         protected override void DoHoverUpdate()
@@ -67,18 +120,17 @@ namespace Oculus.Interaction
             if (_interactable != null)
             {
                 TouchPoint = _interactable.ComputeClosestPoint(Origin);
-            }
-
-            if (_hitInteractable != null)
-            {
-                _hitInteractable = null;
-                ShouldSelect = true;
-                _dragging = false;
+                TouchNormal = _interactable.ClosestSurfaceNormal(TouchPoint);
             }
         }
 
         protected override PokeInteractable ComputeCandidate()
         {
+            if (_hitInteractable != null)
+            {
+                return _hitInteractable;
+            }
+
             // First, see if we trigger a press on any interactable
             PokeInteractable closestInteractable = ComputeSelectCandidate();
             if (closestInteractable != null)
@@ -100,29 +152,39 @@ namespace Oculus.Interaction
         private PokeInteractable ComputeSelectCandidate()
         {
             PokeInteractable closestInteractable = null;
-            float closestSqrDist = float.MaxValue;
+            float closestDist = float.MaxValue;
+            float minNormalProject = float.MaxValue;
 
-            IEnumerable<PokeInteractable> interactables = PokeInteractable.Registry.List(this);
-
-            Vector3 moveDirection = Origin - _previousOrigin;
-            float magnitude = moveDirection.magnitude;
-            if (magnitude == 0f)
-            {
-                return null;
-            }
-
-            moveDirection /= magnitude;
-            Ray ray = new Ray(_previousOrigin, moveDirection);
+            var interactables = PokeInteractable.Registry.List(this);
 
             // Check the surface first as a movement through this will
             // automatically put us in a "active" state. We expect the raycast
             // to happen only in one direction
             foreach (PokeInteractable interactable in interactables)
             {
-                if (!PassesEnterHoverDistanceCheck(interactable))
+                Matrix4x4 previousSurfaceMatrix =
+                    _previousSurfaceTransformMap.ContainsKey(interactable)
+                        ? _previousSurfaceTransformMap[interactable]
+                        : interactable.Surface.Transform.worldToLocalMatrix;
+
+                Vector3 localPokeOrigin = previousSurfaceMatrix.MultiplyPoint(_previousPokeOrigin);
+                Vector3 adjustedPokeOrigin =
+                    interactable.Surface.Transform.TransformPoint(localPokeOrigin);
+
+                if (!PassesEnterHoverDistanceCheck(adjustedPokeOrigin, interactable))
                 {
                     continue;
                 }
+
+                Vector3 moveDirection = Origin - adjustedPokeOrigin;
+                float magnitude = moveDirection.magnitude;
+                if (magnitude == 0f)
+                {
+                    return null;
+                }
+
+                moveDirection /= magnitude;
+                Ray ray = new Ray(adjustedPokeOrigin, moveDirection);
 
                 Vector3 closestSurfaceNormal = interactable.ClosestSurfaceNormal(Origin);
 
@@ -135,13 +197,27 @@ namespace Oculus.Interaction
                 {
                     // Then do a raycast against the surface
                     bool hit = interactable.Surface.Raycast(ray, out SurfaceHit surfaceHit);
-                    if (hit && surfaceHit.Distance <= magnitude)
-                    {
-                        // We collided against the surface and now we must rank this
-                        // interactable versus others that also pass this test this frame
-                        // but may be at a closer proximity. For this we use the closest
-                        // point compute against the surface intersection point
+                    hit = hit && surfaceHit.Distance <= magnitude;
 
+                    if (!hit)
+                    {
+                        // We may still be touching the surface within our radius
+                        float distance = ComputeDistanceAbove(interactable, Origin);
+                        if (distance <= 0)
+                        {
+                            Vector3 closestSurfacePointToOrigin = interactable.ClosestSurfacePoint(Origin);
+                            hit = true;
+                            surfaceHit = new SurfaceHit()
+                            {
+                                Point = closestSurfacePointToOrigin,
+                                Normal = interactable.ClosestSurfaceNormal(Origin),
+                                Distance = distance
+                            };
+                        }
+                    }
+
+                    if (hit)
+                    {
                         // Check if our collision lies outside of the optional volume mask
                         if (interactable.VolumeMask != null &&
                             !Collisions.IsPointWithinCollider(surfaceHit.Point, interactable.VolumeMask))
@@ -149,55 +225,76 @@ namespace Oculus.Interaction
                             continue;
                         }
 
-                        Vector3 closestPointToHitPoint = interactable.ComputeClosestPoint(surfaceHit.Point);
+                        float distanceFromEdge =
+                            ComputeDistanceFrom(interactable, surfaceHit.Point);
 
-                        float sqrDistanceFromPoint = (closestPointToHitPoint - surfaceHit.Point).sqrMagnitude;
-
-                        if (sqrDistanceFromPoint > interactable.MaxDistance * interactable.MaxDistance)
+                        // Check if our collision lies outside of the max distance in the proximityfield
+                        if(distanceFromEdge > interactable.MaxDistance)
                         {
                             continue;
                         }
 
-                        if (sqrDistanceFromPoint < closestSqrDist)
+                        // We collided against the surface and now we must rank this
+                        // interactable versus others that also pass this test this frame.
+
+                        // First we rank by normal distance traveled,
+                        // and secondly by closer proximity
+                        float normalProjection = Vector3.Dot(adjustedPokeOrigin - surfaceHit.Point, surfaceHit.Normal);
+                        bool normalDistanceEqual = Mathf.Abs(normalProjection - minNormalProject) < _equalDistanceThreshold;
+                        bool checkEdgeDistance = !normalDistanceEqual ||
+                                                 interactable.TiebreakerScore ==
+                                                 closestInteractable.TiebreakerScore;
+                        // Check if the point is either closer along the normal or
+                        // the normal delta with the best point so far is within the zThreshold and
+                        // is closer to the surface intersection point
+                        if ((!normalDistanceEqual && normalProjection < minNormalProject) ||
+                            (normalDistanceEqual && interactable.TiebreakerScore > closestInteractable.TiebreakerScore) ||
+                            (checkEdgeDistance && distanceFromEdge < closestDist))
                         {
-                            closestSqrDist = sqrDistanceFromPoint;
+                            minNormalProject = normalProjection;
+                            closestDist = distanceFromEdge;
                             closestInteractable = interactable;
-                            ClosestPoint = closestPointToHitPoint;
-                            TouchPoint = ClosestPoint;
                         }
                     }
                 }
             }
+
+            if (closestInteractable != null)
+            {
+                ClosestPoint = closestInteractable.ComputeClosestPoint(Origin);
+                TouchPoint = ClosestPoint;
+                TouchNormal = closestInteractable.ClosestSurfaceNormal(TouchPoint);
+            }
+
             return closestInteractable;
         }
 
-        private bool PassesEnterHoverDistanceCheck(PokeInteractable interactable)
+        private bool PassesEnterHoverDistanceCheck(Vector3 position, PokeInteractable interactable)
         {
             if (interactable == _previousCandidate)
             {
                 return true;
             }
 
-            if(ComputeDistanceAbove(interactable, _previousOrigin) > -1f * interactable.EnterHoverDistance)
-            {
-                return false;
-            }
-
-            return true;
+            return ComputeDistanceAbove(interactable, position) > interactable.EnterHoverDistance;
         }
 
         private PokeInteractable ComputeBestHoverInteractable()
         {
             PokeInteractable closestInteractable = null;
-            float closestSqrDist = float.MaxValue;
+            float closestDistance = float.MaxValue;
 
-            IEnumerable<PokeInteractable> interactables = PokeInteractable.Registry.List(this);
+            var interactables = PokeInteractable.Registry.List(this);
 
             // We check that we're above the surface first as we don't
             // care about hovers that originate below the surface
             foreach (PokeInteractable interactable in interactables)
             {
-                if (!PassesEnterHoverDistanceCheck(interactable))
+                // Hover if between EnterHover and MaxDistance
+                // Or if above EnterHover last frame and within MaxDistance this frame:
+                // eg. if EnterHover and MaxDistance are the same, still want to hover in one frame
+                if (!PassesEnterHoverDistanceCheck(Origin, interactable) &&
+                    !PassesEnterHoverDistanceCheck(_previousPokeOrigin, interactable))
                 {
                     continue;
                 }
@@ -222,25 +319,30 @@ namespace Oculus.Interaction
                         // We're above the surface so now we must rank this
                         // interactable versus others that also pass this test this frame
                         // but may be at a closer proximity.
-                        Vector3 closestPoint = interactable.ComputeClosestPoint(Origin);
-
-                        float sqrDistanceFromPoint = (closestPoint - Origin).sqrMagnitude;
-
-                        if (sqrDistanceFromPoint > interactable.MaxDistance * interactable.MaxDistance)
+                        float distanceFromSurfacePoint = ComputeDistanceFrom(interactable, Origin);
+                        if(distanceFromSurfacePoint > interactable.MaxDistance)
                         {
                             continue;
                         }
 
-                        if (sqrDistanceFromPoint < closestSqrDist)
+                        if (distanceFromSurfacePoint < closestDistance ||
+                            Mathf.Abs(distanceFromSurfacePoint - closestDistance) < _equalDistanceThreshold
+                            && interactable.TiebreakerScore > closestInteractable.TiebreakerScore)
                         {
-                            closestSqrDist = sqrDistanceFromPoint;
+                            closestDistance = distanceFromSurfacePoint;
                             closestInteractable = interactable;
-                            ClosestPoint = closestPoint;
-                            TouchPoint = ClosestPoint;
                         }
                     }
                 }
             }
+
+            if (closestInteractable != null)
+            {
+                ClosestPoint = closestInteractable.ComputeClosestPoint(Origin);
+                TouchPoint = ClosestPoint;
+                TouchNormal = closestInteractable.ClosestSurfaceNormal(TouchPoint);
+            }
+
             return closestInteractable;
         }
 
@@ -248,12 +350,27 @@ namespace Oculus.Interaction
         {
             if (interactable != null)
             {
-                Vector3 worldPosition = interactable.ClosestSurfacePoint(Origin);
-                _previousTouchPoint = worldPosition;
-                _capturedTouchPoint = worldPosition;
+                _previousSurfacePointLocal =
+                _firstTouchPointLocal =
+                _easeTouchPointLocal =
+                _targetTouchPointLocal =
+                interactable.Surface.Transform.InverseTransformPoint(TouchPoint);
+
+                Vector3 lateralComparePoint = interactable.ClosestSurfacePoint(Origin);
+                _dragCompareSurfacePointLocal = interactable.Surface.Transform.InverseTransformPoint(lateralComparePoint);
+                _dragEaseCurve.Copy(interactable.DragThresholding.DragEaseCurve);
+                _isDragging = false;
+
+                _maxDistanceFromFirstTouchPoint = 0;
             }
 
             base.InteractableSelected(interactable);
+        }
+
+        protected override void HandleDisabled()
+        {
+            _hitInteractable = null;
+            base.HandleDisabled();
         }
 
         protected override Pose ComputePointerPose()
@@ -269,17 +386,29 @@ namespace Oculus.Interaction
             );
         }
 
+        // The distance above a surface along the closest normal.
+        // Returns 0 for where the sphere touches the surface along the normal.
         private float ComputeDistanceAbove(PokeInteractable interactable, Vector3 point)
         {
             Vector3 closestSurfacePoint = interactable.ClosestSurfacePoint(point);
             Vector3 closestSurfaceNormal = interactable.ClosestSurfaceNormal(point);
             Vector3 surfaceToPoint = point - closestSurfacePoint;
-            return Vector3.Dot(surfaceToPoint, -closestSurfaceNormal);
+            return Vector3.Dot(surfaceToPoint, closestSurfaceNormal) - _radius;
         }
 
+        // The distance below a surface along the closest normal. Always positive.
         private float ComputeDepth(PokeInteractable interactable, Vector3 point)
         {
-            return Mathf.Max(0f, ComputeDistanceAbove(interactable, point));
+            return Mathf.Max(0f, -ComputeDistanceAbove(interactable, point));
+        }
+
+        // The distance from the closest point as computed by the proximity field and surface.
+        // Returns the distance to the point without taking into account the surface normal.
+        private float ComputeDistanceFrom(PokeInteractable interactable, Vector3 point)
+        {
+            Vector3 closestSurfacePoint = interactable.ComputeClosestPoint(point);
+            Vector3 surfaceToPoint = point - closestSurfacePoint;
+            return surfaceToPoint.magnitude - _radius;
         }
 
         protected override void DoSelectUpdate()
@@ -287,94 +416,128 @@ namespace Oculus.Interaction
             PokeInteractable interactable = _selectedInteractable;
             if (interactable == null)
             {
-                ShouldUnselect = true;
+                _hitInteractable = null;
                 return;
             }
 
-            Vector3 closestSurfacePoint = interactable.ClosestSurfacePoint(Origin);
-            Vector3 closestSurfaceNormal = interactable.ClosestSurfaceNormal(Origin);
-            Vector3 surfaceToInteractor = Origin - closestSurfacePoint;
-
-            // Unselect our interactor if it is above the surface by at least releaseDistancePadding
-            if (Vector3.Dot(surfaceToInteractor, closestSurfaceNormal) > _touchReleaseThreshold)
+            // Unselect if the interactor is above the surface by at least _touchReleaseThreshold
+            if(ComputeDistanceAbove(interactable, Origin) > _touchReleaseThreshold)
             {
-                ShouldUnselect = true;
+                _hitInteractable = null;
+                return;
             }
 
-            Vector3 worldPositionOnSurface = interactable.ClosestSurfacePoint(Origin);
+            Vector3 closestSurfacePointWorld = interactable.ClosestSurfacePoint(Origin);
 
-            Vector2 lateralDelta =
-                interactable.Surface.GetSurfaceDistanceBetween(worldPositionOnSurface,
-                                                               _capturedTouchPoint);
+            Vector3 positionOnSurfaceLocal =
+                interactable.Surface.Transform.InverseTransformPoint(closestSurfacePointWorld);
 
-            Vector2 frameDelta =
-                interactable.Surface.GetSurfaceDistanceBetween(worldPositionOnSurface,
-                                                               _previousTouchPoint);
-
-            float depthDelta = Mathf.Abs(ComputeDepth(interactable, Origin) -
-                                         ComputeDepth(interactable, _previousOrigin));
-            bool outsideDelta = false;
-
-            if (!_dragging && frameDelta.magnitude > depthDelta)
+            if (interactable.DragThresholding.Enabled)
             {
-                while (!outsideDelta)
+                float worldDepthDelta = Mathf.Abs(ComputeDepth(interactable, Origin) -
+                                              ComputeDepth(interactable, _previousPokeOrigin));
+                Vector3 positionDeltaLocal = positionOnSurfaceLocal - _previousSurfacePointLocal;
+                Vector3 positionDeltaWorld =
+                    interactable.Surface.Transform.TransformVector(positionDeltaLocal);
+
+                bool isZMotion = worldDepthDelta > positionDeltaWorld.magnitude &&
+                                 worldDepthDelta > interactable.DragThresholding.ZThreshold;
+
+                if (isZMotion)
                 {
-                    if (lateralDelta.x > _selectedInteractable.HorizontalDragThreshold)
-                    {
-                        outsideDelta = true;
-                        break;
-                    }
-
-                    if (lateralDelta.y > _selectedInteractable.VerticalDragThreshold)
-                    {
-                        outsideDelta = true;
-                        break;
-                    }
-
-                    break;
+                    _dragCompareSurfacePointLocal = positionOnSurfaceLocal;
                 }
 
-                if (outsideDelta)
+                if (!_isDragging)
                 {
-                    _dragStartCurve.Start();
-                    _startDragOffset = _capturedTouchPoint - worldPositionOnSurface;
-                    _dragging = true;
+                    if (!isZMotion)
+                    {
+                        Vector3 surfaceDeltaLocal =
+                            positionOnSurfaceLocal - _dragCompareSurfacePointLocal;
+                        Vector3 surfaceDeltaWorld =
+                            interactable.Surface.Transform.TransformVector(surfaceDeltaLocal);
+                        if (surfaceDeltaWorld.magnitude >
+                            interactable.DragThresholding.SurfaceThreshold)
+                        {
+                            _isDragging = true;
+                            _dragEaseCurve.Start();
+                            _previousProgress = 0;
+                            _targetTouchPointLocal = positionOnSurfaceLocal;
+                        }
+                    }
                 }
-            }
-
-            if (!_dragging)
-            {
-                TouchPoint = _capturedTouchPoint;
+                else
+                {
+                    if (isZMotion)
+                    {
+                        _isDragging = false;
+                    }
+                    else
+                    {
+                        _targetTouchPointLocal = positionOnSurfaceLocal;
+                    }
+                }
             }
             else
             {
-                float deltaEase = _dragStartCurve.Progress();
-                Vector3 offset = Vector3.Lerp(_startDragOffset, Vector3.zero, deltaEase);
-
-                TouchPoint = worldPositionOnSurface + offset;
+                _targetTouchPointLocal = positionOnSurfaceLocal;
             }
 
-            _previousTouchPoint = worldPositionOnSurface;
+            Vector3 pinnedTouchPointLocal = _targetTouchPointLocal;
+            if (SelectedInteractable.PositionPinning.Enabled)
+            {
+                Vector3 deltaFromCaptureLocal = pinnedTouchPointLocal - _firstTouchPointLocal;
+                Vector3 deltaFromCaptureWorld =
+                    interactable.Surface.Transform.TransformVector(deltaFromCaptureLocal);
+                _maxDistanceFromFirstTouchPoint = Mathf.Max(deltaFromCaptureWorld.magnitude, _maxDistanceFromFirstTouchPoint);
 
-            Vector3 closestPoint = interactable.ComputeClosestPoint(Origin);
-            float distanceFromPoint = (closestPoint - Origin).magnitude;
+                float deltaAsPercent = 1;
+                if (SelectedInteractable.PositionPinning.MaxPinDistance != 0f)
+                {
+                    deltaAsPercent = Mathf.Clamp01(_maxDistanceFromFirstTouchPoint / SelectedInteractable.PositionPinning.MaxPinDistance);
+                }
+
+                pinnedTouchPointLocal = _firstTouchPointLocal + deltaFromCaptureLocal * deltaAsPercent;
+            }
+
+            float progress = _dragEaseCurve.Progress();
+            if (progress != 1f)
+            {
+                float deltaProgress = progress - _previousProgress;
+
+                Vector3 delta = pinnedTouchPointLocal - _easeTouchPointLocal;
+                _easeTouchPointLocal += deltaProgress / (1f - _previousProgress) * delta;
+                _previousProgress = progress;
+            }
+            else
+            {
+                _easeTouchPointLocal = pinnedTouchPointLocal;
+            }
+
+            TouchPoint =
+                interactable.Surface.Transform.TransformPoint(_easeTouchPointLocal);
+            TouchNormal = interactable.ClosestSurfaceNormal(TouchPoint);
+
+            _previousSurfacePointLocal = positionOnSurfaceLocal;
+
             if (interactable.ReleaseDistance > 0.0f)
             {
-                if (distanceFromPoint > interactable.ReleaseDistance)
+                if(ComputeDistanceFrom(interactable, Origin) > interactable.ReleaseDistance)
                 {
-                    GeneratePointerEvent(PointerEvent.Cancel, interactable);
+                    GeneratePointerEvent(PointerEventType.Cancel, interactable);
+                    _previousPokeOrigin = Origin;
                     _previousCandidate = null;
-                    _previousOrigin = Origin;
-                    ShouldUnselect = true;
+                    _hitInteractable = null;
                 }
             }
         }
 
         #region Inject
 
-        public void InjectAllPokeInteractor(Transform pointTransform)
+        public void InjectAllPokeInteractor(Transform pointTransform, float radius = 0.005f)
         {
             InjectPointTransform(pointTransform);
+            InjectRadius(radius);
         }
 
         public void InjectPointTransform(Transform pointTransform)
@@ -382,14 +545,19 @@ namespace Oculus.Interaction
             _pointTransform = pointTransform;
         }
 
+        public void InjectRadius(float radius)
+        {
+            _radius = radius;
+        }
+
         public void InjectOptionalTouchReleaseThreshold(float touchReleaseThreshold)
         {
             _touchReleaseThreshold = touchReleaseThreshold;
         }
 
-        public void InjectOptionDragStartCurve(ProgressCurve dragStartCurve)
+        public void InjectOptionalEqualDistanceThreshold(float equalDistanceThreshold)
         {
-            _dragStartCurve = dragStartCurve;
+            _equalDistanceThreshold = equalDistanceThreshold;
         }
 
         #endregion

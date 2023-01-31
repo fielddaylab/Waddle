@@ -1,21 +1,29 @@
-﻿/************************************************************************************
-Copyright : Copyright (c) Facebook Technologies, LLC and its affiliates. All rights reserved.
-
-Your use of this SDK or tool is subject to the Oculus SDK License Agreement, available at
-https://developer.oculus.com/licenses/oculussdk/
-
-Unless required by applicable law or agreed to in writing, the Utilities SDK distributed
-under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
-ANY KIND, either express or implied. See the License for the specific language governing
-permissions and limitations under the License.
-************************************************************************************/
+﻿/*
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ * All rights reserved.
+ *
+ * Licensed under the Oculus SDK License Agreement (the "License");
+ * you may not use the Oculus SDK except in compliance with the License,
+ * which is provided at the time of installation or download, or which
+ * otherwise accompanies this software in either electronic or hard copy form.
+ *
+ * You may obtain a copy of the License at
+ *
+ * https://developer.oculus.com/licenses/oculussdk/
+ *
+ * Unless required by applicable law or agreed to in writing, the Oculus SDK
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 using UnityEngine;
 using System;
 
 namespace Oculus.Interaction.Input
 {
-    public interface IHand
+    public interface IHand : IAspectProvider
     {
         Handedness Handedness { get; }
 
@@ -140,17 +148,6 @@ namespace Oculus.Interaction.Input
         /// Incremented every time the source tracking or state data changes.
         /// </summary>
         int CurrentDataVersion { get; }
-
-        /// <summary>
-        /// An Aspect provides additional functionality on top of what the HandState provides.
-        /// The underlying hand is responsible for finding the most appropriate component.
-        /// It is usually, but not necessarily, located within the same GameObject as the
-        /// underlying hand.
-        /// For example, this method can be used to source the SkinnedMeshRenderer representing the
-        /// hand, if one exists.
-        /// <returns>true if an aspect of the requested type was found, false otherwise</returns>
-        /// </summary>
-        bool GetHandAspect<TComponent>(out TComponent foundComponent) where TComponent : class;
 
         event Action WhenHandUpdated;
     }

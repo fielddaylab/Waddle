@@ -71,8 +71,8 @@ public class HandRaycast : MonoBehaviour
 	{
 		if(p == MenuPanel.eMAIN)
 		{
-			_surveyCodePanel.gameObject.SetActive(true);
-			_mainPanel.gameObject.SetActive(false);		
+			_surveyCodePanel.gameObject.SetActive(false);
+			_mainPanel.gameObject.SetActive(true);		
 		}
 		else if(p == MenuPanel.eSURVEY_CODE)
 		{
@@ -137,7 +137,8 @@ public class HandRaycast : MonoBehaviour
 				
 				//Debug.Log(_avgPosition.ToString("F3") + " " + _avgDirection.ToString("F3"));
 				
-				if(OVRInput.Get(OVRInput.Button.One, OVRInput.Controller.Hands))
+				//if(OVRInput.Get(OVRInput.Button.One))
+				if(_handTracker.GetFingerIsPinching(OVRHand.HandFinger.Index))
 				{
 					if(Physics.Raycast(_avgPosition, _avgDirection, out hitInfo, Mathf.Infinity, _mask, QueryTriggerInteraction.Ignore))
 					{
@@ -177,7 +178,7 @@ public class HandRaycast : MonoBehaviour
 						}
 					}
 				}
-				else if(OVRInput.GetUp(OVRInput.Button.One, OVRInput.Controller.Hands))
+				else if(OVRInput.GetUp(OVRInput.Button.One))
 				{
 					if(Physics.Raycast(_avgPosition, _avgDirection, out hitInfo, Mathf.Infinity, _mask, QueryTriggerInteraction.Ignore))
 					{

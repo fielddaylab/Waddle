@@ -1,14 +1,22 @@
-/************************************************************************************
-Copyright : Copyright (c) Facebook Technologies, LLC and its affiliates. All rights reserved.
-
-Your use of this SDK or tool is subject to the Oculus SDK License Agreement, available at
-https://developer.oculus.com/licenses/oculussdk/
-
-Unless required by applicable law or agreed to in writing, the Utilities SDK distributed
-under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
-ANY KIND, either express or implied. See the License for the specific language governing
-permissions and limitations under the License.
-************************************************************************************/
+/*
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ * All rights reserved.
+ *
+ * Licensed under the Oculus SDK License Agreement (the "License");
+ * you may not use the Oculus SDK except in compliance with the License,
+ * which is provided at the time of installation or download, or which
+ * otherwise accompanies this software in either electronic or hard copy form.
+ *
+ * You may obtain a copy of the License at
+ *
+ * https://developer.oculus.com/licenses/oculussdk/
+ *
+ * Unless required by applicable law or agreed to in writing, the Oculus SDK
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 using System;
 using UnityEngine;
@@ -140,8 +148,6 @@ public class OVRPlayerController : MonoBehaviour
 	/// </summary>
 	public bool RotationEitherThumbstick = false;
 
-	public bool OverrideOculusForward = false;
-	
 	protected CharacterController Controller = null;
 	protected OVRCameraRig CameraRig = null;
 
@@ -161,7 +167,6 @@ public class OVRPlayerController : MonoBehaviour
 	private bool ReadyToSnapTurn; // Set to true when a snap turn has occurred, code requires one frame of centered thumbstick to enable another snap turn.
 	private bool playerControllerEnabled = false;
 
-	
 	void Start()
 	{
 		// Add eye-depth as a camera offset from the player controller
@@ -224,27 +229,19 @@ public class OVRPlayerController : MonoBehaviour
 				playerControllerEnabled = true;
 			}
 			else
-			{
-#if UNITY_EDITOR
-				//Use keys to ratchet rotation
-				if (Input.GetKeyDown(KeyCode.Q))
-					buttonRotation -= RotationRatchet;
-
-				if (Input.GetKeyDown(KeyCode.E))
-					buttonRotation += RotationRatchet;
-				
-				UpdateTransform(CameraRig);
-#endif
-				
 				return;
-			}
 		}
+
+		//todo: enable for Unity Input System
+#if ENABLE_LEGACY_INPUT_MANAGER
+
 		//Use keys to ratchet rotation
 		if (Input.GetKeyDown(KeyCode.Q))
 			buttonRotation -= RotationRatchet;
 
 		if (Input.GetKeyDown(KeyCode.E))
 			buttonRotation += RotationRatchet;
+#endif
 	}
 
 	protected virtual void UpdateController()
@@ -263,17 +260,13 @@ public class OVRPlayerController : MonoBehaviour
 			}
 
 			var p = CameraRig.transform.localPosition;
-			if(OVRManager.instance != null)
+			if (OVRManager.instance.trackingOriginType == OVRManager.TrackingOrigin.EyeLevel)
 			{
-				if (OVRManager.instance.trackingOriginType == OVRManager.TrackingOrigin.EyeLevel)
-				{
-					p.y = OVRManager.profile.eyeHeight - (0.5f * Controller.height) + Controller.center.y;
-					p.y = p.y * transform.localScale.y;
-				}
-				else if (OVRManager.instance.trackingOriginType == OVRManager.TrackingOrigin.FloorLevel)
-				{
-					p.y = -(0.5f * Controller.height) + Controller.center.y;
-				}
+				p.y = OVRManager.profile.eyeHeight - (0.5f * Controller.height) + Controller.center.y;
+			}
+			else if (OVRManager.instance.trackingOriginType == OVRManager.TrackingOrigin.FloorLevel)
+			{
+				p.y = -(0.5f * Controller.height) + Controller.center.y;
 			}
 			CameraRig.transform.localPosition = p;
 		}
@@ -329,7 +322,7 @@ public class OVRPlayerController : MonoBehaviour
 		Vector3 predictedXZ = Vector3.Scale((Controller.transform.localPosition + moveDirection), new Vector3(1, 0, 1));
 
 		// Move contoller
-		//Controller.Move(moveDirection);
+		Controller.Move(moveDirection);
 		Vector3 actualXZ = Vector3.Scale(Controller.transform.localPosition, new Vector3(1, 0, 1));
 
 		if (predictedXZ != actualXZ)
@@ -342,6 +335,8 @@ public class OVRPlayerController : MonoBehaviour
 
 	public virtual void UpdateMovement()
 	{
+		//todo: enable for Unity Input System
+#if ENABLE_LEGACY_INPUT_MANAGER
 		if (HaltUpdateMovement)
 			return;
 
@@ -353,12 +348,7 @@ public class OVRPlayerController : MonoBehaviour
 			bool moveBack = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
 
 			bool dpad_move = false;
-			
-			if(OverrideOculusForward)
-			{
-				moveForward = true;
-			}
-			
+
 			if (OVRInput.Get(OVRInput.Button.DpadUp))
 			{
 				moveForward = true;
@@ -514,6 +504,7 @@ public class OVRPlayerController : MonoBehaviour
 				transform.RotateAround(CameraRig.centerEyeAnchor.position, Vector3.up, euler.y);
 			}
 		}
+#endif
 	}
 
 

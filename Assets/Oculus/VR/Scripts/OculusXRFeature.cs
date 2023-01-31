@@ -1,14 +1,22 @@
-/************************************************************************************
-Copyright : Copyright (c) Facebook Technologies, LLC and its affiliates. All rights reserved.
-
-Your use of this SDK or tool is subject to the Oculus SDK License Agreement, available at
-https://developer.oculus.com/licenses/oculussdk/
-
-Unless required by applicable law or agreed to in writing, the Utilities SDK distributed
-under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
-ANY KIND, either express or implied. See the License for the specific language governing
-permissions and limitations under the License.
-************************************************************************************/
+/*
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ * All rights reserved.
+ *
+ * Licensed under the Oculus SDK License Agreement (the "License");
+ * you may not use the Oculus SDK except in compliance with the License,
+ * which is provided at the time of installation or download, or which
+ * otherwise accompanies this software in either electronic or hard copy form.
+ *
+ * You may obtain a copy of the License at
+ *
+ * https://developer.oculus.com/licenses/oculussdk/
+ *
+ * Unless required by applicable law or agreed to in writing, the Oculus SDK
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 #if USING_XR_SDK_OPENXR
 
@@ -59,6 +67,12 @@ namespace Oculus.XR
 			"XR_FB_spatial_entity " +
 			"XR_FB_spatial_entity_query " +
 			"XR_FB_spatial_entity_storage " +
+			"XR_META_performance_metrics " +
+			"XR_FB_scene " +
+			"XR_FB_spatial_entity_container " +
+			"XR_FB_scene_capture " +
+			"XR_FB_face_tracking " +
+			"XR_FB_eye_tracking " +
 			"XR_FB_keyboard_tracking " +
 			"XR_FB_passthrough " +
 			"XR_FB_triangle_mesh " +
@@ -69,6 +83,8 @@ namespace Oculus.XR
 			"XR_FB_hand_tracking_capsules " +
 			"XR_FB_hand_tracking_mesh " +
 			"XR_FB_hand_tracking_aim " +
+			"XR_FB_touch_controller_pro " +
+			"XR_FB_touch_controller_extras " +
 			""
 			;
 	}

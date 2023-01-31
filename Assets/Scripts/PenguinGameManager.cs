@@ -115,7 +115,9 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	public void BeginTheGame(PenguinGameManager.GameMode mode)
 	{		
 		PenguinAnalytics.Instance.LogStartGame();
-
+		
+		PenguinPlayer.Instance.ResetGazeLogging();
+		
 		if(_gameMode == GameMode.ShowMode)
 		{
 			PenguinAnalytics.Instance.LogBeginMode("show_mode");
@@ -264,6 +266,8 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		PenguinPlayer.Instance.transform.position = _playerStartLocation.transform.position;
 				
 		PenguinAnalytics.Instance.LogStartGame();
+		
+		PenguinPlayer.Instance.ResetGazeLogging();
 		
 		if(_nestGame != null)
 		{
