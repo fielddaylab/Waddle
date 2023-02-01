@@ -3,29 +3,13 @@ using Firebase.Analytics;
 using UnityEngine;
 //using FieldDay;
 
-[System.Serializable]
-public class LogPosition
-{
-    public float xPos;
-    public float yPos;
-    public float zPos;
-}
-
-[System.Serializable]
-public class LogRotation
-{
-    public float xRot;
-    public float yRot;
-    public float zRot;
-    public float wRot;
-}
 
 [System.Serializable]
 public class LogGazeData
 {
-    public uint frame;
-    public LogPosition pos;
-    public LogRotation rot;
+    //public uint frame;
+    public string pos;
+    public string rot;
 }
 
 public class PenguinAnalytics : Singleton<PenguinAnalytics>
@@ -850,20 +834,11 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 				if(_viewportData[_viewportDataCount] == null)
 				{
 					_viewportData[_viewportDataCount] = new LogGazeData();
-					_viewportData[_viewportDataCount].pos = new LogPosition();
-					_viewportData[_viewportDataCount].rot = new LogRotation();
 				}
 
-				_viewportData[_viewportDataCount].pos.xPos = p.x;
-				_viewportData[_viewportDataCount].pos.yPos = p.y;
-				_viewportData[_viewportDataCount].pos.zPos = p.z;
-
-				_viewportData[_viewportDataCount].rot.xRot = q.x;
-				_viewportData[_viewportDataCount].rot.yRot = q.y;
-				_viewportData[_viewportDataCount].rot.zRot = q.z;
-				_viewportData[_viewportDataCount].rot.wRot = q.w;
-
-				_viewportData[_viewportDataCount].frame = gazeLogFrameCount;
+				_viewportData[_viewportDataCount].pos = (p.x.ToString("F3")+","+p.y.ToString("F3")+","+p.z.ToString("F3"));
+				_viewportData[_viewportDataCount].rot = (q.x.ToString("F3")+","+q.y.ToString("F3")+","+q.z.ToString("F3")+","+q.w.ToString("F3"));
+				//_viewportData[_viewportDataCount].frame = gazeLogFrameCount;
 				_viewportDataCount++;
 			}
 
