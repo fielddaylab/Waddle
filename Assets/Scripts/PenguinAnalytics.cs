@@ -31,10 +31,10 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
     int _numPebblesCollected = 0;
 
     int _viewportDataCount = 0;
-    const int MAX_VIEWPORT_DATA = 72;
+    const int MAX_VIEWPORT_DATA = 36;
     LogGazeData[] _viewportData = new LogGazeData[MAX_VIEWPORT_DATA];
 
-    private void Start()
+    void Start()
     {
         // Try to initialize Firebase and fix dependencies (will always be false in editor)
         // If successful, set FirebaseEnabled flag to true allowing analytics to be sent
@@ -50,10 +50,23 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 		});*/
 		
         Debug.Log("Starting analytics");
-		_ogdLog = new FieldDay.OGDLog(_DB_NAME, UnityEngine.Application.version);
+		FieldDay.OGDLogConsts c = new FieldDay.OGDLogConsts();
+		c.AppId = _DB_NAME;
+		c.AppVersion = UnityEngine.Application.version;
+		c.ClientLogVersion = logVersion;
+		_ogdLog = new FieldDay.OGDLog(c);
 		_ogdLog.UseFirebase(_firebase);
         //_ogdLog.SetDebug(true);
     }
+	
+	void OnDestroy()
+	{
+		if(_ogdLog != null)
+		{
+			_ogdLog.Dispose();
+			_ogdLog = null;
+		}
+	}
 
     private void LogGazeGameState()
     {
@@ -825,7 +838,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
         }
     }
 
-	public void LogGaze(Vector3 p, Quaternion q, uint gazeLogFrameCount, bool sendToServer=false)//, string scene)
+	public bool LogGaze(Vector3 p, Quaternion q, uint gazeLogFrameCount, bool sendToServer=false)//, string scene)
 	{
 		if(_loggingEnabled)
 		{
@@ -841,6 +854,10 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 				//_viewportData[_viewportDataCount].frame = gazeLogFrameCount;
 				_viewportDataCount++;
 			}
+			else
+			{
+				sendToServer = true;
+			}
 
             if(sendToServer)
             {
@@ -849,7 +866,9 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
                 {
                     gazeData += JsonUtility.ToJson(_viewportData[i]);
                 }
-
+				
+				//Debug.Log(gazeLogFrameCount);
+				//Debug.Log(_viewportDataCount);
                 //Debug.Log(gazeData);
                 _ogdLog.BeginEvent("viewport_data");
                 _ogdLog.EventParam("gaze_data_package", gazeData);
@@ -861,9 +880,11 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
                 _ogdLog.SubmitGameState();
 
                 _viewportDataCount = 0;
+				return true;
             }
 		}
-
+		
+		return false;
 		/*if (FirebaseEnabled)
         {
             FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelStart, new Parameter(FirebaseAnalytics.ParameterLevelName, "antarctica"), new Parameter("start", UnityEngine.Time.time-seconds_from_start));

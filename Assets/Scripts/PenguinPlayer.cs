@@ -379,7 +379,11 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 				Quaternion quat = Quaternion.identity;
 				GetGaze(out pos, out quat);
 
-				PenguinAnalytics.Instance.LogGaze(pos, quat, _gazeLogFrameCount);
+				bool sentData = PenguinAnalytics.Instance.LogGaze(pos, quat, _gazeLogFrameCount);
+				if(sentData)
+				{
+					_gazeLogTimer = t;
+				}
 			}
 			
 			_gazeLogFrameCount++;
