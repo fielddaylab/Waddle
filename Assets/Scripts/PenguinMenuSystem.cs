@@ -32,6 +32,9 @@ public class PenguinMenuSystem : Singleton<PenguinMenuSystem>
 	[SerializeField]
 	GameObject _titleText;
 	
+	[SerializeField]
+	GameObject _versionText;
+	
 	MenuType _currentType = MenuType.MainMenu;
 	
 	Vector3 _menuOffset = new Vector3(0.0f, 0.5f, 0.0f);
@@ -39,7 +42,10 @@ public class PenguinMenuSystem : Singleton<PenguinMenuSystem>
     // Start is called before the first frame update
     void Start()
     {
-        
+		if(_versionText != null)
+		{
+			_versionText.GetComponent<TMPro.TextMeshPro>().text = "Version: " + UnityEngine.Application.version.ToString() + "-" + PenguinAnalytics.logVersion.ToString();
+		}
     }
 
     // Update is called once per frame
