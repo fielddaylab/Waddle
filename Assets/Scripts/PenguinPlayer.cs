@@ -35,6 +35,12 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 	GameObject _centerEye;
 	
 	[SerializeField]
+	GameObject _leftHand;
+	
+	[SerializeField]
+	GameObject _rightHand;
+	
+	[SerializeField]
 	LayerMask _mask;
 	
 	LineRenderer _lineRenderer;
@@ -89,6 +95,36 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		if(Physics.Raycast(rayStart, rayDir, out hitInfo, Mathf.Infinity, _mask, QueryTriggerInteraction.Ignore))
 		{
 			gazeObject = hitInfo.collider.gameObject;
+		}
+	}
+	
+	public void GetHandTransform(bool leftHand, out Vector3 pos, out Quaternion rot)
+	{
+		if(leftHand)
+		{
+			if(_leftHand != null)
+			{
+				pos = _leftHand.transform.position;
+				rot = _leftHand.transform.rotation;
+			}
+			else
+			{
+				pos = Vector3.zero;
+				rot = Quaternion.identity;
+			}
+		}
+		else
+		{
+			if(_rightHand != null)
+			{
+				pos = _rightHand.transform.position;
+				rot = _rightHand.transform.rotation;
+			}
+			else
+			{
+				pos = Vector3.zero;
+				rot = Quaternion.identity;	
+			}
 		}
 	}
 	
