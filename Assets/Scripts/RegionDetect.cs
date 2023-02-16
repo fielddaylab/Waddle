@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class RegionDetect : MonoBehaviour
 {
+	[SerializeField]
+	bool _isInnerRegion = false;
+	
     // Start is called before the first frame update
     void Start()
     {
@@ -18,19 +21,27 @@ public class RegionDetect : MonoBehaviour
 	
 	void OnTriggerEnter(Collider otherCollider)
 	{
-		if(otherCollider.gameObject.name == "AdelieBody")
+		if(_isInnerRegion)
 		{
-			//Debug.Log(gameObject.name);
-			PenguinAnalytics.Instance.LogEnterRegion(gameObject.name);
+			if(otherCollider.gameObject.name == "AdelieBody")
+			{
+				//Debug.Log(gameObject.name);
+				PenguinAnalytics.Instance.LogEnterRegion(gameObject.name);
+				PenguinPlayer.Instance.CurrentRegion = gameObject.name;
+			}
 		}
 	}
 	
 	void OnTriggerExit(Collider otherCollider)
 	{
-		if(otherCollider.gameObject.name == "AdelieBody")
+		if(!_isInnerRegion)
 		{
-			//Debug.Log("Leaving " + gameObject.name);
-			PenguinAnalytics.Instance.LogExitRegion(gameObject.name);
+			if(otherCollider.gameObject.name == "AdelieBody")
+			{
+				//Debug.Log("Leaving " + gameObject.name);
+				PenguinAnalytics.Instance.LogExitRegion(gameObject.name);
+				PenguinPlayer.Instance.CurrentRegion = "none";
+			}
 		}
 	}
 }

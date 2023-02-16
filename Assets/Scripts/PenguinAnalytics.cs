@@ -15,7 +15,7 @@ public class LogGazeData
 public class PenguinAnalytics : Singleton<PenguinAnalytics>
 {
 	public static bool FirebaseEnabled { get; set; }
-    public static int logVersion = 1;
+    public static int logVersion = 2;
     
 	static string _DB_NAME = "PENGUINS";
 	
@@ -82,7 +82,14 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
         _ogdLog.GameStateParam("rotY", quat.y);
         _ogdLog.GameStateParam("rotZ", quat.z);
         _ogdLog.GameStateParam("rotW", quat.w);
+		
+		LogCurrentRegion();
     }
+	
+	private void LogCurrentRegion()
+	{
+		_ogdLog.GameStateParam("current_region", PenguinPlayer.Instance.CurrentRegion);
+	}
 
     #region Logging
 
@@ -96,6 +103,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 
             _ogdLog.BeginGameState();
             _ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+			LogGazeGameState();
             _ogdLog.SubmitGameState();
 		}
 	}
@@ -130,6 +138,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 
             _ogdLog.BeginGameState();
             _ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+			LogGazeGameState();
             _ogdLog.SubmitGameState();
         }
 		/*if (FirebaseEnabled)
@@ -148,6 +157,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 
             _ogdLog.BeginGameState();
             _ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+			LogGazeGameState();
             _ogdLog.SubmitGameState();
         }
 		/*if (FirebaseEnabled)
@@ -166,6 +176,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 
             _ogdLog.BeginGameState();
             _ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+			LogGazeGameState();
             _ogdLog.SubmitGameState();
 		}
         /*if(FirebaseEnabled)
@@ -184,6 +195,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 
             _ogdLog.BeginGameState();
             _ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+			LogGazeGameState();
             _ogdLog.SubmitGameState();
 		}
         /*if(FirebaseEnabled)
@@ -204,6 +216,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 
             _ogdLog.BeginGameState();
             _ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+			LogGazeGameState();
             _ogdLog.SubmitGameState();
 		}
         /*if(FirebaseEnabled)
@@ -223,6 +236,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 
             _ogdLog.BeginGameState();
             _ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+			LogGazeGameState();
             _ogdLog.SubmitGameState();
         }
         /*if(FirebaseEnabled)
@@ -242,6 +256,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 
             _ogdLog.BeginGameState();
             _ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+			LogCurrentRegion();
             _ogdLog.SubmitGameState();
 		}
 	}
@@ -836,6 +851,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 
             _ogdLog.BeginGameState();
             _ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+			LogCurrentRegion();
             _ogdLog.SubmitGameState();
         }
     }

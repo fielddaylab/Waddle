@@ -53,12 +53,18 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 	GameObject _lastGazeObject = null;
 	float _gazeTimer = 0f;
 	const float GAZE_TIMER_SEND = 0.5f;
-	string _currentRegion = "";
 	
 	const float GAZE_LOG_TIMER_SEND = 1.0f;
 	float _gazeLogTimer = 0f;
 	uint _gazeLogFrameCount = 0;
+	string _currentRegion = "none";
 
+	public string CurrentRegion
+	{
+		get { return _currentRegion; }
+		set { _currentRegion = value; }
+	}
+	
     // Start is called before the first frame update
     void Start()
     {
