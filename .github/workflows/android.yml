@@ -52,9 +52,15 @@ jobs:
       run: echo "VERSION=$(echo ${GITHUB_REF#refs/tags/} | sed 's/\//_/g')" >> $GITHUB_ENV
         
     # Unity Build Steps
-    - name: Free up 24GB of disk space
-      run: sudo rm -rf /usr/share/dotnet
-      
+    - name: Free Disk Space for Android
+      run: |
+          sudo swapoff -a
+          sudo rm -f /swapfile
+          sudo rm -rf /usr/share/dotnet
+          sudo apt clean
+          docker rmi $(docker images -q)
+          df -h
+          
     - name: Cache Library folder
       uses: actions/cache@v2
       with:
