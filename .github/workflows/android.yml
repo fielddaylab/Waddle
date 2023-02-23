@@ -22,12 +22,7 @@ jobs:
     # Setup Steps
 
     steps:
-    - name: Maximize build space
-      uses: easimon/maximize-build-space@master
-      with:
-        root-reserve-mb: 512
-        swap-size-mb: 1024
-        remove-dotnet: 'true'
+
     #- name: Install OpenConnect
     #  run: sudo add-apt-repository ppa:phusen/openconnect && sudo apt-get update && sudo apt-get install openconnect
       
@@ -57,7 +52,9 @@ jobs:
       run: echo "VERSION=$(echo ${GITHUB_REF#refs/tags/} | sed 's/\//_/g')" >> $GITHUB_ENV
         
     # Unity Build Steps
-
+    - name: Free up 24GB of disk space
+      run: sudo rm -rf /usr/share/dotnet
+      
     - name: Cache Library folder
       uses: actions/cache@v2
       with:
