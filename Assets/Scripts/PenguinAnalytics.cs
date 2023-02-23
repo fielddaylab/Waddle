@@ -15,7 +15,7 @@ public class LogGazeData
 public class PenguinAnalytics : Singleton<PenguinAnalytics>
 {
 	public static bool FirebaseEnabled { get; set; }
-    public static int logVersion = 2;
+    public static int logVersion = 3;
     
 	static string _DB_NAME = "PENGUINS";
 	
@@ -57,7 +57,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 		c.AppVersion = UnityEngine.Application.version;
 		c.ClientLogVersion = logVersion;
 		_ogdLog = new FieldDay.OGDLog(c);
-		_ogdLog.UseFirebase(_firebase);
+		//_ogdLog.UseFirebase(_firebase);
         //_ogdLog.SetDebug(true);
     }
 	
@@ -117,6 +117,15 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 
             _ogdLog.BeginGameState();
             _ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+            _ogdLog.GameStateParam("posX", 0f);
+            _ogdLog.GameStateParam("posY", 0f);
+            _ogdLog.GameStateParam("posZ", 0f);
+            _ogdLog.GameStateParam("rotX", 0f);
+            _ogdLog.GameStateParam("rotY", 0f);
+            _ogdLog.GameStateParam("rotZ", 0f);
+            _ogdLog.GameStateParam("rotW", 1f);
+            
+            LogCurrentRegion("none");
             _ogdLog.SubmitGameState();
         }
 		/*if (FirebaseEnabled)
@@ -333,7 +342,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 
             _ogdLog.BeginGameState();
             _ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
-            _ogdLog.GameStateParam("scene_name", scene);
+            //_ogdLog.GameStateParam("scene_name", scene);
             LogGazeGameState();
             _ogdLog.SubmitGameState();
         }
@@ -917,6 +926,11 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
                 _ogdLog.EventParam("gaze_data_package", gazeData);
                 _ogdLog.SubmitEvent();
 
+                _ogdLog.BeginGameState();
+                _ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+                LogGazeGameState();
+                _ogdLog.SubmitGameState();
+
 				string leftData = "";
                 for(int i = 0; i < _viewportDataCount; ++i)
                 {
@@ -927,6 +941,11 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
                 _ogdLog.EventParam("left_hand_data_package", leftData);
                 _ogdLog.SubmitEvent();
 				
+                _ogdLog.BeginGameState();
+                _ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_from_start);
+                LogGazeGameState();
+                _ogdLog.SubmitGameState();
+
 				string rightData = "";
                 for(int i = 0; i < _viewportDataCount; ++i)
                 {
