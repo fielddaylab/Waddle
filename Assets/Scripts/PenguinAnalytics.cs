@@ -125,7 +125,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
             _ogdLog.GameStateParam("rotZ", 0f);
             _ogdLog.GameStateParam("rotW", 1f);
             
-            LogCurrentRegion("none");
+            _ogdLog.GameStateParam("current_region", "none");
             _ogdLog.SubmitGameState();
         }
 		/*if (FirebaseEnabled)
