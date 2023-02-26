@@ -52,6 +52,7 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 
 	GameObject _lastGazeObject = null;
 	float _gazeTimer = 0f;
+	bool _gazeBegan = false;
 	const float GAZE_TIMER_SEND = 0.5f;
 	
 	const float GAZE_LOG_TIMER_SEND = 1.0f;
@@ -353,61 +354,67 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 				}
 			}
 		}
-
+		
 		float t = UnityEngine.Time.time;
-		//this gaze is for objects...
-		if(t - _gazeTimer > GAZE_TIMER_SEND)
+
+		Vector3 pos = Vector3.zero;
+		Quaternion quat = Quaternion.identity;
+		GetGaze(out pos, out quat);
+
+		//check if we're in a certain region here...
+	
+		GameObject gazeObject = null;
+		GazeRaycast(pos, _centerEye.transform.forward, out gazeObject);
+		
+		if(gazeObject != null)
 		{
-			_gazeTimer = t;
-			Vector3 pos = Vector3.zero;
-			Quaternion quat = Quaternion.identity;
-			GetGaze(out pos, out quat);
-
-			//PenguinAnalytics.Instance.LogGaze(pos, quat, true);
-
-			//check if we're in a certain region here...
-
-			GameObject gazeObject = null;
-			GazeRaycast(pos, _centerEye.transform.forward, out gazeObject);
-			
-			if(gazeObject != null)
-			{
-				if(gazeObject != _lastGazeObject)
-				{
-					if(_lastGazeObject != null)
-					{
-						//end gaze log
-						PenguinAnalytics.Instance.LogGazeEnd(gazeObject.name);
-					}
-					
-					_lastGazeObject = gazeObject;
-					
-					PenguinAnalytics.Instance.LogGazeBegin(gazeObject.name);
-				}
-				else
-				{
-					//log begin gaze new object - if we reach here it means we've been gazing on it for at least GAZE_TIMER_SEND seconds...
-					PenguinAnalytics.Instance.LogGazeBegin(gazeObject.name);
-				}
-			}
-			else
+			if(gazeObject != _lastGazeObject)
 			{
 				if(_lastGazeObject != null)
 				{
-					//log end gaze...
+					//end gaze log
 					PenguinAnalytics.Instance.LogGazeEnd(_lastGazeObject.name);
-					_lastGazeObject = null;
+					_gazeBegan = false;
+				}
+				
+				_lastGazeObject = gazeObject;
+				_gazeTimer = UnityEngine.Time.time;
+				//PenguinAnalytics.Instance.LogGazeBegin(gazeObject.name);
+			}
+
+			//log begin gaze new object - if we reach here it means we've been gazing on it for at least GAZE_TIMER_SEND seconds...
+			//we only want to call this once though...
+			
+			//this gaze is for objects...
+			if(t - _gazeTimer > GAZE_TIMER_SEND)
+			{
+				_gazeTimer = t;
+				if(!_gazeBegan)
+				{
+					PenguinAnalytics.Instance.LogGazeBegin(gazeObject.name);
+					_gazeBegan = true;
 				}
 			}
 		}
+		else
+		{
+			if(_lastGazeObject != null)
+			{
+				//log end gaze...
+				if(_gazeBegan)
+				{
+					PenguinAnalytics.Instance.LogGazeEnd(_lastGazeObject.name);
+					_gazeBegan = false;
+				}
+				
+				_lastGazeObject = null;
+			}
+		}
+		
 		
 		if(t - _gazeLogTimer > GAZE_LOG_TIMER_SEND)
 		{
 			_gazeLogTimer = t;
-			
-			Vector3 pos = Vector3.zero;
-			Quaternion quat = Quaternion.identity;
-			GetGaze(out pos, out quat);
 
 			PenguinAnalytics.Instance.LogGaze(pos, quat, _gazeLogFrameCount, true);
 			
@@ -417,10 +424,6 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		{
 			if(_gazeLogFrameCount % 2 == 0)
 			{
-				Vector3 pos = Vector3.zero;
-				Quaternion quat = Quaternion.identity;
-				GetGaze(out pos, out quat);
-
 				bool sentData = PenguinAnalytics.Instance.LogGaze(pos, quat, _gazeLogFrameCount);
 				if(sentData)
 				{
