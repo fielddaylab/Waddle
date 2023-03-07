@@ -7,10 +7,11 @@ public class RegionDetect : MonoBehaviour
 	[SerializeField]
 	bool _isInnerRegion = false;
 	
+	bool _isInRegion = false;
     // Start is called before the first frame update
     void Start()
     {
-        
+        _isInRegion = false;
     }
 
     // Update is called once per frame
@@ -21,13 +22,14 @@ public class RegionDetect : MonoBehaviour
 	
 	void OnTriggerEnter(Collider otherCollider)
 	{
-		if(_isInnerRegion)
+		if(_isInnerRegion && !_isInRegion)
 		{
 			if(otherCollider.gameObject.name == "AdelieBody")
 			{
 				//Debug.Log(gameObject.name);
 				PenguinAnalytics.Instance.LogEnterRegion(gameObject.name);
 				PenguinPlayer.Instance.CurrentRegion = gameObject.name;
+				_isInRegion = true;
 			}
 		}
 	}
@@ -41,6 +43,7 @@ public class RegionDetect : MonoBehaviour
 				//Debug.Log("Leaving " + gameObject.name);
 				PenguinAnalytics.Instance.LogExitRegion(gameObject.name);
 				PenguinPlayer.Instance.CurrentRegion = "none";
+				_isInRegion = false;
 			}
 		}
 	}

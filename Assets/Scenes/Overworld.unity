@@ -391,7 +391,7 @@ GameObject:
   - component: {fileID: 60335991}
   - component: {fileID: 60335992}
   m_Layer: 22
-  m_Name: MatingDOuter
+  m_Name: MatingD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -423,8 +423,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.3231316, y: 5.9271455, z: 5.2359924}
-  m_Center: {x: 23.471983, y: 2.4635732, z: 51.712646}
+  m_Size: {x: 3.0225735, y: 5.9271455, z: 5.2359924}
+  m_Center: {x: 23.321705, y: 2.4635732, z: 51.712646}
 --- !u!114 &60335992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -846,7 +846,7 @@ GameObject:
   - component: {fileID: 108524125}
   - component: {fileID: 108524124}
   m_Layer: 22
-  m_Name: ProtectNestInner
+  m_Name: ProtectNest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1029,7 +1029,7 @@ GameObject:
   - component: {fileID: 121839778}
   - component: {fileID: 121839779}
   m_Layer: 22
-  m_Name: BridgeOuter
+  m_Name: Bridge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1061,8 +1061,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.089059, y: 5.9271455, z: 6.212097}
-  m_Center: {x: 16.745901, y: 2.4635732, z: 54.406204}
+  m_Size: {x: 3.7945051, y: 5.9271455, z: 6.212097}
+  m_Center: {x: 16.893175, y: 2.4635732, z: 54.406204}
 --- !u!114 &121839779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1155,7 +1155,7 @@ GameObject:
   - component: {fileID: 146031243}
   - component: {fileID: 146031242}
   m_Layer: 22
-  m_Name: SnowballBowlingOuter
+  m_Name: SnowballBowling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1200,8 +1200,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 6.648407, y: 5.9271455, z: 4.8235855}
-  m_Center: {x: 11.440008, y: 2.4635732, z: 59.964878}
+  m_Size: {x: 6.648407, y: 5.9271455, z: 3.6238365}
+  m_Center: {x: 11.440008, y: 2.4635732, z: 59.365005}
 --- !u!1 &156537452
 GameObject:
   m_ObjectHideFlags: 0
@@ -1305,7 +1305,7 @@ GameObject:
   - component: {fileID: 160685283}
   - component: {fileID: 160685284}
   m_Layer: 22
-  m_Name: SnowballBowlingInner
+  m_Name: SnowballBowling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1337,8 +1337,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.491331, y: 5.9271455, z: 3.2262611}
-  m_Center: {x: 11.395303, y: 2.4635732, z: 59.8062}
+  m_Size: {x: 5.491331, y: 5.9271455, z: 2.35363}
+  m_Center: {x: 11.395303, y: 2.4635732, z: 59.369884}
 --- !u!114 &160685284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1966,7 +1966,7 @@ GameObject:
   - component: {fileID: 269577524}
   - component: {fileID: 269577525}
   m_Layer: 22
-  m_Name: ProtectNestPathOuter
+  m_Name: ProtectNestPath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1998,8 +1998,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.6874905, y: 5.9271455, z: 5.2359924}
-  m_Center: {x: 26.436329, y: 2.4635732, z: 51.712646}
+  m_Size: {x: 2.4507313, y: 5.9271455, z: 5.2359924}
+  m_Center: {x: 26.317947, y: 2.4635732, z: 51.712646}
 --- !u!114 &269577525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2297,7 +2297,7 @@ GameObject:
   - component: {fileID: 399227733}
   - component: {fileID: 399227734}
   m_Layer: 22
-  m_Name: EntranceInner
+  m_Name: Entrance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3764,11 +3764,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.74887824
+      value: 0.6476871
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.6627076
+      value: 0.76190645
       objectReference: {fileID: 0}
     - target: {fileID: 6861165212368088839, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_Size
@@ -4218,7 +4218,7 @@ GameObject:
   - component: {fileID: 480290185}
   - component: {fileID: 480290186}
   m_Layer: 22
-  m_Name: ChimesOuter
+  m_Name: Chimes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4250,8 +4250,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.142971, y: 5.9271455, z: 4.8235855}
-  m_Center: {x: 16.470858, y: 2.4635732, z: 59.964878}
+  m_Size: {x: 3.142971, y: 5.9271455, z: 4.716961}
+  m_Center: {x: 16.470858, y: 2.4635732, z: 60.01819}
 --- !u!114 &480290186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4277,7 +4277,7 @@ GameObject:
   - component: {fileID: 493456448}
   - component: {fileID: 493456447}
   m_Layer: 22
-  m_Name: ChimesInner
+  m_Name: Chimes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4394,7 +4394,7 @@ GameObject:
   - component: {fileID: 524765773}
   - component: {fileID: 524765772}
   m_Layer: 22
-  m_Name: MatingDInner
+  m_Name: MatingD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4465,7 +4465,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 537049238}
-  m_LocalRotation: {x: 0.011358059, y: 0.5726601, z: 0.013039167, w: 0.8196106}
+  m_LocalRotation: {x: 0.010181186, y: 0.6417619, z: 0.013977441, w: 0.76670897}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.15274511, y: 0.10162681, z: 0.10315122}
   m_ConstrainProportionsScale: 0
@@ -6852,7 +6852,7 @@ GameObject:
   - component: {fileID: 913709335}
   - component: {fileID: 913709334}
   m_Layer: 22
-  m_Name: MirrorOuter
+  m_Name: Mirror
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6897,8 +6897,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.484158, y: 2.1908154, z: 1.884037}
-  m_Center: {x: -0.13505173, y: 2.4364595, z: 56.652397}
+  m_Size: {x: 2.025289, y: 2.1908154, z: 1.8840332}
+  m_Center: {x: -0.36448625, y: 2.4364595, z: 56.652397}
 --- !u!1 &945393856
 GameObject:
   m_ObjectHideFlags: 0
@@ -6911,7 +6911,7 @@ GameObject:
   - component: {fileID: 945393859}
   - component: {fileID: 945393858}
   m_Layer: 22
-  m_Name: HillDownInner
+  m_Name: HillDown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7817,7 +7817,7 @@ GameObject:
   - component: {fileID: 1068387574}
   - component: {fileID: 1068387575}
   m_Layer: 22
-  m_Name: HillUpInner
+  m_Name: HillUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8534,7 +8534,7 @@ GameObject:
   - component: {fileID: 1121796237}
   - component: {fileID: 1121796236}
   m_Layer: 22
-  m_Name: HillUpOuter
+  m_Name: HillUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8935,7 +8935,7 @@ GameObject:
   - component: {fileID: 1143325868}
   - component: {fileID: 1143325867}
   m_Layer: 22
-  m_Name: ProtectNestPathInner
+  m_Name: ProtectNestPath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9514,7 +9514,7 @@ GameObject:
   - component: {fileID: 1305884047}
   - component: {fileID: 1305884048}
   m_Layer: 22
-  m_Name: ProtectNestOuter
+  m_Name: ProtectNest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9635,7 +9635,7 @@ GameObject:
   - component: {fileID: 1323286622}
   - component: {fileID: 1323286621}
   m_Layer: 22
-  m_Name: MatingDPathInner
+  m_Name: MatingDPath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9680,8 +9680,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.2261734, y: 5.9271455, z: 2.6628952}
-  m_Center: {x: 20.383461, y: 2.4635732, z: 51.92451}
+  m_Size: {x: 2.1011333, y: 5.9271455, z: 2.6628952}
+  m_Center: {x: 20.320942, y: 2.4635732, z: 51.92451}
 --- !u!1 &1324811581
 GameObject:
   m_ObjectHideFlags: 0
@@ -11536,7 +11536,7 @@ GameObject:
   - component: {fileID: 1522866795}
   - component: {fileID: 1522866796}
   m_Layer: 22
-  m_Name: HillDownOuter
+  m_Name: HillDown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11568,8 +11568,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 6.648407, y: 5.9271455, z: 4.4184875}
-  m_Center: {x: 11.440008, y: 2.4635732, z: 55.30301}
+  m_Size: {x: 6.648407, y: 5.9271455, z: 4.223217}
+  m_Center: {x: 11.440008, y: 2.4635732, z: 55.205376}
 --- !u!114 &1522866796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12026,7 +12026,7 @@ GameObject:
   - component: {fileID: 1641743465}
   - component: {fileID: 1641743466}
   m_Layer: 22
-  m_Name: MirrorInner
+  m_Name: Mirror
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12058,8 +12058,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.8493509, y: 2.1908154, z: 1.3719635}
-  m_Center: {x: -0.12459087, y: 2.4364595, z: 56.6893}
+  m_Size: {x: 1.4510095, y: 2.1908154, z: 1.3719635}
+  m_Center: {x: -0.32376155, y: 2.4364595, z: 56.6893}
 --- !u!114 &1641743466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12751,7 +12751,7 @@ GameObject:
   - component: {fileID: 1739553211}
   - component: {fileID: 1739553210}
   m_Layer: 22
-  m_Name: EntranceOuter
+  m_Name: Entrance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14047,7 +14047,7 @@ GameObject:
   - component: {fileID: 1996693243}
   - component: {fileID: 1996693242}
   m_Layer: 22
-  m_Name: BridgeInner
+  m_Name: Bridge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14375,7 +14375,7 @@ GameObject:
   - component: {fileID: 2068121626}
   - component: {fileID: 2068121627}
   m_Layer: 22
-  m_Name: MatingDPathOuter
+  m_Name: MatingDPath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14407,8 +14407,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.1129913, y: 5.9271455, z: 3.8210144}
-  m_Center: {x: 20.452251, y: 2.4635732, z: 51.873795}
+  m_Size: {x: 2.6049442, y: 5.9271455, z: 3.8210144}
+  m_Center: {x: 20.198227, y: 2.4635732, z: 51.873795}
 --- !u!114 &2068121627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15260,11 +15260,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7316494
+      value: 0.6695444
       objectReference: {fileID: 0}
     - target: {fileID: 6711105962089610614, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.6816811
+      value: 0.74277204
       objectReference: {fileID: 0}
     - target: {fileID: 7496492113157597932, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: _sceneName
