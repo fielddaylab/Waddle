@@ -27,8 +27,8 @@ public class RegionDetect : MonoBehaviour
 			if(otherCollider.gameObject.name == "AdelieBody")
 			{
 				//Debug.Log(gameObject.name);
-				PenguinAnalytics.Instance.LogEnterRegion(gameObject.name);
 				PenguinPlayer.Instance.CurrentRegion = gameObject.name;
+				PenguinAnalytics.Instance.LogEnterRegion(gameObject.name);
 				_isInRegion = true;
 			}
 		}
