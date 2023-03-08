@@ -53,14 +53,15 @@ jobs:
         
     # Unity Build Steps
     - name: Free Disk Space for Android
-      run: .github/workflows/scripts/free_disk_space.sh
-      #|
-          #sudo swapoff -a
-          #sudo rm -f /swapfile
-          #sudo rm -rf /usr/share/dotnet
-          #sudo apt clean
-          #docker rmi $(docker images -q)
-          #df -h
+      run: |
+          sudo swapoff -a
+          sudo rm -f /swapfile
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/share/boost
+          sudo rm -rf $AGENT_TOOLSDIRECTORY
+          sudo apt clean
+          docker rmi $(docker images -q)
+          df -h
           
     - name: Cache Library folder
       uses: actions/cache@v2
