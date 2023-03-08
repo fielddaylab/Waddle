@@ -53,13 +53,14 @@ jobs:
         
     # Unity Build Steps
     - name: Free Disk Space for Android
-      run: |
-          sudo swapoff -a
-          sudo rm -f /swapfile
-          sudo rm -rf /usr/share/dotnet
-          sudo apt clean
-          docker rmi $(docker images -q)
-          df -h
+      run: .github/workflows/scripts/free_disk_space.sh
+      #|
+          #sudo swapoff -a
+          #sudo rm -f /swapfile
+          #sudo rm -rf /usr/share/dotnet
+          #sudo apt clean
+          #docker rmi $(docker images -q)
+          #df -h
           
     - name: Cache Library folder
       uses: actions/cache@v2
@@ -95,7 +96,7 @@ jobs:
     #  run: mkdir -p /github/workspace/Assets/release
     
     - name: Copy file
-      uses: canastro/copy-action@0.0.2
+      uses: canastro/copy-file-action@master
       with:
         source: build/Android/Android.apk
         target: /github/workspace/Release/PenguinsVR.apk
