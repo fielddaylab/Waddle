@@ -60,7 +60,6 @@ jobs:
           sudo rm -rf /usr/local/share/boost
           sudo rm -rf $AGENT_TOOLSDIRECTORY
           sudo apt clean
-          docker rmi $(docker images -q)
           df -h
           
     - name: Cache Library folder
