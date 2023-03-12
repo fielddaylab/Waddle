@@ -452,7 +452,7 @@ namespace Oculus.Platform
     public virtual MatchmakingEnqueueResult GetMatchmakingEnqueueResult() { return null; }
     public virtual MatchmakingEnqueueResultAndRoom GetMatchmakingEnqueueResultAndRoom() { return null; }
     public virtual MatchmakingStats GetMatchmakingStats() { return null; }
-    public virtual MicrophoneAvailabilityState GetMicrophoneAvailabilityState() { return null; }
+    //public virtual MicrophoneAvailabilityState GetMicrophoneAvailabilityState() { return null; }
     public virtual NetSyncConnection GetNetSyncConnection() { return null; }
     public virtual NetSyncSessionList GetNetSyncSessionList() { return null; }
     public virtual NetSyncSessionsChangedNotification GetNetSyncSessionsChangedNotification() { return null; }
@@ -739,9 +739,9 @@ namespace Oculus.Platform
           message = new MessageWithMatchmakingStatsUnderMatchmakingStats(messageHandle);
           break;
 
-        case Message.MessageType.Voip_GetMicrophoneAvailability:
-          message = new MessageWithMicrophoneAvailabilityState(messageHandle);
-          break;
+        //case Message.MessageType.Voip_GetMicrophoneAvailability:
+        //  message = new MessageWithMicrophoneAvailabilityState(messageHandle);
+        //  break;
 
         case Message.MessageType.Notification_NetSync_ConnectionStatusChanged:
           message = new MessageWithNetSyncConnection(messageHandle);
@@ -1532,7 +1532,7 @@ namespace Oculus.Platform
     }
 
   }
-  public class MessageWithMicrophoneAvailabilityState : Message<MicrophoneAvailabilityState>
+  /*public class MessageWithMicrophoneAvailabilityState : Message<MicrophoneAvailabilityState>
   {
     public MessageWithMicrophoneAvailabilityState(IntPtr c_message) : base(c_message) { }
     public override MicrophoneAvailabilityState GetMicrophoneAvailabilityState() { return Data; }
@@ -1543,7 +1543,7 @@ namespace Oculus.Platform
       return new MicrophoneAvailabilityState(obj);
     }
 
-  }
+  }*/
   public class MessageWithNetSyncConnection : Message<NetSyncConnection>
   {
     public MessageWithNetSyncConnection(IntPtr c_message) : base(c_message) { }

@@ -3281,7 +3281,7 @@ namespace Oculus.Platform
     /// Gets whether the microphone is currently available to the app. This can be
     /// used to show if the user's voice is able to be heard by other users.
     ///
-    public static Request<Models.MicrophoneAvailabilityState> GetMicrophoneAvailability()
+    /*public static Request<Models.MicrophoneAvailabilityState> GetMicrophoneAvailability()
     {
       if (Core.IsInitialized())
       {
@@ -3290,7 +3290,7 @@ namespace Oculus.Platform
 
       Debug.LogError(Oculus.Platform.Core.PlatformUninitializedError);
       return null;
-    }
+    }*/
 
     /// Sets whether SystemVoip should be suppressed so that this app's Voip can
     /// use the mic and play incoming Voip audio. Once microphone switching
