@@ -34,6 +34,24 @@ public class RegionDetect : MonoBehaviour
 		}
 	}
 	
+	void OnTriggerStay(Collider otherCollider)
+	{
+		if(_isInnerRegion && !_isInRegion)
+		{
+			if(otherCollider.gameObject.name == "AdelieBody")
+			{
+				if(PenguinPlayer.Instance.CurrentRegion == "none")
+				{
+					if(gameObject.name != "none")
+					{
+						PenguinPlayer.Instance.CurrentRegion = gameObject.name;
+						PenguinAnalytics.Instance.LogEnterRegion(gameObject.name);
+					}
+				}
+			}
+		}
+	}
+	
 	void OnTriggerExit(Collider otherCollider)
 	{
 		if(!_isInnerRegion)

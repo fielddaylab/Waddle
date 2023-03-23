@@ -84,7 +84,7 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 	
 	public void GetGaze(out Vector3 pos, out Quaternion view)
 	{
-		pos = transform.position;
+		pos = _centerEye.transform.position;
 		view = Quaternion.identity;
 		
 		if(_centerEye != null)
