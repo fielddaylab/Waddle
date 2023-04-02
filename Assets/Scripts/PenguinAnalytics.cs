@@ -8,14 +8,14 @@ using UnityEngine;
 public class LogGazeData
 {
     //public uint frame;
-    public string pos;
-    public string rot;
+    public float[] pos = new float[3];
+    public float[] rot = new float[4];
 }
 
 public class PenguinAnalytics : Singleton<PenguinAnalytics>
 {
 	public static bool FirebaseEnabled { get; set; }
-    public static int logVersion = 3;
+    public static int logVersion = 4;
     
 	static string _DB_NAME = "PENGUINS";
 	
@@ -88,7 +88,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 	
 	private void LogCurrentRegion()
 	{
-		_ogdLog.GameStateParam("current_region", PenguinPlayer.Instance.CurrentRegion);
+		//_ogdLog.GameStateParam("current_region", PenguinPlayer.Instance.CurrentRegion);
 	}
 
     #region Logging
@@ -125,7 +125,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
             _ogdLog.GameStateParam("rotZ", 0f);
             _ogdLog.GameStateParam("rotW", 1f);
             
-            _ogdLog.GameStateParam("current_region", "none");
+            //_ogdLog.GameStateParam("current_region", "none");
             _ogdLog.SubmitGameState();
         }
 		/*if (FirebaseEnabled)
@@ -876,8 +876,16 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 					_viewportData[_viewportDataCount] = new LogGazeData();
 				}
 
-				_viewportData[_viewportDataCount].pos = (p.x.ToString("F3")+","+p.y.ToString("F3")+","+p.z.ToString("F3"));
-				_viewportData[_viewportDataCount].rot = (q.x.ToString("F3")+","+q.y.ToString("F3")+","+q.z.ToString("F3")+","+q.w.ToString("F3"));
+				_viewportData[_viewportDataCount].pos[0] = p.x;
+                _viewportData[_viewportDataCount].pos[1] = p.y;
+                _viewportData[_viewportDataCount].pos[2] = p.z;
+
+                _viewportData[_viewportDataCount].rot[0] = q.x;
+                _viewportData[_viewportDataCount].rot[1] = q.y;
+                _viewportData[_viewportDataCount].rot[2] = q.z;
+                _viewportData[_viewportDataCount].rot[3] = q.w;
+
+				//_viewportData[_viewportDataCount].rot = (q.x.ToString("F3")+","+q.y.ToString("F3")+","+q.z.ToString("F3")+","+q.w.ToString("F3"));
 				
 				if(_leftHandData[_viewportDataCount] == null)
 				{
@@ -888,9 +896,16 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 				Quaternion leftRot = Quaternion.identity;
 				
 				PenguinPlayer.Instance.GetHandTransform(true, out leftPos, out leftRot);
-				_leftHandData[_viewportDataCount].pos = (leftPos.x.ToString("F3")+","+leftPos.y.ToString("F3")+","+leftPos.z.ToString("F3"));
-				_leftHandData[_viewportDataCount].rot = (leftRot.x.ToString("F3")+","+leftRot.y.ToString("F3")+","+leftRot.z.ToString("F3")+","+leftRot.w.ToString("F3"));
-				
+				//_leftHandData[_viewportDataCount].pos = (leftPos.x.ToString("F3")+","+leftPos.y.ToString("F3")+","+leftPos.z.ToString("F3"));
+                _leftHandData[_viewportDataCount].pos[0] = leftPos.x;
+                _leftHandData[_viewportDataCount].pos[1] = leftPos.y;
+                _leftHandData[_viewportDataCount].pos[2] = leftPos.z;
+				//_leftHandData[_viewportDataCount].rot = (leftRot.x.ToString("F3")+","+leftRot.y.ToString("F3")+","+leftRot.z.ToString("F3")+","+leftRot.w.ToString("F3"));
+				_leftHandData[_viewportDataCount].rot[0] = leftRot.x;
+                _leftHandData[_viewportDataCount].rot[1] = leftRot.y;
+                _leftHandData[_viewportDataCount].rot[2] = leftRot.z;
+                _leftHandData[_viewportDataCount].rot[3] = leftRot.w;
+                
 				if(_rightHandData[_viewportDataCount] == null)
 				{
 					_rightHandData[_viewportDataCount] = new LogGazeData();
@@ -900,9 +915,17 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 				Quaternion rightRot = Quaternion.identity;
 				
 				PenguinPlayer.Instance.GetHandTransform(false, out rightPos, out rightRot);
-				_rightHandData[_viewportDataCount].pos = (rightPos.x.ToString("F3")+","+rightPos.y.ToString("F3")+","+rightPos.z.ToString("F3"));
-				_rightHandData[_viewportDataCount].rot = (rightRot.x.ToString("F3")+","+rightRot.y.ToString("F3")+","+rightRot.z.ToString("F3")+","+rightRot.w.ToString("F3"));
+				//_rightHandData[_viewportDataCount].pos = (rightPos.x.ToString("F3")+","+rightPos.y.ToString("F3")+","+rightPos.z.ToString("F3"));
+                _rightHandData[_viewportDataCount].pos[0] = rightPos.x;
+                _rightHandData[_viewportDataCount].pos[1] = rightPos.y;
+                _rightHandData[_viewportDataCount].pos[2] = rightPos.z;
+				//_rightHandData[_viewportDataCount].rot = (rightRot.x.ToString("F3")+","+rightRot.y.ToString("F3")+","+rightRot.z.ToString("F3")+","+rightRot.w.ToString("F3"));
 				
+                _rightHandData[_viewportDataCount].rot[0] = rightRot.x;
+                _rightHandData[_viewportDataCount].rot[1] = rightRot.y;
+                _rightHandData[_viewportDataCount].rot[2] = rightRot.z;
+                _rightHandData[_viewportDataCount].rot[3] = rightRot.w;
+                
 				//_viewportData[_viewportDataCount].frame = gazeLogFrameCount;
 				_viewportDataCount++;
 			}
@@ -913,15 +936,23 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 
             if(sendToServer)
             {
-                string gazeData = "";
+                string gazeData = "[";
                 for(int i = 0; i < _viewportDataCount; ++i)
                 {
-                    gazeData += JsonUtility.ToJson(_viewportData[i]);
+                    //gazeData += JsonUtility.ToJson(_viewportData[i]);
+                    gazeData = gazeData + "{\"pos\":["+_viewportData[i].pos[0].ToString("F3")+","+_viewportData[i].pos[1].ToString("F3")+","+_viewportData[i].pos[2].ToString("F3")+"],";
+                    gazeData = gazeData + "\"rot\":["+_viewportData[i].rot[0].ToString("F3")+","+_viewportData[i].rot[1].ToString("F3")+","+_viewportData[i].rot[2].ToString("F3")+","+_viewportData[i].rot[3].ToString("F3")+"]}";
+                    if(i < _viewportDataCount-1)
+                    {
+                        gazeData += ",";
+                    }
                 }
+
+                gazeData += "]";
 				
 				//Debug.Log(gazeLogFrameCount);
 				//Debug.Log(_viewportDataCount);
-                //Debug.Log(gazeData);
+                Debug.Log(gazeData);
                 _ogdLog.BeginEvent("viewport_data");
                 _ogdLog.EventParam("gaze_data_package", gazeData);
                 _ogdLog.SubmitEvent();
@@ -931,12 +962,21 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
                 LogGazeGameState();
                 _ogdLog.SubmitGameState();
 
-				string leftData = "";
+				string leftData = "[";
                 for(int i = 0; i < _viewportDataCount; ++i)
                 {
-                    leftData += JsonUtility.ToJson(_leftHandData[i]);
+                    //leftData += JsonUtility.ToJson(_leftHandData[i]);
+                    leftData = leftData + "{\"pos\":["+_leftHandData[i].pos[0].ToString("F3")+","+_leftHandData[i].pos[1].ToString("F3")+","+_leftHandData[i].pos[2].ToString("F3")+"],";
+                    leftData = leftData + "\"rot\":["+_leftHandData[i].rot[0].ToString("F3")+","+_leftHandData[i].rot[1].ToString("F3")+","+_leftHandData[i].rot[2].ToString("F3")+","+_leftHandData[i].rot[3].ToString("F3")+"]}";
+                    if(i < _viewportDataCount-1)
+                    {
+                        leftData += ",";
+                    }
                 }
+
+                leftData += "]";
 				
+                //Debug.Log(leftData);
 				_ogdLog.BeginEvent("left_hand_data");
                 _ogdLog.EventParam("left_hand_data_package", leftData);
                 _ogdLog.SubmitEvent();
@@ -946,12 +986,21 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
                 LogGazeGameState();
                 _ogdLog.SubmitGameState();
 
-				string rightData = "";
+				string rightData = "[";
                 for(int i = 0; i < _viewportDataCount; ++i)
                 {
-                    rightData += JsonUtility.ToJson(_rightHandData[i]);
+                    //rightData += JsonUtility.ToJson(_rightHandData[i]);
+                    rightData = rightData + "{\"pos\":["+_rightHandData[i].pos[0].ToString("F3")+","+_rightHandData[i].pos[1].ToString("F3")+","+_rightHandData[i].pos[2].ToString("F3")+"],";
+                    rightData = rightData + "\"rot\":["+_rightHandData[i].rot[0].ToString("F3")+","+_rightHandData[i].rot[1].ToString("F3")+","+_rightHandData[i].rot[2].ToString("F3")+","+_rightHandData[i].rot[3].ToString("F3")+"]}";
+                    if(i < _viewportDataCount-1)
+                    {
+                        rightData += ",";
+                    }
                 }
-				
+
+                rightData += "]";
+
+                //Debug.Log(rightData);
 				_ogdLog.BeginEvent("right_hand_data");
                 _ogdLog.EventParam("right_hand_data_package", rightData);
                 _ogdLog.SubmitEvent();
