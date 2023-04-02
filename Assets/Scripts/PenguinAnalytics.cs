@@ -15,7 +15,7 @@ public class LogGazeData
 public class PenguinAnalytics : Singleton<PenguinAnalytics>
 {
 	public static bool FirebaseEnabled { get; set; }
-    public static int logVersion = 4;
+    public static int logVersion = 5;
     
 	static string _DB_NAME = "PENGUINS";
 	
