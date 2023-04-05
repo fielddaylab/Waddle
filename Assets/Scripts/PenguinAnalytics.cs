@@ -952,7 +952,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 				
 				//Debug.Log(gazeLogFrameCount);
 				//Debug.Log(_viewportDataCount);
-                Debug.Log(gazeData);
+                //Debug.Log(gazeData);
                 _ogdLog.BeginEvent("viewport_data");
                 _ogdLog.EventParam("gaze_data_package", gazeData);
                 _ogdLog.SubmitEvent();
