@@ -1,5 +1,15 @@
 # penguinsVR
 
+![Waddle Hero Image](https://user-images.githubusercontent.com/102836974/230182694-ac6dd98b-ac03-42ef-9dcf-8e575b68c3e1.png)
+
+The Penguin VR game replicates the Antarctic environment of the Adelie penguins into a fun, task filled virtual reality space. The game’s intention is to promote curiosity and understanding about the Antarctic by getting users to feel like they are truly within the body of a penguin.
+
+The user can access this environment through a Head Mounted Display (HMD) device, and will be given instructions to be able to move and perform tasks as a penguin like waddling, eating, move its flippers or use its beak to move or pick things, protect its eggs from predators etc.
+
+User input via trials and surveys were recorded to gain insight into the actual versus the intended user experience of the game, in order to further improve the game’s nature. Some of these trials were part of excursion trips for primary and middle school students from the Madison Metropolitan school district as part of Expedition VRctica’s broader goal to advance STEM education in Wisconsin’s communities.
+
+This game was developed by the Virtual Environments Group and Field Day Lab from the University of Wisconsin-Madison campus. It is planned to be released on the Meta Quest Store and the App Lab as a Virtual Reality application.
+
 ## Firebase Debugging
 
 For Firebase to recognize the Oculus Quest as a debug device, run the following in the command line:
