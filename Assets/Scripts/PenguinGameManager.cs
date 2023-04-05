@@ -184,6 +184,10 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	
 	public void HandleHMDMounted()
 	{
+		PenguinAnalytics.Instance.LogHeadsetOn();
+		
+		PenguinPlayer.Instance.ResetHeight();
+
 		//StartCoroutine(ShowMessage("", 5f, 10f));
 		if(_wasUnmounted)
 		{
@@ -227,9 +231,9 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 			}
 		}
 		
-		PenguinAnalytics.Instance.LogHeadsetOn();
+		
 		//PenguinAnalytics.Instance.LogStartGame();
-		PenguinPlayer.Instance.ResetHeight();
+		
 	}
 	
 	public void RestartGame()
