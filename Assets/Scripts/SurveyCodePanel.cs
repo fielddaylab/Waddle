@@ -21,6 +21,9 @@ public class SurveyCodePanel : MonoBehaviour
 	
 	[SerializeField]
 	GameObject _buttonOnes;
+
+	[SerializeField]
+	GameObject _buttonBack;
 	
 	[SerializeField]
 	HandRaycast _handRay;
@@ -52,6 +55,7 @@ public class SurveyCodePanel : MonoBehaviour
 		if(hitInfo.collider.transform.gameObject == _doneButton)
 		{
 			SelectButton(_doneButton, true);
+			SelectButton(_buttonBack, false);
 			SelectButton(_eraseButton, false);
 			for(int i = 0; i < 10; ++i)
 			{
@@ -61,7 +65,18 @@ public class SurveyCodePanel : MonoBehaviour
 		else if(hitInfo.collider.transform.gameObject == _eraseButton)
 		{
 			SelectButton(_doneButton, false);
+			SelectButton(_buttonBack, false);
 			SelectButton(_eraseButton, true);
+			for(int i = 0; i < 10; ++i)
+			{
+				SelectButton(transform.GetChild(i).gameObject, false);
+			}
+		}
+		else if(hitInfo.collider.transform.gameObject == _buttonBack)
+		{
+			SelectButton(_doneButton, false);
+			SelectButton(_eraseButton, false);
+			SelectButton(_buttonBack, true);
 			for(int i = 0; i < 10; ++i)
 			{
 				SelectButton(transform.GetChild(i).gameObject, false);
@@ -71,6 +86,7 @@ public class SurveyCodePanel : MonoBehaviour
 		{
 			SelectButton(_doneButton, false);
 			SelectButton(_eraseButton, false);
+			SelectButton(_buttonBack, false);
 			
 			for(int i = 0; i < 10; ++i)
 			{
@@ -149,6 +165,21 @@ public class SurveyCodePanel : MonoBehaviour
 				}
 			}
 		}
+		else if(hitInfo.collider.transform.gameObject == _buttonBack)
+		{
+			//reset the survey code...
+			_buttonHundreds.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "";
+			_buttonTens.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "";
+			_buttonOnes.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "";
+		
+			_mainPanel.SetActive(true);
+			gameObject.SetActive(false);
+			
+			if(_handRay != null)
+			{
+				_handRay.SwitchPanel(HandRaycast.MenuPanel.eMAIN);
+			}
+		}
 		else
 		{
 			for(int i = 0; i < 10; ++i)
@@ -181,6 +212,7 @@ public class SurveyCodePanel : MonoBehaviour
 		{
 			SelectButton(_doneButton, true);
 			SelectButton(_eraseButton, false);
+			SelectButton(_buttonBack, false);
 			for(int i = 0; i < 10; ++i)
 			{
 				SelectButton(transform.GetChild(i).gameObject, false);
@@ -190,6 +222,17 @@ public class SurveyCodePanel : MonoBehaviour
 		{
 			SelectButton(_doneButton, false);
 			SelectButton(_eraseButton, true);
+			SelectButton(_buttonBack, false);
+			for(int i = 0; i < 10; ++i)
+			{
+				SelectButton(transform.GetChild(i).gameObject, false);
+			}
+		}
+		else if(hitInfo.collider.transform.gameObject == _buttonBack)
+		{
+			SelectButton(_doneButton, false);
+			SelectButton(_eraseButton, false);
+			SelectButton(_buttonBack, true);
 			for(int i = 0; i < 10; ++i)
 			{
 				SelectButton(transform.GetChild(i).gameObject, false);
@@ -199,7 +242,8 @@ public class SurveyCodePanel : MonoBehaviour
 		{
 			SelectButton(_doneButton, false);
 			SelectButton(_eraseButton, false);
-			
+			SelectButton(_buttonBack, false);
+
 			for(int i = 0; i < 10; ++i)
 			{
 				if(hitInfo.collider.transform.gameObject == transform.GetChild(i).gameObject)
@@ -218,6 +262,7 @@ public class SurveyCodePanel : MonoBehaviour
 	{
 		SelectButton(_doneButton, false);
 		SelectButton(_eraseButton, false);
+		SelectButton(_buttonBack, false);
 		for(int i = 0; i < 10; ++i)
 		{
 			SelectButton(transform.GetChild(i).gameObject, false);
