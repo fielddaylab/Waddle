@@ -186,7 +186,6 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	{
 		PenguinAnalytics.Instance.LogHeadsetOn();
 		
-		PenguinPlayer.Instance.ResetHeight();
 
 		//StartCoroutine(ShowMessage("", 5f, 10f));
 		if(_wasUnmounted)
@@ -203,9 +202,11 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 				}
 			}
 			
+			PenguinPlayer.Instance.ResetHeight();
+			
 			if(_gameMode == GameMode.ResearchMode)
 			{
-				//show the menu w/ the key entry panel...
+				//show the menu w/ the key entry panel...	
 				PenguinPlayer.Instance.gameObject.GetComponent<HandRaycast>().SwitchPanel(HandRaycast.MenuPanel.eSURVEY_CODE);
 				PenguinPlayer.Instance.StartShowingUI();
 			}
@@ -224,16 +225,25 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 				{
 					BeginTheGame(PenguinGameManager.GameMode.ShowMode);
 				}
+				
+				PenguinPlayer.Instance.ResetHeight();
 			}
 			else
 			{
+				//if(_gameMode == GameMode.ResearchMode)
+				{
+					PenguinPlayer.Instance.ResetHeight();
+				}
 				PenguinPlayer.Instance.StartShowingUI(true);
 			}
 		}
 		
-		
+		//if(_gameMode != GameMode.ResearchMode)
+		//{
+		//	PenguinPlayer.Instance.ResetHeight();
+		//}
+
 		//PenguinAnalytics.Instance.LogStartGame();
-		
 	}
 	
 	public void RestartGame()

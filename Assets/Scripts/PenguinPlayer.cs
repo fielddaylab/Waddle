@@ -209,7 +209,7 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 	
 	public void ResetHeight()
 	{	
-		transform.GetChild(0).GetChild(1).GetComponent<HeightSetter>().ResetHeight();
+		transform.GetChild(0).GetChild(1).GetComponent<HeightSetter>().ResetHeightImmediate();
 	}
 	
 	public void ShowMenu()
