@@ -116,7 +116,8 @@ public class SurveyCodePanel : MonoBehaviour
 				int t = int.Parse(tens);
 				int o = int.Parse(ones);
 				
-				PenguinAnalytics.Instance.LogSurveyCode(h * 100 + t * 10 + o);
+				//PenguinAnalytics.Instance.LogSurveyCode(h * 100 + t * 10 + o);
+				PenguinAnalytics.Instance.SetUserID(h * 100 + t * 10 + o);
 				_mainPanel.SetActive(true);
 				gameObject.SetActive(false);
 				

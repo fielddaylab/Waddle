@@ -15,7 +15,7 @@ public class LogGazeData
 public class PenguinAnalytics : Singleton<PenguinAnalytics>
 {
 	public static bool FirebaseEnabled { get; set; }
-    public static int logVersion = 5;
+    public static int logVersion = 6;
     
 	static string _DB_NAME = "PENGUINS";
 	
@@ -92,7 +92,15 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 	}
 
     #region Logging
-
+	
+	public void SetUserID(int code)
+	{
+		if(_loggingEnabled)
+		{
+			_ogdLog.SetUserId(code.ToString());
+		}
+	}
+	
 	public void LogSurveyCode(int code)
     {
 		if(_loggingEnabled)
