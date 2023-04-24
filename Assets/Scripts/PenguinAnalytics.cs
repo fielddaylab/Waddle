@@ -2,7 +2,7 @@ using Firebase;
 using Firebase.Analytics;
 using UnityEngine;
 //using FieldDay;
-
+using System.Globalization;
 
 [System.Serializable]
 public class LogGazeData
@@ -51,12 +51,15 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 	        }
 		});*/
 		
-        Debug.Log("Starting analytics");
+        //Debug.Log("Starting analytics");
 		FieldDay.OGDLogConsts c = new FieldDay.OGDLogConsts();
 		c.AppId = _DB_NAME;
 		c.AppVersion = UnityEngine.Application.version;
 		c.ClientLogVersion = logVersion;
 		_ogdLog = new FieldDay.OGDLog(c);
+
+        CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+        CultureInfo.CurrentUICulture = CultureInfo.InvariantCulture;
 		//_ogdLog.UseFirebase(_firebase);
         //_ogdLog.SetDebug(true);
     }
@@ -965,6 +968,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 				//Debug.Log(gazeLogFrameCount);
 				//Debug.Log(_viewportDataCount);
                 //Debug.Log(gazeData);
+                
                 _ogdLog.BeginEvent("viewport_data");
                 _ogdLog.EventParam("gaze_data_package", gazeData);
                 _ogdLog.SubmitEvent();

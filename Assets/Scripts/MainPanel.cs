@@ -18,6 +18,12 @@ public class MainPanel : MonoBehaviour
 	
 	[SerializeField]
 	GameObject _creditsBack;
+
+	[SerializeField]
+	GameObject _englishButton;
+
+	[SerializeField]
+	GameObject _spanishButton;
 	
 	[SerializeField]
 	HandRaycast _handRay;
@@ -76,6 +82,16 @@ public class MainPanel : MonoBehaviour
 			SelectButton(_surveyButton, false);	
 			SelectButton(_creditsBack, true);		
 		}
+		else if(hitInfo.collider.transform.gameObject == _spanishButton)
+		{
+			SelectButton(_englishButton, false);
+			SelectButton(_spanishButton, true);
+		}
+		else if(hitInfo.collider.transform.gameObject == _englishButton)
+		{
+			SelectButton(_englishButton, true);
+			SelectButton(_spanishButton, false);	
+		}
 		else
 		{
 			SelectButton(_leftButton, false);
@@ -120,6 +136,14 @@ public class MainPanel : MonoBehaviour
 				{
 					_handRay.SwitchPanel(HandRaycast.MenuPanel.eSURVEY_CODE);
 				}
+			}
+			else if(hitInfo.collider.transform.gameObject == _spanishButton)
+			{
+				PenguinMenuSystem.Instance.SwitchLanguage(PenguinMenuSystem.WhichLanguage.SPANISH);
+			}
+			else if(hitInfo.collider.transform.gameObject == _englishButton)
+			{
+				PenguinMenuSystem.Instance.SwitchLanguage(PenguinMenuSystem.WhichLanguage.ENGLISH);
 			}
 		}
 		else if(PenguinMenuSystem.Instance.GetCurrentMenu() == PenguinMenuSystem.MenuType.PauseMenu)
@@ -232,6 +256,16 @@ public class MainPanel : MonoBehaviour
 			SelectButton(_creditsBack, true);
 			SelectButton(_surveyButton, false);				
 		}
+		else if(hitInfo.collider.transform.gameObject == _spanishButton)
+		{
+			SelectButton(_spanishButton, true);	
+			SelectButton(_englishButton, false);	
+		}
+		else if(hitInfo.collider.transform.gameObject == _englishButton)
+		{
+			SelectButton(_spanishButton, false);	
+			SelectButton(_englishButton, true);	
+		}
 		else
 		{
 			SelectButton(_leftButton, false);
@@ -248,7 +282,7 @@ public class MainPanel : MonoBehaviour
 		SelectButton(_leftButton, false);
 		SelectButton(_rightButton, false);
 		SelectButton(_middleButton, false);
-		SelectButton(_creditsBack, false);	
+		SelectButton(_creditsBack, false);
 	}
 	
 	void SelectButton(GameObject button, bool bOn)
