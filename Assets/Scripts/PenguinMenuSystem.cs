@@ -68,21 +68,21 @@ public class PenguinMenuSystem : Singleton<PenguinMenuSystem>
     {
         if(w == WhichLanguage.ENGLISH)
         {
-            if(menu == MenuType.MainMenu)
+            if(_currentType == MenuType.MainMenu)
 			{
-                _leftButton.transform.GetChild(2).GetComponent<TextMeshPro>().text = "Show Mode";
-                _middleButton.transform.GetChild(2).GetComponent<TextMeshPro>().text = "Credits";
-                _rightButton.transform.GetChild(2).GetComponent<TextMeshPro>().text = "Home Mode";
-                _surveyButton.transform.GetChild(2).GetComponent<TextMeshPro>().text = "Research Mode";
+                _leftButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Show Mode";
+                _middleButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Credits";
+                _rightButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Home Mode";
+                _surveyButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Research Mode";
             }
-			else if(menu == MenuType.PauseMenu)
+			else if(_currentType == MenuType.PauseMenu)
 			{
-                _leftButton.transform.GetChild(2).GetComponent<TextMeshPro>().text = "Restart";
-                _middleButton.transform.GetChild(2).GetComponent<TextMeshPro>().text = "Credits";
-                _rightButton.transform.GetChild(2).GetComponent<TextMeshPro>().text = "Resume";
-                _surveyButton.transform.GetChild(2).GetComponent<TextMeshPro>().text = "Research Mode";
+                _leftButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Restart";
+                _middleButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Credits";
+                _rightButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Resume";
+                _surveyButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Research Mode";
 			}
-			else if(menu == MenuType.EndMenu)
+			else if(_currentType == MenuType.EndMenu)
 			{
 				_middleButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Keep Playing";
 				_surveyButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Restart";
@@ -95,21 +95,21 @@ public class PenguinMenuSystem : Singleton<PenguinMenuSystem>
         }
         else if(w == WhichLanguage.SPANISH)
         {
-            if(menu == MenuType.MainMenu)
+            if(_currentType == MenuType.MainMenu)
 			{
-                _leftButton.transform.GetChild(2).GetComponent<TextMeshPro>().text = "Modo de Presentación";
-                _middleButton.transform.GetChild(2).GetComponent<TextMeshPro>().text = "Créditos";
-                _rightButton.transform.GetChild(2).GetComponent<TextMeshPro>().text = "Modo de Casa";
-                _surveyButton.transform.GetChild(2).GetComponent<TextMeshPro>().text = "Modo de Investigación";
+                _leftButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Modo de Presentación";
+                _middleButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Créditos";
+                _rightButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Modo de Casa";
+                _surveyButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Modo de Investigación";
             }
-			else if(menu == MenuType.PauseMenu)
+			else if(_currentType == MenuType.PauseMenu)
 			{
-                _leftButton.transform.GetChild(2).GetComponent<TextMeshPro>().text = "Reanuda";
-                _middleButton.transform.GetChild(2).GetComponent<TextMeshPro>().text = "Créditos";
-                _rightButton.transform.GetChild(2).GetComponent<TextMeshPro>().text = "Reasume";
-                _surveyButton.transform.GetChild(2).GetComponent<TextMeshPro>().text = "Modo de Investigación";
+                _leftButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Reanuda";
+                _middleButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Créditos";
+                _rightButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Reasume";
+                _surveyButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Modo de Investigación";
 			}
-			else if(menu == MenuType.EndMenu)
+			else if(_currentType == MenuType.EndMenu)
 			{
 				_middleButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Siga Jugando";
 				_surveyButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Reanuda";
@@ -147,10 +147,10 @@ public class PenguinMenuSystem : Singleton<PenguinMenuSystem>
 			}
 			else if(_lastLanguage == WhichLanguage.SPANISH)
 			{
-                _leftButton.transform.GetChild(2).GetComponent<TextMeshPro>().text = "Modo de Presentación";
-                _middleButton.transform.GetChild(2).GetComponent<TextMeshPro>().text = "Créditos";
-                _rightButton.transform.GetChild(2).GetComponent<TextMeshPro>().text = "Modo de Casa";
-                _surveyButton.transform.GetChild(2).GetComponent<TextMeshPro>().text = "Modo de Investigación";
+                _leftButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Modo de Presentación";
+                _middleButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Créditos";
+                _rightButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Modo de Casa";
+                _surveyButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Modo de Investigación";
 			}
 			_closeButton.SetActive(false);
 		}
@@ -170,10 +170,10 @@ public class PenguinMenuSystem : Singleton<PenguinMenuSystem>
 			}
 			else if(_lastLanguage == WhichLanguage.SPANISH)
 			{
-                _leftButton.transform.GetChild(2).GetComponent<TextMeshPro>().text = "Reanuda";
-                _middleButton.transform.GetChild(2).GetComponent<TextMeshPro>().text = "Créditos";
-                _rightButton.transform.GetChild(2).GetComponent<TextMeshPro>().text = "Reasume";
-                _surveyButton.transform.GetChild(2).GetComponent<TextMeshPro>().text = "Modo de Investigación";
+                _leftButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Reanuda";
+                _middleButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Créditos";
+                _rightButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Reasume";
+                _surveyButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Modo de Investigación";
 			}
 			//_closeButton.SetActive(true);
 		}
