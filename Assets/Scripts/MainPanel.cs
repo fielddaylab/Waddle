@@ -140,10 +140,12 @@ public class MainPanel : MonoBehaviour
 			else if(hitInfo.collider.transform.gameObject == _spanishButton)
 			{
 				PenguinMenuSystem.Instance.SwitchLanguage(PenguinMenuSystem.WhichLanguage.SPANISH);
+				PenguinAnalytics.Instance.LogLanguageSelected("Spanish");
 			}
 			else if(hitInfo.collider.transform.gameObject == _englishButton)
 			{
 				PenguinMenuSystem.Instance.SwitchLanguage(PenguinMenuSystem.WhichLanguage.ENGLISH);
+				PenguinAnalytics.Instance.LogLanguageSelected("English");
 			}
 		}
 		else if(PenguinMenuSystem.Instance.GetCurrentMenu() == PenguinMenuSystem.MenuType.PauseMenu)
@@ -283,6 +285,8 @@ public class MainPanel : MonoBehaviour
 		SelectButton(_rightButton, false);
 		SelectButton(_middleButton, false);
 		SelectButton(_creditsBack, false);
+		SelectButton(_spanishButton, false);
+		SelectButton(_englishButton, false);
 	}
 	
 	void SelectButton(GameObject button, bool bOn)
