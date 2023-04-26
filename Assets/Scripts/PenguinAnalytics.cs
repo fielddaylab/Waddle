@@ -131,7 +131,16 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 		{
             seconds_at_start = UnityEngine.Time.time;
 			
-            SetGameState();
+            _ogdLog.BeginGameState();
+            _ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_at_start);
+            _ogdLog.GameStateParam("posX", 0f);
+            _ogdLog.GameStateParam("posY", 0f);
+            _ogdLog.GameStateParam("posZ", 0f);
+            _ogdLog.GameStateParam("rotX", 0f);
+            _ogdLog.GameStateParam("rotY", 0f);
+            _ogdLog.GameStateParam("rotZ", 0f);
+            _ogdLog.GameStateParam("rotW", 1f);
+			_ogdLog.SubmitGameState();
 			
             _ogdLog.BeginEvent("application_start");
             _ogdLog.SubmitEvent();
