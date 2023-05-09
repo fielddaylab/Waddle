@@ -92,6 +92,12 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 			view = _centerEye.transform.rotation;
 		}
 	}
+
+	public void GetPosForward(out Vector3 pos, out Vector3 dir)
+	{
+		pos = _centerEye.transform.position;
+		dir = _centerEye.transform.forward;
+	}
 	
 	public void GazeRaycast(Vector3 rayStart, Vector3 rayDir, out GameObject gazeObject)
 	{

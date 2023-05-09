@@ -54,8 +54,10 @@ public class PenguinMenuSystem : Singleton<PenguinMenuSystem>
 	
 	MenuType _currentType = MenuType.MainMenu;
 	
-	Vector3 _menuOffset = new Vector3(0.0f, 0.5f, 0.0f);
+	Vector3 _menuOffset = new Vector3(0.0f, -0.1f, 0.0f);
 	
+	bool _wasGamePaused = false;
+	bool _wasNowUnpaused = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -66,10 +68,41 @@ public class PenguinMenuSystem : Singleton<PenguinMenuSystem>
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        transform.position = PenguinPlayer.Instance.transform.position + PenguinPlayer.Instance.transform.forward * 0.01f + _menuOffset;
+		if(PenguinGameManager._isGamePaused)
+		{
+			//transform.position = PenguinPlayer.Instance.transform.position + PenguinPlayer.Instance.transform.forward * 0.01f + _menuOffset;
+			_wasGamePaused = true;
+		}
+		else
+		{
+			if(_wasGamePaused)
+			{
+				_wasNowUnpaused = true;
+			}
+		}
+		
+		if(_wasGamePaused && _wasNowUnpaused)
+		{
+			ForceUpdate();
+			_wasNowUnpaused = false;
+			_wasGamePaused = false;
+		}
     }
+	
+	public void ForceUpdate()
+	{
+		Vector3 p = Vector3.zero;
+		Vector3 f = Vector3.zero;
+		PenguinPlayer.Instance.GetPosForward(out p, out f);
+		f.y = 0.0f;
+		f = Vector3.Normalize(f);
+		transform.position = p + f * 0.01f + _menuOffset;
+		Quaternion q = transform.rotation;
+		q.SetLookRotation(f, Vector3.up);
+		transform.rotation = q;
+	}
 
 	WhichLanguage GetCurrentLanguage() { return _lastLanguage; }
 	
