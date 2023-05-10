@@ -177,7 +177,16 @@ public class MainPanel : MonoBehaviour
 				PenguinAnalytics.Instance.LogSelectMenu("credits_back");
 				PenguinGameManager.Instance.ShowCredits(false);
 			}
+			else if(hitInfo.collider.transform.gameObject == _surveyButton)
+			{
+				PenguinAnalytics.Instance.LogSelectMenu("survey_code");
+				_middleButton.transform.parent.gameObject.SetActive(false);
 
+				if(_handRay != null)
+				{
+					_handRay.SwitchPanel(HandRaycast.MenuPanel.eSURVEY_CODE);
+				}
+			}
 		}
 		else if(PenguinMenuSystem.Instance.GetCurrentMenu() == PenguinMenuSystem.MenuType.EndMenu)
 		{
