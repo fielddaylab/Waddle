@@ -66,6 +66,9 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	GameObject _creditsLocation;
 	
 	[SerializeField]
+	GameObject _surveyLocation;
+	
+	[SerializeField]
 	bool _demoMode = false;	//demo mode makes it so the game will auto-restart if taking off and putting on the HMD
 
 	static Vector3 _priorLocation = Vector3.zero;
@@ -360,7 +363,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 			}
 			
 			PenguinPlayer.Instance.HideMenu();
-			PenguinPlayer.Instance.DisableMovement();
+			//PenguinPlayer.Instance.DisableMovement();
 		}
 		else
 		{
@@ -370,6 +373,26 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 			//{
 			//	PenguinPlayer.Instance.EnableMovement();
 			//}
+		}
+	}
+	
+	public void ShowSurvey(bool toSurvey)
+	{
+		if(toSurvey)
+		{
+			_priorLocation = PenguinPlayer.Instance.transform.position;
+			
+			if(_creditsLocation != null)
+			{
+				//PenguinPlayer.Instance.transform.position = _surveyLocation.transform.position;
+			}
+			
+			PenguinPlayer.Instance.HideMenu();
+		}
+		else
+		{
+			PenguinPlayer.Instance.ShowMenu();
+			PenguinPlayer.Instance.transform.position = _priorLocation;
 		}
 	}
 	
