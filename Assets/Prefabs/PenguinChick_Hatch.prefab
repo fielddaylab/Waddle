@@ -966,7 +966,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3679713395127990126}
   m_Layer: 0
-  m_Name: PenguinChick
+  m_Name: PenguinChick_Hatch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
