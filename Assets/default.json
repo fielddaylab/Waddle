@@ -1,7 +1,7 @@
 {
-    "questions": [
+    "surveys": [
       {
-        "id": "question.1",
+        "header": "question.1",
         "type": "single-choice",
         "text": "What grade are you in?",
         "answers": [
@@ -12,7 +12,7 @@
         ]
       },
       {
-        "id": "question.2",
+        "header": "question.2",
         "type": "single-choice",
         "text": "What is your reading level?",
         "answers": [
@@ -22,7 +22,7 @@
         ]
       },
       {
-          "id": "question.3",
+          "header": "question.3",
           "type": "multiple-choice",
           "text": "The game is fun.",
           "answers": [
@@ -34,7 +34,7 @@
           ]
       },
       {
-          "id": "question.4",
+          "header": "question.4",
           "type": "single-choice",
           "text": "I like learning history.",
           "answers": [

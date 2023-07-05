@@ -1,0 +1,60 @@
+{
+ "package_config_id": "PenguinVR surveys",
+ "surveys": [
+	{
+    	"display_event_id": "Post-Survey",
+    	"header": "Post-Survey",
+	"pages": [
+		 {
+		 "items": [
+			  {
+			  "prompt": "Which of these activities did you complete?",
+			  "type": "",
+			  "responses": [
+				"Bowling",
+				"Protected the Egg",
+				"Mating Dance"
+			  	]
+			  },
+			  {
+			  "prompt": "What is your age?",
+			  "type": "",
+			  "responses": [
+			  	]
+			  },
+			  {
+			  "prompt": "Which of these activities did you complete?",
+			  "type": "",
+			  "responses": [
+			  	]
+			  },
+			  {
+			  "prompt": "",
+			  "type": "",
+			  "responses": [
+			  	]
+			  },
+			  {
+			  "prompt": "",
+			  "type": "",
+			  "responses": [
+			  	]
+			  },
+			  {
+			  "prompt": "",
+			  "type": "",
+			  "responses": [
+			  	]
+			  },
+			  {
+			  "prompt": "",
+			  "type": "",
+			  "responses": [
+			  	]
+			  }
+		]
+		}
+	]
+   	}
+ ]
+}
