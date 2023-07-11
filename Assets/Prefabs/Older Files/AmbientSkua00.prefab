@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8740712271995806200}
   - component: {fileID: 4786545467516691226}
   m_Layer: 10
-  m_Name: AmbientSkua
+  m_Name: AmbientSkua00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
