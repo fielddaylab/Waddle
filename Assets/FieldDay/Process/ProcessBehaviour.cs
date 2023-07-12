@@ -25,6 +25,10 @@ namespace FieldDay.Processes {
 
         #region Events
 
+        protected virtual void Start() {
+
+        }
+
         protected virtual void OnDestroy() {
             m_MainProcess.Kill();
         }

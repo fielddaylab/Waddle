@@ -18,7 +18,7 @@ namespace FieldDay.Processes {
         private ProcessStatus m_Status;
         private ProcessRuntimeFlags m_Flags;
         private IProcessContext m_Context;
-        private RawStateBlock256 m_StateBlock;
+        private RawStateBlock256 m_StateDataBlock;
         private float m_TimeScale = 1;
 
         // host information
@@ -138,14 +138,14 @@ namespace FieldDay.Processes {
         /// Returns the process data storage block, casted as the given type.
         /// </summary>
         public ref TData Data<TData>() where TData : unmanaged {
-            return ref m_StateBlock.Ref<TData>();
+            return ref m_StateDataBlock.Ref<TData>();
         }
 
         /// <summary>
         /// Updates the process data storage block with the given data.
         /// </summary>
         public void SetData<TData>(in TData data) where TData : unmanaged {
-            m_StateBlock.Store(data);
+            m_StateDataBlock.Store(data);
         }
 
         #endregion // Context
@@ -289,7 +289,7 @@ namespace FieldDay.Processes {
             m_HostGO = null;
             m_HostBehaviour = null;
             m_Context = null;
-            m_StateBlock = default;
+            m_StateDataBlock = default;
             m_Id = default;
             m_Name = default;
             m_Status = 0;
@@ -311,6 +311,17 @@ namespace FieldDay.Processes {
         public void TransitionTo(ProcessStateDefinition newState) {
             if (m_NextState != newState) {
                 m_NextState = newState;
+                MarkDirty();
+            }
+        }
+
+        /// <summary>
+        /// Queues the next state.
+        /// </summary>
+        public void TransitionTo<TArg>(ProcessStateDefinition newState, in TArg nextStateData) where TArg : unmanaged {
+            if (m_NextState != newState) {
+                m_NextState = newState;
+                SetData(nextStateData);
                 MarkDirty();
             }
         }
@@ -479,6 +490,41 @@ namespace FieldDay.Processes {
         /// </summary>
         public Process Process {
             get { return Game.Processes.Get(this); }
+        }
+
+        /// <summary>
+        /// Transitions to the given state.
+        /// </summary>
+        public void TransitionTo(ProcessStateDefinition newState) {
+            Process?.TransitionTo(newState);
+        }
+
+        /// <summary>
+        /// Transitions to the given state, with the given argument.
+        /// </summary>
+        public void TransitionTo<TArg>(ProcessStateDefinition newState, in TArg nextStateArg) where TArg : unmanaged {
+            Process?.TransitionTo(newState, nextStateArg);
+        }
+
+        /// <summary>
+        /// Sets the data for this process.
+        /// </summary>
+        public void SetData<TArg>(in TArg data) where TArg : unmanaged {
+            Process?.SetData(data);
+        }
+
+        /// <summary>
+        /// Attempts to get data for this process.
+        /// </summary>
+        public bool TryGetData<TArg>(out TArg outData) where TArg : unmanaged {
+            Process p = Process;
+            if (p != null) {
+                outData = p.Data<TArg>();
+                return true;
+            }
+
+            outData = default;
+            return false;
         }
 
         /// <summary>

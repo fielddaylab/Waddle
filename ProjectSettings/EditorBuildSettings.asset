@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Overworld_V2.unity
+    guid: 9fffc04ab7fed9d41adb9632951025d6
+  - enabled: 0
     path: Assets/Scenes/Overworld.unity
     guid: 84a7e0f9e50a1bd458f4e5840cb81fbe
   - enabled: 1
@@ -17,9 +20,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MatingDance.unity
     guid: 3c8d90e4eb3c0db439909121ec1e8b6b
-  - enabled: 0
-    path: Assets/Scenes/Overworld_V2.unity
-    guid: 9fffc04ab7fed9d41adb9632951025d6
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: cd8e3d83f36e1df4d858d3c879efb61c, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 17be9d7f94ee23446962b53d42a20d24, type: 2}

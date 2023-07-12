@@ -378,7 +378,7 @@ namespace FieldDay.Systems {
                     Debug.LogException(e);
                 }
 #else
-                if ((categoryMask & sys.UpdateMask) != 0 && sys.System.HasWork()) {
+                if ((categoryMask & sys.CategoryMask) != 0 && sys.System.HasWork()) {
                     sys.System.ProcessWork(deltaTime);
                 }
 #endif // DEVELOPMENT

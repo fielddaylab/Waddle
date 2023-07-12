@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using BeauUtil;
-using UnityEditor.PackageManager.Requests;
 
 namespace FieldDay {
     /// <summary>
