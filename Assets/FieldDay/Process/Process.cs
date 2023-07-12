@@ -87,8 +87,22 @@ namespace FieldDay.Processes {
         /// <summary>
         /// Returns the id of the current state.
         /// </summary>
-        public StringHash32 CurrentState {
+        public StringHash32 CurrentStateId {
             get { return m_CurrentState?.Id ?? StringHash32.Null; }
+        }
+
+        /// <summary>
+        /// Returns the current state definition.
+        /// </summary>
+        public ProcessStateDefinition CurrentState {
+            get { return m_CurrentState; }
+        }
+
+        /// <summary>
+        /// Returns the source of the current state.
+        /// </summary>
+        public TStateSource CurrentStateObject<TStateSource>() where TStateSource : class {
+            return m_CurrentState?.Target as TStateSource;
         }
 
         /// <summary>
@@ -511,6 +525,13 @@ namespace FieldDay.Processes {
         /// </summary>
         public void SetData<TArg>(in TArg data) where TArg : unmanaged {
             Process?.SetData(data);
+        }
+
+        /// <summary>
+        /// Returns the id of the current state.
+        /// </summary>
+        public StringHash32 CurrentStateId {
+            get { return Process?.CurrentStateId ?? StringHash32.Null; }
         }
 
         /// <summary>

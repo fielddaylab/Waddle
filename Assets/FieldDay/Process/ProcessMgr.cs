@@ -60,6 +60,7 @@ namespace FieldDay.Processes {
             if (host != null) {
                 m_ProcessesWithHosts.Add(process);
             }
+            m_AllProcesses.Add(process);
             return id;
         }
 
@@ -76,6 +77,7 @@ namespace FieldDay.Processes {
             if (host != null) {
                 m_ProcessesWithHosts.Add(process);
             }
+            m_AllProcesses.Add(process);
             return id;
         }
 

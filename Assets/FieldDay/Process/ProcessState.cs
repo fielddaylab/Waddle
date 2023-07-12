@@ -29,6 +29,10 @@ namespace FieldDay.Processes {
             Target = target;
         }
 
+        public override string ToString() {
+            return Id.ToDebugString();
+        }
+
         /// <summary>
         /// Creates a process state definition from the given type's static methods.
         /// </summary>

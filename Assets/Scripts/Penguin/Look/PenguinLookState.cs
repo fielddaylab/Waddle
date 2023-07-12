@@ -31,7 +31,7 @@ namespace Waddle {
             smoothing.IsLooking = TryGetWorldLookVector(p, brain, smoothing, out smoothing.LookVector);
         }
 
-        static private PenguinBrain Brain(Process p) {
+        static protected PenguinBrain Brain(Process p) {
             return p.Context<PenguinBrain>();
         }
     }
@@ -54,7 +54,7 @@ namespace Waddle {
     }
 
     static public class PenguinLookStates {
-        static public ProcessStateDefinition Default = ProcessStateDefinition.FromCallbacks("stare-ahead", new PenguinStareAheadState());
-        static public ProcessStateDefinition LookAtTransform = ProcessStateDefinition.FromCallbacks("look-at-transform", new PenguinLookAtTransformState());
+        static public readonly ProcessStateDefinition Default = ProcessStateDefinition.FromCallbacks("stare-ahead", new PenguinStareAheadState());
+        static public readonly ProcessStateDefinition LookAtTransform = ProcessStateDefinition.FromCallbacks("look-at-transform", new PenguinLookAtTransformState());
     }
 }

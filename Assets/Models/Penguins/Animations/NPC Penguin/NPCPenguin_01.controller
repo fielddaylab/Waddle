@@ -119,16 +119,16 @@ AnimatorStateMachine:
   - {fileID: -3608233297873307340}
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: -4785076514993114654}
+  - first: {fileID: -2569485507452647956}
     second:
-    - {fileID: -3759616206171470863}
+    - {fileID: 5723902573197631079}
   - first: {fileID: -4770127903495976945}
     second:
     - {fileID: 2496977701842914616}
     - {fileID: 1287500817410170758}
-  - first: {fileID: -2569485507452647956}
+  - first: {fileID: -4785076514993114654}
     second:
-    - {fileID: 5723902573197631079}
+    - {fileID: -3759616206171470863}
   - first: {fileID: -2008114823023767777}
     second:
     - {fileID: -4968345250315151613}
@@ -1019,7 +1019,7 @@ AnimatorController:
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 1
+    m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: BopDance
     m_Type: 4
