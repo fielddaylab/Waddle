@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18336155, g: 0.22897387, b: 0.30613446, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2851,6 +2851,8 @@ GameObject:
   - component: {fileID: 765199782}
   - component: {fileID: 765199783}
   - component: {fileID: 765199784}
+  - component: {fileID: 765199786}
+  - component: {fileID: 765199785}
   m_Layer: 20
   m_Name: PenguinPlayer
   m_TagString: Untagged
@@ -3065,6 +3067,36 @@ MonoBehaviour:
   _rightController: {fileID: 1437709869}
   _leftIK: {fileID: 35957848}
   _rightIK: {fileID: 35957847}
+--- !u!114 &765199785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765199776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d06f57c698ccd92418609ab016f8c42c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveSpeed: 20
+--- !u!114 &765199786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765199776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35f163f897cc76b4e8eab1fff1d51a14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BodyRoot: {fileID: 1319133326}
+  HeadRoot: {fileID: 1319133339}
+  Rig: {fileID: 1217165757}
+  CurrentHeadPos: {x: 0, y: 0, z: 0}
+  CurrentHeadPosTime: 0
 --- !u!1 &767286928
 GameObject:
   m_ObjectHideFlags: 0
@@ -4890,6 +4922,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2285722730498334256, guid: ef25bb04534b93a4ab96f1b171e3a60b, type: 3}
   m_PrefabInstance: {fileID: 1184361516}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1217165757 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 11400020, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
+  m_PrefabInstance: {fileID: 1319133323}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319133325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df9f338034892c44ebb62d97894772f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1284647214
 GameObject:
   m_ObjectHideFlags: 0

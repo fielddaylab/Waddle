@@ -333,6 +333,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3037012895037885302}
   - component: {fileID: 3291878845233163422}
+  - component: {fileID: 5881542984067713960}
+  - component: {fileID: 5171084278972942828}
   m_Layer: 0
   m_Name: NPCPenguin_Anims01b
   m_TagString: PTNPenguin
@@ -377,6 +379,35 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5881542984067713960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2408989911822881228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8588c27269195464bb0bbcc16403caaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Root: {fileID: 5057784926981871767}
+--- !u!114 &5171084278972942828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2408989911822881228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01ea46a2d552fce49a0776e5d86586d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 3291878845233163422}
+  DefaultLerpSpeed: 8
+  StateMachineMaskLerpSpeed: 12
 --- !u!1 &2595337819816080932
 GameObject:
   m_ObjectHideFlags: 0
