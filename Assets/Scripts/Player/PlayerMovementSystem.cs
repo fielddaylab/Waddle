@@ -7,14 +7,30 @@ namespace Waddle
     [SysUpdate(FieldDay.GameLoopPhase.Update, 1000)]
     public class PlayerMovementSystem : SharedStateSystemBehaviour<PlayerMovementState, PlayerHeadState>
     {
+        #region Inspector
+
+        [SerializeField] private float m_MoveSpeedMultiplier = 1f / 90f;
+
+        #endregion // Inspector
+
         public override void ProcessWork(float deltaTime)
         {
             if (!m_StateA.Queued) {
                 return;
             }
+
+            PlayerMoveResult result = TryMove(m_StateA, m_StateB);
+
+            m_StateA.Queued = false;
         }
 
-        static private void TryMove(PlayerMovementState moveState, PlayerHeadState headState) {
+        static private PlayerMoveResult TryMove(PlayerMovementState moveState, PlayerHeadState headState) {
+            Vector3 footStart = headState.FootRoot.position;
+            Vector3 headStart = headState.HeadRoot.position;
+
+            Ray footCast = new Ray(footStart, moveState.MoveDirection);
+            Ray headCast = new Ray(headStart, moveState.MoveDirection);
+
             //Vector3 potentialPos = _positionTransform.transform.position + _rotationTransform.transform.forward * _speed;
             //Vector3 startFromOffset = _rotationTransform.transform.forward * 0.3f;
             //Vector3 checkPos = _centerEye.transform.position + startFromOffset + _rotationTransform.transform.forward * _speed;
@@ -66,6 +82,13 @@ namespace Waddle
             //        }
             //    }
             //}
+            return PlayerMoveResult.Allowed;
         }
+    }
+
+    public enum PlayerMoveResult {
+        Allowed,
+        Blocked_Solid,
+        Blocked_Invisible
     }
 }

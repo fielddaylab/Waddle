@@ -10,12 +10,13 @@ namespace Waddle
     {
         public Transform BodyRoot;
         public Transform HeadRoot;
+        public Transform FootRoot;
         public OVRCameraRig Rig;
 
         [NonSerialized] public Vector3 RootPos;
         [NonSerialized] public Quaternion RootRotation;
 
-        [NonSerialized] public Vector3 HeadOffset;
+        [NonSerialized] public Vector3 HeadReference;
         [NonSerialized] public Quaternion HeadRotation;
         [NonSerialized] public Vector3 HeadLook;
         [NonSerialized] public Vector3 HeadUp;
@@ -24,7 +25,7 @@ namespace Waddle
         [NonSerialized] public RingBuffer<Vector3> PositionBuffer;
 
         [NonSerialized] public Vector3 CurrentHeadPos;
-        [NonSerialized] public float CurrentHeadPosTime;
+        [NonSerialized] public Vector3 CurrentHeadVelocity;
 
         void IRegistrationCallbacks.OnDeregister() {
         }
