@@ -34,7 +34,7 @@ public class HandRaycast : MonoBehaviour
 
 	GameObject _reticleObject;
 	
-	const int NUM_LAST_POSITIONS = 12;
+	const int NUM_LAST_POSITIONS = 8;
 	
 	Vector3 _avgPosition = Vector3.zero;
 	Vector3 _avgDirection = Vector3.zero;
@@ -110,12 +110,17 @@ public class HandRaycast : MonoBehaviour
 				
 				//_avgPosition += castOrigin;
 				_accumPosition[_currPosition] = castOrigin;
-				_accumDirection[_currPosition] = Vector3.Normalize((-_rightHand.transform.right - _rightHand.transform.up) * 0.4f);
-				
-				//_avgPosition = castOrigin;//(float)_currPosition;
-				//_avgDirection /= (float)_currPosition;
-				
-				Vector3 avgDir = Vector3.zero;
+				if (_isRightUsingController) {
+                    _accumDirection[_currPosition] = Vector3.Normalize(_rightHand.transform.forward);
+                } else {
+                    _accumDirection[_currPosition] = Vector3.Normalize(_rightHand.transform.forward - _rightHand.transform.right - _rightHand.transform.up * 0.5f);
+
+                }
+
+                //_avgPosition = castOrigin;//(float)_currPosition;
+                //_avgDirection /= (float)_currPosition;
+
+                Vector3 avgDir = Vector3.zero;
 				Vector3 avgPos = Vector3.zero;
 
 				for(int i = 0; i < NUM_LAST_POSITIONS; ++i)
