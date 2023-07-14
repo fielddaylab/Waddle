@@ -27,8 +27,8 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	GameMode _gameMode;
 	
 	public GameMode GetGameMode => _gameMode;
-	
-	[SerializeField]
+
+    [SerializeField]
 	float _targetFrameRate = 72f;
 	
 	[SerializeField]
@@ -100,23 +100,25 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 				Time.maximumDeltaTime = 1f / _targetFrameRate;
 			}
 		}
-			//}
-		//}
-		
-		//UnityEngine.Time.timeScale = 0;
-		//PenguinPlayer.Instance.StopBackgroundMusic();
-		
-		//AudioListener.pause = true;
-		
-		//StartCoroutine(ShowMessage("", 5f, 10f));
-		
-		
-		//uncomment this if wanting to test things in editor without hmd
-		//BeginTheGame(PenguinGameManager.GameMode.ShowMode);
+        //}
+        //}
+
+        //UnityEngine.Time.timeScale = 0;
+        //PenguinPlayer.Instance.StopBackgroundMusic();
+
+        //AudioListener.pause = true;
+
+        //StartCoroutine(ShowMessage("", 5f, 10f));
+
+
+        //uncomment this if wanting to test things in editor without hmd
+        BeginTheGame(PenguinGameManager.GameMode.ShowMode);
+		Debug.Log("GAME BEGUN?");
     }
 	
 	public void BeginTheGame(PenguinGameManager.GameMode mode)
-	{		
+	{
+		PenguinAnalytics.Instance.StartAnalytics();
 		PenguinAnalytics.Instance.LogStartGame();
 		
 		PenguinPlayer.Instance.ResetGazeLogging();
@@ -237,7 +239,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 				{
 					PenguinPlayer.Instance.ResetHeight();
 				}
-				PenguinPlayer.Instance.StartShowingUI(true);
+				//PenguinPlayer.Instance.StartShowingUI(true);
 			}
 		}
 		

@@ -9,7 +9,6 @@ public class PenguinMenuSystem : Singleton<PenguinMenuSystem>
 {
 	public enum MenuType
 	{
-		MainMenu,
 		PauseMenu,
 		EndMenu
 	}
@@ -51,8 +50,8 @@ public class PenguinMenuSystem : Singleton<PenguinMenuSystem>
 	
 	[SerializeField]
 	GameObject _creditsBack;
-	
-	MenuType _currentType = MenuType.MainMenu;
+
+	MenuType _currentType;
 	
 	Vector3 _menuOffset = new Vector3(0.0f, -0.1f, 0.0f);
 	
@@ -113,14 +112,17 @@ public class PenguinMenuSystem : Singleton<PenguinMenuSystem>
 			_leftButton.transform.GetChild(2).GetComponent<RectTransform>().sizeDelta = new Vector2(20, 1);
 			_surveyButton.transform.GetChild(2).GetComponent<RectTransform>().sizeDelta = new Vector2(20, 1);
 			_surveyButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().fontSize = 10;
-            if(_currentType == MenuType.MainMenu)
-			{
-                _leftButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Show Mode";
-                _middleButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Credits";
-                _rightButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Home Mode";
-                _surveyButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Research Mode";
-            }
-			else if(_currentType == MenuType.PauseMenu)
+            /*
+             if(_currentType == MenuType.MainMenu)
+             {
+                 _leftButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Show Mode";
+                 _middleButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Credits";
+                 _rightButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Home Mode";
+                 _surveyButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Research Mode";
+             }
+
+             else */
+            if (_currentType == MenuType.PauseMenu)
 			{
                 _leftButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Restart";
                 _middleButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Credits";
@@ -157,7 +159,8 @@ public class PenguinMenuSystem : Singleton<PenguinMenuSystem>
         {
 			_leftButton.transform.GetChild(2).GetComponent<RectTransform>().sizeDelta = new Vector2(20, 2);
 			_surveyButton.transform.GetChild(2).GetComponent<RectTransform>().sizeDelta = new Vector2(20, 2);
-            if(_currentType == MenuType.MainMenu)
+            /*
+             * if(_currentType == MenuType.MainMenu)
 			{
 				_surveyButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().fontSize = 8;
                 _leftButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Modo de\nPresentación";
@@ -165,7 +168,8 @@ public class PenguinMenuSystem : Singleton<PenguinMenuSystem>
                 _rightButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Modo de Casa";
                 _surveyButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Modo de\nInvestigación";
             }
-			else if(_currentType == MenuType.PauseMenu)
+			else */
+			if(_currentType == MenuType.PauseMenu)
 			{
                 _leftButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Reanuda";
                 _middleButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Créditos";
@@ -210,6 +214,7 @@ public class PenguinMenuSystem : Singleton<PenguinMenuSystem>
 	public void ChangeMenuTo(MenuType menu)
 	{
 		_currentType = menu;
+		/*
 		if(menu == MenuType.MainMenu)
 		{
 			_leftButton.SetActive(true);
@@ -238,7 +243,8 @@ public class PenguinMenuSystem : Singleton<PenguinMenuSystem>
 			}
 			//_closeButton.SetActive(false);
 		}
-		else if(menu == MenuType.PauseMenu)
+		else */
+		if(menu == MenuType.PauseMenu)
 		{
 			_leftButton.SetActive(true);
 			_rightButton.SetActive(true);
