@@ -45,9 +45,4 @@ public class FollowTransform : MonoBehaviour
 			}
 		}
     }
-	
-	void LateUpdate()
-	{
-		
-	}
 }

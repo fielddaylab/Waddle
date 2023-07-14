@@ -2559,11 +2559,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2285722730498334256, guid: ef25bb04534b93a4ab96f1b171e3a60b, type: 3}
   m_PrefabInstance: {fileID: 642507912}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &647325255 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4407733500051573013, guid: f91d46b41e320764581654de9e63bf5c, type: 3}
-  m_PrefabInstance: {fileID: 479849312}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &658968908
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3097,12 +3092,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35f163f897cc76b4e8eab1fff1d51a14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PositionRoot: {fileID: 765199777}
   BodyRoot: {fileID: 1319133326}
   HeadRoot: {fileID: 1319133339}
-  FootRoot: {fileID: 647325255}
+  FootRoot: {fileID: 0}
   Rig: {fileID: 1217165757}
-  VelocityAveragingFrames: 32
 --- !u!1 &767286928
 GameObject:
   m_ObjectHideFlags: 0
@@ -6382,6 +6375,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114392993255165844, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
 --- !u!1001 &1497715890
@@ -7611,7 +7608,7 @@ PrefabInstance:
     - target: {fileID: 9182614964994305704, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 8b0bf917604141641bc717f659a6d941, type: 3}
+      objectReference: {fileID: 8300000, guid: a440b558b1d5aeb40abace6f2df772bd, type: 3}
     - target: {fileID: 9182614964994305705, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
       propertyPath: _speed
       value: 20
@@ -7839,7 +7836,7 @@ PrefabInstance:
     - target: {fileID: 9182614965972183999, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: c8e70b6c769384147b31b074b821bbbd, type: 3}
+      objectReference: {fileID: 8300000, guid: 0e343517c06b44143b96c28403c27b9c, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b1e07e0766d2614dabf7b11d548c946, type: 3}
 --- !u!4 &1764491140 stripped
@@ -8021,6 +8018,39 @@ MonoBehaviour:
   _scaleToApply: {x: 1, y: 1, z: 1}
   _offsetToApply: {x: 0, y: 0, z: 0}
   _rotationToApply: {x: -39.362, y: 179.718, z: -1.568}
+--- !u!1 &1880717338 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4091955148169538948, guid: ca7300d550e8b9e4f82019402307066d, type: 3}
+  m_PrefabInstance: {fileID: 1880717334}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1880717339 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 84722659314866689, guid: ca7300d550e8b9e4f82019402307066d, type: 3}
+  m_PrefabInstance: {fileID: 1880717334}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1880717340 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3889978522831538562, guid: ca7300d550e8b9e4f82019402307066d, type: 3}
+  m_PrefabInstance: {fileID: 1880717334}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1880717341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880717340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29988cd7a01c71f4086ee7b72c061a74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _leftHand: {fileID: 1319133330}
+  _rightHand: {fileID: 1319133328}
+  _leftController: {fileID: 1437709870}
+  _rightController: {fileID: 1437709869}
+  _leftIK: {fileID: 1880717339}
+  _rightIK: {fileID: 1880717338}
 --- !u!1 &1906354742
 GameObject:
   m_ObjectHideFlags: 0
