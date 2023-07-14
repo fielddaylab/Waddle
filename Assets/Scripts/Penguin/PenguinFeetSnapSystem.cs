@@ -1,6 +1,4 @@
-using FieldDay.Components;
 using FieldDay.Systems;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 namespace Waddle {

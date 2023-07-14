@@ -3092,10 +3092,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35f163f897cc76b4e8eab1fff1d51a14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PositionRoot: {fileID: 765199777}
   BodyRoot: {fileID: 1319133326}
   HeadRoot: {fileID: 1319133339}
-  FootRoot: {fileID: 0}
+  FootRoot: {fileID: 1319133326}
   Rig: {fileID: 1217165757}
+  VelocityAveragingFrames: 32
 --- !u!1 &767286928
 GameObject:
   m_ObjectHideFlags: 0
