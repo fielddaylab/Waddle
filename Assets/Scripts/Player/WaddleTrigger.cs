@@ -53,35 +53,35 @@ public class WaddleTrigger : MonoBehaviour
 	{
 		//happens in physics thread...
 		
-		if(otherCollider.gameObject.name == "CenterEyeAnchor")
-		{
-			//transform.position = otherCollider.gameObject.transform.position;
-			//check that their head is relatively level when entering the collider
-			float currTime = UnityEngine.Time.time;
+		//if(otherCollider.gameObject.name == "CenterEyeAnchor")
+		//{
+		//	//transform.position = otherCollider.gameObject.transform.position;
+		//	//check that their head is relatively level when entering the collider
+		//	float currTime = UnityEngine.Time.time;
 			
-			if(_centerEye.transform.forward.y > -0.6f && _centerEye.transform.forward.y < 0.5f && currTime - _triggerTimer > 0.5f)
-			{
-				_needsUpdate = true;
-				int lr = -1;
-				if(gameObject.name.EndsWith("Right"))
-				{
-					lr = 0;
-					_wasRight = 1;
-					//Debug.Log("Right nav ring");
-				}
-				else if(gameObject.name.EndsWith("Left"))
-				{
-					lr = 1;
-					//Debug.Log("Left nav ring");
-					_wasRight = 0;
-				}
+		//	if(_centerEye.transform.forward.y > -0.6f && _centerEye.transform.forward.y < 0.5f && currTime - _triggerTimer > 0.5f)
+		//	{
+		//		_needsUpdate = true;
+		//		int lr = -1;
+		//		if(gameObject.name.EndsWith("Right"))
+		//		{
+		//			lr = 0;
+		//			_wasRight = 1;
+		//			//Debug.Log("Right nav ring");
+		//		}
+		//		else if(gameObject.name.EndsWith("Left"))
+		//		{
+		//			lr = 1;
+		//			//Debug.Log("Left nav ring");
+		//			_wasRight = 0;
+		//		}
 				
-				//Debug.Log(gameObject.name);
-				//_rotationTransform.transform.position -= _rotationTransform.transform.forward * _speed * Time.deltaTime;
-				transform.parent.GetComponent<NavRing>().ForceUpdate(lr);
-				_triggerTimer = currTime;
-			}
-		}
+		//		//Debug.Log(gameObject.name);
+		//		//_rotationTransform.transform.position -= _rotationTransform.transform.forward * _speed * Time.deltaTime;
+		//		transform.parent.GetComponent<NavRing>().ForceUpdate(lr);
+		//		_triggerTimer = currTime;
+		//	}
+		//}
 	}
 	
 	void LateUpdate()

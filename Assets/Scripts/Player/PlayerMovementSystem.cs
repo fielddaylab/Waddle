@@ -1,3 +1,4 @@
+using FieldDay.Debugging;
 using FieldDay.SharedState;
 using FieldDay.Systems;
 using UnityEngine;
@@ -19,17 +20,31 @@ namespace Waddle
                 return;
             }
 
+            Vector3 originalPos = m_StateB.PositionRoot.position;
             PlayerMoveResult result = TryMove(m_StateA, m_StateB);
+            Vector3 finalPos = m_StateB.PositionRoot.position;
+
+            m_StateA.ConsecutiveSteps++;
+
+            DebugDraw.AddLine(originalPos, finalPos, Color.green, 1, 1, false);
 
             m_StateA.Queued = false;
         }
 
-        static private PlayerMoveResult TryMove(PlayerMovementState moveState, PlayerHeadState headState) {
+        private PlayerMoveResult TryMove(PlayerMovementState moveState, PlayerHeadState headState) {
             Vector3 footStart = headState.FootRoot.position;
             Vector3 headStart = headState.HeadRoot.position;
+            Vector3 bodyStart = headState.PositionRoot.position;
 
             Ray footCast = new Ray(footStart, moveState.MoveDirection);
             Ray headCast = new Ray(headStart, moveState.MoveDirection);
+            Ray bodyCast = new Ray(bodyStart, moveState.MoveDirection);
+
+            // TODO: collisions
+
+            Vector3 targetPos = bodyCast.GetPoint(moveState.MoveSpeed * m_MoveSpeedMultiplier);
+            headState.PositionRoot.position = targetPos;
+            return PlayerMoveResult.Allowed;
 
             //Vector3 potentialPos = _positionTransform.transform.position + _rotationTransform.transform.forward * _speed;
             //Vector3 startFromOffset = _rotationTransform.transform.forward * 0.3f;

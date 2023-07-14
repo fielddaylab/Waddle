@@ -1,16 +1,21 @@
+using BeauUtil;
 using FieldDay.Processes;
 using UnityEngine;
+using UnityEngine.Rendering.UI;
 
 namespace Waddle {
     public class PenguinBrain : ProcessBehaviour {
         public Transform Position;
         public Animator Animator;
         public PenguinLookSmoothing LookSmoothing;
+        public PenguinSteeringComponent Steering;
 
         [Header("-- DEBUG -- ")]
         [SerializeField] private Transform m_DEBUGLookAt;
+        [SerializeField] private Transform m_DEBUGWalkTo;
 
         protected ProcessId m_LookProcess;
+        protected ProcessId m_ThoughtProcess;
 
         protected override void Start() {
             m_LookProcess = StartProcess(PenguinLookStates.Default, "PenguinLook");
@@ -19,6 +24,15 @@ namespace Waddle {
             }
 
             StartMainProcess(PenguinStates.Idle, "PenguinMain");
+
+            if (m_DEBUGWalkTo != null) {
+                m_MainProcess.TransitionTo(PenguinStates.Walk, new PenguinWalkData() { TargetObject = m_DEBUGWalkTo });
+            }
+
+            m_ThoughtProcess = StartProcess(PenguinThoughts.Wander, "PenguinThought");
+            if (GetComponent<PenguinPebbleData>()) {
+                m_ThoughtProcess.TransitionTo(PenguinThoughts.PebbleGather);
+            }
         }
 
         #region Look State
@@ -44,5 +58,14 @@ namespace Waddle {
         }
 
         #endregion // Main State
+
+        #region Signal
+
+        public override void Signal(StringHash32 signalId, object signalArgs = null) {
+            base.Signal(signalId, signalArgs);
+            m_LookProcess.Signal(signalId, signalArgs);
+        }
+
+        #endregion // Signal
     }
 }

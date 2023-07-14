@@ -9,6 +9,7 @@ namespace FieldDay.Processes {
     public delegate void ProcessStateTransitionCallback(Process process, ProcessStateDefinition nextState);
     public delegate IEnumerator ProcessCoroutine(Process process);
     public delegate void ProcessUpdateCallback(Process process, float deltaTime);
+    public delegate void ProcessSignalCallback(Process process, StringHash32 signalId, object signalArgs);
 
     /// <summary>
     /// Describes a process state, including the identifier, custom flags,
@@ -141,6 +142,11 @@ namespace FieldDay.Processes {
         /// </summary>
         public ProcessCallback OnResume;
 
+        /// <summary>
+        /// Invoked when a signal is sent to the process.
+        /// </summary>
+        public ProcessSignalCallback OnSignal;
+
         #endregion // Events
 
         internal void GeneratePhaseMask() {
@@ -176,6 +182,7 @@ namespace FieldDay.Processes {
             table.Sequence = FindCallback<ProcessCoroutine>("Sequence", type);
             table.OnSuspend = FindCallback<ProcessCallback>("OnSuspend", type);
             table.OnResume = FindCallback<ProcessCallback>("OnResume", type);
+            table.OnSignal = FindCallback<ProcessSignalCallback>("OnSignal", type);
             table.OnPreUpdate = FindCallback<ProcessUpdateCallback>("OnPreUpdate", type);
             table.OnFixedUpdate = FindCallback<ProcessUpdateCallback>("OnFixedUpdate", type);
             table.OnUpdate = FindCallback<ProcessUpdateCallback>("OnUpdate", type);
@@ -197,6 +204,7 @@ namespace FieldDay.Processes {
             table.Sequence = FindCallback<ProcessCoroutine>(prefix + "Sequence", type);
             table.OnSuspend = FindCallback<ProcessCallback>(prefix + "OnSuspend", type);
             table.OnResume = FindCallback<ProcessCallback>(prefix + "OnResume", type);
+            table.OnSignal = FindCallback<ProcessSignalCallback>(prefix + "OnSignal", type);
             table.OnPreUpdate = FindCallback<ProcessUpdateCallback>(prefix + "OnPreUpdate", type);
             table.OnFixedUpdate = FindCallback<ProcessUpdateCallback>(prefix + "OnFixedUpdate", type);
             table.OnUpdate = FindCallback<ProcessUpdateCallback>(prefix + "OnUpdate", type);
@@ -219,6 +227,7 @@ namespace FieldDay.Processes {
             table.Sequence = FindCallback<ProcessCoroutine>("Sequence", type, target);
             table.OnSuspend = FindCallback<ProcessCallback>("OnSuspend", type, target);
             table.OnResume = FindCallback<ProcessCallback>("OnResume", type, target);
+            table.OnSignal = FindCallback<ProcessSignalCallback>("OnSignal", type, target);
             table.OnPreUpdate = FindCallback<ProcessUpdateCallback>("OnPreUpdate", type, target);
             table.OnFixedUpdate = FindCallback<ProcessUpdateCallback>("OnFixedUpdate", type, target);
             table.OnUpdate = FindCallback<ProcessUpdateCallback>("OnUpdate", type, target);
@@ -241,6 +250,7 @@ namespace FieldDay.Processes {
             table.Sequence = FindCallback<ProcessCoroutine>(prefix + "Sequence", type, target);
             table.OnSuspend = FindCallback<ProcessCallback>(prefix + "OnSuspend", type, target);
             table.OnResume = FindCallback<ProcessCallback>(prefix + "OnResume", type, target);
+            table.OnSignal = FindCallback<ProcessSignalCallback>(prefix + "OnSignal", type, target);
             table.OnPreUpdate = FindCallback<ProcessUpdateCallback>(prefix + "OnPreUpdate", type, target);
             table.OnFixedUpdate = FindCallback<ProcessUpdateCallback>(prefix + "OnFixedUpdate", type, target);
             table.OnUpdate = FindCallback<ProcessUpdateCallback>(prefix + "OnUpdate", type, target);
@@ -279,6 +289,11 @@ namespace FieldDay.Processes {
             if (suspendResume != null) {
                 table.OnSuspend = suspendResume.OnSuspend;
                 table.OnResume = suspendResume.OnResume;
+            }
+
+            IProcessStateSignal signal = type as IProcessStateSignal;
+            if (signal != null) {
+                table.OnSignal = signal.OnSignal;
             }
 
             IProcessStatePreUpdate preUpdate = type as IProcessStatePreUpdate;
@@ -378,6 +393,13 @@ namespace FieldDay.Processes {
     public interface IProcessStateSuspendResume : IProcessStateCallbacks {
         void OnSuspend(Process process);
         void OnResume(Process process);
+    }
+
+    /// <summary>
+    /// Specifies callbacks for responding to a signal.
+    /// </summary>
+    public interface IProcessStateSignal : IProcessStateCallbacks {
+        void OnSignal(Process process, StringHash32 signalId, object signalArgs);
     }
 
     /// <summary>

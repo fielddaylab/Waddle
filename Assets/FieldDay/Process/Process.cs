@@ -182,6 +182,13 @@ namespace FieldDay.Processes {
         }
 
         /// <summary>
+        /// Returns if the process is pending to transition to another state.
+        /// </summary>
+        public bool IsPendingTransition() {
+            return m_NextState != null;
+        }
+
+        /// <summary>
         /// Returns if the process is pending to be killed.
         /// </summary>
         public bool IsPendingKill() {
@@ -386,6 +393,21 @@ namespace FieldDay.Processes {
         }
 
         /// <summary>
+        /// Sends a signal to the current process state.
+        /// Will also poll the current table for a state transition based on the input signal.
+        /// </summary>
+        public void Signal(StringHash32 signalId, object signalArgs = null) {
+            m_MethodTable.OnSignal?.Invoke(this, signalId, signalArgs);
+            if (m_Table != null && !IsPendingTransition() && !IsPendingKill()) {
+                bool hasTransition = m_Table.FindTransition(this, signalId, signalArgs, out ProcessStateTableTransition trans);
+                if (hasTransition) {
+                    TransitionTo(trans.Target);
+                    trans.Callback?.Invoke(this, trans.Target);
+                }
+            }
+        }
+
+        /// <summary>
         /// Processes any queued transitions.
         /// </summary>
         internal bool ProcessTransitions() {
@@ -554,6 +576,13 @@ namespace FieldDay.Processes {
         public void Kill() {
             Process p = Game.Processes?.Get(this);
             p?.Kill();
+        }
+
+        /// <summary>
+        /// Sends a signal to this process.
+        /// </summary>
+        public void Signal(StringHash32 signalId, object signalArgs = null) {
+            Game.Processes?.Get(this)?.Signal(signalId, signalArgs);
         }
 
         #endregion // Shortcuts

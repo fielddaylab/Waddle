@@ -1,8 +1,11 @@
 using BeauRoutine;
+using BeauUtil;
 using FieldDay;
+using FieldDay.Debugging;
 using FieldDay.SharedState;
 using FieldDay.Systems;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Waddle
 {
@@ -17,17 +20,46 @@ namespace Waddle
         #endregion // Inspector
 
         public override void ProcessWork(float deltaTime) {
-            Vector3 newHeadPos = m_State.HeadRoot.localPosition;
-            Vector3 delta = newHeadPos - m_State.CurrentHeadPos;
+            bool connected = !PenguinGameManager._isGamePaused;
+            m_State.Connected = connected;
+
+            if (!connected) {
+                return;
+            }
+
+            bool firstFrame = m_State.VelocityBuffer.Count == 0;
+
+            Quaternion rotate = Quaternion.Inverse(m_State.BodyRoot.localRotation);
+
+            Vector3 newHeadPos = rotate * m_State.HeadRoot.localPosition;
+            Vector3 delta;
+            if (firstFrame) {
+                delta = default;
+            } else {
+                delta = newHeadPos - m_State.CurrentHeadPos;
+            }
             m_State.CurrentHeadPos = newHeadPos;
 
             Vector3 vel = delta / deltaTime;
-            m_State.CurrentHeadVelocity = vel;
+            if (float.IsFinite(vel.x) && float.IsFinite(vel.y) && float.IsFinite(vel.z)) {
+                m_State.CurrentHeadVelocity = vel;
 
-            m_State.PositionBuffer.PushFront(newHeadPos);
-            m_State.VelocityBuffer.PushFront(vel);
+                m_State.PositionBuffer.PushFront(newHeadPos);
+                m_State.VelocityBuffer.PushFront(vel);
 
-            m_State.HeadReference = Vector3.Lerp(m_State.HeadReference, m_State.CurrentHeadPos, TweenUtil.Lerp(m_OffsetLerp));
+                if (firstFrame) {
+                    m_State.HeadReference = m_State.CurrentHeadPos;
+                } else {
+                    m_State.HeadReference = Vector3.Lerp(m_State.HeadReference, m_State.CurrentHeadPos, TweenUtil.Lerp(m_OffsetLerp));
+                }
+            }
+
+            m_State.RootPos = m_State.BodyRoot.position;
+            m_State.RootRotation = m_State.BodyRoot.rotation;
+
+            m_State.HeadRotation = m_State.HeadRoot.rotation;
+            m_State.HeadLook = m_State.HeadRoot.forward;
+            m_State.HeadUp = m_State.HeadRoot.up;
         }
     }
 }

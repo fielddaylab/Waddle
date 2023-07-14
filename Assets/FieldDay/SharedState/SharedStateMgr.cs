@@ -110,6 +110,13 @@ namespace FieldDay.SharedState {
         }
 
         /// <summary>
+        /// Fast unchecked retrieve.
+        /// </summary>
+        internal T FastGet<T>() where T : class, ISharedState {
+            return (T) m_StateMap[StateIndex.Get<T>()];
+        }
+
+        /// <summary>
         /// Attempts to return the shared state object for the given type.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

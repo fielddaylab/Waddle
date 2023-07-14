@@ -71,5 +71,16 @@ namespace FieldDay.Processes {
         }
 
         #endregion // Start
+
+        #region Signals
+
+        /// <summary>
+        /// Sends a signal to the current main process.
+        /// </summary
+        public virtual void Signal(StringHash32 signalId, object signalArgs = null) {
+            m_MainProcess.Signal(signalId, signalArgs);
+        }
+
+        #endregion // Signals
     }
 }

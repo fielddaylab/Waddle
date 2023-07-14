@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using BeauUtil;
 using BeauUtil.Debugger;
 
@@ -11,6 +8,7 @@ namespace FieldDay.Processes {
     /// </summary>
     public sealed class ProcessStateTable {
         private readonly Dictionary<StringHash32, ProcessStateDefinition> m_StateMap;
+        private readonly Dictionary<StringHash32, List<ProcessStateTableTransitionData>> m_TransitionMap;
         
         /// <summary>
         /// Parent state table.
@@ -100,6 +98,88 @@ namespace FieldDay.Processes {
 
         #endregion // Modifiers
 
+        #region Transitions
+
+        /// <summary>
+        /// Adds a transition between the given states for the given signal.
+        /// </summary>
+        public void AddTransition(StringHash32 stateId, StringHash32 targetId, StringHash32 signalId, ProcessStateTransitionPredicate predicate = null, ProcessStateTransitionCallback callback = null) {
+            Assert.True(Has(stateId), "State '{0}' not present in state table", stateId);
+            List<ProcessStateTableTransitionData> data = GetTransitionData(stateId, true);
+            ProcessStateTableTransitionData trans = new ProcessStateTableTransitionData(signalId, targetId, null, predicate, callback);
+            data.Add(trans);
+        }
+
+        /// <summary>
+        /// Adds a transition between the given states for the given signal.
+        /// </summary>
+        public void AddTransition(StringHash32 stateId, ProcessStateDefinition target, StringHash32 signalId, ProcessStateTransitionPredicate predicate = null, ProcessStateTransitionCallback callback = null) {
+            Assert.True(Has(stateId), "State '{0}' not present in state table", stateId);
+            Assert.NotNull(target, "Cannot specify a null target");
+            List<ProcessStateTableTransitionData> data = GetTransitionData(stateId, true);
+            ProcessStateTableTransitionData trans = new ProcessStateTableTransitionData(signalId, null, target, predicate, callback);
+            data.Add(trans);
+        }
+
+        public void DeleteTransition(StringHash32 stateId, StringHash32 targetId, StringHash32 signalId) {
+            // TODO: Implement
+        }
+
+        public void DeleteTransition(StringHash32 stateId, ProcessStateDefinition target, StringHash32 signalId) {
+            // TODO: Implement
+        }
+
+        /// <summary>
+        /// Attempts to find a transition from the current state given an input signal.
+        /// </summary>
+        public bool FindTransition(Process process, StringHash32 signalId, object signalArgs, out ProcessStateTableTransition nextState) {
+            List<ProcessStateTableTransitionData> data = GetTransitionData(process.CurrentStateId, false);
+            if (data != null) {
+                int len = data.Count;
+                for (int i = 0; i < len; i++) {
+                    ProcessStateTableTransitionData trans = data[i];
+                    if (trans.SignalId != signalId) {
+                        continue;
+                    }
+
+                    ProcessStateDefinition targetDef;
+                    if (!trans.IndirectTarget.IsEmpty) {
+                        targetDef = Get(trans.IndirectTarget);
+                        if (targetDef == null) {
+                            continue;
+                        }
+                    } else {
+                        targetDef = trans.DirectTarget;
+                    }
+
+                    if (trans.Predicate != null && !trans.Predicate(process, targetDef, signalId, signalArgs)) {
+                        continue;
+                    }
+
+                    nextState = new ProcessStateTableTransition(targetDef, trans.Callback);
+                    return true;
+                }
+            }
+
+            if (Parent != null) {
+                return Parent.FindTransition(process, signalId, signalArgs, out nextState);
+            }
+
+            nextState = default;
+            return false;
+        }
+
+        private List<ProcessStateTableTransitionData> GetTransitionData(StringHash32 stateId, bool create) {
+            List<ProcessStateTableTransitionData> data;
+            if (!m_TransitionMap.TryGetValue(stateId, out data) && create) {
+                data = new List<ProcessStateTableTransitionData>(4);
+                m_TransitionMap.Add(stateId, data);
+            }
+            return data;
+        }
+
+        #endregion // Transitions
+
         #region Factory
 
         /// <summary>
@@ -125,4 +205,41 @@ namespace FieldDay.Processes {
 
         #endregion // Factor
     }
+
+    /// <summary>
+    /// Data for evaluating a state transition.
+    /// </summary>
+    internal struct ProcessStateTableTransitionData {
+        public readonly StringHash32 SignalId;
+        public readonly StringHash32 IndirectTarget;
+        public readonly ProcessStateDefinition DirectTarget;
+        public readonly ProcessStateTransitionPredicate Predicate;
+        public readonly ProcessStateTransitionCallback Callback;
+
+        public ProcessStateTableTransitionData(StringHash32 signalId, StringHash32 indirectTarget, ProcessStateDefinition directTarget, ProcessStateTransitionPredicate predicate, ProcessStateTransitionCallback callback) {
+            SignalId = signalId;
+            IndirectTarget = indirectTarget;
+            DirectTarget = directTarget;
+            Predicate = predicate;
+            Callback = callback;
+        }
+    }
+
+    /// <summary>
+    /// Data for a transition to another state.
+    /// </summary>
+    public struct ProcessStateTableTransition {
+        public readonly ProcessStateDefinition Target;
+        public readonly ProcessStateTransitionCallback Callback;
+
+        internal ProcessStateTableTransition(ProcessStateDefinition target, ProcessStateTransitionCallback callback) {
+            Target = target;
+            Callback = callback;
+        }
+    }
+
+    /// <summary>
+    /// Predicate for a ProcessStateTable signal transition.
+    /// </summary>
+    public delegate bool ProcessStateTransitionPredicate(Process process, ProcessStateDefinition targetState, StringHash32 signalId, object signalArgs);
 }
