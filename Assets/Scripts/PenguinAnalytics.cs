@@ -36,7 +36,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 	LogGazeData[] _leftHandData = new LogGazeData[MAX_VIEWPORT_DATA];
 	LogGazeData[] _rightHandData = new LogGazeData[MAX_VIEWPORT_DATA];
 
-    void Start()
+    public void StartAnalytics()
     {
         // Try to initialize Firebase and fix dependencies (will always be false in editor)
         // If successful, set FirebaseEnabled flag to true allowing analytics to be sent

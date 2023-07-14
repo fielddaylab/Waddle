@@ -103,6 +103,7 @@ public class MainPanel : MonoBehaviour
 	
 	public void HandleButtonUp(RaycastHit hitInfo)
 	{
+		/*
 		if(PenguinMenuSystem.Instance.GetCurrentMenu() == PenguinMenuSystem.MenuType.MainMenu)
 		{
 			if(hitInfo.collider.transform.gameObject == _leftButton)
@@ -147,7 +148,8 @@ public class MainPanel : MonoBehaviour
 				PenguinAnalytics.Instance.LogLanguageSelected("English");
 			}
 		}
-		else if(PenguinMenuSystem.Instance.GetCurrentMenu() == PenguinMenuSystem.MenuType.PauseMenu)
+		else */
+				if(PenguinMenuSystem.Instance.GetCurrentMenu() == PenguinMenuSystem.MenuType.PauseMenu)
 		{
 			if(hitInfo.collider.transform.gameObject == _leftButton)
 			{
