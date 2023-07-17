@@ -25,6 +25,8 @@ namespace Waddle {
                     yield return null;
                 }
 
+                // TODO: Drop pebble
+
                 pebbleData.PebblesToGather -= 1;
             }
         }

@@ -20,4 +20,20 @@ namespace Waddle {
         [NonSerialized] public Transform TargetObject;
         [NonSerialized] public float TargetPosTolerance = 0.2f;
     }
+
+    static public class PenguinSteeringUtility {
+        static public void SteerTowards(PenguinSteeringComponent steering, Vector3 position, float tolerance = 0.2f) {
+            steering.HasTarget = true;
+            steering.TargetPos = position;
+            steering.TargetObject = null;
+            steering.TargetPosTolerance = tolerance;
+        }
+
+        static public void SteerTowards(PenguinSteeringComponent steering, Transform node, float tolerance = 0.2f) {
+            steering.HasTarget = true;
+            steering.TargetPos = default;
+            steering.TargetObject = node;
+            steering.TargetPosTolerance = tolerance;
+        }
+    }
 }

@@ -1,4 +1,5 @@
 using BeauUtil.Debugger;
+using FieldDay.Debugging;
 using FieldDay.SharedState;
 using FieldDay.Systems;
 using UnityEngine;
@@ -51,11 +52,13 @@ namespace Waddle
                 desiredXOffset *= m_ConsecutiveStepEasingMultiplier;
             }
 
-            Log.Msg("[PlayerMovementDetectorSystem] current offset {0} velocity {1} look {2}", currentHeadOffset, currentHeadVelocity, currentHeadLocalLook);
+            DebugDraw.AddViewportText(new Vector2(0, 0), new Vector2(8, -8),
+                string.Format("offset {0} | velocity {1} | look {2}", currentHeadOffset, currentHeadVelocity, currentHeadLocalLook),
+                Color.yellow, 0, TextAnchor.LowerLeft, DebugTextStyle.BackgroundDark);
 
             if (currentHeadSpeed >= m_MinVelocitySensitivity) {
                 if (m_StateA.LastStepSide != PlayerFoot.Left) {
-                    if (currentHeadOffset.x < -desiredXOffset && currentHeadLocalLook.z >= m_LookSensitivity) {
+                    if (currentHeadOffset.x <= -desiredXOffset && currentHeadLocalLook.z >= m_LookSensitivity) {
                         if (Vector3.Dot(currentHeadVelocityNormalized, Vector3.left) > m_VelocitySensitivity) {
                             PlayerMovementUtility.QueueMovement(m_StateA, m_StateB.HeadLook, PlayerFoot.Left, m_WalkCooldown);
                             m_StateB.HeadReference = Vector2.Lerp(m_StateB.HeadReference, m_StateB.CurrentHeadPos, m_HeadReferenceSnap);
@@ -64,7 +67,7 @@ namespace Waddle
                 }
 
                 if (m_StateA.LastStepSide != PlayerFoot.Right) {
-                    if (currentHeadOffset.x > desiredXOffset && currentHeadLocalLook.z >= m_LookSensitivity) {
+                    if (currentHeadOffset.x >= desiredXOffset && currentHeadLocalLook.z >= m_LookSensitivity) {
                         if (Vector3.Dot(currentHeadVelocityNormalized, Vector3.right) > m_VelocitySensitivity) {
                             PlayerMovementUtility.QueueMovement(m_StateA, m_StateB.HeadLook, PlayerFoot.Right, m_WalkCooldown);
                             m_StateB.HeadReference = Vector2.Lerp(m_StateB.HeadReference, m_StateB.CurrentHeadPos, m_HeadReferenceSnap);

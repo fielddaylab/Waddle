@@ -31,6 +31,7 @@ namespace FieldDay.Processes {
         private StringHash32 m_Name;
         private Routine m_Sequence;
         private readonly ProcessMgr m_Mgr;
+        private RingBuffer<ProcessSignalWait> m_Waits;
 
         // callbacks
         public event ProcessEnterExitCallback OnStateEnter;
@@ -45,6 +46,7 @@ namespace FieldDay.Processes {
 
         internal Process(ProcessMgr mgr) {
             m_Mgr = mgr;
+            m_Waits = new RingBuffer<ProcessSignalWait>(4);
         }
 
         #region Properties
@@ -301,6 +303,9 @@ namespace FieldDay.Processes {
 
         internal void Shutdown() {
             ExitCurrentState(null);
+            while(m_Waits.TryPopFront(out ProcessSignalWait wait)) {
+                wait.Shutdown(false);
+            }
             m_NextState = null;
             m_DefaultState = null;
             m_CategoryMask = 0;
@@ -393,21 +398,6 @@ namespace FieldDay.Processes {
         }
 
         /// <summary>
-        /// Sends a signal to the current process state.
-        /// Will also poll the current table for a state transition based on the input signal.
-        /// </summary>
-        public void Signal(StringHash32 signalId, object signalArgs = null) {
-            m_MethodTable.OnSignal?.Invoke(this, signalId, signalArgs);
-            if (m_Table != null && !IsPendingTransition() && !IsPendingKill()) {
-                bool hasTransition = m_Table.FindTransition(this, signalId, signalArgs, out ProcessStateTableTransition trans);
-                if (hasTransition) {
-                    TransitionTo(trans.Target);
-                    trans.Callback?.Invoke(this, trans.Target);
-                }
-            }
-        }
-
-        /// <summary>
         /// Processes any queued transitions.
         /// </summary>
         internal bool ProcessTransitions() {
@@ -462,6 +452,54 @@ namespace FieldDay.Processes {
         }
 
         #endregion // Transitions
+
+        #region Signals
+
+        /// <summary>
+        /// Sends a signal to the current process state.
+        /// Will also poll the current table for a state transition based on the input signal.
+        /// </summary>
+        public void Signal(StringHash32 signalId, object signalArgs = null) {
+            ProcessSignalWaiters(signalId, signalArgs);
+            m_MethodTable.OnSignal?.Invoke(this, signalId, signalArgs);
+            if (m_Table != null && !IsPendingTransition() && !IsPendingKill()) {
+                bool hasTransition = m_Table.FindTransition(this, signalId, signalArgs, out ProcessStateTableTransition trans);
+                if (hasTransition) {
+                    TransitionTo(trans.Target);
+                    trans.Callback?.Invoke(this, trans.Target);
+                }
+            }
+        }
+
+        private void ProcessSignalWaiters(StringHash32 signalId, object signalArg) {
+            for(int i = m_Waits.Count - 1; i >= 0; i--) {
+                m_Waits[i].TryHandle(signalId, signalArg);
+            }
+        }
+
+        /// <summary>
+        /// Waits for the process to receive the given signal.
+        /// </summary>
+        public ProcessSignalWait WaitForSignal(StringHash32 signalId) {
+            ProcessSignalWait wait = ProcessSignalWait.Alloc(this, signalId, null);
+            m_Waits.PushBack(wait);
+            return wait;
+        }
+
+        /// <summary>
+        /// Waits for the process to receive the given signal.
+        /// </summary>
+        public ProcessSignalWait WaitForSignal(StringHash32 signalId, Predicate<object> signalArgPredicate) {
+            ProcessSignalWait wait = ProcessSignalWait.Alloc(this, signalId, signalArgPredicate);
+            m_Waits.PushBack(wait);
+            return wait;
+        }
+
+        internal void RemoveSignalWait(ProcessSignalWait wait) {
+            m_Waits.FastRemove(wait);
+        }
+
+        #endregion // Signals
     }
 
     public delegate void ProcessEnterExitCallback(Process process, ProcessStateDefinition state);

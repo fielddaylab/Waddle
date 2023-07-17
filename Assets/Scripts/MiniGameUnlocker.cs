@@ -105,11 +105,10 @@ public class MiniGameUnlocker : MonoBehaviour
 		
 		transform.GetChild((int)MiniGameCommonObjects.ICON).gameObject.SetActive(true);
 		transform.GetChild((int)MiniGameCommonObjects.POLE).gameObject.SetActive(true);
-		
-		PenguinPlayer.Instance.transform.GetChild(3).GetChild(0).GetComponent<WaddleTrigger>().Speed = 20f;
-		PenguinPlayer.Instance.transform.GetChild(3).GetChild(1).GetComponent<WaddleTrigger>().Speed = 20f;
-		
-		Collider c = GetComponent<Collider>();
+
+        PenguinPlayer.Instance.SpeedUpMovement();
+
+        Collider c = GetComponent<Collider>();
 		if(c != null)
 		{
 			c.enabled = true;

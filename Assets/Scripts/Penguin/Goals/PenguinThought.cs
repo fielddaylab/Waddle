@@ -15,5 +15,6 @@ namespace Waddle {
     static public class PenguinThoughts {
         static public readonly ProcessStateDefinition Wander = ProcessStateDefinition.FromCallbacks("wander", new PenguinThoughtWander());
         static public readonly ProcessStateDefinition PebbleGather = ProcessStateDefinition.FromCallbacks("pebbles", new PenguinThoughtPebbles());
+        static public readonly ProcessStateDefinition Guide = ProcessStateDefinition.FromCallbacks("guide", new PenguinThoughtGuide());
     }
 }

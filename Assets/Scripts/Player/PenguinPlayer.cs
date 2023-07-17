@@ -4,6 +4,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Waddle;
 
 public class PenguinPlayer : Singleton<PenguinPlayer>
 {
@@ -12,7 +13,6 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		CONTROLLER,
 		PENGUIN_BODY,
 		MIRROR_BODY,
-		NAV_RING,
 		SNOW_RING,
 		SELECT_LINE,
 		SELECT_DOT,
@@ -197,15 +197,13 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 	
 	public void SlowDownMovement()
 	{
-		transform.GetChild(3).GetChild(0).GetComponent<WaddleTrigger>().Speed = 2f;
-		transform.GetChild(3).GetChild(1).GetComponent<WaddleTrigger>().Speed = 2f;
+        GetComponent<PlayerMovementState>().MoveSpeed = 2;
 	}
 	
 	public void SpeedUpMovement()
 	{
-		transform.GetChild(3).GetChild(0).GetComponent<WaddleTrigger>().Speed = 20f;
-		transform.GetChild(3).GetChild(1).GetComponent<WaddleTrigger>().Speed = 20f;
-	}
+        GetComponent<PlayerMovementState>().MoveSpeed = 20;
+    }
 	
 	public void HideMenu()
 	{
@@ -443,12 +441,12 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 	
 	public void DisableMovement()
 	{
-		transform.GetChild((int)PenguinPlayerObjects.NAV_RING).gameObject.SetActive(false);
+        GetComponent<PlayerMovementState>().enabled = false;
 	}
 	
 	public void EnableMovement()
 	{
-		transform.GetChild((int)PenguinPlayerObjects.NAV_RING).gameObject.SetActive(true);
+        GetComponent<PlayerMovementState>().enabled = true;
 	}
 	
 	public void ShowWaddleMessage(float showDuration)

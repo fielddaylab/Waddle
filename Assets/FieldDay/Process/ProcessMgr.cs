@@ -9,7 +9,7 @@ namespace FieldDay.Processes {
     /// Process manager. Updates process, maintains update buckets.
     /// </summary>
     public sealed class ProcessMgr {
-        private readonly UniqueIdMap32<Process> m_ProcessIdTable = new UniqueIdMap32<Process>(32);
+        private readonly UniqueIdMap32<Process> m_ProcessIdTable = new UniqueIdMap32<Process>(256);
         private PhaseBuckets<Process> m_ProcessUpdates = new PhaseBuckets<Process>(16);
         private readonly HashSet<Process> m_AllProcesses = new HashSet<Process>(32);
         private readonly HashSet<Process> m_ProcessesWithHosts = new HashSet<Process>(32);

@@ -59,6 +59,7 @@ namespace FieldDay.Debugging {
             public DrawState State;
 
             public Vector3 Position;
+            public Vector2 Offset;
             public bool WorldSpace;
             public string Text;
             public TextAnchor Alignment;
@@ -237,7 +238,7 @@ namespace FieldDay.Debugging {
 
                 m_TextStyleBox = new GUIStyle(m_TextStylePlain);
                 m_TextStyleBox.normal.background = Texture2D.whiteTexture;
-                m_TextStyleBox.padding = new RectOffset(4, 4, 4, 4);
+                m_TextStyleBox.padding = new RectOffset(8, 8, 4, 4);
 
                 m_TextContent = new GUIContent();
                 m_InitializedResources = true;
@@ -326,6 +327,7 @@ namespace FieldDay.Debugging {
                     }
 
                     targetPoint.y = camera.pixelHeight - targetPoint.y;
+                    targetPoint += state.Offset;
 
                     GUIStyle style;
                     switch (state.Style) {
@@ -432,6 +434,27 @@ namespace FieldDay.Debugging {
         }
 
         /// <summary>
+        /// Adds text, pinned to a world-space point, to the debug render queue.
+        /// </summary>
+        [Conditional("DEVELOPMENT"), Conditional("UNITY_EDITOR"), Conditional("DEVELOPMENT_BUILD")]
+        static public void AddWorldText(Vector3 point, Vector2 offset, string text, Color color, float duration = 0, TextAnchor alignment = TextAnchor.MiddleCenter, DebugTextStyle style = DebugTextStyle.Default, int category = -1) {
+#if DEVELOPMENT
+            TextRenderState renderState = new TextRenderState();
+            renderState.Params.Color = color;
+            renderState.Params.DepthTest = false;
+            renderState.Params.Category = (sbyte) category;
+            renderState.State.Duration = duration;
+            renderState.WorldSpace = true;
+            renderState.Text = text;
+            renderState.Position = point;
+            renderState.Offset = offset;
+            renderState.Alignment = alignment;
+            renderState.Style = style;
+            s_ActiveTexts.PushBack(renderState);
+#endif // DEVELOPMENT
+        }
+
+        /// <summary>
         /// Adds text, pinned to a viewport point, to the debug render queue.
         /// </summary>
         [Conditional("DEVELOPMENT"), Conditional("UNITY_EDITOR"), Conditional("DEVELOPMENT_BUILD")]
@@ -445,6 +468,27 @@ namespace FieldDay.Debugging {
             renderState.WorldSpace = false;
             renderState.Text = text;
             renderState.Position = viewport;
+            renderState.Alignment = alignment;
+            renderState.Style = style;
+            s_ActiveTexts.PushBack(renderState);
+#endif // DEVELOPMENT
+        }
+
+        /// <summary>
+        /// Adds text, pinned to a viewport point, to the debug render queue.
+        /// </summary>
+        [Conditional("DEVELOPMENT"), Conditional("UNITY_EDITOR"), Conditional("DEVELOPMENT_BUILD")]
+        static public void AddViewportText(Vector2 viewport, Vector2 offset, string text, Color color, float duration = 0, TextAnchor alignment = TextAnchor.MiddleCenter, DebugTextStyle style = DebugTextStyle.Default, int category = -1) {
+#if DEVELOPMENT
+            TextRenderState renderState = new TextRenderState();
+            renderState.Params.Color = color;
+            renderState.Params.DepthTest = false;
+            renderState.Params.Category = (sbyte) category;
+            renderState.State.Duration = duration;
+            renderState.WorldSpace = false;
+            renderState.Text = text;
+            renderState.Position = viewport;
+            renderState.Offset = offset;
             renderState.Alignment = alignment;
             renderState.Style = style;
             s_ActiveTexts.PushBack(renderState);

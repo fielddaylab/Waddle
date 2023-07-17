@@ -207,7 +207,13 @@ namespace WIDVE.Utilities
 		/// </summary>
 		public ICommand Load(LoadSceneMode mode=LoadSceneMode.Additive, CommandHistory ch=null)
 		{
-			ICommand load = new Commands.Load(this, mode);
+#if UNITY_EDITOR
+            var scene = GetScene();
+            if (scene.isLoaded) {
+                return null;
+            }
+#endif // UNITY_EDITOR
+            ICommand load = new Commands.Load(this, mode);
 			CommandHistory.Execute(load, ch);
 			return load;
 		}
@@ -238,6 +244,9 @@ namespace WIDVE.Utilities
 			if (Application.isPlaying)
 			{
 				//load async
+                if (GetScene().isLoaded) {
+                    return null;
+                }
 				return EditorSceneManager.LoadSceneAsyncInPlayMode(ScenePath, lsp);
 			}
 			else

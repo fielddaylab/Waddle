@@ -39,8 +39,7 @@ public class EndGame : MonoBehaviour
 		{
 			transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.NEST).GetChild(i).gameObject.SetActive(false);
 		}
-	
-		PenguinPlayer.Instance.transform.GetChild(3).GetChild(0).GetComponent<WaddleTrigger>().Speed = 20f;
-		PenguinPlayer.Instance.transform.GetChild(3).GetChild(1).GetComponent<WaddleTrigger>().Speed = 20f;
+
+        PenguinPlayer.Instance.SpeedUpMovement();
 	}
 }

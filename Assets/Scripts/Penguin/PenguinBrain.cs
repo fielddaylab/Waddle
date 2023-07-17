@@ -9,6 +9,9 @@ namespace Waddle {
         public PenguinLookSmoothing LookSmoothing;
         public PenguinSteeringComponent Steering;
 
+        [Header("Wandering")]
+        public PenguinWanderData WanderParameters = new PenguinWanderData() { IdleWait = 4, IdleWaitRandom = 4, WanderRadius = 4 };
+
         [Header("-- DEBUG -- ")]
         [SerializeField] private Transform m_DEBUGLookAt;
         [SerializeField] private Transform m_DEBUGWalkTo;
@@ -28,9 +31,13 @@ namespace Waddle {
                 m_MainProcess.TransitionTo(PenguinStates.Walk, new PenguinWalkData() { TargetObject = m_DEBUGWalkTo });
             }
 
+            WanderParameters.Tether = Position.position;
+
             m_ThoughtProcess = StartProcess(PenguinThoughts.Wander, "PenguinThought");
             if (GetComponent<PenguinPebbleData>()) {
                 m_ThoughtProcess.TransitionTo(PenguinThoughts.PebbleGather);
+            } else if (GetComponent<PenguinGuideParams>()) {
+                m_ThoughtProcess.TransitionTo(PenguinThoughts.Guide);
             }
         }
 
@@ -56,6 +63,14 @@ namespace Waddle {
             m_MainProcess.TransitionTo(mainState, data);
         }
 
+        public void SetWalkState(Vector3 targetPos, float targetPosThreshold = 0.2f) {
+            m_MainProcess.TransitionTo(PenguinStates.Walk, new PenguinWalkData() { TargetDistanceThreshold = targetPosThreshold, TargetPosition = targetPos });
+        }
+
+        public void SetWalkState(Transform targetPos, float targetPosThreshold = 0.2f) {
+            m_MainProcess.TransitionTo(PenguinStates.Walk, new PenguinWalkData() { TargetDistanceThreshold = targetPosThreshold, TargetObject = targetPos });
+        }
+
         #endregion // Main State
 
         #region Signal
@@ -63,6 +78,7 @@ namespace Waddle {
         public override void Signal(StringHash32 signalId, object signalArgs = null) {
             base.Signal(signalId, signalArgs);
             m_LookProcess.Signal(signalId, signalArgs);
+            m_ThoughtProcess.Signal(signalId, signalArgs);
         }
 
         #endregion // Signal

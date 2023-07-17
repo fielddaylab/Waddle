@@ -1,8 +1,9 @@
 using BeauUtil;
+using BeauUtil.Debugger;
 using UnityEngine;
 
 namespace Waddle {
-    [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(Collider), typeof(TriggerListener))]
     public class PenguinSensor : MonoBehaviour {
         [Required] public PenguinBrain Brain;
         [Required] public TriggerListener Listener;
@@ -15,11 +16,15 @@ namespace Waddle {
         }
 
         private void OnEnter(Collider collider) {
-            Brain.Signal(EnterSignal, collider);
+            if (!EnterSignal.IsEmpty) {
+                Brain.Signal(EnterSignal, collider);
+            }
         }
 
         private void OnExit(Collider collider) {
-            Brain.Signal(ExitSignal, collider);
+            if (!ExitSignal.IsEmpty) {
+                Brain.Signal(ExitSignal, collider);
+            }
         }
     }
 }

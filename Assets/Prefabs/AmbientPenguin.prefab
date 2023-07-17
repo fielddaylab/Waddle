@@ -335,6 +335,10 @@ GameObject:
   - component: {fileID: 3291878845233163422}
   - component: {fileID: 5881542984067713960}
   - component: {fileID: 5171084278972942828}
+  - component: {fileID: 2137999746708601740}
+  - component: {fileID: 1058209586620724353}
+  - component: {fileID: 7782495333627707602}
+  - component: {fileID: 237095941245695212}
   m_Layer: 0
   m_Name: NPCPenguin_Anims01b
   m_TagString: PTNPenguin
@@ -356,6 +360,7 @@ Transform:
   m_Children:
   - {fileID: 4821467821064905541}
   - {fileID: 2722294386450810262}
+  - {fileID: 4868758481999930613}
   m_Father: {fileID: 5057784926981871767}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -379,7 +384,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &5881542984067713960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,6 +412,79 @@ MonoBehaviour:
   Animator: {fileID: 3291878845233163422}
   DefaultLerpSpeed: 8
   StateMachineMaskLerpSpeed: 12
+--- !u!114 &2137999746708601740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2408989911822881228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2edb19660913762468ec7a41c2cfc1a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Position: {fileID: 5057784926981871767}
+  Animator: {fileID: 3291878845233163422}
+  LookSmoothing: {fileID: 1058209586620724353}
+  Steering: {fileID: 237095941245695212}
+  WanderParameters:
+    IdleWait: 4
+    IdleWaitRandom: 4
+    WanderRadius: 2
+  m_DEBUGLookAt: {fileID: 0}
+  m_DEBUGWalkTo: {fileID: 0}
+--- !u!114 &1058209586620724353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2408989911822881228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a2ca9b8ad4fdff4388a2e87fd51d700, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 3291878845233163422}
+  LookFrom: {fileID: 4868758481999930613}
+  LookLerpSpeed: 8
+--- !u!114 &7782495333627707602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2408989911822881228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d1cd29e044e79049b62e53f4c24c1c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RootTransform: {fileID: 3037012895037885302}
+  RootYOffset: 0
+  RaycastDistance: 10
+  SolidLayers:
+    serializedVersion: 2
+    m_Bits: 2048
+--- !u!114 &237095941245695212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2408989911822881228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1146bc85db6931347aae6246e31784a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PositionRoot: {fileID: 5057784926981871767}
+  RotationRoot: {fileID: 5057784926981871767}
+  Brain: {fileID: 2137999746708601740}
+  MovementSpeed: 0.7
+  TurnSpeed: 45
+  MaxAngleDiffToMove: 70
 --- !u!1 &2595337819816080932
 GameObject:
   m_ObjectHideFlags: 0
@@ -860,7 +937,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5057784926981871767}
-  - component: {fileID: 7826111961798322223}
   - component: {fileID: 5875087184992116930}
   m_Layer: 0
   m_Name: AmbientPenguin
@@ -885,24 +961,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!114 &7826111961798322223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6161181852866283513}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e450111846a30d4cbc3ecb3bcaa3970, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _wanderRadius: 2
-  _idleTime: 4
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 2048
-  _yOffset: 0
 --- !u!82 &5875087184992116930
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1363,6 +1421,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1591428607630469396}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8763043895129834829
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4868758481999930613}
+  m_Layer: 0
+  m_Name: HeadLook
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4868758481999930613
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8763043895129834829}
+  m_LocalRotation: {x: 0.58240145, y: -0.33586153, z: -0.26791492, w: 0.69009215}
+  m_LocalPosition: {x: -0.0066499487, y: 0.611393, z: 0.06346696}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3037012895037885302}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9093656495366541326
 GameObject:
