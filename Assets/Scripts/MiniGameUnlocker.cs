@@ -163,7 +163,7 @@ public class MiniGameUnlocker : MonoBehaviour
 				_isGameUnlocked = true;
 				
 				//show border
-				transform.GetChild((int)MiniGameCommonObjects.SNOW).gameObject.SetActive(true);
+				// transform.GetChild((int)MiniGameCommonObjects.SNOW).gameObject.SetActive(true);
 				
 				if(!Lockable)
 				{

@@ -20,7 +20,10 @@ public class BeakTrigger : MonoBehaviour
 	GameObject[] bowlingPenguins;
 	GameObject[] bowlingBalls;
 
-	AudioSource _audioFile = null;
+    [SerializeField] private float _minBeatTime = 0.5f; // min time between mating dance beats
+    private float _minBeatTimer = 0; // elapsed time since prev beat 
+
+    AudioSource _audioFile = null;
     
     void Start()
     {
@@ -44,6 +47,9 @@ public class BeakTrigger : MonoBehaviour
 		{
 			 _pebbleTarget = GameObject.FindWithTag("Egg");
 		}*/
+		if (_minBeatTimer > 0) {
+            _minBeatTimer -= Time.deltaTime;
+        }
     }
 
 	IEnumerator BowlingBallGrow(GameObject ball){
@@ -184,17 +190,18 @@ public class BeakTrigger : MonoBehaviour
 			//play positive sound effect if they collide with bubble...
 			//also destroy bubble...
 			ShrinkRing sr = otherCollider.gameObject.transform.GetChild(0).GetComponent<ShrinkRing>();
-			if(sr != null && sr.IsValidWindow)
+			if (sr != null && _minBeatTimer <= 0)
 			{
 				AudioSource audio = otherCollider.gameObject.GetComponent<AudioSource>();
 				if(audio != null)
 				{
 					//Debug.Log("Bubble Hit!");
 					PenguinAnalytics.Instance.LogBubblePop(sr.GetWhichBubble(), sr.GetTiming());
-					audio.Play();
-				}
-				
-				sr.Popped();
+					audio.PlayOneShot(audio.clip);
+                }
+
+                sr.Popped();
+				_minBeatTimer = _minBeatTime;
 			}
 		}
 		
