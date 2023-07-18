@@ -4,6 +4,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class StartGame : MonoBehaviour
 {
@@ -11,6 +12,15 @@ public class StartGame : MonoBehaviour
 	
 	[SerializeField]
 	bool _loadScene = false;
+
+	[SerializeField]
+	bool _strictAngle = false;
+
+	[SerializeField]
+	float _facingAngle; // player must be facing this angle +/- angleBuffer before minigame triggers
+	
+	[SerializeField]
+	float _angleBuffer = 10f;
 	
     // Start is called before the first frame update
     void Start()
@@ -139,27 +149,56 @@ public class StartGame : MonoBehaviour
 			{
 				mr.enabled = true;
 			}
-		}
+
+            if (_miniGame == PenguinGameManager.MiniGame.MatingDance) {
+                // enable movement
+                PenguinGameManager._headMovementActive = true;
+            }
+        }
 	}
 	
 	void OnTriggerEnter(Collider otherCollider)
 	{
 		if(otherCollider.gameObject.layer == 3)
 		{
-			gameObject.GetComponent<Collider>().enabled = false;
-			
-			if(_loadScene)
-			{
-				StartCoroutine(LoadMiniGameAsync(_miniGame.ToString()));
-			}
-			else
-			{
-				PenguinGameManager.Instance.LoadMiniGame(_miniGame);
-				
-				OnStartGame();
-			}
+			if (_strictAngle) {
+                if (Vector3.SignedAngle(otherCollider.transform.forward, Vector3.forward, Vector3.up) <= _facingAngle + _angleBuffer
+					&& Vector3.SignedAngle(otherCollider.transform.forward, Vector3.forward, Vector3.up) >= _facingAngle - _angleBuffer) {
+                    ValidTriggerEnter();
+                }
+            }
+			else {
+				ValidTriggerEnter();
+            }
 		}
 	}
+
+    private void OnTriggerStay(Collider otherCollider) {
+        if (otherCollider.gameObject.layer == 3) {
+            if (_strictAngle) {
+                if (Vector3.SignedAngle(otherCollider.transform.forward, Vector3.forward, Vector3.up) <= _facingAngle + _angleBuffer
+                    && Vector3.SignedAngle(otherCollider.transform.forward, Vector3.forward, Vector3.up) >= _facingAngle - _angleBuffer) {
+                    ValidTriggerEnter();
+                }
+            }
+            else {
+                ValidTriggerEnter();
+            }
+        }
+    }
+
+    private void ValidTriggerEnter() {
+        gameObject.GetComponent<Collider>().enabled = false;
+
+        if (_loadScene) {
+            StartCoroutine(LoadMiniGameAsync(_miniGame.ToString()));
+        }
+        else {
+            PenguinGameManager.Instance.LoadMiniGame(_miniGame);
+
+            OnStartGame();
+        }
+    }
 	
 	
 	IEnumerator LoadMiniGameAsync(string _miniGameName)
