@@ -23,11 +23,13 @@ namespace Waddle {
         protected ProcessId m_LookProcess;
         protected ProcessId m_ThoughtProcess;
         protected TransformState m_OriginalTransform;
+        protected AnimatorStateSnapshot m_AnimatorSnapshot;
 
         protected override void Start() {
             StartThinking();
             PenguinGameManager.OnReset += Restart;
             m_OriginalTransform = TransformState.WorldState(Position);
+            m_AnimatorSnapshot = new AnimatorStateSnapshot(Animator);
         }
 
         private void Restart() {
@@ -36,7 +38,7 @@ namespace Waddle {
             m_ThoughtProcess.Kill();
             m_OriginalTransform.Apply(Position);
             Steering.HasTarget = false;
-            Animator.Rebind();
+            m_AnimatorSnapshot.Restore();
             StartThinking();
         }
 

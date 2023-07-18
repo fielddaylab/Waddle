@@ -18,6 +18,10 @@ namespace Waddle {
                 m_ChunksFull = 0;
             };
 
+            foreach(var chunk in Chunks) {
+                chunk.ResetEffects();
+            }
+
             Game.Events.Register(PlayerBeakUtility.Event_PickedUp, OnPlayerPickedUp)
                 .Register(PlayerBeakUtility.Event_Dropped, OnPlayerDropped);
         }

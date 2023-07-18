@@ -393,7 +393,7 @@ namespace FieldDay.Processes {
         /// Marks the process to be killed.
         /// </summary>
         public void Kill() {
-            if ((m_Status & ProcessStatus.PendingKill) != 0) {
+            if ((m_Status & ProcessStatus.PendingKill) == 0) {
                 m_Status |= ProcessStatus.PendingKill;
                 MarkDirty();
             }
