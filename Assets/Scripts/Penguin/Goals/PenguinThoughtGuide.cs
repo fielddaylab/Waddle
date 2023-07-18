@@ -17,8 +17,29 @@ namespace Waddle {
             while(brain.Steering.HasTarget) {
                 yield return null;
             }
-            brain.Animator.Play("BackDefense.Left Turn Around", 0);
-            yield return 2;
+            brain.Animator.SetBool("AttackedTwice", true);
+            brain.Animator.SetBool("FrontAttack", true);
+            yield return new WaitForSeconds (4);
+            brain.Animator.SetBool("AttackedTwice", false);
+            brain.Animator.SetBool("FrontAttack", false);
+            yield return process.WaitForSignal("player-cross-second-threshold");
+            brain.SetWalkState(guideParms.SecondWalkNode);
+            yield return null;
+            while (brain.Steering.HasTarget)
+            {
+                yield return null;
+            }
+            brain.SetWalkState(guideParms.ThirdWalkNode);
+            yield return null;
+            while (brain.Steering.HasTarget)
+            {
+                yield return null;
+            }
+            brain.Animator.SetBool("AttackedTwice", true);
+            brain.Animator.SetBool("FrontAttack", true);
+            yield return new WaitForSeconds(4);
+            brain.Animator.SetBool("AttackedTwice", false);
+            brain.Animator.SetBool("FrontAttack", false);
         }
     }
 }
