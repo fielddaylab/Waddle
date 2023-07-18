@@ -26,7 +26,19 @@ namespace Waddle
             PlayerMoveResult result = TryMove(m_StateA, m_StateB);
             Vector3 finalPos = m_StateB.PositionRoot.position;
 
-            m_StateA.ConsecutiveSteps++;
+            if (result == PlayerMoveResult.Allowed) {
+                PenguinAnalytics.Instance.LogMove(originalPos, finalPos, m_StateB.HeadRotation, m_StateA.FromRight ? 1 : 0);
+
+                if (m_StateA.FootAudioSource) {
+                    m_StateA.FootAudioSource.PlayOneShot(RNG.Instance.Choose(m_StateA.StepAudioClips));
+                }
+
+                m_StateA.ConsecutiveSteps++;
+            } else {
+                if (m_StateA.FootAudioSource) {
+                    m_StateA.FootAudioSource.PlayOneShot(RNG.Instance.Choose(m_StateA.CollideAudioClips));
+                }
+            }
 
             DebugDraw.AddLine(originalPos, finalPos, Color.green, 1, 1, false);
 

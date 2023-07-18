@@ -9,11 +9,20 @@ namespace Waddle
     public class PlayerMovementState : SharedStateComponent
     {
         public float MoveSpeed = 20;
+
+        [Header("Terrain Surface")]
         public LayerMask TerrainMask;
-        public LayerMask InvisibleColliderMask;
         [Range(0, 1)] public float TerrainAngleStrictness = 0.5f;
+
+        [Header("Invisible Collisions")]
+        public LayerMask InvisibleColliderMask;
         public float ColliderCheckRadius;
         [Range(0, 1)] public float MinMovePercentage = 0.5f;
+
+        [Header("Responses")]
+        public AudioSource FootAudioSource;
+        public AudioClip[] StepAudioClips;
+        public AudioClip[] CollideAudioClips;
 
         [NonSerialized] public bool Queued;
         [NonSerialized] public bool FromRight;

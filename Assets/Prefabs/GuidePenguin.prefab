@@ -43,6 +43,8 @@ GameObject:
   - component: {fileID: 5894897784596944170}
   - component: {fileID: 7719451662267022478}
   - component: {fileID: 3978134982335859526}
+  - component: {fileID: 1656294400}
+  - component: {fileID: 4981441044276951269}
   m_Layer: 23
   m_Name: PlayerProximitySensor
   m_TagString: Untagged
@@ -59,7 +61,7 @@ Transform:
   m_GameObject: {fileID: 5800790608670306233}
   m_LocalRotation: {x: -0.0000000013963345, y: 0.74965143, z: -0.0000000012327598, w: 0.6618329}
   m_LocalPosition: {x: 0.0030985947, y: 0.46375006, z: 0.044962678}
-  m_LocalScale: {x: 1.2499998, y: 1.25, z: 1.2499999}
+  m_LocalScale: {x: 1.5, y: 1.25, z: 1.2499999}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 275322099666608282}
@@ -131,6 +133,46 @@ MonoBehaviour:
   ExitSignal:
     m_Source: player-leave
     m_HashValue: 4244333730
+--- !u!114 &1656294400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5800790608670306233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 888dc876f5faad54dae0ccb666e73c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Brain: {fileID: 5504161761720491650}
+  Listener: {fileID: 7719451662267022478}
+  EnterSignal:
+    m_Source: player-cross-initial-threshold
+    m_HashValue: 75913582
+  ExitSignal:
+    m_Source: 
+    m_HashValue: 0
+--- !u!114 &4981441044276951269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5800790608670306233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 888dc876f5faad54dae0ccb666e73c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Brain: {fileID: 5504161761720491650}
+  Listener: {fileID: 7719451662267022478}
+  EnterSignal:
+    m_Source: player-cross-second-threshold
+    m_HashValue: 3800760646
+  ExitSignal:
+    m_Source: 
+    m_HashValue: 0
 --- !u!1 &8968754413910846485
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,19 +325,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0d2f8cc1af4a59b4a98687be15ba42e7, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6618329
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0d2f8cc1af4a59b4a98687be15ba42e7, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0d2f8cc1af4a59b4a98687be15ba42e7, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.74965143
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0d2f8cc1af4a59b4a98687be15ba42e7, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0d2f8cc1af4a59b4a98687be15ba42e7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -303,7 +345,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0d2f8cc1af4a59b4a98687be15ba42e7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -97.12
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0d2f8cc1af4a59b4a98687be15ba42e7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -377,6 +419,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FirstWalkNode: {fileID: 0}
+  SecondWalkNode: {fileID: 0}
+  ThirdWalkNode: {fileID: 0}
 --- !u!114 &3894774032880269684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,8 +474,8 @@ MonoBehaviour:
   PositionRoot: {fileID: 8054507916665205627}
   RotationRoot: {fileID: 8054507916665205627}
   Brain: {fileID: 5504161761720491650}
-  MovementSpeed: 0.7
-  TurnSpeed: 45
+  MovementSpeed: 0.5
+  TurnSpeed: 60
   MaxAngleDiffToMove: 70
 --- !u!114 &7105023795767545476
 MonoBehaviour:
@@ -455,7 +499,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2097152
   AngleStrictness: 0.5
-  CheckRadius: 0
+  CheckRadius: 0.4
 --- !u!114 &7498156849163068627
 MonoBehaviour:
   m_ObjectHideFlags: 0
