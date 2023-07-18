@@ -208,9 +208,11 @@ namespace WIDVE.Utilities
 		public ICommand Load(LoadSceneMode mode=LoadSceneMode.Additive, CommandHistory ch=null)
 		{
 #if UNITY_EDITOR
-            var scene = GetScene();
-            if (scene.isLoaded) {
-                return null;
+            if (!BuildPipeline.isBuildingPlayer) {
+                var scene = GetScene();
+                if (scene.isLoaded) {
+                    return null;
+                }
             }
 #endif // UNITY_EDITOR
             ICommand load = new Commands.Load(this, mode);

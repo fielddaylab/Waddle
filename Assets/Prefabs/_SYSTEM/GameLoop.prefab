@@ -82,7 +82,7 @@ MonoBehaviour:
   m_ConsecutiveStepEasingThreshold: 2
   m_ConsecutiveStepEasingMultiplier: 0.8
   m_WalkCooldown: 1
-  m_HeadReferenceSnap: 0.5
+  m_HeadReferenceSnap: 0.65
 --- !u!1 &2240847203652696269
 GameObject:
   m_ObjectHideFlags: 0

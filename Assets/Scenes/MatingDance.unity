@@ -567,6 +567,8 @@ MonoBehaviour:
   _heartSpawn: {fileID: 685398480880471643}
   _heartPrefab: {fileID: 8037065422372829758, guid: 5f5b73ae6ea394c3ab9f6ab9ac4f06ce, type: 3}
   _demoBubble: {fileID: 32813775}
+  _exitAngle: 102
+  _angleBuffer: 10
   _walkToSpot: {fileID: 1621943195}
 --- !u!65 &496783149
 BoxCollider:
@@ -595,6 +597,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _miniGame: 1
   _loadScene: 0
+  _strictAngle: 1
+  _facingAngle: -78
+  _angleBuffer: 10
 --- !u!23 &496783151
 MeshRenderer:
   m_ObjectHideFlags: 0

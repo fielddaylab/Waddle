@@ -1,3 +1,4 @@
+using BeauRoutine;
 using BeauUtil;
 using FieldDay.Processes;
 using UnityEngine;
@@ -21,8 +22,25 @@ namespace Waddle {
 
         protected ProcessId m_LookProcess;
         protected ProcessId m_ThoughtProcess;
+        protected TransformState m_OriginalTransform;
 
         protected override void Start() {
+            StartThinking();
+            PenguinGameManager.OnReset += Restart;
+            m_OriginalTransform = TransformState.WorldState(Position);
+        }
+
+        private void Restart() {
+            m_LookProcess.Kill();
+            m_MainProcess.Kill();
+            m_ThoughtProcess.Kill();
+            m_OriginalTransform.Apply(Position);
+            Steering.HasTarget = false;
+            Animator.Rebind();
+            StartThinking();
+        }
+
+        private void StartThinking() {
             m_LookProcess = StartProcess(PenguinLookStates.Default, "PenguinLook");
             if (m_DEBUGLookAt != null) {
                 m_LookProcess.TransitionTo(PenguinLookStates.LookAtTransform, new PenguinLookData() { TargetTransform = m_DEBUGLookAt });

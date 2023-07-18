@@ -14,10 +14,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Overworld.unity
     guid: 84a7e0f9e50a1bd458f4e5840cb81fbe
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/ProtectTheNest.unity
     guid: 9552ffdaa399f074484068af6d7d5b93
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MatingDance.unity
     guid: 3c8d90e4eb3c0db439909121ec1e8b6b
   m_configObjects:

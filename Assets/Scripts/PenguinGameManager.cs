@@ -62,7 +62,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	public bool GameWasStarted => _gameWasStarted;
 	
 	public delegate void OnResetDelegate();
-	public static event OnResetDelegate _resetGameDelegate;
+	public static event OnResetDelegate OnReset;
 	
 	[SerializeField]
 	GameObject _creditsLocation;
@@ -304,7 +304,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 			UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(MiniGame.MatingDance.ToString());
 		}
 		
-		_resetGameDelegate();
+		OnReset();
 		
 		PenguinPlayer.Instance.StopShowingUI();
 		

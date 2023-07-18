@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 #if UNITY_EDITOR
+using UnityEditor.SceneManagement;
 using UnityEditor;
 #endif
 using WIDVE.Patterns;
@@ -71,5 +72,23 @@ namespace WIDVE.Utilities
 		{
 			return $"{typeof(Scene).Name} {index}{(index == ActiveSceneIndex ? " [Active]" : string.Empty)}";
 		}
-	}
+
+#if UNITY_EDITOR
+
+        internal void EditorMerge(Scene currentScene) {
+            for(int i = 0; i < Count; i++) {
+                SceneObject obj = this[i];
+                EditorSceneManager.OpenScene(obj.ScenePath, OpenSceneMode.Additive);
+                Scene subScene = obj.GetScene();
+                List<GameObject> roots = new List<GameObject>();
+                subScene.GetRootGameObjects(roots);
+                foreach(var root in roots) {
+                    SceneManager.MoveGameObjectToScene(root, currentScene);
+                }
+                EditorSceneManager.CloseScene(subScene, true);
+            }
+        }
+
+#endif // UNITY_EDITOR
+    }
 }

@@ -1149,11 +1149,11 @@ MonoBehaviour:
   TerrainMask:
     serializedVersion: 2
     m_Bits: 2048
-  TerrainAngleStrictness: 0.7
+  TerrainAngleStrictness: 0.6
   InvisibleColliderMask:
     serializedVersion: 2
     m_Bits: 2097152
-  ColliderCheckRadius: 0.4
+  ColliderCheckRadius: 0.3
   MinMovePercentage: 0.4
   FootAudioSource: {fileID: 2827358369434360444}
   StepAudioClips:

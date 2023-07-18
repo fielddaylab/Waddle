@@ -69,12 +69,12 @@ public class MiniGameUnlocker : MonoBehaviour
 
 	void OnEnable()
 	{
-		PenguinGameManager._resetGameDelegate += ResetMiniGame;
+		PenguinGameManager.OnReset += ResetMiniGame;
 	}
 	
 	void OnDisable()
 	{
-		PenguinGameManager._resetGameDelegate -= ResetMiniGame;
+		PenguinGameManager.OnReset -= ResetMiniGame;
 	}
 	
 	void ResetMiniGame()

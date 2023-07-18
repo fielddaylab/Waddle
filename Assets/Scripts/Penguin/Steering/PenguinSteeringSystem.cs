@@ -6,6 +6,7 @@ using FieldDay;
 using BeauUtil;
 using System.Globalization;
 using FieldDay.Debugging;
+using BeauRoutine;
 
 namespace Waddle {
     [SysUpdate(GameLoopPhase.FixedUpdate, 10)]
@@ -44,8 +45,11 @@ namespace Waddle {
 
             PenguinFeetUtility.IsSolidGround(snapping, currentPos, out Vector3 groundNormal);
 
-            if (Quaternion.Angle(currentFacing, targetFacing) < component.MaxAngleDiffToMove) {
-                Vector3 newPos = currentPos + currentVector * (component.MovementSpeed * deltaTime * groundNormal.y * groundNormal.y);
+            float angleDelta = Quaternion.Angle(currentFacing, targetFacing);
+
+            if (angleDelta < component.MaxAngleDiffToMove) {
+                float angleMoveMultiplier = 0.2f + 0.8f * Curve.CubeOut.Evaluate(1f - (angleDelta / component.MaxAngleDiffToMove));
+                Vector3 newPos = currentPos + currentVector * (component.MovementSpeed * deltaTime * groundNormal.y * groundNormal.y * angleMoveMultiplier);
                 newPos.y = currentPos.y;
 
                 component.PositionRoot.position = newPos;
