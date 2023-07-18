@@ -27,7 +27,7 @@ public class StartGame : MonoBehaviour
     {
         MiniGameController._endGameDelegate += OnEndGame;
 		//MiniGameController._startGameDelegate += OnStartGame;
-		PenguinGameManager._resetGameDelegate += OnResetGame;
+		PenguinGameManager.OnReset += OnResetGame;
     }
 
     // Update is called once per frame
@@ -40,7 +40,7 @@ public class StartGame : MonoBehaviour
 	{
 		MiniGameController._endGameDelegate -= OnEndGame;
 		//MiniGameController._startGameDelegate -= OnStartGame;
-		PenguinGameManager._resetGameDelegate -= OnResetGame;
+		PenguinGameManager.OnReset -= OnResetGame;
 	}
 	
 	void OnStartGame()
