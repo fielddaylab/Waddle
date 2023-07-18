@@ -59,7 +59,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 695302f59c5beda4f87f3bf62afc6afe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MoveSpeedMultiplier: 0.011111111
+  m_MoveSpeedMultiplier: 0.016666668
+  m_MoveCheckIterations: 8
 --- !u!114 &3175180565579274998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,9 +74,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalSensitivity: 0.08
-  m_LookSensitivity: 0.4
-  m_VelocitySensitivity: 0.7
-  m_MinVelocitySensitivity: 0.37
+  m_LookSensitivity: 0.8
+  m_VelocitySensitivity: 0.8
+  m_MinVelocitySensitivity: 0.4
   m_HeadTiltSensitivity: 0.005
   m_VelocityAveragingFrames: 8
   m_ConsecutiveStepEasingThreshold: 2

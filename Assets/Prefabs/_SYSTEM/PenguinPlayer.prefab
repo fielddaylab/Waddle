@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &715212643279347700
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1673134779722530092}
+  m_Layer: 0
+  m_Name: COM
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1673134779722530092
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715212643279347700}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.182, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2597028372180051920}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2360715679315891690
 GameObject:
   m_ObjectHideFlags: 0
@@ -971,6 +1002,7 @@ MonoBehaviour:
   BodyRoot: {fileID: 2360715679656597819}
   HeadRoot: {fileID: 2360715679656597809}
   FootRoot: {fileID: 2360715679656597819}
+  CenterOfMassRoot: {fileID: 1673134779722530092}
   Rig: {fileID: 2360715679646855401}
   VelocityAveragingFrames: 32
 --- !u!114 &2360715680209839775
@@ -986,6 +1018,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 20
+  TerrainMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  InvisibleColliderMask:
+    serializedVersion: 2
+    m_Bits: 2097152
+  TerrainAngleStrictness: 0.7
+  ColliderCheckRadius: 0.4
+  MinMovePercentage: 0.4
 --- !u!1 &2360715680212188582
 GameObject:
   m_ObjectHideFlags: 0
@@ -2006,6 +2047,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11400010, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
+      propertyPath: EnableLinearMovement
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400010, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: OverrideOculusForward
       value: 0
       objectReference: {fileID: 0}
@@ -2245,6 +2290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc2d2ddd286e56848b081ce48433d535, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _minBeatTime: 0.5
 --- !u!114 &2360715679656985518
 MonoBehaviour:
   m_ObjectHideFlags: 0

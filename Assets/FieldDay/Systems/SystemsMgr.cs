@@ -214,7 +214,7 @@ namespace FieldDay.Systems {
                     relevant[i].Add(component);
                 }
             } else {
-                Log.Warn("[SystemsMgr] Component of type '{0}' does not have any corresponding systems", componentType.FullName);
+                //Log.Warn("[SystemsMgr] Component of type '{0}' does not have any corresponding systems", componentType.FullName);
             }
         }
 

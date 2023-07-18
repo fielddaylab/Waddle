@@ -364,6 +364,19 @@ MonoBehaviour:
   Animator: {fileID: 313170052202104690}
   LookFrom: {fileID: 3387227870772722392}
   LookLerpSpeed: 8
+--- !u!114 &1359048415982074950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 619793953893464608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5eb9d36fb61a054d8570be6d1589970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FirstWalkNode: {fileID: 0}
 --- !u!114 &3894774032880269684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,6 +408,7 @@ MonoBehaviour:
   Animator: {fileID: 313170052202104690}
   LookSmoothing: {fileID: 256148236749210120}
   Steering: {fileID: 6232569876703109891}
+  Feet: {fileID: 7105023795767545476}
   WanderParameters:
     IdleWait: 4
     IdleWaitRandom: 4
@@ -437,6 +451,11 @@ MonoBehaviour:
   SolidLayers:
     serializedVersion: 2
     m_Bits: 2048
+  WallLayers:
+    serializedVersion: 2
+    m_Bits: 2097152
+  AngleStrictness: 0.5
+  CheckRadius: 0
 --- !u!114 &7498156849163068627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -450,19 +469,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Root: {fileID: 8054507916665205627}
---- !u!114 &1359048415982074950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 619793953893464608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5eb9d36fb61a054d8570be6d1589970, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FirstWalkNode: {fileID: 0}
 --- !u!4 &1636302170567358721 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7859402954907697552, guid: 0d2f8cc1af4a59b4a98687be15ba42e7, type: 3}

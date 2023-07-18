@@ -6,8 +6,11 @@ namespace Waddle {
     public class PenguinBrain : ProcessBehaviour {
         public Transform Position;
         public Animator Animator;
+
+        [Header("Control Components")]
         public PenguinLookSmoothing LookSmoothing;
         public PenguinSteeringComponent Steering;
+        public PenguinFeetSnapping Feet;
 
         [Header("Wandering")]
         public PenguinWanderData WanderParameters = new PenguinWanderData() { IdleWait = 4, IdleWaitRandom = 4, WanderRadius = 4 };
