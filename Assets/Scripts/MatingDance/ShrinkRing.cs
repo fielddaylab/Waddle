@@ -37,7 +37,7 @@ public class ShrinkRing : MonoBehaviour
         if (!_isShrinking) {
             _isShrinking = true;
             _isValidWindow = false;
-            _coroutine = Shrink(.5f);
+            _coroutine = Shrink(.75f);
             StartCoroutine(_coroutine);
         }
     }
