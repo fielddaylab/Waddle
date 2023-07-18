@@ -111,7 +111,7 @@ Material:
     - _MinBrightness: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.005
-    - _Pulse: 0
+    - _Pulse: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
