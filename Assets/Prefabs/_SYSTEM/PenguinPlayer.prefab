@@ -1161,7 +1161,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0e343517c06b44143b96c28403c27b9c, type: 3}
   - {fileID: 8300000, guid: a440b558b1d5aeb40abace6f2df772bd, type: 3}
   CollideAudioClips:
-  - {fileID: 8300000, guid: a167a80693e5c684e80d5d8118a44227, type: 3}
+  - {fileID: 8300000, guid: e002225fd340a2d47a0f1a40b987c550, type: 3}
+  - {fileID: 8300000, guid: 0f8f4eb59ef4f3242aaca9daa633d6a4, type: 3}
 --- !u!1 &2360715680212188582
 GameObject:
   m_ObjectHideFlags: 0
