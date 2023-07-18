@@ -636,10 +636,10 @@ namespace FieldDay.Debugging {
         /// Enables the given debug drawing category.
         /// Debug primitives with a set category will only render if that category is enabled.
         /// </summary>
-        static public void EnableCategory(int inCategory) {
+        static public void EnableCategory(int category) {
 #if DEVELOPMENT
-            s_CategoryMask.Set(inCategory);
-            Log.Msg("[DebugDraw] Category {0} enabled", inCategory);
+            s_CategoryMask.Set(category);
+            Log.Msg("[DebugDraw] Category {0} enabled", category);
 #endif // DEVELOPMENT
         }
 
@@ -647,10 +647,21 @@ namespace FieldDay.Debugging {
         /// Disables the given debug drawing category.
         /// Debug primitives with a set category will only render if that category is enabled.
         /// </summary>
-        static public void DisableCategory(int inCategory) {
+        static public void DisableCategory(int category) {
 #if DEVELOPMENT
-            s_CategoryMask.Unset(inCategory);
-            Log.Msg("[DebugDraw] Category {0} disabled", inCategory);
+            s_CategoryMask.Unset(category);
+            Log.Msg("[DebugDraw] Category {0} disabled", category);
+#endif // DEVELOPMENT
+        }
+
+        /// <summary>
+        /// Returns if the given object is selected for debug draw.
+        /// </summary>
+        static public bool IsSelected(UnityEngine.Object obj) {
+#if DEVELOPMENT && UNITY_EDITOR
+            return Selection.Contains(obj);
+#else
+            return false;
 #endif // DEVELOPMENT
         }
 

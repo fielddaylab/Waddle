@@ -21,6 +21,7 @@ namespace Waddle
 
         [NonSerialized] public Vector3 HeadReference;
         [NonSerialized] public Quaternion HeadRotation;
+        [NonSerialized] public Quaternion HeadRotationReference;
         [NonSerialized] public Vector3 HeadLook;
         [NonSerialized] public Vector3 HeadUp;
 
