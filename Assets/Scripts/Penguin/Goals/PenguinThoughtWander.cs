@@ -19,7 +19,7 @@ namespace Waddle {
             PenguinBrain brain = Brain(process);
             while(true) {
                 yield return brain.WanderParameters.IdleWait + RNG.Instance.NextFloat(brain.WanderParameters.IdleWaitRandom);
-                Vector3 nearbyPoint = FindNearbyPoint(brain.WanderParameters.Tether, brain.WanderParameters.WanderRadius);
+                Vector3 nearbyPoint = FindNearbyPoint(brain.Feet, brain.WanderParameters.Tether, brain.WanderParameters.WanderRadius);
                 brain.SetMainState(PenguinStates.Walk, new PenguinWalkData() { TargetPosition = nearbyPoint });
                 yield return null;
                 while(brain.Steering.HasTarget) {
@@ -28,9 +28,11 @@ namespace Waddle {
             }
         }
 
-        static public Vector3 FindNearbyPoint(Vector3 tether, float radius) {
-            Vector3 newPoint = tether;
-            newPoint += Geom.SwizzleYZ(RNG.Instance.NextVector2(radius / 2, radius));
+        static public Vector3 FindNearbyPoint(PenguinFeetSnapping snapping, Vector3 tether, float radius) {
+            Vector3 newPoint;
+            do {
+                newPoint = tether + Geom.SwizzleYZ(RNG.Instance.NextVector2(radius / 2, radius));
+            } while (!PenguinFeetUtility.IsSolidGround(snapping, newPoint));
             return newPoint;
         }
     }

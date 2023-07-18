@@ -15,10 +15,6 @@ public class BeakTrigger : MonoBehaviour
 	
 	GameObject _pebbleTarget = null;
 	GameObject PebbleTarget => _pebbleTarget;
-	
-	//variables for snowball Bowling
-	GameObject[] bowlingPenguins;
-	GameObject[] bowlingBalls;
 
     [SerializeField] private float _minBeatTime = 0.5f; // min time between mating dance beats
     private float _minBeatTimer = 0; // elapsed time since prev beat 
@@ -29,15 +25,6 @@ public class BeakTrigger : MonoBehaviour
     {
         //_pebbleTarget = GameObject.FindWithTag("Egg");
 		_audioFile = GetComponent<AudioSource>();
-		
-		bowlingPenguins = GameObject.FindGameObjectsWithTag("BowlingPenguin");
-		bowlingBalls = GameObject.FindGameObjectsWithTag("BowlingBall");
-		/*for(int i=0; i<bowlingPenguins.Length; i++){
-			bowlingPenguins[i].SetActive(false);
-		}
-		for(int i=0; i<bowlingBalls.Length; i++){
-			bowlingBalls[i].SetActive(false);
-		}*/
     }
 
     // Update is called once per frame
@@ -51,13 +38,6 @@ public class BeakTrigger : MonoBehaviour
             _minBeatTimer -= Time.deltaTime;
         }
     }
-
-	IEnumerator BowlingBallGrow(GameObject ball){
-		for(int i=0; i<40; i++){
-			ball.transform.localScale += new Vector3(0.1f,0.1f,0.1f);
-			yield return new WaitForSeconds(0.05f);
-		}
-	}
 
 
 	IEnumerator MoveToPos(Collider pebble, float duration)
@@ -202,36 +182,6 @@ public class BeakTrigger : MonoBehaviour
 
                 sr.Popped();
 				_minBeatTimer = _minBeatTime;
-			}
-		}
-		
-		//picking up bowling ball
-		if(otherCollider.gameObject.name.StartsWith("BowlingBall"))
-		{
-			//pick up a bowling with your beak
-			//if(gameObject.transform.childCount == 4)
-			{
-				//otherCollider.gameObject.transform.parent = gameObject.transform;
-				Rigidbody rb = otherCollider.gameObject.GetComponent<Rigidbody>();
-				if(rb != null)
-				{
-					Vector3 f = transform.forward;
-					rb.AddForce(f*10000.0f);
-					StartCoroutine(BowlingBallGrow(otherCollider.gameObject));
-					
-					Vector3 pos = Vector3.zero;
-					Quaternion view = Quaternion.identity;
-					PenguinPlayer.Instance.GetGaze(out pos, out view);
-					PenguinAnalytics.Instance.LogPushSnowball(pos, view);
-					//rb.isKinematic = true;
-					//rb.detectCollisions = false;
-				}
-				
-				/*BowlingSlope bs = otherCollider.gameObject.GetComponent<BowlingSlope>();
-				if(bs != null)
-				{
-					bs.SlopeTrigger.GetComponent<MeshRenderer>().enabled = true;
-				}*/
 			}
 		}
 

@@ -38,12 +38,12 @@ public class ResetObject : MonoBehaviour
 
 	void OnEnable()
 	{
-		PenguinGameManager._resetGameDelegate += DoReset;
+		PenguinGameManager.OnReset += DoReset;
 	}
 	
 	void OnDisable()
 	{
-		PenguinGameManager._resetGameDelegate -= DoReset;
+		PenguinGameManager.OnReset -= DoReset;
 	}
 	
 	public void DoReset()

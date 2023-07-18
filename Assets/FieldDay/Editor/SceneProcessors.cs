@@ -47,7 +47,7 @@ namespace FieldDay.Editor {
                 return;
             }
 
-            if (scene.buildIndex != 0) {
+            if (scene.buildIndex == 0) {
                 return;
             }
 

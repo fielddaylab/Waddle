@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 #if UNITY_EDITOR
+using UnityEditor.SceneManagement;
 using UnityEditor;
 using UnityEditorInternal;
 #endif
@@ -152,6 +153,10 @@ namespace WIDVE.Utilities
 		}
 
 #if UNITY_EDITOR
+        public void EditorMerge(Scene scene) {
+            _scenes.EditorMerge(scene);
+        }
+
 		[CanEditMultipleObjects]
 		[CustomEditor(typeof(SceneLoader), true)]
 		public class Editor : UnityEditor.Editor

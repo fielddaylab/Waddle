@@ -452,6 +452,7 @@ MonoBehaviour:
   Animator: {fileID: 313170052202104690}
   LookSmoothing: {fileID: 256148236749210120}
   Steering: {fileID: 6232569876703109891}
+  Feet: {fileID: 7105023795767545476}
   WanderParameters:
     IdleWait: 4
     IdleWaitRandom: 4
@@ -494,6 +495,11 @@ MonoBehaviour:
   SolidLayers:
     serializedVersion: 2
     m_Bits: 2048
+  WallLayers:
+    serializedVersion: 2
+    m_Bits: 2097152
+  AngleStrictness: 0.5
+  CheckRadius: 0.4
 --- !u!114 &7498156849163068627
 MonoBehaviour:
   m_ObjectHideFlags: 0

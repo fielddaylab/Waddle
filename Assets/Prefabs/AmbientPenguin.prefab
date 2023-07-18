@@ -375,7 +375,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: de91e588ea2e48e4bb32b928d2d21e8b, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -428,6 +428,7 @@ MonoBehaviour:
   Animator: {fileID: 3291878845233163422}
   LookSmoothing: {fileID: 1058209586620724353}
   Steering: {fileID: 237095941245695212}
+  Feet: {fileID: 7782495333627707602}
   WanderParameters:
     IdleWait: 4
     IdleWaitRandom: 4
@@ -467,6 +468,11 @@ MonoBehaviour:
   SolidLayers:
     serializedVersion: 2
     m_Bits: 2048
+  WallLayers:
+    serializedVersion: 2
+    m_Bits: 2097152
+  AngleStrictness: 0.5
+  CheckRadius: 0.5
 --- !u!114 &237095941245695212
 MonoBehaviour:
   m_ObjectHideFlags: 0

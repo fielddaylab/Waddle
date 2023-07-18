@@ -277,10 +277,12 @@ namespace FieldDay.Processes {
 
         internal void OnSuspend() {
             m_MethodTable.OnSuspend?.Invoke(this);
+            m_Sequence.Pause();
         }
         
         internal void OnResume() {
             m_MethodTable.OnResume?.Invoke(this);
+            m_Sequence.Resume();
         }
 
         internal bool ShouldUpdate(int updateMask) {
@@ -478,7 +480,7 @@ namespace FieldDay.Processes {
         }
 
         /// <summary>
-        /// Waits for the process to receive the given signal.
+        /// Creates an IEnumerator that Waits for the process to receive the given signal.
         /// </summary>
         public ProcessSignalWait WaitForSignal(StringHash32 signalId) {
             ProcessSignalWait wait = ProcessSignalWait.Alloc(this, signalId, null);
@@ -487,7 +489,7 @@ namespace FieldDay.Processes {
         }
 
         /// <summary>
-        /// Waits for the process to receive the given signal.
+        /// Creates an IEnumerator that Waits for the process to receive the given signal.
         /// </summary>
         public ProcessSignalWait WaitForSignal(StringHash32 signalId, Predicate<object> signalArgPredicate) {
             ProcessSignalWait wait = ProcessSignalWait.Alloc(this, signalId, signalArgPredicate);
@@ -518,8 +520,9 @@ namespace FieldDay.Processes {
         PendingKill = 0x08,
         Updating = 0x10,
         PendingChanges = 0x20,
+        Suspended_SignalWait = 0x40,
 
-        AnySuspended = Suspended_Self | Suspended_AsChild
+        AnySuspended = Suspended_Self | Suspended_AsChild | Suspended_SignalWait
     }
 
     /// <summary>

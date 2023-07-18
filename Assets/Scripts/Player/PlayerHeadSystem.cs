@@ -20,8 +20,7 @@ namespace Waddle
         #endregion // Inspector
 
         public override void ProcessWork(float deltaTime) {
-            bool connected = !PenguinGameManager._isGamePaused;
-            if (!PenguinGameManager._headMovementActive) { connected = false; }
+            bool connected = !PenguinGameManager._isGamePaused && PenguinGameManager._headMovementActive;
             m_State.Connected = connected;
 
             if (!connected) {
@@ -50,8 +49,11 @@ namespace Waddle
 
                 if (firstFrame) {
                     m_State.HeadReference = m_State.CurrentHeadPos;
+                    m_State.HeadRotationReference = m_State.HeadRotation;
                 } else {
-                    m_State.HeadReference = Vector3.Lerp(m_State.HeadReference, m_State.CurrentHeadPos, TweenUtil.Lerp(m_OffsetLerp));
+                    float lerp = TweenUtil.Lerp(m_OffsetLerp, 1, deltaTime);
+                    m_State.HeadReference = Vector3.Lerp(m_State.HeadReference, m_State.CurrentHeadPos, lerp);
+                    m_State.HeadRotationReference = Quaternion.Slerp(m_State.HeadRotationReference, m_State.HeadRotation, lerp);
                 }
             }
 

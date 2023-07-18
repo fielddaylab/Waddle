@@ -12,6 +12,7 @@ namespace Waddle
         public Transform BodyRoot;
         public Transform HeadRoot;
         public Transform FootRoot;
+        public Transform CenterOfMassRoot;
         public OVRCameraRig Rig;
         public int VelocityAveragingFrames = 32;
 
