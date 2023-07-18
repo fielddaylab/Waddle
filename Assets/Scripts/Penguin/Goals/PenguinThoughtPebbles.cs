@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEngine;
 using BeauUtil;
 using FieldDay.Processes;
 
@@ -15,17 +16,19 @@ namespace Waddle {
                 while(brain.Steering.HasTarget) {
                     yield return null;
                 }
-
-                // TODO: Pick up pebble
+                brain.Animator.SetTrigger("T_PebblePickup");
+                brain.Animator.SetBool("PebbleCarried", true);
                 yield return 1;
-
+                yield return new WaitForSeconds(2);
                 brain.SetMainState(PenguinStates.Walk, new PenguinWalkData() { TargetPosition = pebbleData.PebbleDropOff.position });
                 yield return null;
                 while(brain.Steering.HasTarget) {
                     yield return null;
                 }
 
-                // TODO: Drop pebble
+                brain.Animator.SetTrigger("T_PebbleDropOff");
+                brain.Animator.SetBool("PebbleCarried", false);
+                yield return new WaitForSeconds(3);
 
                 pebbleData.PebblesToGather -= 1;
             }

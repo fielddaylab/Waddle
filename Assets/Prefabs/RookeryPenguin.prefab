@@ -1,5 +1,88 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5712933143019053377
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7671931902983902566}
+  - component: {fileID: 450506517591773738}
+  - component: {fileID: 6752649517041744000}
+  m_Layer: 0
+  m_Name: penguinTag
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7671931902983902566
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5712933143019053377}
+  m_LocalRotation: {x: 0.5020326, y: 0.32306078, z: 0.048464008, w: 0.80077845}
+  m_LocalPosition: {x: -0.03430069, y: -0.056699682, z: -0.013200754}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2525813410488196231}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 50.599, y: 63.099, z: 39.295}
+--- !u!33 &450506517591773738
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5712933143019053377}
+  m_Mesh: {fileID: -8803937527578110353, guid: a21e82f7dd46c9e46836e23142234ed8, type: 3}
+--- !u!23 &6752649517041744000
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5712933143019053377}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 47cdc937d139409479d3ad91c0868de8, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1001 &7682865303420410800
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13,48 +96,74 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5057784926981871767, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.254
+      value: 1.6445894
       objectReference: {fileID: 0}
     - target: {fileID: 5057784926981871767, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.555
+      value: -1.3484802
       objectReference: {fileID: 0}
     - target: {fileID: 5057784926981871767, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 57.849
+      value: -2.8872375
       objectReference: {fileID: 0}
     - target: {fileID: 5057784926981871767, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.5907771
+      value: 0.013397368
       objectReference: {fileID: 0}
     - target: {fileID: 5057784926981871767, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.029239537
+      value: 0.0104492875
       objectReference: {fileID: 0}
     - target: {fileID: 5057784926981871767, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.80602
+      value: 0.99925286
       objectReference: {fileID: 0}
     - target: {fileID: 5057784926981871767, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.02143128
+      value: -0.03471402
       objectReference: {fileID: 0}
     - target: {fileID: 5057784926981871767, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 3.994
       objectReference: {fileID: 0}
     - target: {fileID: 5057784926981871767, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -107.52
+      value: 178.504
       objectReference: {fileID: 0}
     - target: {fileID: 5057784926981871767, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 4.155
+      value: 1.146
       objectReference: {fileID: 0}
     - target: {fileID: 6161181852866283513, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
       propertyPath: m_Name
-      value: RookeryPenguin
+      value: RookeryPenguin (3)
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7826111961798322223, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
+--- !u!4 &2525813410488196231 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5301432355773024055, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
+  m_PrefabInstance: {fileID: 7682865303420410800}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5472285615179418236 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2408989911822881228, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
+  m_PrefabInstance: {fileID: 7682865303420410800}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &199135147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5472285615179418236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad882f50df9598947a920640ad9b8c77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PebbleSources:
+  - {fileID: 0}
+  PebbleDropOff: {fileID: 0}
+  PebblesToGather: 100
