@@ -159,7 +159,7 @@ public class StartGame : MonoBehaviour
 	
 	void OnTriggerEnter(Collider otherCollider)
 	{
-		if(otherCollider.gameObject.layer == 3)
+        if (otherCollider.gameObject.layer == LayerMask.NameToLayer("Beak"))
 		{
 			if (_strictAngle) {
                 if (Vector3.SignedAngle(otherCollider.transform.forward, Vector3.forward, Vector3.up) <= _facingAngle + _angleBuffer
@@ -174,7 +174,7 @@ public class StartGame : MonoBehaviour
 	}
 
     private void OnTriggerStay(Collider otherCollider) {
-        if (otherCollider.gameObject.layer == 3) {
+        if (otherCollider.gameObject.layer == LayerMask.NameToLayer("Beak")) {
             if (_strictAngle) {
                 if (Vector3.SignedAngle(otherCollider.transform.forward, Vector3.forward, Vector3.up) <= _facingAngle + _angleBuffer
                     && Vector3.SignedAngle(otherCollider.transform.forward, Vector3.forward, Vector3.up) >= _facingAngle - _angleBuffer) {
