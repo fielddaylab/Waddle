@@ -150,56 +150,29 @@ public class MiniGameUnlocker : MonoBehaviour
 		}*/
     }
 	
-	public void CollectPebble()
+	public void PebbleUnlock()
 	{
 		if(_lockable)
 		{
-			_numPebblesCollected++;
-			if(_numPebblesCollected == _numPebblesToUnlock)
-			{
-				//switch to unlock icon, load mini game...
-				transform.GetChild((int)MiniGameCommonObjects.ICON).GetComponent<MeshRenderer>().sharedMaterial = _unlockedMaterial;
-				_isGameUnlocked = true;
-				
-				//show border
-				// transform.GetChild((int)MiniGameCommonObjects.SNOW).gameObject.SetActive(true);
-				
-				if(!Lockable)
-				{
-					//if a lockable attraction, don't hide poles and icon until game actually running
-					transform.GetChild((int)MiniGameCommonObjects.ICON).gameObject.SetActive(false);
-					transform.GetChild((int)MiniGameCommonObjects.POLE).gameObject.SetActive(false);
-				}
+            transform.GetChild((int) MiniGameCommonObjects.ICON).GetComponent<MeshRenderer>().sharedMaterial = _unlockedMaterial;
+            _isGameUnlocked = true;
 
-				PenguinAnalytics.Instance.LogMatingDanceIndicator(100f);
+            //show border
+            // transform.GetChild((int)MiniGameCommonObjects.SNOW).gameObject.SetActive(true);
 
-				PenguinAnalytics.Instance.LogNestComplete();
-				
-				//slow down the speed of the user, so harder for them to leave...
-				
-				//accumulate a pebble onto the nest...
-				//every 2 pebbles, so a new version of the nest...
-				if(_numPebblesCollected % 2 == 0)
-				{
-					transform.GetChild((int)MiniGameCommonObjects.NEST).GetChild((_numPebblesCollected/2)-1).gameObject.SetActive(true);
-				}
-				
-				UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(_sceneName, UnityEngine.SceneManagement.LoadSceneMode.Additive);
-			}
-			else if(_numPebblesCollected < _numPebblesToUnlock)
-			{
-				if(_numPebblesCollected < _lockMaterials.Count)
-				{
-					transform.GetChild(1).GetComponent<MeshRenderer>().sharedMaterial = _lockMaterials[_numPebblesCollected];
-				}
-				
-				PenguinAnalytics.Instance.LogMatingDanceIndicator((float)_numPebblesCollected/(float)_numPebblesToUnlock);
-				//accumulate a pebble onto the nest...
-				if(_numPebblesCollected % 2 == 0)
-				{
-					transform.GetChild((int)MiniGameCommonObjects.NEST).GetChild((_numPebblesCollected/2)-1).gameObject.SetActive(true);
-				}
-			}
-		}
+            if (!Lockable) {
+                //if a lockable attraction, don't hide poles and icon until game actually running
+                transform.GetChild((int) MiniGameCommonObjects.ICON).gameObject.SetActive(false);
+                transform.GetChild((int) MiniGameCommonObjects.POLE).gameObject.SetActive(false);
+            }
+
+            PenguinAnalytics.Instance.LogMatingDanceIndicator(100f);
+
+            PenguinAnalytics.Instance.LogNestComplete();
+
+            //slow down the speed of the user, so harder for them to leave...
+
+            UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(_sceneName, UnityEngine.SceneManagement.LoadSceneMode.Additive);
+        }
 	}
 }

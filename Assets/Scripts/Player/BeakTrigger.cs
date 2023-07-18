@@ -3,7 +3,9 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using FieldDay;
 using UnityEngine;
+using Waddle;
 
 public class BeakTrigger : MonoBehaviour
 {
@@ -96,7 +98,7 @@ public class BeakTrigger : MonoBehaviour
 					MiniGameUnlocker unlocker = gp.GetComponent<MiniGameUnlocker>();
 					if(unlocker != null)
 					{
-						unlocker.CollectPebble();
+						unlocker.PebbleUnlock();
 					}
 				}
 			}
@@ -120,52 +122,14 @@ public class BeakTrigger : MonoBehaviour
 	
 	void OnTriggerEnter(Collider otherCollider)
 	{
+        IBeakInteract interact = otherCollider.GetComponent<IBeakInteract>();
+        if (interact != null) {
+            interact.OnBeakInteract(Game.SharedState.Get<PlayerBeakState>(), this);
+        }
+
 		//Debug.Log(otherCollider.gameObject.name);
 		//todo - get rid of string checks here.
-		if(otherCollider.gameObject.name.StartsWith("Pebble"))
-		{
-			MeshRenderer mr = otherCollider.gameObject.GetComponent<MeshRenderer>();
-			if(mr.enabled)
-			{
-				if(_audioFile != null)
-				{
-					_audioFile.Play();
-				}
-				
-				//if these rocks are coming from a mini game, set pebble target dynamically to that mini game's nest
-				Transform p = otherCollider.gameObject.transform.parent;
-				if(p != null)
-				{
-					if(p.gameObject.name == "Pebbles")
-					{
-						//current assumption - Pebbles and SparseNest object's have the same transform.
-						_pebbleTarget = p.gameObject;
-					}
-				}
-				
-				Vector3 pos = Vector3.zero;
-				Quaternion view = Quaternion.identity;
-				PenguinPlayer.Instance.GetGaze(out pos, out view);
-				PenguinAnalytics.Instance.LogPickupRock(pos, view);
-
-				StartCoroutine(MoveToPos(otherCollider, 1));
-				
-				//if(gameObject.transform.childCount == 0)
-				{
-					//pick up a rock with your beak - commented out line below...
-					//otherCollider.gameObject.transform.parent = gameObject.transform;
-
-					Rigidbody rb = otherCollider.gameObject.GetComponent<Rigidbody>();
-					if(rb != null)
-					{
-						rb.isKinematic = true;
-						rb.detectCollisions = false;
-					}
-				}
-			}
-			//Debug.Log(otherCollider.gameObject.name);
-		}
-		else if(otherCollider.gameObject.name.StartsWith("Bubble"))
+		if(otherCollider.gameObject.name.StartsWith("Bubble"))
 		{
 			//play positive sound effect if they collide with bubble...
 			//also destroy bubble...

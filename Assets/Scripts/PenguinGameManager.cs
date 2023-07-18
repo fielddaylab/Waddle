@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Oculus;
+using FieldDay;
 
 public class PenguinGameManager : Singleton<PenguinGameManager>
 {
@@ -77,6 +78,11 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	
 	bool _logAppStarted = false;
 
+    [InvokePreBoot]
+    static private void PreBoot() {
+        Game.SetEventDispatcher(new EventDispatcher<object>());
+    }
+
     void Start()
     {
 		//temporary for demo as we're just restarting one game.
@@ -111,7 +117,6 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
         //AudioListener.pause = true;
 
         //StartCoroutine(ShowMessage("", 5f, 10f));
-
 
         //uncomment this if wanting to test things in editor without hmd
         BeginTheGame(PenguinGameManager.GameMode.ShowMode);

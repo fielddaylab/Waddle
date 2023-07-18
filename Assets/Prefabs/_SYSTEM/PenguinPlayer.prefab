@@ -901,6 +901,7 @@ GameObject:
   - component: {fileID: 2360715680209839774}
   - component: {fileID: 2360715680209839772}
   - component: {fileID: 2360715680209839775}
+  - component: {fileID: 1000988389372209087}
   m_Layer: 20
   m_Name: PenguinPlayer
   m_TagString: Untagged
@@ -1161,8 +1162,20 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0e343517c06b44143b96c28403c27b9c, type: 3}
   - {fileID: 8300000, guid: a440b558b1d5aeb40abace6f2df772bd, type: 3}
   CollideAudioClips:
-  - {fileID: 8300000, guid: e002225fd340a2d47a0f1a40b987c550, type: 3}
-  - {fileID: 8300000, guid: 0f8f4eb59ef4f3242aaca9daa633d6a4, type: 3}
+  - {fileID: 8300000, guid: a167a80693e5c684e80d5d8118a44227, type: 3}
+--- !u!114 &1000988389372209087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2360715680209839766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d74c2c66660544f4a9f61419fd34f0ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HoldRoot: {fileID: 3942021504064925746}
 --- !u!1 &2360715680212188582
 GameObject:
   m_ObjectHideFlags: 0
@@ -1570,6 +1583,37 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &5614682384327186593
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3942021504064925746}
+  m_Layer: 0
+  m_Name: BeakHoldRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3942021504064925746
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5614682384327186593}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.0003, y: -0.1377, z: 0.1755}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2360715679656597815}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2360715679077937690
 PrefabInstance:
   m_ObjectHideFlags: 0

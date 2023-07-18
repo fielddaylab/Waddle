@@ -110,7 +110,7 @@ public class BeakTriggerJack : MonoBehaviour
 					MiniGameUnlocker unlocker = gp.GetComponent<MiniGameUnlocker>();
 					if(unlocker != null)
 					{
-						unlocker.CollectPebble();
+						unlocker.PebbleUnlock();
 					}
 				}
 			}
