@@ -16,6 +16,7 @@ namespace Waddle
         [SerializeField] private float m_LookSensitivity = 0.2f;
         [SerializeField] private float m_VelocitySensitivity = 0.6f;
         [SerializeField] private float m_MinVelocitySensitivity = 0.4f;
+        [SerializeField] private float m_HeadTiltSensitivity = 0.2f;
         [SerializeField] private int m_VelocityAveragingFrames = 16;
 
         [Header("Horizontal Threshold Easing")]
@@ -55,6 +56,10 @@ namespace Waddle
             DebugDraw.AddViewportText(new Vector2(0, 0), new Vector2(8, -8),
                 string.Format("offset {0} | velocity {1} | look {2}", currentHeadOffset, currentHeadVelocity, currentHeadLocalLook),
                 Color.yellow, 0, TextAnchor.LowerLeft, DebugTextStyle.BackgroundDark);
+
+            if (Vector3.Dot(m_StateB.HeadUp, Vector3.up) > 1 - m_HeadTiltSensitivity) {
+                return;
+            }
 
             if (currentHeadSpeed >= m_MinVelocitySensitivity) {
                 if (m_StateA.LastStepSide != PlayerFoot.Left) {

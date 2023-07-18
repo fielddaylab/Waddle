@@ -21,6 +21,7 @@ namespace Waddle
 
         public override void ProcessWork(float deltaTime) {
             bool connected = !PenguinGameManager._isGamePaused;
+            if (!PenguinGameManager._headMovementActive) { connected = false; }
             m_State.Connected = connected;
 
             if (!connected) {

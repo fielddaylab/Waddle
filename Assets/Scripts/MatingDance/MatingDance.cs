@@ -15,8 +15,12 @@ public class MatingDance : MiniGameController
 
 	[SerializeField]
 	GameObject _bubbleLinePrefab = null;
-	
-	[SerializeField]
+
+	private List<GameObject> _activeBubbles;
+
+    private List<Coroutine> _activeRoutines;
+
+    [SerializeField]
 	TextAsset _dataFile = null;
 	
 	float[] _timeSamples = null;
@@ -71,13 +75,16 @@ public class MatingDance : MiniGameController
 	
 	public static uint _popCount = 0;
 	
-	bool _demoDone = false;
+	// bool _demoDone = false;
 	
 	[SerializeField]
 	GameObject _walkToSpot = null;
 	
     void Start()
     {
+		_activeBubbles = new List<GameObject>();
+		_activeRoutines = new List<Coroutine>();
+
         //Debug.Log(GetComponent<AudioSource>().clip.samples);
         _sampleData = new float[GetComponent<AudioSource>().clip.samples];
         GetComponent<AudioSource>().clip.GetData(_sampleData, 0);
@@ -153,10 +160,14 @@ public class MatingDance : MiniGameController
 		
 		GameObject bub = GameObject.Instantiate(_bubblePrefab, _demoBubble.transform);
 		
-		StartCoroutine(DemoPop(0.7f));
-		StartCoroutine(DestroyCo(3.3f, bub, true));
+		// Coroutine demo = StartCoroutine(DemoPop(0.7f));
+		Coroutine destroy = StartCoroutine(DestroyCo(3.3f, bub, true));
 
-		PenguinAnalytics.Instance.LogActivityBegin("mating_dance");
+        _activeBubbles.Add(bub);
+        // _activeRoutines.Add(demo);
+        _activeRoutines.Add(destroy);
+
+        PenguinAnalytics.Instance.LogActivityBegin("mating_dance");
     }
 	
 	IEnumerator StartMove(Vector3 newSpot, float duration)
@@ -189,7 +200,17 @@ public class MatingDance : MiniGameController
 			_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("bop", false);
 			_matingDancePenguin.transform.GetChild(0).GetComponent<Animator>().SetBool("walk", false);
 		}
-	}
+
+		Debug.Log("[Pops] restarting...");
+        for (int i = 0; i < _activeBubbles.Count; i++) {
+            Object.Destroy(_activeBubbles[i]);
+        }
+        _activeBubbles.Clear();
+        for (int i = 0; i < _activeRoutines.Count; i++) {
+            StopCoroutine(_activeRoutines[i]);
+        }
+        _activeRoutines.Clear();
+    }
 
 	public override void EndGame()
 	{
@@ -198,13 +219,23 @@ public class MatingDance : MiniGameController
 		{
 			audio.Stop();
 		}
-		
+
+        Debug.Log("[Pops] ending...");
+        for (int i = 0; i < _activeBubbles.Count; i++) {
+			Object.Destroy(_activeBubbles[i]);
+		}
+		_activeBubbles.Clear();
+		for (int i = 0; i < _activeRoutines.Count; i++) {
+			StopCoroutine(_activeRoutines[i]);
+		}
+		_activeRoutines.Clear();
+
 		AudioSource mainTrack = PenguinPlayer.Instance.GetComponent<AudioSource>();
 		if(mainTrack != null)
 		{
 			mainTrack.Play();
 		}
-		
+
 		_currentSample = 0;
 		
 		//walk this penguin towards protect the nest
@@ -216,7 +247,7 @@ public class MatingDance : MiniGameController
 		}
 		
 		_currentSample = 0;
-		_demoDone = false;
+		// _demoDone = false;
 		
 		PenguinAnalytics.Instance.LogActivityEnd("mating_dance");
 
@@ -237,6 +268,11 @@ public class MatingDance : MiniGameController
 	{
 		yield return new WaitForSeconds(duration);
 		
+		if (!_isGameActive || toDestroy == null) {
+			// game terminated or reset before routine completed; return
+			yield break;
+		}
+
 		if(playSound)
 		{
 			AudioSource audio = toDestroy.GetComponent<AudioSource>();
@@ -244,9 +280,10 @@ public class MatingDance : MiniGameController
 			{
 				//Debug.Log("Bubble Hit!");
 				audio.Play();
-				_demoDone = true;
+				// _demoDone = true;
 			}
 		}
+		_activeBubbles.Remove(toDestroy);
 		Object.Destroy(toDestroy);
 	}
 	
@@ -255,7 +292,7 @@ public class MatingDance : MiniGameController
     {
 		if(_isGameActive)
 		{
-			if(_demoDone)
+			// if(_demoDone)
 			{
 				if(_currentSample == 0)
 				{
@@ -302,14 +339,19 @@ public class MatingDance : MiniGameController
 				if(_popCount >= 3)
 				{
 					GameObject heart = GameObject.Instantiate(_heartPrefab, _heartSpawn.transform);
-					StartCoroutine(DestroyCo(5f, heart, false));
+					Coroutine destroy = StartCoroutine(DestroyCo(5f, heart, false));
+
+					_activeBubbles.Add(heart);
+					_activeRoutines.Add(destroy);
+
 					_popCount = 0;
 				}
-				
+
 				if(_currentSample < _timeSamples.Length-1 && (_totalGameTime > _timeSamples[_currentSample] && _totalGameTime < _timeSamples[_currentSample+1]))
 				{
 					if(_bubblePrefab != null)
 					{
+						// TODO: load corresponding audio clip
 						if(_bubbleTypes[_currentSample] == 0)
 						{
 							if(_currentSample % 2 == 0)
@@ -385,6 +427,7 @@ public class MatingDance : MiniGameController
 					if(_lastSpawn != null)
 					{
 						_lastSpawn.transform.GetChild(0).gameObject.GetComponent<ShrinkRing>().SetWhichBubble(_currentSample);
+						_activeBubbles.Add(_lastSpawn);
 					}
 					
 					_currentSample++;

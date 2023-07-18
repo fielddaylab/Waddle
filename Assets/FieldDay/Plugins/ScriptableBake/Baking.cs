@@ -491,6 +491,8 @@ namespace ScriptableBake {
                 context = new BakeContext();
                 context.Scene = SceneManager.GetActiveScene();
                 context.m_Flags = flags;
+            } else {
+                context.m_Flags |= flags;
             }
 
             baked.Sort(SortByOrder);

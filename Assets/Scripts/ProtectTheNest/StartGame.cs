@@ -65,6 +65,11 @@ public class StartGame : MonoBehaviour
 				audio.Play();
 			}
 		}
+
+		if (_miniGame == PenguinGameManager.MiniGame.MatingDance) {
+			// disable movement;
+			PenguinGameManager._headMovementActive = false;
+		}
 		
 		MeshRenderer mr = GetComponent<MeshRenderer>();
 		if(mr != null)
@@ -110,9 +115,14 @@ public class StartGame : MonoBehaviour
 				mainTrack.Play();
 			}
 		}
-		
-		//return the the player to default speed...
-		PenguinPlayer.Instance.SpeedUpMovement();
+
+        if (_miniGame == PenguinGameManager.MiniGame.MatingDance) {
+			// enable movement;
+			PenguinGameManager._headMovementActive = true;
+        }
+
+        //return the the player to default speed...
+        PenguinPlayer.Instance.SpeedUpMovement();
 		
 		//only want to re-enable here when reseting..
 		PenguinGameManager._isInMiniGame = false;

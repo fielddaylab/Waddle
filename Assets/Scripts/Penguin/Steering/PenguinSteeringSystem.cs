@@ -5,11 +5,12 @@ using FieldDay.Systems;
 using FieldDay;
 using BeauUtil;
 using System.Globalization;
+using FieldDay.Debugging;
 
 namespace Waddle {
     [SysUpdate(GameLoopPhase.FixedUpdate, 10)]
-    public sealed class PenguinSteeringSystem : ComponentSystemBehaviour<PenguinSteeringComponent> {
-        public override void ProcessWorkForComponent(PenguinSteeringComponent component, float deltaTime) {
+    public sealed class PenguinSteeringSystem : ComponentSystemBehaviour<PenguinSteeringComponent, PenguinFeetSnapping> {
+        public override void ProcessWorkForComponent(PenguinSteeringComponent component, PenguinFeetSnapping snapping, float deltaTime) {
             if (!component.HasTarget) {
                 // TODO: Smoothly stop
                 return;
@@ -20,11 +21,15 @@ namespace Waddle {
             if (component.TargetObject != null) {
                 targetPos += component.TargetObject.position;
             }
+            targetPos.y = currentPos.y;
+
+            DebugDraw.AddSphere(targetPos, 0.2f + component.TargetPosTolerance, Color.green.WithAlpha(0.2f));
+            DebugDraw.AddLine(currentPos, targetPos, Color.green, 0.2f);
+
             Vector3 targetVector = targetPos - currentPos;
             Vector3 currentVector = component.RotationRoot.forward;
             float originalVecY = currentVector.y;
             currentVector.y = 0;
-            targetVector.y = 0;
 
             Vector3 normalizedTargetVec = targetVector.normalized;
 
@@ -37,8 +42,10 @@ namespace Waddle {
             newForward.y = originalVecY;
             component.RotationRoot.forward = newForward;
 
+            PenguinFeetUtility.IsSolidGround(snapping, currentPos, out Vector3 groundNormal);
+
             if (Quaternion.Angle(currentFacing, targetFacing) < component.MaxAngleDiffToMove) {
-                Vector3 newPos = currentPos + currentVector * (component.MovementSpeed * deltaTime);
+                Vector3 newPos = currentPos + currentVector * (component.MovementSpeed * deltaTime * groundNormal.y * groundNormal.y);
                 newPos.y = currentPos.y;
 
                 component.PositionRoot.position = newPos;

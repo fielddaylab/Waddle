@@ -55,8 +55,10 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	public static bool _isInMiniGame = false;
 	
 	bool _wasInMiniGame = false;
-	
-	bool _gameWasStarted = false;
+
+    public static bool _headMovementActive = true; // disabled during certain minigames
+
+    bool _gameWasStarted = false;
 	public bool GameWasStarted => _gameWasStarted;
 	
 	public delegate void OnResetDelegate();

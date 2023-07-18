@@ -9,12 +9,23 @@ namespace Waddle {
         [Header("Raycast")]
         public float RaycastDistance = 10;
         public LayerMask SolidLayers;
+        [Range(0, 1)] public float AngleStrictness = 0.5f;
     }
 
     static public class PenguinFeetUtility {
         static public bool IsSolidGround(PenguinFeetSnapping snapping, Vector3 newPos) {
+            return IsSolidGround(snapping, newPos, out Vector3 _);
+        }
+
+        static public bool IsSolidGround(PenguinFeetSnapping snapping, Vector3 newPos, out Vector3 groundNormal) {
             newPos.y += snapping.RaycastDistance;
-            return Physics.Raycast(newPos, Vector3.down, Mathf.Infinity, snapping.SolidLayers, QueryTriggerInteraction.Ignore);
+            if (Physics.Raycast(newPos, Vector3.down, out RaycastHit hit, Mathf.Infinity, snapping.SolidLayers, QueryTriggerInteraction.Ignore)) {
+                groundNormal = hit.normal;
+                return groundNormal.y >= snapping.AngleStrictness;
+            }
+
+            groundNormal = Vector3.up;
+            return false;
         }
     }
 }
