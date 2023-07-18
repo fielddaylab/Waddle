@@ -2961,7 +2961,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 946323024659386908, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 965620654731169791, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_Size
@@ -3462,6 +3462,10 @@ PrefabInstance:
     - target: {fileID: 4035191833643224802, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_Name
       value: MatingDanceUnlocker
+      objectReference: {fileID: 0}
+    - target: {fileID: 4035191833643224802, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4035191833643224803, guid: def96e6b3ab8b1c45b4637aeb39952bc, type: 3}
       propertyPath: m_RootOrder
@@ -11920,6 +11924,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _miniGame: 0
   _loadScene: 1
+  _strictAngle: 0
+  _facingAngle: 0
+  _angleBuffer: 10
 --- !u!82 &1645056513
 AudioSource:
   m_ObjectHideFlags: 0
@@ -12061,7 +12068,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9158430740529747090, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.924
+      value: 13.95
       objectReference: {fileID: 0}
     - target: {fileID: 9158430740529747090, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -12069,23 +12076,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9158430740529747090, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 53.658
+      value: 57.363
       objectReference: {fileID: 0}
     - target: {fileID: 9158430740529747090, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.80696744
+      value: 0.8512694
       objectReference: {fileID: 0}
     - target: {fileID: 9158430740529747090, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9158430740529747090, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.59059596
+      value: -0.524729
       objectReference: {fileID: 0}
     - target: {fileID: 9158430740529747090, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9158430740529747090, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -12093,7 +12100,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9158430740529747090, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -72.399
+      value: -63.3
       objectReference: {fileID: 0}
     - target: {fileID: 9158430740529747090, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -15916,6 +15923,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RookeryPenguin (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5712933143019053377, guid: 2b980350287249043bfd5acb9a2dda3e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7912137203217895844, guid: 2b980350287249043bfd5acb9a2dda3e, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.9949673
@@ -16291,6 +16302,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RookeryPenguin (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5712933143019053377, guid: 2b980350287249043bfd5acb9a2dda3e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7912137203217895844, guid: 2b980350287249043bfd5acb9a2dda3e, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.9949673
@@ -16633,6 +16648,10 @@ PrefabInstance:
     - target: {fileID: 4548616974009211977, guid: 2b980350287249043bfd5acb9a2dda3e, type: 3}
       propertyPath: m_Name
       value: RookeryPenguin (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712933143019053377, guid: 2b980350287249043bfd5acb9a2dda3e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7912137203217895844, guid: 2b980350287249043bfd5acb9a2dda3e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -22188,6 +22207,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pebble00
       objectReference: {fileID: 0}
+    - target: {fileID: 4534488084655613874, guid: 2a35ca2fd1eca1c478eaa3ebcee5c109, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a35ca2fd1eca1c478eaa3ebcee5c109, type: 3}
 --- !u!4 &9089396440065280151 stripped
@@ -22316,7 +22339,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5418776048521547255, guid: d27614a2b72b23f4a861c37989fa670c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.27599716
+      value: 0.602
       objectReference: {fileID: 0}
     - target: {fileID: 5418776048521547255, guid: d27614a2b72b23f4a861c37989fa670c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -22827,7 +22850,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2817857519362269821, guid: 1e77345cad79daa40a1dc9c44a28c532, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.4289999
+      value: 0.143
       objectReference: {fileID: 0}
     - target: {fileID: 2817857519362269821, guid: 1e77345cad79daa40a1dc9c44a28c532, type: 3}
       propertyPath: m_LocalPosition.y
