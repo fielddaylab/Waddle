@@ -38,6 +38,7 @@ namespace Waddle {
             transform.SetParent(state.HoldRoot, true);
             transform.localPosition = default;
             Shine.SetEnabled(false);
+            GetComponent<AudioSource>().Play();
 
             state.HoldingPebble = this;
 

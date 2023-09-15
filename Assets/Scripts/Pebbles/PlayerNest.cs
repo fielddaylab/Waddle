@@ -56,6 +56,7 @@ namespace Waddle {
             chunk.Renderer.sharedMaterial = chunk.PlacedMaterial;
             chunk.Renderer.enabled = true;
             chunk.Effect.Play();
+            chunk.GetComponent<AudioSource>().Play();
 
             if (m_ChunksFull == Chunks.Length) {
                 NextMinigame.PebbleUnlock();
