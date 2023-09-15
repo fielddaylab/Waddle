@@ -103,6 +103,16 @@ namespace FieldDay.Processes {
 
         #region Events
 
+        internal void DebugUpdate(float deltaTime, int categoryMask) {
+            ProcessPending(categoryMask);
+            foreach (var process in m_ProcessUpdates[GameLoopPhase.DebugUpdate]) {
+                if (process.ShouldUpdate(categoryMask)) {
+                    process.OnPreUpdate(deltaTime);
+                }
+            }
+            ProcessDirty();
+        }
+
         internal void PreUpdate(float deltaTime, int categoryMask) {
             ProcessPending(categoryMask);
             foreach(var process in m_ProcessUpdates[GameLoopPhase.PreUpdate]) {
@@ -118,6 +128,16 @@ namespace FieldDay.Processes {
             foreach (var process in m_ProcessUpdates[GameLoopPhase.FixedUpdate]) {
                 if (process.ShouldUpdate(categoryMask)) {
                     process.OnFixedUpdate(deltaTime);
+                }
+            }
+            ProcessDirty();
+        }
+
+        internal void LateFixedUpdate(float deltaTime, int categoryMask) {
+            ProcessPending(categoryMask);
+            foreach (var process in m_ProcessUpdates[GameLoopPhase.LateFixedUpdate]) {
+                if (process.ShouldUpdate(categoryMask)) {
+                    process.OnLateFixedUpdate(deltaTime);
                 }
             }
             ProcessDirty();

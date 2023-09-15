@@ -5,6 +5,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using BeauRoutine;
 using UnityEngine;
 
 public class MiniGameUnlocker : MonoBehaviour
@@ -28,6 +29,9 @@ public class MiniGameUnlocker : MonoBehaviour
 
 	[SerializeField]
 	bool _lockable;
+
+    [SerializeField]
+    bool _autoUnlock = false;
 	
 	public bool Lockable => _lockable;
 	
@@ -70,7 +74,10 @@ public class MiniGameUnlocker : MonoBehaviour
 	void OnEnable()
 	{
 		PenguinGameManager.OnReset += ResetMiniGame;
-	}
+        if (_autoUnlock && !_isGameUnlocked) {
+            AutoUnlock();
+        }
+    }
 	
 	void OnDisable()
 	{
@@ -124,7 +131,15 @@ public class MiniGameUnlocker : MonoBehaviour
 			}
 		
 		}
+
+        if (_autoUnlock) {
+            AutoUnlock();
+        }
 	}
+
+    private void AutoUnlock() {
+        Routine.StartDelay(PebbleUnlock, 0.2f);
+    }
 	
     // Update is called once per frame
     void Update()
@@ -152,7 +167,7 @@ public class MiniGameUnlocker : MonoBehaviour
 	
 	public void PebbleUnlock()
 	{
-		if(_lockable)
+		if(_lockable && !_isGameUnlocked)
 		{
             transform.GetChild((int) MiniGameCommonObjects.ICON).GetComponent<MeshRenderer>().sharedMaterial = _unlockedMaterial;
             _isGameUnlocked = true;

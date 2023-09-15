@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2240847202951043234}
   - component: {fileID: 2240847202951043235}
   - component: {fileID: 3175180565579274998}
+  - component: {fileID: 9039935642557387418}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -83,6 +84,18 @@ MonoBehaviour:
   m_ConsecutiveStepEasingMultiplier: 0.8
   m_WalkCooldown: 1
   m_HeadReferenceSnap: 0.65
+--- !u!114 &9039935642557387418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2240847202951043233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1f36351517d1bd439d1d5b860236d26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2240847203652696269
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,11 +142,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2240847203652696269}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2bb8175d9ce2f4428025b832814b294, type: 3}
+  m_Script: {fileID: 11500000, guid: 91ad058123d5feb48bb6503d794a905f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_SingleFrameAllocBufferSize: 256
-  m_TargetFramerate: 90
+  m_TargetFramerate: 60
 --- !u!114 &2240847203652696268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,7 +156,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2240847203652696269}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d8db4616aa3e7a47a1ce1cd21498b60, type: 3}
+  m_Script: {fileID: 11500000, guid: f9d2fe0898961774595c14f546a65658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &8836397621386848813
@@ -286,11 +299,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5671992787077695147}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daf318866c16694478dc9ff40b6bbf0f, type: 3}
+  m_Script: {fileID: 11500000, guid: 0f3025d098ac10d4f9e14e42100093a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TextFont: {fileID: 12800000, guid: 925da2c3527f79346ba797ee6dff0e1a, type: 3}
+  m_TextFont: {fileID: 12800000, guid: 6b73f4e904dbcc144b6a706b25fb57bb, type: 3}
   m_SphereMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_CubeMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   m_LineWidthToWorldScale: 0.08
   m_DepthTestMaterial: {fileID: 2100000, guid: 768f046303294a94487e42a6fb059674, type: 2}
   m_OverlayMaterial: {fileID: 2100000, guid: 827b425ee2c59de4aa477656e78a0aeb, type: 2}

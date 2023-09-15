@@ -33,6 +33,7 @@ MonoBehaviour:
     - com.beauprime.beaudata
     - com.beauprime.beaupools
     - com.beauprime.beauroutine
+    - com.beauprime.beauroutine-extensions
     - com.beauprime.beauutil
     - com.fieldday.opengamedata
     - com.fieldday.opengamedata-unity
@@ -45,6 +46,6 @@ MonoBehaviour:
   m_RegistryInfoDraft:
     m_Modified: 0
     m_ErrorMessage: 
-    m_UserModificationsInstanceId: -828
+    m_UserModificationsInstanceId: -830
     m_OriginalInstanceId: -832
   m_LoadAssets: -1

@@ -6,7 +6,11 @@
         "Unity.TextMeshPro",
         "EasyBugReporter",
         "BeauRoutine",
-        "BeauPools"
+        "BeauPools",
+        "BeauData",
+        "BeauUtil.Parse",
+        "BeauRoutine-Extensions",
+        "BeauRoutine-Spline"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

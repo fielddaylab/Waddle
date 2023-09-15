@@ -1,4 +1,7 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using BeauUtil;
 
@@ -7,13 +10,18 @@ namespace FieldDay {
     /// Game loop phase buckets.
     /// </summary>
     static internal class PhaseBuckets {
-        private const GameLoopPhase MinPhase = GameLoopPhase.PreUpdate;
+        private const GameLoopPhase MinPhase = GameLoopPhase.DebugUpdate;
         private const GameLoopPhase MaxPhase = GameLoopPhase.FrameAdvance;
 
         /// <summary>
         /// Maximum number of buckets.
         /// </summary>
         public const int MaxBuckets = (int) (MaxPhase - MinPhase) + 1;
+
+        /// <summary>
+        /// Mask containing all phases tracked by phase buckets.
+        /// </summary>
+        public static readonly GameLoopPhaseMask ValidBucketMask;
 
         #region Mapping
 
@@ -45,6 +53,13 @@ namespace FieldDay {
             return phase >= MinPhase && phase <= MaxPhase;
         }
 
+        /// <summary>
+        /// Returns if all the given phases have a valid bucket.
+        /// </summary>
+        static public bool IsTracked(GameLoopPhaseMask phaseMask) {
+            return phaseMask > 0 && (phaseMask & ~ValidBucketMask) == 0;
+        }
+
         #endregion // Mapping
 
         #region Registration/Deregistration
@@ -71,6 +86,12 @@ namespace FieldDay {
                 buckets[GameLoopPhase.FixedUpdate].FastRemove(data);
             } else if ((toAdd & GameLoopPhaseMask.FixedUpdate) != 0) {
                 buckets[GameLoopPhase.FixedUpdate].PushBack(data);
+            }
+
+            if ((toRemove & GameLoopPhaseMask.LateFixedUpdate) != 0) {
+                buckets[GameLoopPhase.LateFixedUpdate].FastRemove(data);
+            } else if ((toAdd & GameLoopPhaseMask.FixedUpdate) != 0) {
+                buckets[GameLoopPhase.LateFixedUpdate].PushBack(data);
             }
 
             if ((toRemove & GameLoopPhaseMask.Update) != 0) {
@@ -102,6 +123,62 @@ namespace FieldDay {
         }
 
         #endregion // Registration/Deregistration
+
+        public struct PhaseEnumerator : IEnumerator<GameLoopPhase>, IEnumerable<GameLoopPhase> {
+            private uint m_Mask;
+            private int m_Phase;
+
+            public PhaseEnumerator(GameLoopPhaseMask mask) {
+                m_Mask = (uint) mask;
+                m_Phase = -1;
+            }
+
+            #region IEnumerator
+
+            public GameLoopPhase Current { get { return (GameLoopPhase) m_Phase; } }
+
+            object IEnumerator.Current { get { return (GameLoopPhase) m_Phase; } }
+
+            public void Dispose() {
+            }
+
+            IEnumerator IEnumerable.GetEnumerator() {
+                return this;
+            }
+
+            IEnumerator<GameLoopPhase> IEnumerable<GameLoopPhase>.GetEnumerator() {
+                return this;
+            }
+
+            public PhaseEnumerator GetEnumerator() {
+                return this;
+            }
+
+            public bool MoveNext() {
+                while(m_Mask != 0) {
+                    m_Phase++;
+                    if ((m_Mask & 1) != 0) {
+                        m_Mask >>= 1;
+                        return true;
+                    }
+                    m_Mask >>= 1;
+                }
+                return false;
+            }
+
+            public void Reset() {
+            }
+
+            #endregion // IEnumerator
+        }
+
+        static PhaseBuckets() {
+            GameLoopPhaseMask mask = 0;
+            for(GameLoopPhase phase = MinPhase; phase <= MaxPhase; phase++) {
+                mask |= (GameLoopPhaseMask) (1u << (int) phase);
+            }
+            ValidBucketMask = mask;
+        }
     }
 
     /// <summary>
@@ -267,5 +344,61 @@ namespace FieldDay {
         }
 
         #endregion // Dirty
+    }
+
+    /// <summary>
+    /// Struct for profiling how long each phase lasts.
+    /// </summary>
+    internal unsafe struct PhaseTiming {
+        /// <summary>
+        /// Timestamps. Negative values are start, positive values are actual.
+        /// </summary>
+        public fixed long Markers[PhaseBuckets.MaxBuckets];
+
+        /// <summary>
+        /// Durations.
+        /// </summary>
+        public fixed long Duration[PhaseBuckets.MaxBuckets];
+
+        /// <summary>
+        /// Clears all timestamps.
+        /// </summary>
+        public void Clear() {
+            for(int i = 0; i < PhaseBuckets.MaxBuckets; i++) {
+                Markers[i] = 0;
+                Duration[i] = 0;
+            }
+        }
+
+        /// <summary>
+        /// Marks the start of a phase.
+        /// </summary>
+        public void MarkStart(GameLoopPhase phase) {
+            if (!PhaseBuckets.IsTracked(phase)) {
+                return;
+            }
+
+            int idx = PhaseBuckets.PhaseToIndex(phase);
+            ref long marker = ref Markers[idx];
+            if (marker == 0) {
+                marker = Stopwatch.GetTimestamp();
+            }
+        }
+
+        /// <summary>
+        /// Marks the end of a phase.
+        /// </summary>
+        public void MarkEnd(GameLoopPhase phase) {
+            if (!PhaseBuckets.IsTracked(phase)) {
+                return;
+            }
+
+            int idx = PhaseBuckets.PhaseToIndex(phase);
+            ref long marker = ref Markers[idx];
+            if (marker > 0) {
+                Duration[idx] += Stopwatch.GetTimestamp() - marker;
+                marker = 0;
+            }
+        }
     }
 }

@@ -8,11 +8,13 @@ using UnityEngine;
 using System.Diagnostics;
 using BeauUtil.Debugger;
 using System.Runtime.InteropServices;
-using UnityEngine.Rendering;
 using UnityEngine.Scripting;
 using FieldDay.Systems;
 using BeauRoutine;
 using System.Reflection;
+using FieldDay.Data;
+using BeauUtil.UI;
+using UnityEngine.EventSystems;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -27,6 +29,7 @@ namespace FieldDay.Debugging {
     [DefaultExecutionOrder(-9999)]
     public sealed class DebugConsole : MonoBehaviour {
         static private DMInfo s_RootMenu;
+        static private DMInfo s_QuickMenu;
 
         #region Events
 
@@ -48,9 +51,15 @@ namespace FieldDay.Debugging {
         [SerializeField] private KeyCode m_ToggleKey = KeyCode.BackQuote;
         [SerializeField] private CanvasGroup m_MinimalGroup = null;
         [SerializeField] private ConsoleTimeDisplay m_TimeDisplay = null;
+        [SerializeField] private RaycastZone m_InputBlocker = null;
 
         [Header("Debug Menu")]
         [SerializeField] private DMMenuUI m_DebugMenus = null;
+        [SerializeField] private CanvasGroup m_DebugMenuInput = null;
+
+        [Header("Quick Menu")]
+        [SerializeField] private DMMenuUI m_QuickMenu = null;
+        [SerializeField] private CanvasGroup m_QuickMenuInput = null;
 
         #endregion // Inspector
 
@@ -62,7 +71,7 @@ namespace FieldDay.Debugging {
         [NonSerialized] private bool m_MenuUIInitialized;
 
         private void Awake() {
-            GameLoop.OnPreUpdate.Register(OnPreUpdate);
+            GameLoop.OnDebugUpdate.Register(OnPreUpdate);
             GameLoop.QueuePreUpdate(LoadMenu);
         }
 
@@ -116,11 +125,15 @@ namespace FieldDay.Debugging {
             m_Paused = paused;
             Routine.Settings.Paused = paused;
             OnPauseUpdated.Invoke(paused);
+            GameLoop.SetDebugPause(paused);
+            m_InputBlocker.enabled = paused;
+            AudioListener.pause = paused;
 
             if (paused) {
                 Time.timeScale = 0;
                 m_TimeDisplay.UpdateStateLabel("PAUSED");
                 OnTimeScaleUpdated.Invoke(0);
+                EventSystem.current?.SetSelectedGameObject(null);
             } else {
                 Time.timeScale = m_TimeScale;
                 m_TimeDisplay.UpdateStateLabel("PLAYING");
@@ -151,9 +164,15 @@ namespace FieldDay.Debugging {
         }
 
         static private void LoadMenu() {
+            LoadRootMenu();
+            LoadQuickMenu();
+        }
+
+        static private void LoadRootMenu() {
             s_RootMenu = new DMInfo("Debug", 16);
 
-            foreach (var pair in Reflect.FindMethods<DebugMenuFactoryAttribute>(ReflectionCache.UserAssemblies, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static)) {
+            // load menus from user assemblies
+            foreach (var pair in Reflect.FindMethods<DebugMenuFactoryAttribute>(ReflectionCache.UserAssemblies, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.DeclaredOnly)) {
                 if (pair.Info.ReturnType != typeof(DMInfo)) {
                     Log.Error("[DebugConsole] Method '{0}::{1}' does not return DMInfo", pair.Info.DeclaringType.Name, pair.Info.Name);
                     continue;
@@ -167,9 +186,8 @@ namespace FieldDay.Debugging {
                 DMInfo menu = (DMInfo) pair.Info.Invoke(null, Array.Empty<object>());
 
                 if (menu != null) {
-                    int existingIdx = s_RootMenu.Elements.FindIndex((e, l) => e.Type == DMElementType.Submenu && e.Submenu.Submenu.Header.Label == l, menu.Header.Label);
-                    if (existingIdx >= 0) {
-                        DMInfo existing = s_RootMenu.Elements[existingIdx].Submenu.Submenu;
+                    DMInfo existing = FindSubmenu(s_RootMenu, menu.Header.Label);
+                    if (existing != null) {
                         if (existing.Elements.Count > 0) {
                             existing.AddDivider();
                         }
@@ -177,13 +195,77 @@ namespace FieldDay.Debugging {
                         foreach (var element in menu.Elements) {
                             existing.Elements.PushBack(element);
                         }
+                        menu.Clear(); // make sure to clear out old menu
                     } else {
                         s_RootMenu.AddSubmenu(menu);
                     }
                 }
             }
 
-            s_RootMenu.Elements.Sort((a, b) => a.Label.CompareTo(b.Label));
+            // config vars
+            DMInfo configVarMenu = new DMInfo("Config Vars", 8);
+            s_RootMenu.AddSubmenu(configVarMenu);
+
+            configVarMenu.AddButton("Save Changes", ConfigVar.WriteUserToPlayerPrefs);
+            configVarMenu.AddButton("Reload Changes", ConfigVar.ReadUserFromPlayerPrefs, ConfigVar.HasUserPrefs);
+            configVarMenu.AddDivider();
+
+            configVarMenu.AddButton("Commit Changes", ConfigVar.WriteAllToResources, () => Application.isEditor);
+            configVarMenu.AddButton("Reset (Committed)", () => ConfigVar.Reset(ConfigVar.AllVars));
+            configVarMenu.AddButton("Reset (Programmer)", () => ConfigVar.ProgrammerReset(ConfigVar.AllVars));
+            configVarMenu.AddDivider();
+
+            configVarMenu.AddDivider();
+
+            string currentCategory = null;
+            DMInfo categoryMenu = null;
+            foreach (var cvar in ConfigVar.AllVars) {
+                if (cvar.Category != currentCategory) {
+                    currentCategory = cvar.Category;
+                    categoryMenu = FindOrCreateSubmenu(configVarMenu, currentCategory);
+                }
+
+                ConfigVar.CreateDebugMenu(categoryMenu, cvar);
+            }
+
+            SortByLabel(s_RootMenu);
+        }
+
+        static private void LoadQuickMenu() {
+            s_QuickMenu = new DMInfo("Quick", 16);
+
+            // load menus from user assemblies
+            foreach (var pair in Reflect.FindMethods<QuickMenuFactoryAttribute>(ReflectionCache.UserAssemblies, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.DeclaredOnly)) {
+                if (pair.Info.ReturnType != typeof(DMInfo)) {
+                    Log.Error("[DebugConsole] Method '{0}::{1}' does not return DMInfo", pair.Info.DeclaringType.FullName, pair.Info.Name);
+                    continue;
+                }
+
+                if (pair.Info.GetParameters().Length != 0) {
+                    Log.Error("[DebugConsole] Method '{0}::{1}' has parameters", pair.Info.DeclaringType.FullName, pair.Info.Name);
+                    continue;
+                }
+
+                DMInfo menu = (DMInfo) pair.Info.Invoke(null, Array.Empty<object>());
+
+                if (menu != null) {
+                    DMInfo existing = FindSubmenu(s_QuickMenu, menu.Header.Label);
+                    if (existing != null) {
+                        if (existing.Elements.Count > 0) {
+                            existing.AddDivider();
+                        }
+                        existing.MinimumWidth = Math.Max(existing.MinimumWidth, menu.MinimumWidth);
+                        foreach (var element in menu.Elements) {
+                            existing.Elements.PushBack(element);
+                        }
+                        menu.Clear(); // make sure to clear out old menu
+                    } else {
+                        s_QuickMenu.AddSubmenu(menu);
+                    }
+                }
+            }
+
+            SortByLabel(s_QuickMenu);
         }
 
         private void SetMenuVisible(bool visible) {
@@ -193,16 +275,22 @@ namespace FieldDay.Debugging {
 
             m_MenuOpen = visible;
             if (visible) {
+                m_VisibilityWhenDebugMenuOpened = m_MinimalVisible;
+                SetMinimalVisible(true);
+                m_DebugMenus.gameObject.SetActive(true);
+                m_DebugMenuInput.interactable = true;
+                m_MinimalGroup.interactable = true;
                 if (!m_MenuUIInitialized) {
                     m_DebugMenus.GotoMenu(s_RootMenu);
                     m_MenuUIInitialized = true;
                 }
-                m_VisibilityWhenDebugMenuOpened = m_MinimalVisible;
-                SetMinimalVisible(true);
-                m_DebugMenus.gameObject.SetActive(true);
+                SetPaused(true);
             } else {
                 m_DebugMenus.gameObject.SetActive(false);
+                m_DebugMenuInput.interactable = false;
+                m_MinimalGroup.interactable = false;
                 SetMinimalVisible(m_VisibilityWhenDebugMenuOpened);
+                SetPaused(false);
             }
         }
 
@@ -232,11 +320,51 @@ namespace FieldDay.Debugging {
         }
 
         #endregion // Minimal Layer
+
+        #region Helpers
+
+        static internal DMInfo FindSubmenu(DMInfo menu, string label) {
+            int index = menu.Elements.FindIndex((e, l) => {
+                return e.Type == DMElementType.Submenu && e.Label == label;
+            }, label);
+            if (index >= 0) {
+                return menu.Elements[index].Submenu.Submenu;
+            } else {
+                return null;
+            }
+        }
+
+        static internal DMInfo FindOrCreateSubmenu(DMInfo menu, string label) {
+            int index = menu.Elements.FindIndex((e, l) => {
+                return e.Type == DMElementType.Submenu && e.Label == label;
+            }, label);
+            if (index >= 0) {
+                return menu.Elements[index].Submenu.Submenu;
+            } else {
+                DMInfo newInfo = new DMInfo(label);
+                menu.AddSubmenu(newInfo);
+                return newInfo;
+            }
+        }
+
+        static internal void SortByLabel(DMInfo menu) {
+            menu.Elements.Sort((a, b) => StringComparer.Ordinal.Compare(a.Label, b.Label));
+        }
+
+        #endregion // Helpers
     }
 
     /// <summary>
     /// Attribute marking a static method to be invoked to create a root debug menu.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
+    [Conditional("DEVELOPMENT"), Conditional("UNITY_EDITOR"), Conditional("DEVELOPMENT_BUILD")]
     public sealed class DebugMenuFactoryAttribute : PreserveAttribute { }
+
+    /// <summary>
+    /// Attribute marking a static method to be invoked to create a quick debug menu.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
+    [Conditional("DEVELOPMENT"), Conditional("UNITY_EDITOR"), Conditional("DEVELOPMENT_BUILD")]
+    public sealed class QuickMenuFactoryAttribute : PreserveAttribute { }
 }

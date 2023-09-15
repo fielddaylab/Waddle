@@ -53,7 +53,7 @@ namespace Waddle
                 desiredXOffset *= m_ConsecutiveStepEasingMultiplier;
             }
 
-            DebugDraw.AddViewportText(new Vector2(0, 0), new Vector2(8, -8),
+            DebugDraw.AddViewportText(new Vector2(0, 0), new Vector2(8, 8),
                 string.Format("offset {0} | velocity {1} | look {2}", currentHeadOffset, currentHeadVelocity, currentHeadLocalLook),
                 Color.yellow, 0, TextAnchor.LowerLeft, DebugTextStyle.BackgroundDark);
 

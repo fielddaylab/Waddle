@@ -38,7 +38,7 @@ namespace Waddle {
             m_ThoughtProcess.Kill();
             m_OriginalTransform.Apply(Position);
             Steering.HasTarget = false;
-            m_AnimatorSnapshot.Restore();
+            m_AnimatorSnapshot.Write(Animator);
             StartThinking();
         }
 

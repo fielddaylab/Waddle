@@ -902,6 +902,7 @@ GameObject:
   - component: {fileID: 2360715680209839772}
   - component: {fileID: 2360715680209839775}
   - component: {fileID: 1000988389372209087}
+  - component: {fileID: 2426764619237441764}
   m_Layer: 20
   m_Name: PenguinPlayer
   m_TagString: Untagged
@@ -959,7 +960,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2360715680209839766}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 536c4ccccc518b5409bd5b788949acfc, type: 3}
   m_Name: 
@@ -1150,7 +1151,8 @@ MonoBehaviour:
   TerrainMask:
     serializedVersion: 2
     m_Bits: 2048
-  TerrainAngleStrictness: 0.6
+  TerrainAngleStrictness: 0.5
+  MaxHeightChange: 0.1
   InvisibleColliderMask:
     serializedVersion: 2
     m_Bits: 2097152
@@ -1176,6 +1178,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HoldRoot: {fileID: 3942021504064925746}
+--- !u!114 &2426764619237441764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2360715680209839766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d1cd29e044e79049b62e53f4c24c1c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RootTransform: {fileID: 2360715680209839767}
+  RootYOffset: 2.076
+  RaycastDistance: 10
+  SolidLayers:
+    serializedVersion: 2
+    m_Bits: 2048
+  WallLayers:
+    serializedVersion: 2
+    m_Bits: 2097152
+  AngleStrictness: 0.5
+  CheckRadius: 0.25
 --- !u!1 &2360715680212188582
 GameObject:
   m_ObjectHideFlags: 0
@@ -2219,8 +2244,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11400010, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400010, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: Acceleration
       value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400010, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
+      propertyPath: EnableRotation
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11400010, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: useProfileData

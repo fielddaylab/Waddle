@@ -1,107 +1,212 @@
-using BeauUtil;
-using BeauUtil.Variants;
+/*
+ * Copyright (C) 2023. Autumn Beauchesne. All rights reserved.
+ * Author:  Autumn Beauchesne
+ * Date:    25 July 2023
+ * 
+ * File:    AnimatorStateSnapshot.cs
+ * Purpose: Animator parameter and layer state snapshot class.
+ */
+
+using System;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
-namespace Waddle {
-    public sealed class AnimatorStateSnapshot {
-        private struct CachedParamMeta {
+namespace Waddle
+{
+    /// <summary>
+    /// Animator parameter and layer state snapshot.
+    /// </summary>
+    public sealed class AnimatorStateSnapshot
+    {
+        private struct ParamMetadata
+        {
             public int NameHash;
             public AnimatorControllerParameterType Type;
         }
 
-        private struct LayerData {
+        [StructLayout(LayoutKind.Explicit)]
+        private struct ParamData
+        {
+            [FieldOffset(0)] public float Float;
+            [FieldOffset(0)] public int Integer;
+            [FieldOffset(0)] public bool Bool;
+        }
+
+        private struct LayerData
+        {
             public int FullHash;
             public float NormalizedTime;
+            public float Weight;
         }
 
-        private readonly Animator m_Source;
-        private readonly CachedParamMeta[] m_ParamMeta;
-        private readonly Variant[] m_ParamValues;
-        private readonly LayerData[] m_LayerData;
+        private RuntimeAnimatorController m_SourceController;
 
-        public AnimatorStateSnapshot(Animator animator) {
-            int paramCount = animator.parameterCount;
-            m_ParamMeta = new CachedParamMeta[paramCount];
-            m_ParamValues = new Variant[paramCount];
-            m_Source = animator;
+        private ParamMetadata[] m_ParamMeta = Array.Empty<ParamMetadata>();
+        private ParamData[] m_ParamData = Array.Empty<ParamData>();
+        private int m_ParamCount;
 
-            for(int i = 0; i < paramCount; i++) {
-                AnimatorControllerParameter param = animator.GetParameter(i);
-                m_ParamMeta[i] = new CachedParamMeta() {
-                    NameHash = param.nameHash,
-                    Type = param.type
-                };
+        private LayerData[] m_LayerData = Array.Empty<LayerData>();
+        private int m_LayerCount;
+
+        public AnimatorStateSnapshot() { }
+
+        public AnimatorStateSnapshot(Animator inSource)
+        {
+            Read(inSource);
+        }
+
+        private void SetAnimController(Animator inSource)
+        {
+            if (inSource == null)
+            {
+                throw new ArgumentNullException("inSource");
             }
 
-            int layerCount = animator.layerCount;
-            m_LayerData = new LayerData[layerCount];
+            RuntimeAnimatorController controller = inSource.runtimeAnimatorController;
+            if (controller != m_SourceController)
+            {
+                m_SourceController = controller;
 
-            Cache();
+                int paramCount = inSource.parameterCount;
+                int layerCount = inSource.layerCount;
+
+                m_ParamCount = paramCount;
+                m_LayerCount = layerCount;
+
+                if (m_ParamMeta.Length < paramCount)
+                {
+                    Array.Resize(ref m_ParamMeta, paramCount);
+                }
+
+                for (int i = 0; i < paramCount; i++)
+                {
+                    AnimatorControllerParameter parameter = inSource.GetParameter(i);
+                    m_ParamMeta[i] = new ParamMetadata()
+                    {
+                        NameHash = parameter.nameHash,
+                        Type = parameter.type
+                    };
+                }
+
+                if (m_ParamData.Length < paramCount)
+                {
+                    Array.Resize(ref m_ParamData, paramCount);
+                }
+
+                if (m_LayerData.Length < layerCount)
+                {
+                    Array.Resize(ref m_LayerData, layerCount);
+                }
+            }
         }
 
-        public void Cache() {
-            int count = m_ParamMeta.Length;
-            for(int i = 0; i < count; i++) {
-                CachedParamMeta meta = m_ParamMeta[i];
-                ref Variant value = ref m_ParamValues[i];
-                switch (meta.Type) {
-                    case AnimatorControllerParameterType.Float: {
-                        value = m_Source.GetFloat(meta.NameHash);
+        /// <summary>
+        /// Reads the parameter and layer state from the given animator into the snapshot.
+        /// </summary>
+        public void Read(Animator inSource)
+        {
+            SetAnimController(inSource);
+
+            for (int i = 0, len = m_ParamCount; i < len; i++)
+            {
+                ParamMetadata meta = m_ParamMeta[i];
+                ref ParamData data = ref m_ParamData[i];
+                switch (meta.Type)
+                {
+                    case AnimatorControllerParameterType.Float:
+                    {
+                        data.Float = inSource.GetFloat(meta.NameHash);
                         break;
                     }
-                    case AnimatorControllerParameterType.Int: {
-                        value = m_Source.GetInteger(meta.NameHash);
+                    case AnimatorControllerParameterType.Int:
+                    {
+                        data.Integer = inSource.GetInteger(meta.NameHash);
                         break;
                     }
-                    case AnimatorControllerParameterType.Bool: {
-                        value = m_Source.GetBool(meta.NameHash);
+                    case AnimatorControllerParameterType.Bool:
+                    {
+                        data.Bool = inSource.GetBool(meta.NameHash);
                         break;
                     }
                 }
             }
 
-            count = m_LayerData.Length;
-            for(int i = 0; i < count; i++) {
-                AnimatorStateInfo state = m_Source.GetCurrentAnimatorStateInfo(i);
-                m_LayerData[i] = new LayerData() {
+            for (int i = 0, len = m_LayerCount; i < len; i++)
+            {
+                AnimatorStateInfo state = inSource.GetCurrentAnimatorStateInfo(i);
+                m_LayerData[i] = new LayerData()
+                {
                     FullHash = state.fullPathHash,
-                    NormalizedTime = state.normalizedTime
+                    NormalizedTime = state.normalizedTime,
+                    Weight = inSource.GetLayerWeight(i)
                 };
             }
         }
 
-        public void Restore() {
-            int count = m_ParamMeta.Length;
-            for (int i = 0; i < count; i++) {
-                CachedParamMeta meta = m_ParamMeta[i];
-                Variant value = m_ParamValues[i];
-                switch (meta.Type) {
-                    case AnimatorControllerParameterType.Float: {
-                        m_Source.SetFloat(meta.NameHash, value.AsFloat());
+        /// <summary>
+        /// Writes the recorded parameters and layer states to the give target animator.
+        /// Target animator must have the same AnimationController as the source for Read()
+        /// </summary>
+        public void Write(Animator inTarget)
+        {
+            if (inTarget == null)
+            {
+                throw new ArgumentNullException("inTarget");
+            }
+            if (m_SourceController == null)
+            {
+                throw new InvalidOperationException("Read() must be called at least once before Write()");
+            }
+            if (inTarget.runtimeAnimatorController != m_SourceController)
+            {
+                throw new InvalidOperationException(string.Format("Target animator '{0}' does not have matching AnimationController '{1}'", inTarget.name, m_SourceController.name));
+            }
+
+            for (int i = 0, len = m_ParamCount; i < len; i++)
+            {
+                ParamMetadata meta = m_ParamMeta[i];
+                ParamData data = m_ParamData[i];
+                switch (meta.Type)
+                {
+                    case AnimatorControllerParameterType.Float:
+                    {
+                        inTarget.SetFloat(meta.NameHash, data.Float);
                         break;
                     }
-                    case AnimatorControllerParameterType.Int: {
-                        m_Source.SetInteger(meta.NameHash, value.AsInt());
+                    case AnimatorControllerParameterType.Int:
+                    {
+                        inTarget.SetInteger(meta.NameHash, data.Integer);
                         break;
                     }
-                    case AnimatorControllerParameterType.Bool: {
-                        m_Source.SetBool(meta.NameHash, value.AsBool());
+                    case AnimatorControllerParameterType.Bool:
+                    {
+                        inTarget.SetBool(meta.NameHash, data.Bool);
                         break;
                     }
-                    case AnimatorControllerParameterType.Trigger: {
-                        m_Source.ResetTrigger(meta.NameHash);
+                    case AnimatorControllerParameterType.Trigger:
+                    {
+                        inTarget.ResetTrigger(meta.NameHash);
                         break;
                     }
                 }
             }
 
-            count = m_LayerData.Length;
-            for (int i = 0; i < count; i++) {
+            for (int i = 0, len = m_LayerCount; i < len; i++)
+            {
                 LayerData data = m_LayerData[i];
-                m_Source.Play(data.FullHash, i, data.NormalizedTime);
+                inTarget.SetLayerWeight(i, data.Weight);
+                inTarget.Play(data.FullHash, i, data.NormalizedTime);
             }
+        }
 
-            m_Source.Rebind();
+        /// <summary>
+        /// Clears all recorded state.
+        /// </summary>
+        public void Clear()
+        {
+            m_ParamCount = 0;
+            m_LayerCount = 0;
+            m_SourceController = null;
         }
     }
 }
