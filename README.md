@@ -1,8 +1,8 @@
-# penguinsVR
+# Waddle
 
 ![Waddle Hero Image](https://user-images.githubusercontent.com/102836974/230182694-ac6dd98b-ac03-42ef-9dcf-8e575b68c3e1.png)
 
-The Penguin VR game replicates the Antarctic environment of the Adelie penguins into a fun, task filled virtual reality space. The game’s intention is to promote curiosity and understanding about the Antarctic by getting users to feel like they are truly within the body of a penguin.
+Waddle (previously Penguins VR) replicates the Antarctic environment of the Adelie penguins into a fun, task filled virtual reality space. The game’s intention is to promote curiosity and understanding about the Antarctic by getting users to feel like they are truly within the body of a penguin.
 
 The user can access this environment through a Head Mounted Display (HMD) device, and will be given instructions to be able to move and perform tasks as a penguin like waddling, eating, move its flippers or use its beak to move or pick things, protect its eggs from predators etc.
 
@@ -42,33 +42,6 @@ Firebase automatically logs the following meaningful events, documented [here](h
 ### Change Log
 1. Initial version (2/4/22)
 
+
 ### Events
-
-1. [start_game](#start_game)
-2. [load_minigame](#load_minigame)
-
-<a name="start_game"/>
-
-#### start_game
-
-Player starts the game.
-
-| Parameter | Description |
-| --- | --- |
-| app_version | Current logging version |
-
-<a name="load_minigame"/>
-
-#### load_minigame
-
-Player loads a given minigame scene.
-
-| Parameter | Description |
-| --- | --- |
-| app_version | Current logging version |
-| minigame | The minigame being loaded |
-
-| minigame |
-| --- |
-| ProtectTheNest |
-| MatingDance |
+Full [event schema](https://github.com/opengamedata/opengamedata-core/blob/master/games/PENGUINS/schemas/PENGUINS.json.template)
