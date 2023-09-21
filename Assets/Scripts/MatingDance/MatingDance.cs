@@ -14,9 +14,6 @@ using Waddle;
 public class MatingDance : MiniGameController {
     #region Inspector
 
-    [SerializeField]
-	private float _exitAngle = 102;
-
 	[SerializeField]
 	private float _angleBuffer = 10;
 	
@@ -38,6 +35,9 @@ public class MatingDance : MiniGameController {
     [SerializeField]
     private Transform m_HeartRenderer;
 
+    [SerializeField]
+    private SFXAsset m_HeartSound;
+
     #endregion // Inspector
 
     [NonSerialized] private MatingDancePenguin m_MatingDancePenguin;
@@ -46,6 +46,7 @@ public class MatingDance : MiniGameController {
     private float m_DanceCooldown;
     private bool m_Dancing;
     private bool m_FeedbackQueued;
+    private Routine m_BigHeartRoutine;
 
     private void Start() {
         m_MatingDancePenguin = GameObject.FindObjectOfType<MatingDancePenguin>();
@@ -120,6 +121,7 @@ public class MatingDance : MiniGameController {
         m_HeartRenderer.gameObject.SetActive(false);
         m_Heart.SetScale(0);
         m_HeartRenderer.SetRotation(0, Axis.Y, Space.Self);
+        m_BigHeartRoutine.Stop();
 
         // Log early exit from game?
     }
@@ -136,6 +138,7 @@ public class MatingDance : MiniGameController {
     private IEnumerator Sequence() {
         MusicUtility.Stop(5.5f);
 
+        m_MatingDancePenguinBrain.ForceToAnimatorState("Bow", 0.1f);
         m_MatingDancePenguinBrain.Animator.SetBool("BopDance", true);
         yield return m_MatingDancePenguinBrain.Animator.WaitForState("BopBeat_Action");
 
@@ -163,14 +166,22 @@ public class MatingDance : MiniGameController {
 
         m_HeartRenderer.gameObject.SetActive(true);
         m_MatingDancePenguinBrain.Animator.SetBool("BopDance", false);
-        yield return Routine.Combine(
-            m_MatingDancePenguinBrain.Animator.WaitToCompleteState("Call"),
-            m_Heart.ScaleTo(1, 0.25f).Ease(Curve.BackOut),
-            m_HeartRenderer.RotateTo(720, 0.5f, Axis.Y, Space.Self, AngleMode.Absolute).Ease(Curve.CubeOut)
-            );
+        m_BigHeartRoutine.Replace(this, BigHeartSequence());
+        yield return m_MatingDancePenguinBrain.Animator.WaitToCompleteState("Call");
 
         EndGame();
 
         m_MatingDancePenguinBrain.SetWalkState(_walkToSpot.transform);
+    }
+
+    private IEnumerator BigHeartSequence() {
+        SFXUtility.Play(m_Heart.GetComponent<AudioSource>(), m_HeartSound);
+        yield return Routine.Combine(
+            m_Heart.ScaleTo(1, 0.25f).Ease(Curve.BackOut),
+            m_HeartRenderer.RotateTo(720, 0.5f, Axis.Y, Space.Self, AngleMode.Absolute).Ease(Curve.CubeOut)
+        );
+        yield return 1.5f;
+        yield return m_Heart.ScaleTo(0, 0.5f).Ease(Curve.BackIn);
+        m_HeartRenderer.gameObject.SetActive(false);
     }
 }

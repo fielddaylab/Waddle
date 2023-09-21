@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac2e0a050b7da6c4e85dc9949548159d, type: 3}
-  m_Name: PlayerCollide
+  m_Name: PlayerHeartSuccess
   m_EditorClassIdentifier: 
   Clips:
-  - {fileID: 8300000, guid: e002225fd340a2d47a0f1a40b987c550, type: 3}
-  - {fileID: 8300000, guid: 0f8f4eb59ef4f3242aaca9daa633d6a4, type: 3}
+  - {fileID: 8300000, guid: b0f1015a30a944d43b4b18239669242b, type: 3}
   Volume:
-    Base: 0.5
+    Base: 1
     ModifierMin: 0
     ModifierMax: 0
   PitchRange:
-    Base: 1.2
-    ModifierMin: -0.1
-    ModifierMax: 0.1
+    Base: 1
+    ModifierMin: 0
+    ModifierMax: 0

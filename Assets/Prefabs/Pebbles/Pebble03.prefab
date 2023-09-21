@@ -147,7 +147,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 30
+  MaxDistance: 2
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -237,6 +237,7 @@ MonoBehaviour:
   Collider: {fileID: 4863484190105204734}
   Renderer: {fileID: 106426192928976547}
   Shine: {fileID: 1265863561364084925}
+  PickUpSFX: {fileID: 11400000, guid: 7e617c104b8e22047beaaf0ffab25e46, type: 2}
 --- !u!65 &4863484190105204734 stripped
 BoxCollider:
   m_CorrespondingSourceObject: {fileID: 7467378330936536063, guid: 2a35ca2fd1eca1c478eaa3ebcee5c109, type: 3}

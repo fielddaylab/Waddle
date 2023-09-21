@@ -7,6 +7,7 @@ namespace Waddle {
     public class PlayerNest : MonoBehaviour, IBeakInteract {
         public PlayerNestChunk[] Chunks;
         public MiniGameUnlocker NextMinigame;
+        public SFXAsset DropSFX;
 
         [NonSerialized] private int m_ChunksFull;
 
@@ -56,7 +57,7 @@ namespace Waddle {
             chunk.Renderer.sharedMaterial = chunk.PlacedMaterial;
             chunk.Renderer.enabled = true;
             chunk.Effect.Play();
-            chunk.GetComponent<AudioSource>().Play();
+            SFXUtility.Play(chunk.GetComponent<AudioSource>(), DropSFX);
 
             if (m_ChunksFull == Chunks.Length) {
                 NextMinigame.PebbleUnlock();

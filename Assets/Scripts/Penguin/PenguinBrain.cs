@@ -117,5 +117,21 @@ namespace Waddle {
         public void Vocalize(AudioClip sound, float volume = 1) {
             SFXUtility.Play(BeakAudio, sound, volume);
         }
+
+        public void ForceToIdle(float fadeDuration = 0) {
+            ForceToAnimatorState("Idle", fadeDuration);
+        }
+
+        public void ForceToAnimatorState(string state, float fadeDuration = 0) {
+            if (Animator.GetCurrentAnimatorStateInfo(0).IsName(state)) {
+                return;
+            }
+
+            if (fadeDuration <= 0) {
+                Animator.Play(state, 0);
+            } else {
+                Animator.CrossFadeInFixedTime(state, fadeDuration, 0);
+            }
+        }
     }
 }

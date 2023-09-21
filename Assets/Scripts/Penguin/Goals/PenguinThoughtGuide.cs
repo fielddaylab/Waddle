@@ -10,8 +10,10 @@ namespace Waddle {
             PenguinBrain brain = Brain(process);
             PenguinGuideParams guideParms = brain.GetComponent<PenguinGuideParams>();
             brain.Animator.SetBool("BopDance", true);
+            brain.ForceToAnimatorState("BopBeat_Action", 0.2f);
             yield return process.WaitForSignal("player-cross-initial-threshold");
             brain.Animator.SetBool("BopDance", false);
+            brain.ForceToAnimatorState("Idle", 0.2f);
             brain.SetWalkState(guideParms.FirstWalkNode);
             yield return null;
             while(brain.Steering.HasTarget) {

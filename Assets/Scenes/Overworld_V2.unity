@@ -5937,6 +5937,92 @@ MonoBehaviour:
   Recursive: 0
   DestroyGameObject: 1
   IgnoreAnimators: 1
+--- !u!1001 &156896765
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 516932815885400216, guid: d1f37c8ee05724e5183eeced2a57a5b5, type: 3}
+      propertyPath: m_RootOrder
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 516932815885400216, guid: d1f37c8ee05724e5183eeced2a57a5b5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 22.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 516932815885400216, guid: d1f37c8ee05724e5183eeced2a57a5b5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.851
+      objectReference: {fileID: 0}
+    - target: {fileID: 516932815885400216, guid: d1f37c8ee05724e5183eeced2a57a5b5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 50.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 516932815885400216, guid: d1f37c8ee05724e5183eeced2a57a5b5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 516932815885400216, guid: d1f37c8ee05724e5183eeced2a57a5b5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 516932815885400216, guid: d1f37c8ee05724e5183eeced2a57a5b5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 516932815885400216, guid: d1f37c8ee05724e5183eeced2a57a5b5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 516932815885400216, guid: d1f37c8ee05724e5183eeced2a57a5b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 516932815885400216, guid: d1f37c8ee05724e5183eeced2a57a5b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 516932815885400216, guid: d1f37c8ee05724e5183eeced2a57a5b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 516932815885400217, guid: d1f37c8ee05724e5183eeced2a57a5b5, type: 3}
+      propertyPath: m_Name
+      value: ExampleDancePenguins
+      objectReference: {fileID: 0}
+    - target: {fileID: 4277757644269173310, guid: d1f37c8ee05724e5183eeced2a57a5b5, type: 3}
+      propertyPath: m_Radius
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5689718273939955102, guid: d1f37c8ee05724e5183eeced2a57a5b5, type: 3}
+      propertyPath: Duration
+      value: 30
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d1f37c8ee05724e5183eeced2a57a5b5, type: 3}
+--- !u!1 &156896766 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 516932815885400217, guid: d1f37c8ee05724e5183eeced2a57a5b5, type: 3}
+  m_PrefabInstance: {fileID: 156896765}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &156896767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156896766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae620349e7bce24688d2ab26f9be5a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DestroyInactiveChildren: 0
+  Recursive: 0
+  DestroyGameObject: 1
+  IgnoreAnimators: 1
 --- !u!1 &160685281
 GameObject:
   m_ObjectHideFlags: 0
@@ -6206,7 +6292,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 40
+  MaxDistance: 5
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -16777,7 +16863,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &394902859 stripped
 Transform:
@@ -17197,7 +17283,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 40
+  MaxDistance: 5
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -20689,7 +20775,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &628978279
 PrefabInstance:
@@ -32659,7 +32745,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1016964826
 GameObject:
@@ -36222,6 +36308,7 @@ MonoBehaviour:
   - {fileID: 9089396440118390302}
   - {fileID: 274365484}
   NextMinigame: {fileID: 858060975}
+  DropSFX: {fileID: 11400000, guid: b23baa441a82af64ab4744dcf0f511fe, type: 2}
 --- !u!1001 &1537534895
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36451,7 +36538,7 @@ Transform:
   - {fileID: 839462459}
   - {fileID: 3378887803198899009}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1567126864
 MonoBehaviour:
@@ -43355,6 +43442,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SignPostMating
       objectReference: {fileID: 0}
+    - target: {fileID: 8381929603819327016, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9158430740529747090, guid: 68803d4ad287a434b8dd49c9b9cb7b2f, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -43942,7 +44033,7 @@ Transform:
   - {fileID: 78085792}
   - {fileID: 1519650785}
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2003979522
 MonoBehaviour:
@@ -45131,7 +45222,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2240847203652696270, guid: 07af7d9eb1994d4479a95722acf0c5e6, type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 2240847203652696270, guid: 07af7d9eb1994d4479a95722acf0c5e6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -62149,7 +62240,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 40
+  MaxDistance: 5
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -62245,7 +62336,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 40
+  MaxDistance: 5
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -62531,6 +62622,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -100.36
       objectReference: {fileID: 0}
+    - target: {fileID: 3843596061175824694, guid: 1e77345cad79daa40a1dc9c44a28c532, type: 3}
+      propertyPath: MaxDistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5842291686458284066, guid: 1e77345cad79daa40a1dc9c44a28c532, type: 3}
+      propertyPath: PickUpSFX
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e617c104b8e22047beaaf0ffab25e46, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e77345cad79daa40a1dc9c44a28c532, type: 3}
 --- !u!4 &9089396440832247629 stripped
@@ -62935,6 +63034,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -89.94
       objectReference: {fileID: 0}
+    - target: {fileID: 3843596061175824694, guid: 1e77345cad79daa40a1dc9c44a28c532, type: 3}
+      propertyPath: MaxDistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5842291686458284066, guid: 1e77345cad79daa40a1dc9c44a28c532, type: 3}
+      propertyPath: PickUpSFX
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e617c104b8e22047beaaf0ffab25e46, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e77345cad79daa40a1dc9c44a28c532, type: 3}
 --- !u!4 &9089396441288890075 stripped

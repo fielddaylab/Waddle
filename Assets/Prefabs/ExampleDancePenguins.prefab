@@ -157,6 +157,7 @@ Transform:
   m_Children:
   - {fileID: 1072928936546155132}
   - {fileID: 4019131681583730694}
+  - {fileID: 7185159368242824071}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -170,6 +171,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3760058757301352920}
   - component: {fileID: 3992860681237363570}
+  - component: {fileID: 240457090966357857}
+  - component: {fileID: 939139243651467498}
+  - component: {fileID: 2665179847557092745}
+  - component: {fileID: 1341027089016073577}
   m_Layer: 0
   m_Name: NPCPenguin_Anims01b
   m_TagString: PTNPenguin
@@ -215,6 +220,74 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &240457090966357857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 757676408385322715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d1cd29e044e79049b62e53f4c24c1c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RootTransform: {fileID: 3760058757301352920}
+  RootYOffset: 0
+  RaycastDistance: 10
+  SolidLayers:
+    serializedVersion: 2
+    m_Bits: 2048
+  WallLayers:
+    serializedVersion: 2
+    m_Bits: 2097152
+  AngleStrictness: 0.5
+  CheckRadius: 0.5
+--- !u!114 &939139243651467498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 757676408385322715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01ea46a2d552fce49a0776e5d86586d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 3992860681237363570}
+  DefaultLerpSpeed: 8
+  StateMachineMaskLerpSpeed: 12
+--- !u!114 &2665179847557092745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 757676408385322715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8588c27269195464bb0bbcc16403caaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Root: {fileID: 4019131681583730694}
+--- !u!114 &1341027089016073577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 757676408385322715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f6b686f1d155bc4abe8c68242bc02aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LeftFoot: {fileID: 8827538520226764172}
+  LeftAudio: {fileID: 0}
+  RightFoot: {fileID: 6964760515362883257}
+  RightAudio: {fileID: 0}
+  StepSFX: {fileID: 11400000, guid: cbd59f04c8400334e9b74446b07c8a77, type: 2}
 --- !u!1 &860949838597883106
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,6 +456,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7860078656737421181}
   - component: {fileID: 7512484040197058028}
+  - component: {fileID: 3101938833563557263}
   m_Layer: 0
   m_Name: Adelie_model
   m_TagString: Untagged
@@ -481,6 +555,33 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.028699458, y: 0.066409215, z: 0.054594338}
     m_Extent: {x: 0.33861852, y: 0.50705004, z: 0.3126613}
   m_DirtyAABB: 0
+--- !u!114 &3101938833563557263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1463806019032474724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47033be9f57f93849a11356eaf196a1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkinnedMesh: {fileID: 7512484040197058028}
+  MeshRenderer: {fileID: 0}
+  MeshFilter: {fileID: 0}
+  Level0:
+    Distance: 0
+    SkinQuality: 4
+    Mesh: {fileID: 0}
+  Level1:
+    Distance: 6
+    SkinQuality: 2
+    Mesh: {fileID: 4300000, guid: f1222aebce3530044bab626961508273, type: 2}
+  Level2:
+    Distance: 18
+    SkinQuality: 1
+    Mesh: {fileID: 4300000, guid: df589c81ba00d4f4aa22e566b900505b, type: 2}
 --- !u!1 &1707441266412030497
 GameObject:
   m_ObjectHideFlags: 0
@@ -1102,6 +1203,7 @@ GameObject:
   m_Component:
   - component: {fileID: 76447996772887584}
   - component: {fileID: 8893937515169578495}
+  - component: {fileID: 8366225229187723713}
   m_Layer: 0
   m_Name: Adelie_model
   m_TagString: Untagged
@@ -1200,6 +1302,33 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.028699458, y: 0.066409215, z: 0.054594338}
     m_Extent: {x: 0.33861852, y: 0.50705004, z: 0.3126613}
   m_DirtyAABB: 0
+--- !u!114 &8366225229187723713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2973270580461542546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47033be9f57f93849a11356eaf196a1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkinnedMesh: {fileID: 7512484040197058028}
+  MeshRenderer: {fileID: 0}
+  MeshFilter: {fileID: 0}
+  Level0:
+    Distance: 0
+    SkinQuality: 4
+    Mesh: {fileID: 0}
+  Level1:
+    Distance: 6
+    SkinQuality: 2
+    Mesh: {fileID: 4300000, guid: f1222aebce3530044bab626961508273, type: 2}
+  Level2:
+    Distance: 18
+    SkinQuality: 1
+    Mesh: {fileID: 4300000, guid: df589c81ba00d4f4aa22e566b900505b, type: 2}
 --- !u!1 &2982470814107726954
 GameObject:
   m_ObjectHideFlags: 0
@@ -7073,6 +7202,103 @@ Transform:
   m_Father: {fileID: 6446782762494487715}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -68.93242, y: 1.3707728, z: -175.57263}
+--- !u!1 &6673366881082819715
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7185159368242824071}
+  - component: {fileID: 5689718273939955102}
+  - component: {fileID: 4277757644269173310}
+  - component: {fileID: 3007350622566247712}
+  m_Layer: 23
+  m_Name: Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7185159368242824071
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6673366881082819715}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 516932815885400216}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5689718273939955102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6673366881082819715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 277e6b6a066ecdd47b1fe7ee0aa0ac94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Range: {fileID: 3007350622566247712}
+  Penguins:
+  - {fileID: 7312730790112562805}
+  - {fileID: 3992860681237363570}
+  Duration: 15
+--- !u!135 &4277757644269173310
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6673366881082819715}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3007350622566247712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6673366881082819715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb387d5604852e24d9c47006aeb957ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Id: 0
+  m_Collider: {fileID: 4277757644269173310}
+  m_TrackOccupants: 1
+  m_FilterEventMask: 1
+  m_LayerMaskFilter:
+    serializedVersion: 2
+    m_Bits: 32768
+  m_CompareTagFilters: []
+  m_NameFilter: 
+  m_OnTriggerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  m_TaggedTriggerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnTriggerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_TaggedTriggerExit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6694420220218688066
 GameObject:
   m_ObjectHideFlags: 0
@@ -7273,6 +7499,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7131081217273096605}
   - component: {fileID: 7312730790112562805}
+  - component: {fileID: 5221244133653864303}
+  - component: {fileID: 4703723320561231507}
+  - component: {fileID: 5132934768682594174}
+  - component: {fileID: 8104238142668507205}
   m_Layer: 0
   m_Name: NPCPenguin_Anims01b
   m_TagString: PTNPenguin
@@ -7318,6 +7548,74 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &5221244133653864303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7619351944099115815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d1cd29e044e79049b62e53f4c24c1c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RootTransform: {fileID: 7131081217273096605}
+  RootYOffset: 0
+  RaycastDistance: 10
+  SolidLayers:
+    serializedVersion: 2
+    m_Bits: 2048
+  WallLayers:
+    serializedVersion: 2
+    m_Bits: 2097152
+  AngleStrictness: 0.5
+  CheckRadius: 0.5
+--- !u!114 &4703723320561231507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7619351944099115815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01ea46a2d552fce49a0776e5d86586d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 7312730790112562805}
+  DefaultLerpSpeed: 8
+  StateMachineMaskLerpSpeed: 12
+--- !u!114 &5132934768682594174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7619351944099115815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8588c27269195464bb0bbcc16403caaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Root: {fileID: 1072928936546155132}
+--- !u!114 &8104238142668507205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7619351944099115815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f6b686f1d155bc4abe8c68242bc02aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LeftFoot: {fileID: 4252667556946384547}
+  LeftAudio: {fileID: 0}
+  RightFoot: {fileID: 4491061833088209589}
+  RightAudio: {fileID: 0}
+  StepSFX: {fileID: 11400000, guid: cbd59f04c8400334e9b74446b07c8a77, type: 2}
 --- !u!1 &7805887685876812644
 GameObject:
   m_ObjectHideFlags: 0
