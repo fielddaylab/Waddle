@@ -36,16 +36,6 @@ public class MiniGameUnlocker : MonoBehaviour
 	public bool Lockable => _lockable;
 	
     MiniGameController _miniGame = null;
-
-	[SerializeField]
-	List<Material> _lockMaterials = new List<Material>();
-	
-	public List<Material> LockMaterials => _lockMaterials;
-	
-	[SerializeField]
-	Material _unlockedMaterial;
-	
-	public Material UnlockedMaterial => _unlockedMaterial;
 	
 	[SerializeField]
 	int _numPebblesToUnlock = 10;
@@ -96,7 +86,7 @@ public class MiniGameUnlocker : MonoBehaviour
 		{
 			_numPebblesCollected = 0;
 			
-			transform.GetChild((int)MiniGameCommonObjects.ICON).GetComponent<MeshRenderer>().sharedMaterial = _lockMaterials[0];
+			//transform.GetChild((int)MiniGameCommonObjects.ICON).GetComponent<MeshRenderer>().sharedMaterial = _lockMaterials[0];
 			
 			for(int i = 0; i < transform.GetChild((int)MiniGameCommonObjects.NEST).childCount; ++i)
 			{
@@ -110,7 +100,7 @@ public class MiniGameUnlocker : MonoBehaviour
 			transform.GetChild((int)MiniGameCommonObjects.MISC2).gameObject.SetActive(true);
 		}
 		
-		transform.GetChild((int)MiniGameCommonObjects.ICON).gameObject.SetActive(true);
+		//transform.GetChild((int)MiniGameCommonObjects.ICON).gameObject.SetActive(true);
 		transform.GetChild((int)MiniGameCommonObjects.POLE).gameObject.SetActive(true);
 
         PenguinPlayer.Instance.SpeedUpMovement();
@@ -169,7 +159,7 @@ public class MiniGameUnlocker : MonoBehaviour
 	{
 		if(_lockable && !_isGameUnlocked)
 		{
-            transform.GetChild((int) MiniGameCommonObjects.ICON).GetComponent<MeshRenderer>().sharedMaterial = _unlockedMaterial;
+            //transform.GetChild((int) MiniGameCommonObjects.ICON).GetComponent<MeshRenderer>().sharedMaterial = _unlockedMaterial;
             _isGameUnlocked = true;
 
             //show border
@@ -177,7 +167,7 @@ public class MiniGameUnlocker : MonoBehaviour
 
             if (!Lockable) {
                 //if a lockable attraction, don't hide poles and icon until game actually running
-                transform.GetChild((int) MiniGameCommonObjects.ICON).gameObject.SetActive(false);
+                //transform.GetChild((int) MiniGameCommonObjects.ICON).gameObject.SetActive(false);
                 transform.GetChild((int) MiniGameCommonObjects.POLE).gameObject.SetActive(false);
             }
 

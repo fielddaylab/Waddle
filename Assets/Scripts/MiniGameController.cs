@@ -17,13 +17,6 @@ public class MiniGameController : MonoBehaviour
 
 	public delegate void OnEndGameDelegate();
 	public static event OnEndGameDelegate _endGameDelegate;
-	
-	
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     public virtual void StartGame()
     {
@@ -53,11 +46,5 @@ public class MiniGameController : MonoBehaviour
             _currentTime = UnityEngine.Time.time;
             _totalGameTime += UnityEngine.Time.deltaTime;
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-       
     }
 }

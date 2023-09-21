@@ -1,7 +1,9 @@
+using FieldDay;
 using FieldDay.Systems;
 using UnityEngine;
 
 namespace Waddle {
+    [SysUpdate(GameLoopPhaseMask.LateFixedUpdate | GameLoopPhaseMask.LateUpdate, 1000)]
     public class PenguinFeetSnapSystem : ComponentSystemBehaviour<PenguinFeetSnapping> {
         public override void ProcessWorkForComponent(PenguinFeetSnapping component, float deltaTime) {
             if (component.SolidLayers == 0) {

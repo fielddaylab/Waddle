@@ -1,5 +1,6 @@
 using System;
 using BeauUtil;
+using FieldDay;
 using FieldDay.Components;
 using FieldDay.Debugging;
 using FieldDay.SharedState;
@@ -22,8 +23,8 @@ namespace Waddle
 
         [Header("Responses")]
         public AudioSource FootAudioSource;
-        public AudioClip[] StepAudioClips;
-        public AudioClip[] CollideAudioClips;
+        public SFXAsset StepAudioClips;
+        public SFXAsset CollideAudioClips;
 
         [NonSerialized] public bool Queued;
         [NonSerialized] public bool FromRight;
@@ -35,12 +36,15 @@ namespace Waddle
     }
 
     static public class PlayerMovementUtility {
+        static public readonly StringHash32 Event_WaddleDetected = "player-waddle-detected";
+
         static public void QueueMovement(PlayerMovementState state, Vector3 moveIn, PlayerFoot foot, float cooldown) {
             state.Queued = true;
             state.FromRight = (foot == PlayerFoot.Right);
             state.MoveDirection = moveIn;
             state.WalkCooldown = cooldown;
             state.LastStepSide = foot;
+            Game.Events.Queue(Event_WaddleDetected);
         }
 
         static public bool IsSolidGround(PlayerMovementState snapping, Vector3 newPos) {
@@ -53,17 +57,17 @@ namespace Waddle
             if (Physics.Raycast(newPos, Vector3.down, out RaycastHit hit, Mathf.Infinity, snapping.TerrainMask, QueryTriggerInteraction.Ignore)) {
                 groundNormal = hit.normal;
                 if (groundNormal.y < snapping.TerrainAngleStrictness) {
-                    DebugDraw.AddLine(hit.point, hit.point + hit.normal * 10, Color.red.WithAlpha(0.25f), 0.25f, 8);
+                    //DebugDraw.AddLine(hit.point, hit.point + hit.normal * 10, Color.red.WithAlpha(0.25f), 0.25f, 8);
                     return false;
                 }
 
-                DebugDraw.AddLine(hit.point, hit.point + hit.normal * 10, Color.blue.WithAlpha(0.25f), 0.25f, 8);
+                //DebugDraw.AddLine(hit.point, hit.point + hit.normal * 10, Color.blue.WithAlpha(0.25f), 0.25f, 8);
                 if (Physics.CheckSphere(hit.point, snapping.ColliderCheckRadius, snapping.InvisibleColliderMask, QueryTriggerInteraction.Ignore)) {
-                    DebugDraw.AddSphere(hit.point, snapping.ColliderCheckRadius, Color.red.WithAlpha(0.25f), 8);
+                    //DebugDraw.AddSphere(hit.point, snapping.ColliderCheckRadius, Color.red.WithAlpha(0.25f), 8);
                     return false;
                 }
 
-                DebugDraw.AddSphere(hit.point, snapping.ColliderCheckRadius, Color.blue.WithAlpha(0.25f), 8);
+                //DebugDraw.AddSphere(hit.point, snapping.ColliderCheckRadius, Color.blue.WithAlpha(0.25f), 8);
                 return true;
             }
 

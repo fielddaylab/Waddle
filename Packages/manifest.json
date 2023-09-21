@@ -11,7 +11,8 @@
         "com.beauprime.beauutil",
         "com.fieldday.opengamedata",
         "com.fieldday.opengamedata-unity",
-        "com.openupm"
+        "com.openupm",
+        "com.whinarn.unitymeshsimplifier"
       ]
     }
   ],
@@ -62,6 +63,7 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0",
-    "com.beauprime.beauroutine-extensions": "0.1.2"
+    "com.beauprime.beauroutine-extensions": "0.1.2",
+    "com.whinarn.unitymeshsimplifier": "3.1.0"
   }
 }

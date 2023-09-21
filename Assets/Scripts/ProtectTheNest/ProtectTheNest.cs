@@ -270,19 +270,15 @@ public class ProtectTheNest : MiniGameController
 		_theEgg.transform.GetChild(0).gameObject.SetActive(false);
 		
 		yield return new WaitForSeconds(waitTime-8f);
-		
-		//_theEgg.transform.GetChild(1).gameObject.GetComponent<Animator>().SetTrigger("stop");
-		
-		//loop the chick here instead?
-		//_theEgg.transform.GetChild(2).gameObject.GetComponent<Animator>().SetTrigger("stop");
-		
-		//show the ending menu...!
 
-		AudioSource mainTrack = PenguinPlayer.Instance.GetComponent<AudioSource>();
-		if(mainTrack != null)
-		{
-			mainTrack.Play();
-		}
+        //_theEgg.transform.GetChild(1).gameObject.GetComponent<Animator>().SetTrigger("stop");
+
+        //loop the chick here instead?
+        //_theEgg.transform.GetChild(2).gameObject.GetComponent<Animator>().SetTrigger("stop");
+
+        //show the ending menu...!
+
+        PenguinPlayer.Instance.StartBackgroundMusic();
 		
 		EndGame();
 	}

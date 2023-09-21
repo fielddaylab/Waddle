@@ -18,7 +18,7 @@ namespace Waddle {
             m_FrameCount = (int) Math.Round(Clip.frameRate * Clip.length);
 
             AdditiveBlendState state = animator.GetComponent<AdditiveBlendState>();
-            float layerWeight = IsInRange(stateInfo, Ranges, m_FrameCount) ? InRangeWeight : DefaultWeight;
+            float layerWeight = AnimFrameRange.InRange(stateInfo, Ranges, m_FrameCount) ? InRangeWeight : DefaultWeight;
             state.StateMachineMaskingWeights.Target[LayerIndex] = layerWeight;
             if (OverrideLerpSpeed > 0) {
                 state.StateMachineMaskingWeights.Lerp[LayerIndex] = OverrideLerpSpeed;
@@ -27,22 +27,13 @@ namespace Waddle {
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
             AdditiveBlendState state = animator.GetComponent<AdditiveBlendState>();
-            float layerWeight = IsInRange(stateInfo, Ranges, m_FrameCount) ? InRangeWeight : DefaultWeight;
+            float layerWeight = AnimFrameRange.InRange(stateInfo, Ranges, m_FrameCount) ? InRangeWeight : DefaultWeight;
             state.StateMachineMaskingWeights.Target[LayerIndex] = layerWeight;
         }
 
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
             AdditiveBlendState state = animator.GetComponent<AdditiveBlendState>();
             state.StateMachineMaskingWeights.Target[LayerIndex] = DefaultWeight;
-        }
-
-        static private bool IsInRange(AnimatorStateInfo stateInfo, AnimFrameRange[] ranges, int frameCount) {
-            for(int i = 0; i < ranges.Length; i++) {
-                if (ranges[i].InRange(stateInfo, frameCount)) {
-                    return true;
-                }
-            }
-            return false;
         }
     }
 }

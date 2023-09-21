@@ -5,7 +5,7 @@ using UnityEngine;
 public class AnimateSignpost : MonoBehaviour
 {
 	[SerializeField]
-	List<Texture2D> _texturesToAnimate;
+	Texture2D[] _texturesToAnimate;
 	
 	[SerializeField]
 	float _timeToSwitch = 1f;
@@ -18,7 +18,7 @@ public class AnimateSignpost : MonoBehaviour
     void Start()
     {
 		_lastSwitchTime = UnityEngine.Time.time;
-		if(_texturesToAnimate.Count > 0)
+		if(_texturesToAnimate.Length > 0)
 		{
 			transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material.mainTexture = _texturesToAnimate[0];
 		}
@@ -30,12 +30,12 @@ public class AnimateSignpost : MonoBehaviour
         if(UnityEngine.Time.time - _lastSwitchTime > _timeToSwitch)
 		{
 			_currTextureIndex++;
-			if(_currTextureIndex == _texturesToAnimate.Count)
+			if(_currTextureIndex == _texturesToAnimate.Length)
 			{
 				_currTextureIndex = 0;
 			}
 			
-			if(_texturesToAnimate.Count > 0)
+			if(_texturesToAnimate.Length > 0)
 			{
 				transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material.mainTexture = _texturesToAnimate[_currTextureIndex];
 			}

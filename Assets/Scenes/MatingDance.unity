@@ -123,7 +123,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &14352552
+--- !u!1 &143051654
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,248 +131,81 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 14352553}
-  - component: {fileID: 14352554}
-  m_Layer: 0
-  m_Name: TripletBubbleSpot3
+  - component: {fileID: 143051655}
+  - component: {fileID: 143051657}
+  - component: {fileID: 143051656}
+  m_Layer: 14
+  m_Name: Heart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &14352553
+  m_IsActive: 0
+--- !u!4 &143051655
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 14352552}
+  m_GameObject: {fileID: 143051654}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.211, y: 0.059, z: 0.013404846}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1698451899}
-  m_RootOrder: 7
+  m_Father: {fileID: 739999896}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &14352554
-MonoBehaviour:
+--- !u!33 &143051656
+MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 14352552}
+  m_GameObject: {fileID: 143051654}
+  m_Mesh: {fileID: -3626046789007513251, guid: ea9050eaa569d4c5e84363355ccc3d64, type: 3}
+--- !u!23 &143051657
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 143051654}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45f3fc0e8a99a814b9ea32d5cbd66a95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: 2
-  Color: {r: 0, g: 0, b: 1, a: 1}
-  Size: 0.04
-  UseWorldScale: 1
-  DrawMode: 1
-  LineStart: {x: 0, y: 0, z: 0}
-  LineEnd: {x: 0, y: 0, z: 1}
-  FrustumFOV: 60
-  FrustumMaxRange: 1
-  FrustumMinRange: 0.1
-  FrustumAspect: 1
-  IconFilename: 
-  IconAllowScaling: 1
-  TextureRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  Texture: {fileID: 0}
-  TextureMaterial: {fileID: 0}
-  TextureLeftBorder: 0
-  TextureRightBorder: 0
-  TextureTopBorder: 0
-  TextureBottomBorder: 0
-  Mesh: {fileID: 0}
-  MeshPosition: {x: 0, y: 0, z: 0}
-  MeshRotation: {x: 0, y: 0, z: 0}
-  MeshScale: {x: 1, y: 1, z: 1}
---- !u!1 &32813775
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 32813776}
-  m_Layer: 0
-  m_Name: DemoBubble
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &32813776
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 32813775}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 22.404, y: 2.6006, z: 52.1595}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &223780823
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 223780824}
-  - component: {fileID: 223780825}
-  m_Layer: 0
-  m_Name: TripletBubbleSpot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &223780824
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 223780823}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.211, y: 0.157, z: 0.013404846}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1698451899}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &223780825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 223780823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45f3fc0e8a99a814b9ea32d5cbd66a95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: 2
-  Color: {r: 0, g: 0, b: 1, a: 1}
-  Size: 0.04
-  UseWorldScale: 1
-  DrawMode: 1
-  LineStart: {x: 0, y: 0, z: 0}
-  LineEnd: {x: 0, y: 0, z: 1}
-  FrustumFOV: 60
-  FrustumMaxRange: 1
-  FrustumMinRange: 0.1
-  FrustumAspect: 1
-  IconFilename: 
-  IconAllowScaling: 1
-  TextureRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  Texture: {fileID: 0}
-  TextureMaterial: {fileID: 0}
-  TextureLeftBorder: 0
-  TextureRightBorder: 0
-  TextureTopBorder: 0
-  TextureBottomBorder: 0
-  Mesh: {fileID: 0}
-  MeshPosition: {x: 0, y: 0, z: 0}
-  MeshRotation: {x: 0, y: 0, z: 0}
-  MeshScale: {x: 1, y: 1, z: 1}
---- !u!1 &391047832
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 391047833}
-  - component: {fileID: 391047834}
-  m_Layer: 0
-  m_Name: DrumBubbleSpot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &391047833
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 391047832}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.119794846, y: 0.156, z: 0.013408661}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1698451899}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &391047834
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 391047832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45f3fc0e8a99a814b9ea32d5cbd66a95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: 2
-  Color: {r: 0, g: 0, b: 1, a: 1}
-  Size: 0.04
-  UseWorldScale: 1
-  DrawMode: 1
-  LineStart: {x: 0, y: 0, z: 0}
-  LineEnd: {x: 0, y: 0, z: 1}
-  FrustumFOV: 60
-  FrustumMaxRange: 1
-  FrustumMinRange: 0.1
-  FrustumAspect: 1
-  IconFilename: 
-  IconAllowScaling: 1
-  TextureRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  Texture: {fileID: 0}
-  TextureMaterial: {fileID: 0}
-  TextureLeftBorder: 0
-  TextureRightBorder: 0
-  TextureTopBorder: 0
-  TextureBottomBorder: 0
-  Mesh: {fileID: 0}
-  MeshPosition: {x: 0, y: 0, z: 0}
-  MeshRotation: {x: 0, y: 0, z: 0}
-  MeshScale: {x: 1, y: 1, z: 1}
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 3d3d21bece4d2491b85ea8f679786ecd, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &396817489
 GameObject:
   m_ObjectHideFlags: 0
@@ -414,7 +247,6 @@ GameObject:
   m_Component:
   - component: {fileID: 496783146}
   - component: {fileID: 496783148}
-  - component: {fileID: 496783147}
   - component: {fileID: 496783149}
   - component: {fileID: 496783150}
   - component: {fileID: 496783152}
@@ -442,102 +274,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -96.267, z: 0}
---- !u!82 &496783147
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 496783145}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6209d8b653ac3a14bb2199f8c64f1405, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 0.5
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &496783148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -551,25 +287,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startingPosition: {fileID: 396817489}
-  _bubblePrefab: {fileID: 6877310252941184975, guid: de00fe4f46ca08d4095a9fe00dff3b04, type: 3}
-  _bubbleLinePrefab: {fileID: 5272060721257609583, guid: 5412c8bbabd3cb040a2369a63ed7a4ce, type: 3}
-  _dataFile: {fileID: 4900000, guid: faa11a21465a1be448f2dea3a91e3502, type: 3}
-  _clapBubbleSpot: {fileID: 941710281}
-  _clapBubbleSpot2: {fileID: 1653805253}
-  _beatBubbleSpot: {fileID: 937623765}
-  _drumBubbleSpot: {fileID: 391047832}
-  _drumBubbleSpot2: {fileID: 877679914}
-  _tripletBubbleSpot: {fileID: 223780823}
-  _tripletBubbleSpot2: {fileID: 873011349}
-  _tripletBubbleSpot3: {fileID: 14352552}
-  _measureBubbleSpot: {fileID: 1697675071}
-  _pivotPoint: {fileID: 1698451898}
-  _heartSpawn: {fileID: 685398480880471643}
-  _heartPrefab: {fileID: 8037065422372829758, guid: 5f5b73ae6ea394c3ab9f6ab9ac4f06ce, type: 3}
-  _demoBubble: {fileID: 32813775}
   _exitAngle: 102
   _angleBuffer: 10
   _walkToSpot: {fileID: 1621943195}
+  m_Duration: 10
+  m_Music: {fileID: 11400000, guid: 58db64939bfea7c4fbd8c1c4404886da, type: 2}
+  m_GoodFeedback: {fileID: 11400000, guid: 9cc7963a46d62564c8c4ad58a4f0bc0b, type: 2}
+  m_Heart: {fileID: 739999896}
+  m_HeartRenderer: {fileID: 143051655}
 --- !u!65 &496783149
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -650,7 +375,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 496783145}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &746006602
+--- !u!1 &739999895
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -658,322 +383,30 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 746006603}
-  m_Layer: 0
-  m_Name: Geometry
+  - component: {fileID: 739999896}
+  m_Layer: 14
+  m_Name: HeartRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &746006603
+--- !u!4 &739999896
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 746006602}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.999, y: 2.14, z: 50.795}
+  m_GameObject: {fileID: 739999895}
+  m_LocalRotation: {x: -0, y: -0.75542504, z: -0, w: 0.6552351}
+  m_LocalPosition: {x: 22.871, y: 3.162, z: 52.016}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1698451899}
+  - {fileID: 143051655}
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &873011349
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 873011350}
-  - component: {fileID: 873011351}
-  m_Layer: 0
-  m_Name: TripletBubbleSpot2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &873011350
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 873011349}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.289, y: 0.10000014, z: 0.013404846}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1698451899}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &873011351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 873011349}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45f3fc0e8a99a814b9ea32d5cbd66a95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: 2
-  Color: {r: 0, g: 0, b: 1, a: 1}
-  Size: 0.04
-  UseWorldScale: 1
-  DrawMode: 1
-  LineStart: {x: 0, y: 0, z: 0}
-  LineEnd: {x: 0, y: 0, z: 1}
-  FrustumFOV: 60
-  FrustumMaxRange: 1
-  FrustumMinRange: 0.1
-  FrustumAspect: 1
-  IconFilename: 
-  IconAllowScaling: 1
-  TextureRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  Texture: {fileID: 0}
-  TextureMaterial: {fileID: 0}
-  TextureLeftBorder: 0
-  TextureRightBorder: 0
-  TextureTopBorder: 0
-  TextureBottomBorder: 0
-  Mesh: {fileID: 0}
-  MeshPosition: {x: 0, y: 0, z: 0}
-  MeshRotation: {x: 0, y: 0, z: 0}
-  MeshScale: {x: 1, y: 1, z: 1}
---- !u!1 &877679914
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 877679915}
-  - component: {fileID: 877679916}
-  m_Layer: 0
-  m_Name: DrumBubbleSpot2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &877679915
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 877679914}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.117, y: 0.068, z: 0.027}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1698451899}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &877679916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 877679914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45f3fc0e8a99a814b9ea32d5cbd66a95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: 2
-  Color: {r: 0, g: 0, b: 1, a: 1}
-  Size: 0.04
-  UseWorldScale: 1
-  DrawMode: 1
-  LineStart: {x: 0, y: 0, z: 0}
-  LineEnd: {x: 0, y: 0, z: 1}
-  FrustumFOV: 60
-  FrustumMaxRange: 1
-  FrustumMinRange: 0.1
-  FrustumAspect: 1
-  IconFilename: 
-  IconAllowScaling: 1
-  TextureRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  Texture: {fileID: 0}
-  TextureMaterial: {fileID: 0}
-  TextureLeftBorder: 0
-  TextureRightBorder: 0
-  TextureTopBorder: 0
-  TextureBottomBorder: 0
-  Mesh: {fileID: 0}
-  MeshPosition: {x: 0, y: 0, z: 0}
-  MeshRotation: {x: 0, y: 0, z: 0}
-  MeshScale: {x: 1, y: 1, z: 1}
---- !u!1 &937623765
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 937623766}
-  - component: {fileID: 937623767}
-  m_Layer: 0
-  m_Name: BeatBubbleSpot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &937623766
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 937623765}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.043, y: 0.11, z: 0.013}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1698451899}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &937623767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 937623765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45f3fc0e8a99a814b9ea32d5cbd66a95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: 2
-  Color: {r: 0, g: 0, b: 1, a: 1}
-  Size: 0.04
-  UseWorldScale: 1
-  DrawMode: 1
-  LineStart: {x: 0, y: 0, z: 0}
-  LineEnd: {x: 0, y: 0, z: 1}
-  FrustumFOV: 60
-  FrustumMaxRange: 1
-  FrustumMinRange: 0.1
-  FrustumAspect: 1
-  IconFilename: 
-  IconAllowScaling: 1
-  TextureRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  Texture: {fileID: 0}
-  TextureMaterial: {fileID: 0}
-  TextureLeftBorder: 0
-  TextureRightBorder: 0
-  TextureTopBorder: 0
-  TextureBottomBorder: 0
-  Mesh: {fileID: 0}
-  MeshPosition: {x: 0, y: 0, z: 0}
-  MeshRotation: {x: 0, y: 0, z: 0}
-  MeshScale: {x: 1, y: 1, z: 1}
---- !u!1 &941710281
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 941710282}
-  - component: {fileID: 941710283}
-  m_Layer: 0
-  m_Name: ClapBubbleSpot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &941710282
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 941710281}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.031, y: 0.153, z: 0.013}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1698451899}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &941710283
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 941710281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45f3fc0e8a99a814b9ea32d5cbd66a95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: 2
-  Color: {r: 0, g: 0, b: 1, a: 1}
-  Size: 0.04
-  UseWorldScale: 1
-  DrawMode: 1
-  LineStart: {x: 0, y: 0, z: 0}
-  LineEnd: {x: 0, y: 0, z: 1}
-  FrustumFOV: 60
-  FrustumMaxRange: 1
-  FrustumMinRange: 0.1
-  FrustumAspect: 1
-  IconFilename: 
-  IconAllowScaling: 1
-  TextureRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  Texture: {fileID: 0}
-  TextureMaterial: {fileID: 0}
-  TextureLeftBorder: 0
-  TextureRightBorder: 0
-  TextureTopBorder: 0
-  TextureBottomBorder: 0
-  Mesh: {fileID: 0}
-  MeshPosition: {x: 0, y: 0, z: 0}
-  MeshRotation: {x: 0, y: 0, z: 0}
-  MeshScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: -98.125, z: 0}
 --- !u!1 &1621943195
 GameObject:
   m_ObjectHideFlags: 0
@@ -1003,239 +436,5 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1653805253
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1653805254}
-  - component: {fileID: 1653805255}
-  m_Layer: 0
-  m_Name: ClapBubbleSpot2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1653805254
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1653805253}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.031, y: 0.05, z: 0.013}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1698451899}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1653805255
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1653805253}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45f3fc0e8a99a814b9ea32d5cbd66a95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: 2
-  Color: {r: 0, g: 0, b: 1, a: 1}
-  Size: 0.04
-  UseWorldScale: 1
-  DrawMode: 1
-  LineStart: {x: 0, y: 0, z: 0}
-  LineEnd: {x: 0, y: 0, z: 1}
-  FrustumFOV: 60
-  FrustumMaxRange: 1
-  FrustumMinRange: 0.1
-  FrustumAspect: 1
-  IconFilename: 
-  IconAllowScaling: 1
-  TextureRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  Texture: {fileID: 0}
-  TextureMaterial: {fileID: 0}
-  TextureLeftBorder: 0
-  TextureRightBorder: 0
-  TextureTopBorder: 0
-  TextureBottomBorder: 0
-  Mesh: {fileID: 0}
-  MeshPosition: {x: 0, y: 0, z: 0}
-  MeshRotation: {x: 0, y: 0, z: 0}
-  MeshScale: {x: 1, y: 1, z: 1}
---- !u!1 &1697675071
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1697675072}
-  - component: {fileID: 1697675073}
-  m_Layer: 0
-  m_Name: MeasureBubbleSpot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1697675072
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1697675071}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.12020683, y: 0.14300013, z: 0.013404846}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1698451899}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1697675073
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1697675071}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45f3fc0e8a99a814b9ea32d5cbd66a95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: 2
-  Color: {r: 0, g: 0, b: 1, a: 1}
-  Size: 0.04
-  UseWorldScale: 1
-  DrawMode: 1
-  LineStart: {x: 0, y: 0, z: 0}
-  LineEnd: {x: 0, y: 0, z: 1}
-  FrustumFOV: 60
-  FrustumMaxRange: 1
-  FrustumMinRange: 0.1
-  FrustumAspect: 1
-  IconFilename: 
-  IconAllowScaling: 1
-  TextureRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  Texture: {fileID: 0}
-  TextureMaterial: {fileID: 0}
-  TextureLeftBorder: 0
-  TextureRightBorder: 0
-  TextureTopBorder: 0
-  TextureBottomBorder: 0
-  Mesh: {fileID: 0}
-  MeshPosition: {x: 0, y: 0, z: 0}
-  MeshRotation: {x: 0, y: 0, z: 0}
-  MeshScale: {x: 1, y: 1, z: 1}
---- !u!1 &1698451898
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1698451899}
-  - component: {fileID: 1698451900}
-  m_Layer: 0
-  m_Name: Pivot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1698451899
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1698451898}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.838, y: 0.322, z: 1.386}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 941710282}
-  - {fileID: 1653805254}
-  - {fileID: 937623766}
-  - {fileID: 391047833}
-  - {fileID: 877679915}
-  - {fileID: 223780824}
-  - {fileID: 873011350}
-  - {fileID: 14352553}
-  - {fileID: 1697675072}
-  - {fileID: 6752960803707606718}
-  m_Father: {fileID: 746006603}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1698451900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1698451898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b504a815b6801e646a4985ea3c3ae1d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rotateX: 0
-  _rotateY: 1
-  _rotateZ: 0
---- !u!1 &685398480880471643
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6752960803707606718}
-  m_Layer: 0
-  m_Name: HeartEffectSpot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6752960803707606718
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 685398480880471643}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.102, y: 0.3341, z: -0.1857}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1698451899}
-  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

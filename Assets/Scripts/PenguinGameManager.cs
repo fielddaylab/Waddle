@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Oculus;
 using FieldDay;
+using Waddle;
 
 public class PenguinGameManager : Singleton<PenguinGameManager>
 {
@@ -498,7 +499,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		yield return null;
 		
 		PenguinAnalytics.Instance.LogEndGame();
-		PenguinPlayer.Instance.StopBackgroundMusic();
+        MusicUtility.Stop();
 		//show survey menu..
 		PenguinMenuSystem.Instance.ChangeMenuTo(PenguinMenuSystem.MenuType.EndMenu);
 		PenguinPlayer.Instance.StartShowingUI();

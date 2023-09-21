@@ -243,8 +243,45 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!137 &1536747309158017867 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -8239140968295908752, guid: 4c653aa56080f9b4a90af128e0936f6e, type: 3}
+  m_PrefabInstance: {fileID: 1800084669274526011}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2265757037155677904 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4c653aa56080f9b4a90af128e0936f6e, type: 3}
   m_PrefabInstance: {fileID: 1800084669274526011}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5396755222879799728 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -3306188377564374901, guid: 4c653aa56080f9b4a90af128e0936f6e, type: 3}
+  m_PrefabInstance: {fileID: 1800084669274526011}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3307963463221439490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5396755222879799728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47033be9f57f93849a11356eaf196a1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkinnedMesh: {fileID: 1536747309158017867}
+  MeshRenderer: {fileID: 0}
+  MeshFilter: {fileID: 0}
+  Level0:
+    Distance: 0
+    SkinQuality: 4
+    Mesh: {fileID: 0}
+  Level1:
+    Distance: 8
+    SkinQuality: 1
+    Mesh: {fileID: 4300000, guid: 8ee41b85b92e3344c8f710bed606cc95, type: 2}
+  Level2:
+    Distance: 20
+    SkinQuality: 1
+    Mesh: {fileID: 4300000, guid: cc89f3da6e054ef4b9a644ca48c7d42f, type: 2}

@@ -645,6 +645,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7088024963632859362}
   - component: {fileID: 7311429868623585069}
+  - component: {fileID: 8142199811199076594}
   m_Layer: 0
   m_Name: Chick_Mesh
   m_TagString: Untagged
@@ -743,6 +744,33 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.0030593872, y: 0.09021331, z: 0.10810608}
     m_Extent: {x: 0.3423625, y: 0.45806015, z: 0.3110705}
   m_DirtyAABB: 0
+--- !u!114 &8142199811199076594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5795862547258956595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47033be9f57f93849a11356eaf196a1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkinnedMesh: {fileID: 7311429868623585069}
+  MeshRenderer: {fileID: 0}
+  MeshFilter: {fileID: 0}
+  Level0:
+    Distance: 0
+    SkinQuality: 4
+    Mesh: {fileID: 0}
+  Level1:
+    Distance: 6
+    SkinQuality: 2
+    Mesh: {fileID: 4300000, guid: b61efeb0e32fc0d4987ee448698a8637, type: 2}
+  Level2:
+    Distance: 16
+    SkinQuality: 1
+    Mesh: {fileID: 4300000, guid: 016e34c75ad08d145a3f4c421e6674f3, type: 2}
 --- !u!1 &5825104022595234809
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:475789684664:android:094d7f74cbbbbcf312294d",
         "android_client_info": {
-          "package_name": "com.DefaultCompany.PenguinsVR"
+          "package_name": "com.DefaultCompany.PenguinsVR2"
         }
       },
       "oauth_client": [
@@ -39,7 +39,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:475789684664:android:35e3fcb39eb01ef612294d",
         "android_client_info": {
-          "package_name": "com.WIDVE.PenguinsVR"
+          "package_name": "com.WIDVE.PenguinsVR2"
         }
       },
       "oauth_client": [

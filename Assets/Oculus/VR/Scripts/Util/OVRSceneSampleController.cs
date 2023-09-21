@@ -222,7 +222,7 @@ public class OVRSceneSampleController : MonoBehaviour
 		//todo: enable for Unity Input System
 #if ENABLE_LEGACY_INPUT_MANAGER
 		if (Input.GetKeyDown(KeyCode.R))
-            OVRManager.display.RecenterPose();
+            OVRManager.display?.RecenterPose();
 #endif
     }
 }

@@ -42,6 +42,9 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 	
 	[SerializeField]
 	LayerMask _mask;
+
+    [SerializeField]
+    private MusicAsset _defaultMusic;
 	
 	LineRenderer _lineRenderer;
 	
@@ -72,6 +75,8 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
         _lineRenderer = transform.GetChild((int)PenguinPlayerObjects.SELECT_LINE).gameObject.GetComponent<LineRenderer>();
 		
 		ResetGazeLogging();
+
+        StartBackgroundMusic();
     }
 	
 	public void ResetGazeLogging()
@@ -141,22 +146,9 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		}
 	}
 	
-	public void StopBackgroundMusic()
-	{
-		AudioSource aSource = GetComponent<AudioSource>();
-		if(aSource != null)
-		{
-			aSource.Stop();
-		}
-	}
-	
 	public void StartBackgroundMusic()
 	{
-		AudioSource aSource = GetComponent<AudioSource>();
-		if(aSource != null)
-		{
-			aSource.Play();
-		}
+        MusicUtility.Play(_defaultMusic);
 	}
 	
 	public void HideUserMessage()

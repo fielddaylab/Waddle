@@ -127,28 +127,6 @@ public class BeakTrigger : MonoBehaviour
             interact.OnBeakInteract(Game.SharedState.Get<PlayerBeakState>(), this);
         }
 
-		//Debug.Log(otherCollider.gameObject.name);
-		//todo - get rid of string checks here.
-		if(otherCollider.gameObject.name.StartsWith("Bubble"))
-		{
-			//play positive sound effect if they collide with bubble...
-			//also destroy bubble...
-			ShrinkRing sr = otherCollider.gameObject.transform.GetChild(0).GetComponent<ShrinkRing>();
-			if (sr != null && _minBeatTimer <= 0)
-			{
-				AudioSource audio = otherCollider.gameObject.GetComponent<AudioSource>();
-				if(audio != null)
-				{
-					//Debug.Log("Bubble Hit!");
-					PenguinAnalytics.Instance.LogBubblePop(sr.GetWhichBubble(), sr.GetTiming());
-					audio.PlayOneShot(audio.clip);
-                }
-
-                sr.Popped();
-				_minBeatTimer = _minBeatTime;
-			}
-		}
-
 		/*if(otherCollider.gameObject.name.StartsWith("SlopeTrigger"))
 		{
 			if(gameObject.transform.childCount != 0)

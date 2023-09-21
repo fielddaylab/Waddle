@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Waddle;
 
 public class StartGame : MonoBehaviour
 {
@@ -62,12 +63,8 @@ public class StartGame : MonoBehaviour
 				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.RAY_OF_LIGHT).gameObject.SetActive(false);
 				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.MISC2).gameObject.SetActive(false);
 			}
-			
-			AudioSource mainTrack = PenguinPlayer.Instance.GetComponent<AudioSource>();
-			if(mainTrack != null)
-			{
-				mainTrack.Stop();
-			}
+
+            MusicUtility.Stop();
 			
 			AudioSource audio = GetComponent<AudioSource>();
 			if(audio != null)
@@ -118,12 +115,8 @@ public class StartGame : MonoBehaviour
 			{
 				audio.Stop();
 			}
-			
-			AudioSource mainTrack = PenguinPlayer.Instance.GetComponent<AudioSource>();
-			if(mainTrack != null)
-			{
-				mainTrack.Play();
-			}
+
+            PenguinPlayer.Instance.StartBackgroundMusic();
 		}
 
         if (_miniGame == PenguinGameManager.MiniGame.MatingDance) {

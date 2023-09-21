@@ -44,7 +44,7 @@ public class AmbientSkua : MonoBehaviour
 	IEnumerator StartIdle(float duration)
 	{
 		Animator a = transform.GetChild(0).gameObject.GetComponent<Animator>();
-		a.SetBool("fly", false);
+		//a.SetBool("fly", false);
 		
 		yield return new WaitForSeconds(duration);
 	}
@@ -56,7 +56,7 @@ public class AmbientSkua : MonoBehaviour
 			_moving = true;
 			
 			Animator a = transform.GetChild(0).gameObject.GetComponent<Animator>();
-			a.SetBool("fly", true);
+			//a.SetBool("fly", true);
 			
 			float t = 0f;
 			Vector3 startPosition = transform.position;

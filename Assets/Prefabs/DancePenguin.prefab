@@ -420,6 +420,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
+--- !u!1 &2578265684216886816 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2408989911822881228, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
+  m_PrefabInstance: {fileID: 191866383181572076}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &844094162966719310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2578265684216886816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cd2110bda385fe46baf40668e4ccf6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HeartParticles: {fileID: 5709388530596418359}
+  FinalHeartTransform: {fileID: 0}
 --- !u!4 &4461789101712782593 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4558435541182108397, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
@@ -481,13 +500,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2522039525743542594, guid: 5f5b73ae6ea394c3ab9f6ab9ac4f06ce, type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2522039525743542594, guid: 5f5b73ae6ea394c3ab9f6ab9ac4f06ce, type: 3}
+      propertyPath: lengthInSec
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2522039525743542594, guid: 5f5b73ae6ea394c3ab9f6ab9ac4f06ce, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2522039525743542594, guid: 5f5b73ae6ea394c3ab9f6ab9ac4f06ce, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8037065422372829758, guid: 5f5b73ae6ea394c3ab9f6ab9ac4f06ce, type: 3}
       propertyPath: m_Name
       value: HeartParticles00
       objectReference: {fileID: 0}
     - target: {fileID: 8037065422372829758, guid: 5f5b73ae6ea394c3ab9f6ab9ac4f06ce, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f5b73ae6ea394c3ab9f6ab9ac4f06ce, type: 3}
+--- !u!198 &5709388530596418359 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2522039525743542594, guid: 5f5b73ae6ea394c3ab9f6ab9ac4f06ce, type: 3}
+  m_PrefabInstance: {fileID: 7799046018700661365}
+  m_PrefabAsset: {fileID: 0}

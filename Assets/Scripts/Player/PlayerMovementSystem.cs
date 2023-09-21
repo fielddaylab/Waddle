@@ -1,4 +1,5 @@
 using BeauUtil;
+using FieldDay;
 using FieldDay.Debugging;
 using FieldDay.SharedState;
 using FieldDay.Systems;
@@ -22,25 +23,23 @@ namespace Waddle
                 return;
             }
 
-            Vector3 originalPos = m_StateB.PositionRoot.position;
-            PlayerMoveResult result = TryMove(m_StateA, m_StateB);
-            Vector3 finalPos = m_StateB.PositionRoot.position;
+            if (PenguinGameManager._headMovementActive) {
+                Vector3 originalPos = m_StateB.PositionRoot.position;
+                PlayerMoveResult result = TryMove(m_StateA, m_StateB);
+                Vector3 finalPos = m_StateB.PositionRoot.position;
 
-            if (result == PlayerMoveResult.Allowed) {
-                PenguinAnalytics.Instance.LogMove(originalPos, finalPos, m_StateB.HeadRotation, m_StateA.FromRight ? 1 : 0);
+                if (result == PlayerMoveResult.Allowed) {
+                    PenguinAnalytics.Instance.LogMove(originalPos, finalPos, m_StateB.HeadRotation, m_StateA.FromRight ? 1 : 0);
 
-                if (m_StateA.FootAudioSource) {
-                    m_StateA.FootAudioSource.PlayOneShot(RNG.Instance.Choose(m_StateA.StepAudioClips));
+                    SFXUtility.Play(m_StateA.FootAudioSource, m_StateA.StepAudioClips);
+
+                    m_StateA.ConsecutiveSteps++;
+                } else {
+                    SFXUtility.Play(m_StateA.FootAudioSource, m_StateA.CollideAudioClips);
                 }
 
-                m_StateA.ConsecutiveSteps++;
-            } else {
-                if (m_StateA.FootAudioSource) {
-                    m_StateA.FootAudioSource.PlayOneShot(RNG.Instance.Choose(m_StateA.CollideAudioClips));
-                }
+                DebugDraw.AddLine(originalPos, finalPos, Color.green, 1, 1, false);
             }
-
-            DebugDraw.AddLine(originalPos, finalPos, Color.green, 1, 1, false);
 
             m_StateA.Queued = false;
         }

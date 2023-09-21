@@ -32,5 +32,14 @@ namespace Waddle {
             lerp = Mathf.Clamp01(rawLerp);
             return inRange;
         }
+
+        static public bool InRange(AnimatorStateInfo stateInfo, AnimFrameRange[] ranges, int frameCount) {
+            for (int i = 0, len = ranges.Length; i < len; i++) {
+                if (ranges[i].InRange(stateInfo, frameCount)) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

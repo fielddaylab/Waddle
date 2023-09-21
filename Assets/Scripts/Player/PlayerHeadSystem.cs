@@ -20,7 +20,7 @@ namespace Waddle
         #endregion // Inspector
 
         public override void ProcessWork(float deltaTime) {
-            bool connected = !PenguinGameManager._isGamePaused && PenguinGameManager._headMovementActive;
+            bool connected = !PenguinGameManager._isGamePaused;
             m_State.Connected = connected;
 
             if (!connected) {

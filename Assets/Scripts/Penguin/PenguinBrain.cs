@@ -7,6 +7,7 @@ namespace Waddle {
     public class PenguinBrain : ProcessBehaviour {
         public Transform Position;
         public Animator Animator;
+        public AudioSource BeakAudio;
 
         [Header("Control Components")]
         public PenguinLookSmoothing LookSmoothing;
@@ -39,6 +40,7 @@ namespace Waddle {
             m_OriginalTransform.Apply(Position);
             Steering.HasTarget = false;
             m_AnimatorSnapshot.Write(Animator);
+            BeakAudio.Stop();
             StartThinking();
         }
 
@@ -61,6 +63,8 @@ namespace Waddle {
                 m_ThoughtProcess.TransitionTo(PenguinThoughts.PebbleGather);
             } else if (GetComponent<PenguinGuideParams>()) {
                 m_ThoughtProcess.TransitionTo(PenguinThoughts.Guide);
+            } else if (GetComponent<MatingDancePenguin>()) {
+                m_ThoughtProcess.Kill();
             }
         }
 
@@ -105,5 +109,13 @@ namespace Waddle {
         }
 
         #endregion // Signal
+
+        public void Vocalize(SFXAsset sound, float volume = 1) {
+            SFXUtility.Play(BeakAudio, sound, volume);
+        }
+
+        public void Vocalize(AudioClip sound, float volume = 1) {
+            SFXUtility.Play(BeakAudio, sound, volume);
+        }
     }
 }

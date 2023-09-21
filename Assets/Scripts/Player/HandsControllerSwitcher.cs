@@ -56,12 +56,12 @@ public class HandsControllerSwitcher : MonoBehaviour
 				
 				if(_leftIK != null)
 				{
-					_leftIK.GetComponent<FollowTransform>()._followTransform = _leftHand;
+					_leftIK.GetComponent<FollowTransformHand>()._followTransform = _leftHand;
 				}
 				
 				if(_rightIK != null)
 				{
-					_rightIK.GetComponent<FollowTransform>()._followTransform = _rightHand;
+					_rightIK.GetComponent<FollowTransformHand>()._followTransform = _rightHand;
 				}
 			}
 		}
@@ -84,12 +84,12 @@ public class HandsControllerSwitcher : MonoBehaviour
 				
 				if(_leftIK != null)
 				{
-					_leftIK.GetComponent<FollowTransform>()._followTransform = _leftController;
+					_leftIK.GetComponent<FollowTransformHand>()._followTransform = _leftController;
 				}
 				
 				if(_rightIK != null)
 				{
-					_rightIK.GetComponent<FollowTransform>()._followTransform = _rightController;
+					_rightIK.GetComponent<FollowTransformHand>()._followTransform = _rightController;
 				}
 			}
 		}
