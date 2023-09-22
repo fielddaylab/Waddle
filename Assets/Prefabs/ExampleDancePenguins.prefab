@@ -570,18 +570,22 @@ MonoBehaviour:
   SkinnedMesh: {fileID: 7512484040197058028}
   MeshRenderer: {fileID: 0}
   MeshFilter: {fileID: 0}
-  Level0:
+  Animator: {fileID: 0}
+  Close:
     Distance: 0
     SkinQuality: 4
     Mesh: {fileID: 0}
-  Level1:
+    Cull: 0
+  Mid:
     Distance: 6
     SkinQuality: 2
     Mesh: {fileID: 4300000, guid: f1222aebce3530044bab626961508273, type: 2}
-  Level2:
+    Cull: 0
+  Far:
     Distance: 18
     SkinQuality: 1
     Mesh: {fileID: 4300000, guid: df589c81ba00d4f4aa22e566b900505b, type: 2}
+    Cull: 0
 --- !u!1 &1707441266412030497
 GameObject:
   m_ObjectHideFlags: 0
@@ -1314,21 +1318,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47033be9f57f93849a11356eaf196a1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkinnedMesh: {fileID: 7512484040197058028}
+  SkinnedMesh: {fileID: 8893937515169578495}
   MeshRenderer: {fileID: 0}
   MeshFilter: {fileID: 0}
-  Level0:
+  Animator: {fileID: 0}
+  Close:
     Distance: 0
     SkinQuality: 4
     Mesh: {fileID: 0}
-  Level1:
+    Cull: 0
+  Mid:
     Distance: 6
     SkinQuality: 2
     Mesh: {fileID: 4300000, guid: f1222aebce3530044bab626961508273, type: 2}
-  Level2:
+    Cull: 0
+  Far:
     Distance: 18
     SkinQuality: 1
     Mesh: {fileID: 4300000, guid: df589c81ba00d4f4aa22e566b900505b, type: 2}
+    Cull: 0
 --- !u!1 &2982470814107726954
 GameObject:
   m_ObjectHideFlags: 0

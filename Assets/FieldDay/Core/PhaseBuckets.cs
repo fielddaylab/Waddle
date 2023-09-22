@@ -70,9 +70,8 @@ namespace FieldDay {
                 return false;
             }
 
-            GameLoopPhaseMask overlap = current & target;
-            GameLoopPhaseMask toRemove = current & ~overlap;
-            GameLoopPhaseMask toAdd = target & ~overlap;
+            GameLoopPhaseMask toRemove = current & ~target;
+            GameLoopPhaseMask toAdd = target & ~current;
 
             buckets.MarkBucketsDirty(toRemove | toAdd);
 

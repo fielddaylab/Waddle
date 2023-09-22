@@ -35,12 +35,6 @@ public class Egg : MonoBehaviour
 		_startRotation = transform.rotation;
 		_parentObject = transform.parent.gameObject;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 	
 	public void Reset()
 	{

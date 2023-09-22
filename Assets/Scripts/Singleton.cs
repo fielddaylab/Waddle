@@ -35,6 +35,7 @@ public class Singleton<T> : MonoBehaviour where T : Component
         {
             _instance = this as T;
             //makes it so this stays in case a scene is unloaded - may be unnecessary for our needs
+            transform.SetParent(null, true);
             DontDestroyOnLoad(gameObject);
         }
         else

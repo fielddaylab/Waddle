@@ -88,24 +88,26 @@ namespace Waddle {
             if (m_State.Current != null) {
                 m_State.Playback.volume = m_State.Current.Volume * m_State.VolumeMultiplier * m_State.GlobalVolumeMultiplier;
 
-                // BPM detection
-                float timeToBeatIndex = m_State.Current.BPM / 60f;
                 float currentTime = playback.time;
-                int prevBeat = (int) (m_State.PlaybackPosition * timeToBeatIndex);
-                int currentBeat = (int) (currentTime * timeToBeatIndex);
-                m_State.BeatIndex = currentBeat;
-                if (currentBeat != prevBeat || m_State.PlaybackPosition < 0) {
-                    m_State.OnBeat = true;
-                    m_State.OnMajorBeat = (currentBeat % m_State.Current.Measure) == (m_State.Current.Measure - 1);
+                if (m_State.Current.BPM > 0) {
+                    // BPM detection
+                    float timeToBeatIndex = m_State.Current.BPM / 60f;
+                    int prevBeat = (int) (m_State.PlaybackPosition * timeToBeatIndex);
+                    int currentBeat = (int) (currentTime * timeToBeatIndex);
+                    m_State.BeatIndex = currentBeat;
+                    if (currentBeat != prevBeat || m_State.PlaybackPosition < 0) {
+                        m_State.OnBeat = true;
+                        m_State.OnMajorBeat = (currentBeat % m_State.Current.Measure) == (m_State.Current.Measure - 1);
 
-                    if (m_State.OnMajorBeat) {
-                        Game.Events.Dispatch(MusicUtility.Event_MajorBeat);
+                        if (m_State.OnMajorBeat) {
+                            Game.Events.Dispatch(MusicUtility.Event_MajorBeat);
+                        } else {
+                            Game.Events.Dispatch(MusicUtility.Event_Beat);
+                        }
                     } else {
-                        Game.Events.Dispatch(MusicUtility.Event_Beat);
+                        m_State.OnBeat = false;
+                        m_State.OnMajorBeat = false;
                     }
-                } else {
-                    m_State.OnBeat = false;
-                    m_State.OnMajorBeat = false;
                 }
 
                 m_State.PlaybackPosition = currentTime;

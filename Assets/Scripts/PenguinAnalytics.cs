@@ -6,6 +6,8 @@ using System.Globalization;
 using System.Text;
 using BeauUtil;
 using FieldDay;
+using System;
+using System.Security.Cryptography;
 
 //[System.Serializable]
 public struct LogGazeData
@@ -28,11 +30,11 @@ public struct LogGazeData
 public class PenguinAnalytics : Singleton<PenguinAnalytics>
 {
 	public static bool FirebaseEnabled { get; set; }
-    public static int logVersion = 7;
+    public static int logVersion = 8;
     
 	static string _DB_NAME = "PENGUINS";
-	
-    float seconds_at_start = 0f;
+
+    [NonSerialized] float seconds_at_start = 0f;
 	
 	FieldDay.OGDLog _ogdLog;
 	
@@ -40,10 +42,10 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 
 	[SerializeField]
 	bool _loggingEnabled = true;
-	
-    int _numPebblesCollected = 0;
 
-    int _viewportDataCount = 0;
+    [NonSerialized] int _numPebblesCollected = 0;
+
+    [NonSerialized] int _viewportDataCount = 0;
     const int MAX_VIEWPORT_DATA = 36;
     LogGazeData[] _viewportData = new LogGazeData[MAX_VIEWPORT_DATA];
 	LogGazeData[] _leftHandData = new LogGazeData[MAX_VIEWPORT_DATA];
@@ -51,21 +53,12 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 
     StringBuilder m_GazeBuilder = new StringBuilder(2048);
 
+    [NonSerialized] private string m_HardwareId;
+
     public void StartAnalytics()
     {
-        // Try to initialize Firebase and fix dependencies (will always be false in editor)
-        // If successful, set FirebaseEnabled flag to true allowing analytics to be sent
-		/*Debug.Log("Initializing Firebase");
-        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task => {
-	        var dependencyStatus = task.Result;
-		    if (dependencyStatus == DependencyStatus.Available) {
-				Debug.Log("Firebase initialized...");
-                FirebaseEnabled = true;
-	        } else {
-		        Debug.LogError(System.String.Format("Could not resolve all Firebase dependencies: {0}", dependencyStatus));
-	        }
-		});*/
-		
+        m_HardwareId = GenerateHardwareId();
+
         //Debug.Log("Starting analytics");
 		FieldDay.OGDLogConsts c = new FieldDay.OGDLogConsts();
 		c.AppId = _DB_NAME;
@@ -90,8 +83,8 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 
     private void LogGazeGameState()
     {
-        Vector3 pos = Vector3.zero;
-        Quaternion quat = Quaternion.identity;
+        Vector3 pos;
+        Quaternion quat;
         PenguinPlayer.Instance.GetGaze(out pos, out quat);
         _ogdLog.GameStateParam("posX", pos.x);
         _ogdLog.GameStateParam("posY", pos.y);
@@ -177,6 +170,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 			SetGameState();
 			
             _ogdLog.BeginEvent("start");
+            _ogdLog.EventParam("hardware_uuid", m_HardwareId);
             _ogdLog.SubmitEvent();
         }
 		/*if (FirebaseEnabled)
@@ -778,13 +772,13 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
                 //_viewportData[_viewportDataCount].rot = (q.x.ToString("F3")+","+q.y.ToString("F3")+","+q.z.ToString("F3")+","+q.w.ToString("F3"));
 				
 				Vector3 leftPos = Vector3.zero;
-				Quaternion leftRot = Quaternion.identity;
+				Quaternion leftRot;
 				
 				PenguinPlayer.Instance.GetHandTransform(true, out leftPos, out leftRot);
                 _leftHandData[_viewportDataCount].Write(leftPos, leftRot);
 				
-				Vector3 rightPos = Vector3.zero;
-				Quaternion rightRot = Quaternion.identity;
+				Vector3 rightPos;
+                Quaternion rightRot;
 				
 				PenguinPlayer.Instance.GetHandTransform(false, out rightPos, out rightRot);
                 _rightHandData[_viewportDataCount].Write(rightPos, rightRot);
@@ -865,6 +859,18 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
             _ogdLog.EventParam("object_id", object_id);
             _ogdLog.SubmitEvent();
 
+        }
+    }
+
+    static private unsafe string GenerateHardwareId() {
+        using (SHA256 sha = SHA256.Create()) {
+            byte[] nameData = sha.ComputeHash(Encoding.UTF8.GetBytes(_DB_NAME));
+            byte[] hashData = sha.ComputeHash(Encoding.UTF8.GetBytes(SystemInfo.deviceUniqueIdentifier));
+            StringBuilder sb = new StringBuilder(64);
+            for(int i = 0; i < hashData.Length; i++) {
+                sb.Append((nameData[i] ^ hashData[i]).ToString("x2"));
+            }
+            return sb.ToString();
         }
     }
 

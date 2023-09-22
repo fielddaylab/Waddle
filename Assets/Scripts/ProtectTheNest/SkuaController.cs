@@ -57,12 +57,6 @@ public class SkuaController : MonoBehaviour
 		
 		_mainCamera = Camera.main.gameObject;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 	
 	public void SetNewSpot(SkuaSpot newSpot)
 	{

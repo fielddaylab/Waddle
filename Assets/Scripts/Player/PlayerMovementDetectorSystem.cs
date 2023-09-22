@@ -9,6 +9,8 @@ namespace Waddle
     [SysUpdate(FieldDay.GameLoopPhase.Update, 100)]
     public class PlayerMovementDetectorSystem : SharedStateSystemBehaviour<PlayerMovementState, PlayerHeadState>
     {
+        private const OVRInput.Controller DisableInputWhileControllers = OVRInput.Controller.LTouch | OVRInput.Controller.RTouch;
+
         #region Inspector
 
         [Header("Sensitivities")]
@@ -42,6 +44,12 @@ namespace Waddle
                 return;
             }
 
+            OVRInput.Controller connectedControllers = OVRInput.GetActiveController();
+            Log.Msg("Connected controllers {0}", connectedControllers);
+            if ((connectedControllers & DisableInputWhileControllers) != 0) {
+                return;
+            }
+
             Vector3 currentHeadOffset = m_StateB.CurrentHeadPos - m_StateB.HeadReference;
             Vector3 currentHeadLocalLook = m_StateB.BodyRoot.InverseTransformDirection(m_StateB.HeadLook);
             Vector3 currentHeadVelocity = PlayerHeadUtility.CalculateAverageVelocity(m_StateB, m_VelocityAveragingFrames);
@@ -65,7 +73,7 @@ namespace Waddle
                 if (m_StateA.LastStepSide != PlayerFoot.Left) {
                     if (currentHeadOffset.x <= -desiredXOffset && currentHeadLocalLook.z >= m_LookSensitivity) {
                         if (Vector3.Dot(currentHeadVelocityNormalized, Vector3.left) > m_VelocitySensitivity) {
-                            PlayerMovementUtility.QueueMovement(m_StateA, m_StateB.HeadLook, PlayerFoot.Left, m_WalkCooldown);
+                            PlayerMovementUtility.QueueMovement(m_StateA, m_StateB.HeadLook, PlayerFoot.Left, m_WalkCooldown, PlayerMovementSource.Motion);
                             m_StateB.HeadReference = Vector2.Lerp(m_StateB.HeadReference, m_StateB.CurrentHeadPos, m_HeadReferenceSnap);
                         }
                     }
@@ -74,7 +82,7 @@ namespace Waddle
                 if (m_StateA.LastStepSide != PlayerFoot.Right) {
                     if (currentHeadOffset.x >= desiredXOffset && currentHeadLocalLook.z >= m_LookSensitivity) {
                         if (Vector3.Dot(currentHeadVelocityNormalized, Vector3.right) > m_VelocitySensitivity) {
-                            PlayerMovementUtility.QueueMovement(m_StateA, m_StateB.HeadLook, PlayerFoot.Right, m_WalkCooldown);
+                            PlayerMovementUtility.QueueMovement(m_StateA, m_StateB.HeadLook, PlayerFoot.Right, m_WalkCooldown, PlayerMovementSource.Motion);
                             m_StateB.HeadReference = Vector2.Lerp(m_StateB.HeadReference, m_StateB.CurrentHeadPos, m_HeadReferenceSnap);
                         }
                     }

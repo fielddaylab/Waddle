@@ -255,6 +255,10 @@ namespace FieldDay {
             Game.Processes.Shutdown();
             Game.Processes = null;
 
+            Log.Msg("[GameLoop] Shutting down systems manager...");
+            Game.Systems.Shutdown();
+            Game.Systems = null;
+
             Log.Msg("[GameLoop] Shutting down shared state manager...");
             Game.SharedState.Shutdown();
             Game.SharedState = null;
@@ -262,10 +266,6 @@ namespace FieldDay {
             Log.Msg("[GameLoop] Shutting down component manager...");
             Game.Components.Shutdown();
             Game.Components = null;
-
-            Log.Msg("[GameLoop] Shutting down systems manager...");
-            Game.Systems.Shutdown();
-            Game.Systems = null;
         }
 
         private void FixedUpdate() {

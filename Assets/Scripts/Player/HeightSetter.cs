@@ -9,12 +9,6 @@ public class HeightSetter : MonoBehaviour
     {
 		ResetHeight();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 	
 	public void ResetHeight()
 	{

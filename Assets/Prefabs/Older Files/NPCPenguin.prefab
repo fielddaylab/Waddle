@@ -286,7 +286,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 439c0ae7714b45a47a0830e0490c53ea, type: 3}
   m_Controller: {fileID: 9100000, guid: 8ec155b1b3d3f4a42bf827addce276e8, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -295,7 +295,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &3352998565937178835
 MonoBehaviour:
   m_ObjectHideFlags: 0

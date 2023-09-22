@@ -30,8 +30,8 @@ TagManager:
   - StartGame
   - PenguinPlayer
   - MirrorPlayer
-  - 3DUI
-  - 3DUIHands
+  - ThreeDUI
+  - ThreeDUIHands
   - NPCPenguin
   - PlayerPhysics
   - WorldCollision
@@ -44,7 +44,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - CullingRegion
   m_SortingLayers:
   - name: Default
     uniqueID: 0

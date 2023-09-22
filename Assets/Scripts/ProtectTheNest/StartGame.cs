@@ -54,8 +54,8 @@ public class StartGame : MonoBehaviour
 			transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.SNOW).gameObject.SetActive(true);
 			
 			//turn off icon and Pole...eventually fade and fade back in when leaving
-			transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.ICON).gameObject.SetActive(false);
-			transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.POLE).gameObject.SetActive(false);
+			//transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.ICON).gameObject.SetActive(false);
+			//transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.POLE).gameObject.SetActive(false);
 			
 			//if protect the nest, turn off ray of light...
 			if(_miniGame == PenguinGameManager.MiniGame.ProtectTheNest)

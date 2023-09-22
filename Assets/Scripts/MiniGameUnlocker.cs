@@ -101,7 +101,7 @@ public class MiniGameUnlocker : MonoBehaviour
 		}
 		
 		//transform.GetChild((int)MiniGameCommonObjects.ICON).gameObject.SetActive(true);
-		transform.GetChild((int)MiniGameCommonObjects.POLE).gameObject.SetActive(true);
+		//transform.GetChild((int)MiniGameCommonObjects.POLE).gameObject.SetActive(true);
 
         PenguinPlayer.Instance.SpeedUpMovement();
 
@@ -131,30 +131,6 @@ public class MiniGameUnlocker : MonoBehaviour
         Routine.StartDelay(PebbleUnlock, 0.2f);
     }
 	
-    // Update is called once per frame
-    void Update()
-    {
-		/*if(!_lockable)
-		{
-			const float DIST_TO_BORDER = 4f;
-			float d = Vector3.Distance(PenguinPlayer.Instance.transform.position, transform.position);
-			if(d < DIST_TO_BORDER)
-			{
-				//adjust the interpolator component if within the attraction border...
-				if(d < 0.1f)
-				{
-					transform.GetChild(1).gameObject.GetComponent<WIDVE.Utilities.Interpolator>().SetRawValue(0f);
-					transform.GetChild(4).gameObject.GetComponent<WIDVE.Utilities.Interpolator>().SetRawValue(0f);
-				}
-				else
-				{
-					transform.GetChild(1).gameObject.GetComponent<WIDVE.Utilities.Interpolator>().SetRawValue(1f - ((DIST_TO_BORDER-d)/DIST_TO_BORDER));
-					transform.GetChild(4).gameObject.GetComponent<WIDVE.Utilities.Interpolator>().SetRawValue(1f - ((DIST_TO_BORDER-d)/DIST_TO_BORDER));
-				}
-			}
-		}*/
-    }
-	
 	public void PebbleUnlock()
 	{
 		if(_lockable && !_isGameUnlocked)
@@ -168,7 +144,7 @@ public class MiniGameUnlocker : MonoBehaviour
             if (!Lockable) {
                 //if a lockable attraction, don't hide poles and icon until game actually running
                 //transform.GetChild((int) MiniGameCommonObjects.ICON).gameObject.SetActive(false);
-                transform.GetChild((int) MiniGameCommonObjects.POLE).gameObject.SetActive(false);
+                //transform.GetChild((int) MiniGameCommonObjects.POLE).gameObject.SetActive(false);
             }
 
             PenguinAnalytics.Instance.LogMatingDanceIndicator(100f);

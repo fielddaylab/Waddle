@@ -588,7 +588,7 @@ MonoBehaviour:
   PositionRoot: {fileID: 5057784926981871767}
   RotationRoot: {fileID: 5057784926981871767}
   Brain: {fileID: 2137999746708601740}
-  MovementSpeed: 0.7
+  MovementSpeed: 0.3
   TurnSpeed: 45
   MaxAngleDiffToMove: 70
 --- !u!114 &4036500791080271259
@@ -606,18 +606,22 @@ MonoBehaviour:
   SkinnedMesh: {fileID: 2347122903641411335}
   MeshRenderer: {fileID: 0}
   MeshFilter: {fileID: 0}
-  Level0:
+  Animator: {fileID: 0}
+  Close:
     Distance: 0
     SkinQuality: 4
     Mesh: {fileID: 17011341773282802, guid: 0d2f8cc1af4a59b4a98687be15ba42e7, type: 3}
-  Level1:
+    Cull: 0
+  Mid:
     Distance: 6
     SkinQuality: 2
     Mesh: {fileID: 4300000, guid: f1222aebce3530044bab626961508273, type: 2}
-  Level2:
+    Cull: 0
+  Far:
     Distance: 18
     SkinQuality: 1
     Mesh: {fileID: 4300000, guid: df589c81ba00d4f4aa22e566b900505b, type: 2}
+    Cull: 0
 --- !u!114 &1418131451559983654
 MonoBehaviour:
   m_ObjectHideFlags: 0

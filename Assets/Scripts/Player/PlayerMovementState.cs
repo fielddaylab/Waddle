@@ -29,6 +29,7 @@ namespace Waddle
         [NonSerialized] public bool Queued;
         [NonSerialized] public bool FromRight;
         [NonSerialized] public Vector3 MoveDirection;
+        [NonSerialized] public PlayerMovementSource QueuedSource;
 
         [NonSerialized] public float WalkCooldown;
         [NonSerialized] public PlayerFoot LastStepSide;
@@ -38,12 +39,13 @@ namespace Waddle
     static public class PlayerMovementUtility {
         static public readonly StringHash32 Event_WaddleDetected = "player-waddle-detected";
 
-        static public void QueueMovement(PlayerMovementState state, Vector3 moveIn, PlayerFoot foot, float cooldown) {
+        static public void QueueMovement(PlayerMovementState state, Vector3 moveIn, PlayerFoot foot, float cooldown, PlayerMovementSource source) {
             state.Queued = true;
             state.FromRight = (foot == PlayerFoot.Right);
             state.MoveDirection = moveIn;
             state.WalkCooldown = cooldown;
             state.LastStepSide = foot;
+            state.QueuedSource = source;
             Game.Events.Queue(Event_WaddleDetected);
         }
 
@@ -80,5 +82,10 @@ namespace Waddle
         Invalid,
         Left,
         Right
+    }
+
+    public enum PlayerMovementSource {
+        Motion,
+        Button
     }
 }

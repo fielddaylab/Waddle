@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5691439b7ebc8c46a3177416f17daae, type: 3}
   m_Name: DanceMusic
   m_EditorClassIdentifier: 
-  Clip: {fileID: 8300000, guid: 6209d8b653ac3a14bb2199f8c64f1405, type: 3}
+  Clip: {fileID: 8300000, guid: b3d0f7151ce5bb8498e2a7e7bcf45a68, type: 3}
   Volume: 1
-  BPM: 92
-  BPMStart: 0
-  BPMEnd: 62.667755
+  BPM: 128
+  Measure: 4

@@ -45,10 +45,4 @@ public class StartAnim : MonoBehaviour
 		}
 	
 	}
-	
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

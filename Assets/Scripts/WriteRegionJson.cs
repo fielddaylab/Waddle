@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using FieldDay.Data;
 using UnityEngine;
 
 [System.Serializable]
-public class RegionBounds
+public struct RegionBounds
 {
     public string name;
     public float minX;
@@ -16,12 +17,6 @@ public class RegionBounds
 
 public class WriteRegionJson : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     [ContextMenu("WriteJson")]
     void WriteJson()
     {
@@ -61,11 +56,5 @@ public class WriteRegionJson : MonoBehaviour
         
         string filenameTxt2 = "region_bounds.txt";
 		System.IO.File.WriteAllText(System.IO.Path.Combine(Application.streamingAssetsPath, filenameTxt2), sOut);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

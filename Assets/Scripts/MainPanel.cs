@@ -33,11 +33,6 @@ public class MainPanel : MonoBehaviour
     {
         
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
 	
 	public void HandleButtonDown(RaycastHit hitInfo)
 	{

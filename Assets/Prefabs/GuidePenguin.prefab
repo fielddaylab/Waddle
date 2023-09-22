@@ -475,7 +475,7 @@ MonoBehaviour:
   PositionRoot: {fileID: 8054507916665205627}
   RotationRoot: {fileID: 8054507916665205627}
   Brain: {fileID: 5504161761720491650}
-  MovementSpeed: 0.5
+  MovementSpeed: 0.3
   TurnSpeed: 60
   MaxAngleDiffToMove: 70
 --- !u!114 &7105023795767545476
@@ -531,6 +531,11 @@ MonoBehaviour:
   RightFoot: {fileID: 6879221600701193138}
   RightAudio: {fileID: 8496334952691163833}
   StepSFX: {fileID: 11400000, guid: cbd59f04c8400334e9b74446b07c8a77, type: 2}
+--- !u!137 &676990229701731563 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 954127080336139162, guid: 0d2f8cc1af4a59b4a98687be15ba42e7, type: 3}
+  m_PrefabInstance: {fileID: 313170052202104689}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1071285950180190564 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8465251736450798059, guid: 0d2f8cc1af4a59b4a98687be15ba42e7, type: 3}
@@ -849,3 +854,39 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &8463645485062090083 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8155018614974114322, guid: 0d2f8cc1af4a59b4a98687be15ba42e7, type: 3}
+  m_PrefabInstance: {fileID: 313170052202104689}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2292760391430073112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8463645485062090083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47033be9f57f93849a11356eaf196a1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkinnedMesh: {fileID: 676990229701731563}
+  MeshRenderer: {fileID: 0}
+  MeshFilter: {fileID: 0}
+  Animator: {fileID: 0}
+  Close:
+    Distance: 0
+    SkinQuality: 4
+    Mesh: {fileID: 0}
+    Cull: 0
+  Mid:
+    Distance: 8
+    SkinQuality: 2
+    Mesh: {fileID: 4300000, guid: f1222aebce3530044bab626961508273, type: 2}
+    Cull: 0
+  Far:
+    Distance: 18
+    SkinQuality: 1
+    Mesh: {fileID: 4300000, guid: df589c81ba00d4f4aa22e566b900505b, type: 2}
+    Cull: 0

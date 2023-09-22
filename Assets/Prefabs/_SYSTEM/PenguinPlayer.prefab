@@ -1064,7 +1064,7 @@ MonoBehaviour:
   MinMovePercentage: 0.4
   FootAudioSource: {fileID: 2827358369434360444}
   StepAudioClips: {fileID: 11400000, guid: f90d368a079bf80478f6912394ebdb83, type: 2}
-  CollideAudioClips: {fileID: 0}
+  CollideAudioClips: {fileID: 11400000, guid: 9cea8025b23d97c4097c9f8cd559cf91, type: 2}
 --- !u!114 &1000988389372209087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1518,6 +1518,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6577520110513867182}
   - component: {fileID: 7998535497528035802}
+  - component: {fileID: 2721561080125019282}
   m_Layer: 6
   m_Name: Anchor
   m_TagString: Untagged
@@ -1550,6 +1551,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd5b2785e47af6a46a3b84479c735deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2721561080125019282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4628205815615470871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c16b180a8ffa97a418106b3a8daffdc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5614682384327186593
@@ -2156,6 +2169,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2015248, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015248, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: far clip plane
       value: 500
       objectReference: {fileID: 0}
@@ -2352,7 +2369,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc2d2ddd286e56848b081ce48433d535, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minBeatTime: 0.5
 --- !u!114 &2360715679656985518
 MonoBehaviour:
   m_ObjectHideFlags: 0
