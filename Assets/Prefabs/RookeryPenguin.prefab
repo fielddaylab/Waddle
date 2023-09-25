@@ -83,6 +83,72 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1001 &4077180022321634609
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3522770440966504021}
+    m_Modifications:
+    - target: {fileID: 6017810077723433565, guid: 60d0a275a6b199848bbf31e3c45cad4d, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6017810077723433565, guid: 60d0a275a6b199848bbf31e3c45cad4d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0288
+      objectReference: {fileID: 0}
+    - target: {fileID: 6017810077723433565, guid: 60d0a275a6b199848bbf31e3c45cad4d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0367
+      objectReference: {fileID: 0}
+    - target: {fileID: 6017810077723433565, guid: 60d0a275a6b199848bbf31e3c45cad4d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0207
+      objectReference: {fileID: 0}
+    - target: {fileID: 6017810077723433565, guid: 60d0a275a6b199848bbf31e3c45cad4d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.90913814
+      objectReference: {fileID: 0}
+    - target: {fileID: 6017810077723433565, guid: 60d0a275a6b199848bbf31e3c45cad4d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.055073734
+      objectReference: {fileID: 0}
+    - target: {fileID: 6017810077723433565, guid: 60d0a275a6b199848bbf31e3c45cad4d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.4116669
+      objectReference: {fileID: 0}
+    - target: {fileID: 6017810077723433565, guid: 60d0a275a6b199848bbf31e3c45cad4d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.031066332
+      objectReference: {fileID: 0}
+    - target: {fileID: 6017810077723433565, guid: 60d0a275a6b199848bbf31e3c45cad4d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -75.249
+      objectReference: {fileID: 0}
+    - target: {fileID: 6017810077723433565, guid: 60d0a275a6b199848bbf31e3c45cad4d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 80.719
+      objectReference: {fileID: 0}
+    - target: {fileID: 6017810077723433565, guid: 60d0a275a6b199848bbf31e3c45cad4d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 11.309
+      objectReference: {fileID: 0}
+    - target: {fileID: 7974428962191459219, guid: 60d0a275a6b199848bbf31e3c45cad4d, type: 3}
+      propertyPath: m_Name
+      value: Pebble_NPC (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7974428962191459219, guid: 60d0a275a6b199848bbf31e3c45cad4d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 60d0a275a6b199848bbf31e3c45cad4d, type: 3}
+--- !u!23 &5582092672482413490 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8494525661236221571, guid: 60d0a275a6b199848bbf31e3c45cad4d, type: 3}
+  m_PrefabInstance: {fileID: 4077180022321634609}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7682865303420410800
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -136,7 +202,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6161181852866283513, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
       propertyPath: m_Name
-      value: RookeryPenguin (3)
+      value: RookeryPenguin
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7826111961798322223, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
@@ -144,6 +210,11 @@ PrefabInstance:
 --- !u!4 &2525813410488196231 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5301432355773024055, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
+  m_PrefabInstance: {fileID: 7682865303420410800}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3522770440966504021 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6520192207922783717, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
   m_PrefabInstance: {fileID: 7682865303420410800}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &5472285615179418236 stripped
@@ -167,3 +238,4 @@ MonoBehaviour:
   - {fileID: 0}
   PebbleDropOff: {fileID: 0}
   PebblesToGather: 100
+  HeldPebbleRenderer: {fileID: 5582092672482413490}
