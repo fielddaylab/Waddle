@@ -383,7 +383,12 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		//PenguinAnalytics.Instance.LogTimerPause();	
 	}
 
-	public void ShowCredits(bool toCredits)
+
+    public void ShowEndGameText() {
+        PenguinPlayer.Instance.StartShowingUI(true, false);
+    }
+
+    public void ShowCredits(bool toCredits)
 	{
 		if(toCredits)
 		{

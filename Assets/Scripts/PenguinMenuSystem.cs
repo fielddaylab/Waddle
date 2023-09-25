@@ -10,7 +10,8 @@ public class PenguinMenuSystem : Singleton<PenguinMenuSystem>
 	public enum MenuType
 	{
 		PauseMenu,
-		EndMenu
+		EndMenu,
+		EndText
 	}
 
 	public enum WhichLanguage
@@ -286,9 +287,26 @@ public class PenguinMenuSystem : Singleton<PenguinMenuSystem>
 				_middleButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Siga Jugando";
 				_surveyButton.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>().text = "Reanuda";
 			}
+
+			
 			
 			//_closeButton.SetActive(false);
 		}
-	}
+        else if (menu == MenuType.EndText) {
+            _leftButton.SetActive(false);
+            _rightButton.SetActive(false);
+			_middleButton.SetActive(false);
+            _titleText.GetComponent<MeshRenderer>().enabled = true;
+
+            if (_lastLanguage == WhichLanguage.ENGLISH) {
+                _titleText.GetComponent<TMPro.TextMeshPro>().text = "Your chick hatched!\nThank you for playing";
+            }
+            else if (_lastLanguage == WhichLanguage.SPANISH) {
+                _titleText.GetComponent<TMPro.TextMeshPro>().text = "[Spanish for 'Your chick hatched!\nThank you for playing']";
+            }
+
+            //_closeButton.SetActive(false);
+        }
+    }
 	
 }

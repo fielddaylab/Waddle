@@ -1,6 +1,7 @@
 //NSF Penguins VR Experience
 //Ross Tredinnick - WID Virtual Environments Group / Field Day Lab - 2021
 
+using BeauRoutine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,11 +26,30 @@ public class ProtectTheNest : MiniGameController
 	GameObject _theEgg;
 	public GameObject TheEgg => _theEgg;
 
+    [SerializeField]
+    GameObject _theNest;
+
+    [SerializeField]
+    ParticleSystem[] _preHatchParticles;
+
+    [SerializeField]
+    ParticleSystem _hatchHeartParticles;
+
+    [SerializeField]
+	GameObject _isolationVoid;
+
+	[SerializeField]
+	Transform _isolationPos;
+
+	[SerializeField]
+	CanvasGroup _endTextGroup;
+
     float _skuaMoveTime = 0f;
     float _timeWithoutEgg = 0f;
     
 	bool _playingEggSequence = false;
 	bool _finishingEggSequence = false;
+	bool _chickStarting = false;
 	
 	GameObject _mainCam = null;
 	
@@ -49,10 +69,11 @@ public class ProtectTheNest : MiniGameController
 		
 		if(_playingEggSequence)
 		{
-			if(!_finishingEggSequence)
+			if(!_finishingEggSequence && !_chickStarting)
 			{
 				Vector3 toEgg = Vector3.Normalize(_theEgg.transform.position - _mainCam.transform.position);
 				Vector3 lookDir = _mainCam.transform.forward;
+				// Wait until player is looking at egg
 				if(Vector3.Dot(toEgg, lookDir) > 0.5f)
 				{
 					_finishingEggSequence = true;
@@ -72,7 +93,7 @@ public class ProtectTheNest : MiniGameController
 						}
 					}
 					
-					StartCoroutine(FinishChickSequence(30f));
+					StartCoroutine(FinishChickSequence(20f));
 				}
 			}
 			
@@ -151,11 +172,21 @@ public class ProtectTheNest : MiniGameController
 		{
 			_theEgg.transform.GetChild(0).gameObject.SetActive(true);
 		}
-		
+
+		foreach(var particles in _preHatchParticles) {
+            particles.Pause();
+            particles.Clear();
+        }
+        _hatchHeartParticles.Pause();
+        _hatchHeartParticles.Clear();
+
+        _isolationVoid.SetActive(false);
         _skuaMoveTime = _startTime;
         _timeWithoutEgg = _startTime;
+        _theEgg.SetActive(true);
+        _theNest.SetActive(true);
 
-		PenguinAnalytics.Instance.LogActivityBegin("skuas");
+        PenguinAnalytics.Instance.LogActivityBegin("skuas");
     }
 
     public override void RestartGame()
@@ -183,8 +214,9 @@ public class ProtectTheNest : MiniGameController
 		
 		_playingEggSequence = false;
 		_finishingEggSequence = false;
-		
-		if(_theEgg != null)
+        _isolationVoid.SetActive(false);
+
+        if (_theEgg != null)
         {
 			AudioSource aSource = _theEgg.transform.GetChild(2).GetComponent<AudioSource>();
 			if(aSource != null)
@@ -215,8 +247,15 @@ public class ProtectTheNest : MiniGameController
         //Camera.main.gameObject.GetComponent<OVRScreenFade>().FadeOut();
         _playingEggSequence = false;
 		_finishingEggSequence = false;
-		
-		if(_theEgg != null)
+        _isolationVoid.SetActive(false);
+        foreach (var particles in _preHatchParticles) {
+            particles.Pause();
+            particles.Clear();
+        }
+        _hatchHeartParticles.Pause();
+        _hatchHeartParticles.Clear();
+
+        if (_theEgg != null)
         {
 			AudioSource aSource = _theEgg.transform.GetChild(2).GetComponent<AudioSource>();
 			if(aSource != null)
@@ -234,7 +273,12 @@ public class ProtectTheNest : MiniGameController
 		PenguinAnalytics.Instance.LogActivityEnd("skuas");
 		
         base.EndGame();
-		
+
+		// Return to starting position
+
+		PenguinGameManager.Instance.RestartGame();
+
+		/* Show menu
 		if(PenguinGameManager.Instance.GetGameMode == PenguinGameManager.GameMode.ResearchMode)
 		{
 			PenguinPlayer.Instance.gameObject.GetComponent<HandRaycast>().SwitchPanel(HandRaycast.MenuPanel.eMAIN);
@@ -243,16 +287,42 @@ public class ProtectTheNest : MiniGameController
 		PenguinMenuSystem.Instance.ChangeMenuTo(PenguinMenuSystem.MenuType.EndMenu);
 		
 		PenguinGameManager.Instance.ShowEndGameMenu();
+		*/
     }
 	
 	IEnumerator StartChickSequence(float delay)
 	{
-		yield return new WaitForSeconds(delay);
-		
-		if(_theEgg != null)
+        _chickStarting = false;
+
+        float fadeDuration = 2f;
+        OVRScreenFade.instance.FadeOut(fadeDuration);
+        // yield return new WaitForSeconds(fadeDuration); // Curently breaks the animation
+
+        _hatchHeartParticles.Pause();
+        _hatchHeartParticles.Clear();
+        _endTextGroup.alpha = 0;
+        PenguinPlayer.Instance.transform.position = _isolationPos.transform.position;
+		PenguinPlayer.Instance.transform.LookAt(_theEgg.transform);
+
+        // activate isolation void
+        _isolationVoid.SetActive(true);
+
+        OVRScreenFade.instance.FadeIn(fadeDuration);
+
+        yield return new WaitForSeconds(delay);
+
+
+        // Activate particle fountain
+        foreach (var particles in _preHatchParticles) {
+            particles.Play();
+        }
+
+        if (_theEgg != null)
 		{
 			_theEgg.transform.GetChild(0).gameObject.GetComponent<Animator>().SetTrigger("shake");
 		}
+
+		_chickStarting = false;
 	}
 	
 	IEnumerator FinishChickSequence(float waitTime)
@@ -265,21 +335,51 @@ public class ProtectTheNest : MiniGameController
 		}
 		
 		yield return new WaitForSeconds(8f);
-		
-		_theEgg.transform.GetChild(0).gameObject.GetComponent<Animator>().SetTrigger("stop");
-		_theEgg.transform.GetChild(0).gameObject.SetActive(false);
-		
-		yield return new WaitForSeconds(waitTime-8f);
+		waitTime -= 8f;
 
-        //_theEgg.transform.GetChild(1).gameObject.GetComponent<Animator>().SetTrigger("stop");
+        foreach (var particles in _preHatchParticles) {
+            particles.Pause();
+			particles.Clear();
+        }
+
+        _theEgg.transform.GetChild(0).gameObject.GetComponent<Animator>().SetTrigger("stop");
+		_theEgg.transform.GetChild(0).gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(3f);
+		waitTime -= 3f;
+
+        _hatchHeartParticles.Play();
+
+        yield return new WaitForSeconds(waitTime);
+
+        // _theEgg.transform.GetChild(1).gameObject.GetComponent<Animator>().SetTrigger("stop");
 
         //loop the chick here instead?
         //_theEgg.transform.GetChild(2).gameObject.GetComponent<Animator>().SetTrigger("stop");
 
         //show the ending menu...!
 
+        float fadeDuration = 2f;
+        OVRScreenFade.instance.FadeOut(fadeDuration);
+
+        yield return new WaitForSeconds(fadeDuration + 1);
+
+		_theEgg.SetActive(false);
+		_theNest.SetActive(false);
+
+        PenguinMenuSystem.Instance.ChangeMenuTo(PenguinMenuSystem.MenuType.EndText);
+        PenguinGameManager.Instance.ShowEndGameText();
+
+        OVRScreenFade.instance.FadeIn(fadeDuration);
+
         PenguinPlayer.Instance.StartBackgroundMusic();
-		
-		EndGame();
+
+        yield return new WaitForSeconds(5f);
+
+        OVRScreenFade.instance.FadeOut(fadeDuration);
+
+        yield return new WaitForSeconds(fadeDuration);
+
+        EndGame();
 	}
 }
