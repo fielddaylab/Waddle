@@ -8,5 +8,8 @@ namespace Waddle {
         
         public int PebblesToGather;
         [NonSerialized] public Pebble CurrentPebble;
+
+        public Renderer HeldPebbleRenderer;
+
     }
 }
