@@ -20,6 +20,8 @@
 
 using UnityEngine;
 using System.Collections; // required for Coroutines
+using BeauRoutine;
+using System;
 
 /// <summary>
 /// Fades the screen from black after a new scene is loaded. Fade can also be controlled mid-scene using SetUIFade and SetFadeLevel
@@ -54,6 +56,8 @@ public class OVRScreenFade : MonoBehaviour
 	private MeshFilter fadeMesh;
 	private Material fadeMaterial = null;
 	private bool isFading = false;
+
+    private Routine m_FadeRoutine;
 
 	/// <summary>
 	/// Automatically starts a fade in
@@ -139,21 +143,42 @@ public class OVRScreenFade : MonoBehaviour
 	/// </summary>
 	public void FadeIn()
 	{
-		StartCoroutine(Fade(1.0f, 0.0f));
+        m_FadeRoutine.Replace(this, Fade(1.0f, 0.0f, fadeTime)).TryManuallyUpdate(0);
 	}
 
-	/// <summary>
-	/// Start a fade out
+    /// <summary>
+	/// Start a fade in
 	/// </summary>
-	public void FadeOut()
+	public void FadeIn(float duration) {
+        m_FadeRoutine.Replace(this, Fade(1.0f, 0.0f, duration)).TryManuallyUpdate(0);
+    }
+
+    /// <summary>
+    /// Start a fade out
+    /// </summary>
+    public void FadeOut()
 	{
-		StartCoroutine(Fade(0,1));
-	}
+        m_FadeRoutine.Replace(this, Fade(0, 1, fadeTime)).TryManuallyUpdate(0);
+    }
 
-	/// <summary>
-	/// Starts a fade in when a new level is loaded
-	/// </summary>
-	void OnLevelFinishedLoading(int level)
+    /// <summary>
+    /// Start a fade out
+    /// </summary>
+    public void FadeOut(float duration) {
+        m_FadeRoutine.Replace(this, Fade(0, 1, duration)).TryManuallyUpdate(0);
+    }
+
+    /// <summary>
+    /// Start a blink
+    /// </summary>
+    public void Blink(float duration, Action onBlink) {
+        m_FadeRoutine.Replace(this, Blink(0, 1, duration, onBlink)).TryManuallyUpdate(0);
+    }
+
+    /// <summary>
+    /// Starts a fade in when a new level is loaded
+    /// </summary>
+    void OnLevelFinishedLoading(int level)
 	{
 		FadeIn();
 	}
@@ -207,25 +232,54 @@ public class OVRScreenFade : MonoBehaviour
 	/// <summary>
 	/// Fades alpha from 1.0 to 0.0
 	/// </summary>
-	IEnumerator Fade(float startAlpha, float endAlpha)
+	IEnumerator Fade(float startAlpha, float endAlpha, float duration)
 	{
 		float elapsedTime = 0.0f;
-		while (elapsedTime < fadeTime)
+		while (elapsedTime < duration)
 		{
 			elapsedTime += Time.deltaTime;
-			animatedFadeAlpha = Mathf.Lerp(startAlpha, endAlpha, Mathf.Clamp01(elapsedTime / fadeTime));
+			animatedFadeAlpha = Mathf.Lerp(startAlpha, endAlpha, Mathf.Clamp01(elapsedTime / duration));
 			SetMaterialAlpha();
-			yield return new WaitForEndOfFrame();
+            yield return Routine.WaitForEndOfFrame();
 		}
 		animatedFadeAlpha = endAlpha;
 		SetMaterialAlpha();
 	}
 
-	/// <summary>
-	/// Update material alpha. UI fade and the current fade due to fade in/out animations (or explicit control)
-	/// both affect the fade. (The max is taken)
+    /// <summary>
+	/// Fades alpha from 1.0 to 0.0
 	/// </summary>
-	private void SetMaterialAlpha()
+	IEnumerator Blink(float startAlpha, float endAlpha, float duration, Action onBlink) {
+        float elapsedTime = 0.0f;
+        while (elapsedTime < duration) {
+            elapsedTime += Routine.DeltaTime;
+            animatedFadeAlpha = Mathf.Lerp(startAlpha, endAlpha, Mathf.Clamp01(elapsedTime / duration));
+            SetMaterialAlpha();
+            yield return Routine.WaitForEndOfFrame();
+        }
+        animatedFadeAlpha = endAlpha;
+        SetMaterialAlpha();
+
+        onBlink?.Invoke();
+        yield return null;
+        yield return null;
+
+        elapsedTime = 0.0f;
+        while (elapsedTime < duration) {
+            elapsedTime += Routine.DeltaTime;
+            animatedFadeAlpha = Mathf.Lerp(endAlpha, startAlpha, Mathf.Clamp01(elapsedTime / duration));
+            SetMaterialAlpha();
+            yield return Routine.WaitForEndOfFrame();
+        }
+        animatedFadeAlpha = startAlpha;
+        SetMaterialAlpha();
+    }
+
+    /// <summary>
+    /// Update material alpha. UI fade and the current fade due to fade in/out animations (or explicit control)
+    /// both affect the fade. (The max is taken)
+    /// </summary>
+    private void SetMaterialAlpha()
 	{
 		Color color = fadeColor;
 		color.a = currentAlpha;
