@@ -56,11 +56,11 @@ namespace Waddle {
                 yield return 0.5f;
             }
 
-            yield return Duration;
+            //yield return Duration;
 
-            foreach (var penguin in Penguins) {
-                penguin.SetBool("BopDance", false);
-            }
+            //foreach (var penguin in Penguins) {
+            //    penguin.SetBool("BopDance", false);
+            //}
         }
     }
 }

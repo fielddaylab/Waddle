@@ -34,6 +34,7 @@ MonoBehaviour:
     - com.beauprime.beaupools
     - com.beauprime.beauroutine
     - com.beauprime.beauroutine-extensions
+    - com.beauprime.beauroutine-spline
     - com.beauprime.beauutil
     - com.fieldday.opengamedata
     - com.fieldday.opengamedata-unity

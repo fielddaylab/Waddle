@@ -261,8 +261,7 @@ public class OVRScreenFade : MonoBehaviour
         SetMaterialAlpha();
 
         onBlink?.Invoke();
-        yield return null;
-        yield return null;
+        yield return 0.1f;
 
         elapsedTime = 0.0f;
         while (elapsedTime < duration) {

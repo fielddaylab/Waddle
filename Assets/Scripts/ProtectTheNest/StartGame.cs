@@ -3,12 +3,15 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using BeauUtil;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Waddle;
 
 public class StartGame : MonoBehaviour
 {
+    private const float BlinkTime = 0.6f;
+
 	public PenguinGameManager.MiniGame _miniGame;
 	
 	[SerializeField]
@@ -17,24 +20,21 @@ public class StartGame : MonoBehaviour
 	[SerializeField]
 	bool _strictAngle = false;
 
-	[SerializeField]
-	float _facingAngle; // player must be facing this angle +/- angleBuffer before minigame triggers
-	
-	[SerializeField]
-	float _angleBuffer = 10f;
+	[SerializeField, Range(0, 1)]
+	float _facingThreshold;
+
+    [SerializeField]
+    private ParticleSystem m_ParticleRing;
+
+    [SerializeField]
+    private MeshRenderer m_HighlightRing;
 	
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         MiniGameController._endGameDelegate += OnEndGame;
 		//MiniGameController._startGameDelegate += OnStartGame;
 		PenguinGameManager.OnReset += OnResetGame;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 	
 	void OnDisable()
@@ -73,16 +73,7 @@ public class StartGame : MonoBehaviour
 			}
 		}
 
-		if (_miniGame == PenguinGameManager.MiniGame.MatingDance) {
-			// disable movement;
-			PenguinGameManager._headMovementActive = false;
-		}
-		
-		MeshRenderer mr = GetComponent<MeshRenderer>();
-		if(mr != null)
-		{
-			mr.enabled = false;
-		}
+		PenguinGameManager._headMovementActive = false;
 		
 		//slow down the player...
 		PenguinPlayer.Instance.SlowDownMovement();
@@ -109,20 +100,11 @@ public class StartGame : MonoBehaviour
 				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.RAY_OF_LIGHT).gameObject.SetActive(true);
 				transform.GetChild((int)MiniGameUnlocker.MiniGameCommonObjects.MISC2).gameObject.SetActive(true);
 			}*/
-			
-			AudioSource audio = GetComponent<AudioSource>();
-			if(audio != null)
-			{
-				audio.Stop();
-			}
 
             PenguinPlayer.Instance.StartBackgroundMusic();
 		}
 
-        if (_miniGame == PenguinGameManager.MiniGame.MatingDance) {
-			// enable movement;
-			PenguinGameManager._headMovementActive = true;
-        }
+        PenguinGameManager._headMovementActive = true;
 
         //return the the player to default speed...
         PenguinPlayer.Instance.SpeedUpMovement();
@@ -133,63 +115,55 @@ public class StartGame : MonoBehaviour
 	
 	void OnResetGame()
 	{
-		if(_miniGame == PenguinGameManager.MiniGame.MatingDance)
-		{
-			gameObject.GetComponent<Collider>().enabled = true;
-			
-			MeshRenderer mr = GetComponent<MeshRenderer>();
-			if(mr != null)
-			{
-				mr.enabled = true;
-			}
+		gameObject.GetComponent<Collider>().enabled = true;
 
-            if (_miniGame == PenguinGameManager.MiniGame.MatingDance) {
-                // enable movement
-                PenguinGameManager._headMovementActive = true;
-            }
+        if (m_ParticleRing) {
+            m_ParticleRing.Play();
+        }
+
+        if (m_HighlightRing) {
+            m_HighlightRing.enabled = true;
         }
 	}
 	
 	void OnTriggerEnter(Collider otherCollider)
 	{
-        if (otherCollider.gameObject.layer == LayerMask.NameToLayer("Beak"))
-		{
-			if (_strictAngle) {
-                if (Vector3.SignedAngle(otherCollider.transform.forward, Vector3.forward, Vector3.up) <= _facingAngle + _angleBuffer
-					&& Vector3.SignedAngle(otherCollider.transform.forward, Vector3.forward, Vector3.up) >= _facingAngle - _angleBuffer) {
-                    ValidTriggerEnter();
-                }
+        if (_strictAngle) {
+            if (Vector3.Dot(otherCollider.transform.forward, transform.forward) < _facingThreshold) {
+                return;
             }
-			else {
-				ValidTriggerEnter();
-            }
-		}
+        }
+
+        ValidTriggerEnter();
 	}
 
     private void OnTriggerStay(Collider otherCollider) {
-        if (otherCollider.gameObject.layer == LayerMask.NameToLayer("Beak")) {
-            if (_strictAngle) {
-                if (Vector3.SignedAngle(otherCollider.transform.forward, Vector3.forward, Vector3.up) <= _facingAngle + _angleBuffer
-                    && Vector3.SignedAngle(otherCollider.transform.forward, Vector3.forward, Vector3.up) >= _facingAngle - _angleBuffer) {
-                    ValidTriggerEnter();
-                }
-            }
-            else {
-                ValidTriggerEnter();
+        if (_strictAngle) {
+            if (Vector3.Dot(otherCollider.transform.forward, transform.forward) < _facingThreshold) {
+                return;
             }
         }
+
+        ValidTriggerEnter();
     }
 
     private void ValidTriggerEnter() {
         gameObject.GetComponent<Collider>().enabled = false;
 
+        if (m_HighlightRing) {
+            m_HighlightRing.enabled = false;
+        }
+        if (m_ParticleRing) {
+            m_ParticleRing.Stop();
+        }
+
+        PenguinGameManager._headMovementActive = false;
+
         if (_loadScene) {
             StartCoroutine(LoadMiniGameAsync(_miniGame.ToString()));
         }
         else {
-            PenguinGameManager.Instance.LoadMiniGame(_miniGame);
-
-            OnStartGame();
+            OVRScreenFade.instance.Blink(BlinkTime, OnBlinkToStart);
         }
     }
 	
@@ -202,9 +176,18 @@ public class StartGame : MonoBehaviour
 		{
 			yield return null;
 		}
-		
-		PenguinGameManager.Instance.LoadMiniGame(_miniGame);
-		
-		OnStartGame();
+
+        OVRScreenFade.instance.Blink(BlinkTime, OnBlinkToStart);
 	}
+
+    private void OnBlinkToStart() {
+        PenguinGameManager.Instance.LoadMiniGame(_miniGame);
+        PenguinPlayer.Instance.transform.position = transform.position;
+
+        if (m_ParticleRing) {
+            m_ParticleRing.Clear();
+        }
+
+        OnStartGame();
+    }
 }

@@ -194,7 +194,7 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 	
 	public void SpeedUpMovement()
 	{
-        GetComponent<PlayerMovementState>().MoveSpeed = 20;
+        GetComponent<PlayerMovementState>().MoveSpeed = 25;
     }
 	
 	public void HideMenu()

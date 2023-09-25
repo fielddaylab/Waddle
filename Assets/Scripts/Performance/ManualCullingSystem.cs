@@ -62,6 +62,9 @@ namespace Waddle {
             foreach (var renderer in group.MeshRenderers) {
                 renderer.enabled = enabled;
             }
+            foreach(var go in group.GameObjects) {
+                go.SetActive(enabled);
+            }
         }
 
         protected override void OnComponentAdded(ManualCullingGroup component) {

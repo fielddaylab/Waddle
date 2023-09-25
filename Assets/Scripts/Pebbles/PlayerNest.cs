@@ -6,7 +6,6 @@ using UnityEngine;
 namespace Waddle {
     public class PlayerNest : MonoBehaviour, IBeakInteract {
         public PlayerNestChunk[] Chunks;
-        public MiniGameUnlocker NextMinigame;
         public SFXAsset DropSFX;
 
         [NonSerialized] private int m_ChunksFull;
@@ -60,7 +59,7 @@ namespace Waddle {
             SFXUtility.Play(chunk.GetComponent<AudioSource>(), DropSFX);
 
             if (m_ChunksFull == Chunks.Length) {
-                NextMinigame.PebbleUnlock();
+                PenguinAnalytics.Instance.LogNestComplete();
             }
         }
     }

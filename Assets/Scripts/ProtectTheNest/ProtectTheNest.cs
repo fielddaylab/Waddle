@@ -9,11 +9,7 @@ using UnityEngine;
 public class ProtectTheNest : MiniGameController
 {
     [SerializeField]
-    SkuaSpawner _skuaSpawner = null;
-
-	[SerializeField]
-	float _moveFrequency = 2f;
-	public float MoveFrequency => _moveFrequency;
+    SkuaCoordinator m_Coordinator = null;
 
     [SerializeField]
     float _gameTimeLimit = 60f;
@@ -110,9 +106,9 @@ public class ProtectTheNest : MiniGameController
 			_timeWithoutEgg = 0f;
 			_skuaMoveTime = 0f;
 
-			if(_skuaSpawner != null)
+			if(m_Coordinator != null)
 			{
-				_skuaSpawner.ClearGame();
+				m_Coordinator.End();
 			}
 			
 			_playingEggSequence = true;
@@ -123,15 +119,15 @@ public class ProtectTheNest : MiniGameController
             return;
 		}
 
-        if(_skuaSpawner != null)
+        if(m_Coordinator != null)
         {
-            _skuaSpawner.CheckForSpawn(_currentTime - _startTime);
+            //m_Coordinator.CheckForSpawn(_currentTime - _startTime);
 
-            if(_currentTime - _skuaMoveTime > _moveFrequency)
-            {
-                _skuaSpawner.MoveSkuas();
-                _skuaMoveTime = _currentTime;
-            }
+            //if(_currentTime - _skuaMoveTime > _moveFrequency)
+            //{
+            //    m_Coordinator.MoveSkuas();
+            //    _skuaMoveTime = _currentTime;
+            //}
 
             if(_eggTimer != null)
             {
@@ -198,9 +194,9 @@ public class ProtectTheNest : MiniGameController
     {
 		PenguinAnalytics.Instance.LogActivityEnd("skuas");
 		
-		if(_skuaSpawner != null)
+		if(m_Coordinator != null)
 		{
-			_skuaSpawner.ClearGame();
+            m_Coordinator.End();
 		}
 		
 		//double check this after addition of chick sequence..
@@ -235,16 +231,6 @@ public class ProtectTheNest : MiniGameController
 				}
 			}
 		}
-    }
-
-    IEnumerator StartNextFrame()
-    {
-        yield return null;
-        
-        if(_skuaSpawner != null)
-        {
-            _skuaSpawner.StartGame();
-        }
     }
 
     public override void EndGame()

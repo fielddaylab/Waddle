@@ -74,10 +74,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00da180e921e9b547a4520de1f380724, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalSensitivity: 0.08
+  m_HorizontalSensitivity: 0.05
   m_LookSensitivity: 0.8
   m_VelocitySensitivity: 0.8
-  m_MinVelocitySensitivity: 0.4
+  m_MinVelocitySensitivity: 0.3
   m_HeadTiltSensitivity: 0.005
   m_VelocityAveragingFrames: 8
   m_ConsecutiveStepEasingThreshold: 2

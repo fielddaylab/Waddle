@@ -1,6 +1,7 @@
 //NSF Penguins VR Experience
 //Ross Tredinnick - WID Virtual Environments Group / Field Day Lab - 2021
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,25 +48,6 @@ public class SkuaSpot : MonoBehaviour
 	[SerializeField]
 	bool _isUp = false;
 	public bool IsUp => _isUp;
-	
-	[SerializeField]
-	GameObject _currentSkua;
-	
-	public GameObject CurrentSkua
-	{
-		get { return _currentSkua; }
-		set { _currentSkua = value; }
-	}
-	
-	// Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [NonSerialized] public SkuaBrain Occupant;
 }
