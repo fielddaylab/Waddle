@@ -7,6 +7,7 @@ namespace Waddle {
     public class PlayerNest : MonoBehaviour, IBeakInteract {
         public PlayerNestChunk[] Chunks;
         public SFXAsset DropSFX;
+        public AudioSource CompleteSound;
 
         [NonSerialized] private int m_ChunksFull;
 
@@ -55,11 +56,16 @@ namespace Waddle {
             PlayerNestChunk chunk = Chunks[m_ChunksFull++];
             chunk.Renderer.sharedMaterial = chunk.PlacedMaterial;
             chunk.Renderer.enabled = true;
-            chunk.Effect.Play();
             SFXUtility.Play(chunk.GetComponent<AudioSource>(), DropSFX);
 
             if (m_ChunksFull == Chunks.Length) {
+                foreach (PlayerNestChunk nestChunk in Chunks) {
+                    nestChunk.Effect.Play();
+                }
+                CompleteSound.Play();
                 PenguinAnalytics.Instance.LogNestComplete();
+            } else {
+                chunk.Effect.Play();
             }
         }
     }
