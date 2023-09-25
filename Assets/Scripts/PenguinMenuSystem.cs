@@ -72,6 +72,7 @@ public class PenguinMenuSystem : Singleton<PenguinMenuSystem>
 		if(PenguinGameManager._isGamePaused)
 		{
 			//transform.position = PenguinPlayer.Instance.transform.position + PenguinPlayer.Instance.transform.forward * 0.01f + _menuOffset;
+			ForceUpdate();
 			_wasGamePaused = true;
 		}
 		else

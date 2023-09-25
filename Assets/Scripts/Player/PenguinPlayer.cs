@@ -216,7 +216,7 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		//_showingUI = false;
 	}
 	
-	public void StopShowingUI()
+	public void StopShowingUI(bool logClose=true)
 	{
 		_showingUI = false;
 		UnityEngine.Time.timeScale = 1;
@@ -230,7 +230,10 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		if(_mainUI != null)
 		{
 			_mainUI.SetActive(false);
-			PenguinAnalytics.Instance.LogCloseMenu();
+			if(logClose)
+			{
+				PenguinAnalytics.Instance.LogCloseMenu();
+			}
 		}
 		
 		EnableMovement();

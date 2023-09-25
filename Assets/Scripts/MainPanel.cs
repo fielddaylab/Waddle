@@ -183,6 +183,16 @@ public class MainPanel : MonoBehaviour
 					_handRay.SwitchPanel(HandRaycast.MenuPanel.eSURVEY_CODE);
 				}
 			}
+			else if(hitInfo.collider.transform.gameObject == _spanishButton)
+			{
+				PenguinMenuSystem.Instance.SwitchLanguage(PenguinMenuSystem.WhichLanguage.SPANISH);
+				PenguinAnalytics.Instance.LogLanguageSelected("Spanish");
+			}
+			else if(hitInfo.collider.transform.gameObject == _englishButton)
+			{
+				PenguinMenuSystem.Instance.SwitchLanguage(PenguinMenuSystem.WhichLanguage.ENGLISH);
+				PenguinAnalytics.Instance.LogLanguageSelected("English");
+			}
 		}
 		else if(PenguinMenuSystem.Instance.GetCurrentMenu() == PenguinMenuSystem.MenuType.EndMenu)
 		{

@@ -137,14 +137,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6110425961496703410}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6b606b5f0081af4bb9afe9e9a8d2be3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wanderRadius: 5
+  _wanderRadius: 15
   _idleTime: 4
-  _speed: 0.5
+  _speed: 0.8
+  _flier: 1
 --- !u!1001 &1800084669274526011
 PrefabInstance:
   m_ObjectHideFlags: 0
