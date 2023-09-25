@@ -35,6 +35,9 @@ public class ProtectTheNest : MiniGameController
     [SerializeField]
     ParticleSystem _hatchHeartParticles;
 
+	[SerializeField]
+	Cheeper _newbornCheeper;
+
     [SerializeField]
 	GameObject _isolationVoid;
 
@@ -185,6 +188,8 @@ public class ProtectTheNest : MiniGameController
         _timeWithoutEgg = _startTime;
         _theEgg.SetActive(true);
         _theNest.SetActive(true);
+        _newbornCheeper.SetState(Cheeper.CheepState.None);
+
 
         PenguinAnalytics.Instance.LogActivityBegin("skuas");
     }
@@ -254,6 +259,7 @@ public class ProtectTheNest : MiniGameController
         }
         _hatchHeartParticles.Pause();
         _hatchHeartParticles.Clear();
+        _newbornCheeper.SetState(Cheeper.CheepState.None);
 
         if (_theEgg != null)
         {
@@ -317,6 +323,10 @@ public class ProtectTheNest : MiniGameController
             particles.Play();
         }
 
+		_newbornCheeper.SetRate(30);
+		_newbornCheeper.SetState(Cheeper.CheepState.Muffled);
+		_newbornCheeper.SetFade(0, 0.8f, 3f);
+
         if (_theEgg != null)
 		{
 			_theEgg.transform.GetChild(0).gameObject.GetComponent<Animator>().SetTrigger("shake");
@@ -327,6 +337,7 @@ public class ProtectTheNest : MiniGameController
 	
 	IEnumerator FinishChickSequence(float waitTime)
 	{
+		// Breaking egg
 		if(_theEgg != null)
 		{
 			_theEgg.transform.GetChild(1).gameObject.GetComponent<Animator>().SetTrigger("break");
@@ -337,10 +348,15 @@ public class ProtectTheNest : MiniGameController
 		yield return new WaitForSeconds(8f);
 		waitTime -= 8f;
 
+		// Emerging Chick
+
         foreach (var particles in _preHatchParticles) {
             particles.Pause();
 			particles.Clear();
         }
+        _newbornCheeper.SetRate(60);
+        _newbornCheeper.SetState(Cheeper.CheepState.Open);
+        _newbornCheeper.SetFade(0.8f, 1, 3f);
 
         _theEgg.transform.GetChild(0).gameObject.GetComponent<Animator>().SetTrigger("stop");
 		_theEgg.transform.GetChild(0).gameObject.SetActive(false);
@@ -348,9 +364,15 @@ public class ProtectTheNest : MiniGameController
         yield return new WaitForSeconds(3f);
 		waitTime -= 3f;
 
+		// Hearts above emerging chick
+
         _hatchHeartParticles.Play();
 
         yield return new WaitForSeconds(waitTime);
+
+		// Animation completed
+
+
 
         // _theEgg.transform.GetChild(1).gameObject.GetComponent<Animator>().SetTrigger("stop");
 
