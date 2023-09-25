@@ -14,6 +14,7 @@ namespace Waddle {
     public class ManualCullingGroup : BatchedComponent, IEditorOnlyData {
         public Transform[] Roots;
         public MeshRenderer[] MeshRenderers;
+        public GameObject[] GameObjects;
 
 #if UNITY_EDITOR
 

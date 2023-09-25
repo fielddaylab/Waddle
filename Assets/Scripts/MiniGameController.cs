@@ -12,9 +12,6 @@ public class MiniGameController : MonoBehaviour
     protected float _currentTime = 0f;
     protected bool _isGameActive = false;
 
-    [SerializeField]
-    protected GameObject _startingPosition;
-
 	public delegate void OnEndGameDelegate();
 	public static event OnEndGameDelegate _endGameDelegate;
 

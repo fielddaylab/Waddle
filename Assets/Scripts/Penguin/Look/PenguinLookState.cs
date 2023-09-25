@@ -44,7 +44,7 @@ namespace Waddle {
         public override void OnSignal(Process process, StringHash32 signalId, object signalArgs) {
             if (signalId == "player-near") {
                 Collider c = (Collider) signalArgs;
-                process.TransitionTo(PenguinLookStates.LookAtTransform, new PenguinLookData() { TargetTransform = c.transform });
+                process.TransitionTo(PenguinLookStates.LookAtPlayer, new PenguinLookData() { TargetTransform = c.transform });
             }
         }
     }

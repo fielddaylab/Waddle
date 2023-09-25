@@ -99,7 +99,7 @@ namespace Waddle {
             }
         
             if (Frame.Interval(16)) {
-                DebugDraw.AddViewportText(new Vector2(0, 1), new Vector2(8, -8), string.Format("LODs {0} | {1} | {2}", refRoot.Stats.Close, refRoot.Stats.Mid, refRoot.Stats.Far), Color.yellow, 17f / 90, TextAnchor.UpperLeft, DebugTextStyle.BackgroundDark);
+                //DebugDraw.AddViewportText(new Vector2(0, 1), new Vector2(8, -8), string.Format("LODs {0} | {1} | {2}", refRoot.Stats.Close, refRoot.Stats.Mid, refRoot.Stats.Far), Color.yellow, 17f / 90, TextAnchor.UpperLeft, DebugTextStyle.BackgroundDark);
             }
         }
 

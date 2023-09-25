@@ -97,7 +97,7 @@ namespace Waddle {
                     m_State.BeatIndex = currentBeat;
                     if (currentBeat != prevBeat || m_State.PlaybackPosition < 0) {
                         m_State.OnBeat = true;
-                        m_State.OnMajorBeat = (currentBeat % m_State.Current.Measure) == (m_State.Current.Measure - 1);
+                        m_State.OnMajorBeat = currentBeat > 0 && (currentBeat % m_State.Current.Measure) == m_State.Current.MajorOn;
 
                         if (m_State.OnMajorBeat) {
                             Game.Events.Dispatch(MusicUtility.Event_MajorBeat);

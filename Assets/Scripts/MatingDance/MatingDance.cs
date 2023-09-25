@@ -14,12 +14,6 @@ using Waddle;
 public class MatingDance : MiniGameController {
     #region Inspector
 
-	[SerializeField]
-	private float _angleBuffer = 10;
-	
-	[SerializeField]
-	GameObject _walkToSpot = null;
-
     [SerializeField]
     private float m_Duration = 10;
 
@@ -69,10 +63,16 @@ public class MatingDance : MiniGameController {
 	
 	public override void RestartGame()
     {
+        m_HeartRenderer.gameObject.SetActive(false);
+        m_HeartRenderer.SetRotation(0, Axis.Y, Space.Self);
+        m_Heart.SetScale(0);
+        m_BigHeartRoutine.Stop();
+
         m_PlayRoutine.Stop();
         m_DanceCooldown = 0;
         m_Dancing = false;
         m_FeedbackQueued = false;
+        Game.Events.DeregisterAllForContext(this);
     }
 
     private void OnWaddle() {
@@ -118,11 +118,6 @@ public class MatingDance : MiniGameController {
         m_Dancing = false;
         m_FeedbackQueued = false;
 
-        m_HeartRenderer.gameObject.SetActive(false);
-        m_Heart.SetScale(0);
-        m_HeartRenderer.SetRotation(0, Axis.Y, Space.Self);
-        m_BigHeartRoutine.Stop();
-
         // Log early exit from game?
     }
 
@@ -136,7 +131,7 @@ public class MatingDance : MiniGameController {
 	}
 
     private IEnumerator Sequence() {
-        MusicUtility.Stop(5.5f);
+        MusicUtility.Stop(8);
 
         m_MatingDancePenguinBrain.ForceToAnimatorState("Bow", 0.1f);
         m_MatingDancePenguinBrain.Animator.SetBool("BopDance", true);
@@ -170,18 +165,15 @@ public class MatingDance : MiniGameController {
         yield return m_MatingDancePenguinBrain.Animator.WaitToCompleteState("Call");
 
         EndGame();
-
-        m_MatingDancePenguinBrain.SetWalkState(_walkToSpot.transform);
     }
 
     private IEnumerator BigHeartSequence() {
         SFXUtility.Play(m_Heart.GetComponent<AudioSource>(), m_HeartSound);
         yield return Routine.Combine(
             m_Heart.ScaleTo(1, 0.25f).Ease(Curve.BackOut),
-            m_HeartRenderer.RotateTo(720, 0.5f, Axis.Y, Space.Self, AngleMode.Absolute).Ease(Curve.CubeOut)
+            m_HeartRenderer.RotateTo(360 * 3, 0.7f, Axis.Y, Space.Self, AngleMode.Absolute).Ease(Curve.CubeOut)
         );
-        yield return 1.5f;
-        yield return m_Heart.ScaleTo(0, 0.5f).Ease(Curve.BackIn);
-        m_HeartRenderer.gameObject.SetActive(false);
+        yield return 0.3f;
+        yield return m_Heart.ScaleTo(1.03f, 0.4f).YoyoLoop(true).Ease(Curve.SineIn);
     }
 }

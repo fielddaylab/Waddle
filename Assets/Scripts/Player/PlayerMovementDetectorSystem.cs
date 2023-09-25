@@ -44,11 +44,11 @@ namespace Waddle
                 return;
             }
 
-            OVRInput.Controller connectedControllers = OVRInput.GetActiveController();
-            Log.Msg("Connected controllers {0}", connectedControllers);
-            if ((connectedControllers & DisableInputWhileControllers) != 0) {
-                return;
-            }
+            //OVRInput.Controller connectedControllers = OVRInput.GetActiveController();
+            //Log.Msg("Connected controllers {0}", connectedControllers);
+            //if ((connectedControllers & DisableInputWhileControllers) != 0) {
+            //    return;
+            //}
 
             Vector3 currentHeadOffset = m_StateB.CurrentHeadPos - m_StateB.HeadReference;
             Vector3 currentHeadLocalLook = m_StateB.BodyRoot.InverseTransformDirection(m_StateB.HeadLook);

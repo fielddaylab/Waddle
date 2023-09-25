@@ -14,5 +14,6 @@ namespace Waddle {
         [Header("BPM")]
         public float BPM;
         public int Measure = 4;
+        public int MajorOn = 3;
     }
 }

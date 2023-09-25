@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2137999746708601740, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
+      propertyPath: WanderParameters.WanderRadius
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5057784926981871767, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -63,20 +67,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6161181852866283513, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
   m_PrefabInstance: {fileID: 6075448510564641993}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1923834588531048192
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 130813825955670832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dc2ba0d5b84e15458f02f6654f90168, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _startTimeDelay: 4.5
-  _startTransition: 
 --- !u!82 &6820652947376843598
 AudioSource:
   m_ObjectHideFlags: 0
@@ -173,3 +163,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1923834588531048192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130813825955670832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dc2ba0d5b84e15458f02f6654f90168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startTimeDelay: 4.5
+  _startTransition: 

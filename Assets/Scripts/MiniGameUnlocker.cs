@@ -12,11 +12,8 @@ public class MiniGameUnlocker : MonoBehaviour
 {
 	public enum MiniGameCommonObjects
 	{
-		PEBBLES,
-		ICON,
 		NEST,
 		SNOW,
-		POLE,
 		PENGUINS,
 		RAY_OF_LIGHT,
 		MISC2
@@ -53,12 +50,6 @@ public class MiniGameUnlocker : MonoBehaviour
     {
         get { return _miniGame; }
         set { _miniGame = value; }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
 	void OnEnable()
@@ -135,21 +126,8 @@ public class MiniGameUnlocker : MonoBehaviour
 	{
 		if(_lockable && !_isGameUnlocked)
 		{
-            //transform.GetChild((int) MiniGameCommonObjects.ICON).GetComponent<MeshRenderer>().sharedMaterial = _unlockedMaterial;
             _isGameUnlocked = true;
-
-            //show border
-            // transform.GetChild((int)MiniGameCommonObjects.SNOW).gameObject.SetActive(true);
-
-            if (!Lockable) {
-                //if a lockable attraction, don't hide poles and icon until game actually running
-                //transform.GetChild((int) MiniGameCommonObjects.ICON).gameObject.SetActive(false);
-                //transform.GetChild((int) MiniGameCommonObjects.POLE).gameObject.SetActive(false);
-            }
-
             PenguinAnalytics.Instance.LogMatingDanceIndicator(100f);
-
-            PenguinAnalytics.Instance.LogNestComplete();
 
             //slow down the speed of the user, so harder for them to leave...
 

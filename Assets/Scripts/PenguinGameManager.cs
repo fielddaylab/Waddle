@@ -310,8 +310,10 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		//AudioListener.pause = false;
 		PenguinPlayer.Instance.StartBackgroundMusic();
 		PenguinPlayer.Instance.transform.position = _playerStartLocation.transform.position;
-				
-		PenguinAnalytics.Instance.LogStartGame();
+
+        Game.SharedState.Get<ManualCullingReference>().RegionsDirty = true;
+
+        PenguinAnalytics.Instance.LogStartGame();
 		
 		PenguinPlayer.Instance.ResetGazeLogging();
 		
@@ -332,8 +334,9 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		OnReset();
 		
 		PenguinPlayer.Instance.StopShowingUI();
-		
-		PenguinMenuSystem.Instance.ChangeMenuTo(PenguinMenuSystem.MenuType.PauseMenu);
+        PenguinGameManager._headMovementActive = true;
+
+        PenguinMenuSystem.Instance.ChangeMenuTo(PenguinMenuSystem.MenuType.PauseMenu);
 		
 		if(_gameMode != GameMode.ResearchMode)
 		{
