@@ -15,6 +15,7 @@ public class Cheeper : MonoBehaviour
 
     [SerializeField] private AudioClip _muffledCheep, _normalCheep; // quality of cheep
     [SerializeField] private float _cheepRate = 0; // rate at which cheeps occur (in cheeps per minute)
+    [SerializeField] private float _volMod = 0.75f;
     private float _cheepTimer = 0;
     private float _cheepTime;
 
@@ -49,7 +50,7 @@ public class Cheeper : MonoBehaviour
     }
 
     public void SetFade(float min, float max, float duration) {
-        m_audioSrc.volume = min;
+        m_audioSrc.volume = min * _volMod;
         _fadeRoutine.Replace(FadeRoutine(min, max, duration));
     }
 
@@ -60,7 +61,7 @@ public class Cheeper : MonoBehaviour
     }
 
     private IEnumerator FadeRoutine(float min, float max, float duration) {
-        yield return Tween.Float(min, max, (v) => { m_audioSrc.volume = v; }, duration);
+        yield return Tween.Float(min, max, (v) => { m_audioSrc.volume = v * _volMod; }, duration);
     }
 
     private void Update() {
@@ -73,7 +74,7 @@ public class Cheeper : MonoBehaviour
                 clip = _normalCheep;
             }
 
-            // m_audioSrc.pitch = Random.Range(-.2f, 0.2f);
+            m_audioSrc.pitch = Random.Range(0.95f, 1.05f);
             m_audioSrc.PlayOneShot(clip);
             float variance = 0.5f;
             _cheepTimer = Random.Range(0, _cheepTime * variance);

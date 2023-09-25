@@ -325,7 +325,7 @@ public class ProtectTheNest : MiniGameController
 
 		_newbornCheeper.SetRate(30);
 		_newbornCheeper.SetState(Cheeper.CheepState.Muffled);
-		_newbornCheeper.SetFade(0, 0.8f, 3f);
+		_newbornCheeper.SetFade(0.4f, 0.8f, 3f);
 
         if (_theEgg != null)
 		{
@@ -354,7 +354,7 @@ public class ProtectTheNest : MiniGameController
             particles.Pause();
 			particles.Clear();
         }
-        _newbornCheeper.SetRate(60);
+        _newbornCheeper.SetRate(30);
         _newbornCheeper.SetState(Cheeper.CheepState.Open);
         _newbornCheeper.SetFade(0.8f, 1, 3f);
 
