@@ -78,7 +78,11 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	static Vector3 _priorLocation = Vector3.zero;
 	
 	bool _logAppStarted = false;
-
+	
+	float _gamePausedTime = 0f;
+	
+	const float GAME_RESTART_TIME = 15f;
+	
     [InvokePreBoot]
     static private void PreBoot() {
         Game.SetEventDispatcher(new EventDispatcher<object>());
@@ -121,7 +125,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 
         //uncomment this if wanting to test things in editor without hmd
         BeginTheGame(PenguinGameManager.GameMode.ShowMode);
-		Debug.Log("GAME BEGUN?");
+		//Debug.Log("GAME BEGUN?");
     }
 	
 	public void BeginTheGame(PenguinGameManager.GameMode mode)
@@ -199,7 +203,8 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	{
 		PenguinAnalytics.Instance.LogHeadsetOn();
 		
-
+		PenguinPlayer.Instance.StopShowingUI(false);
+		
 		//StartCoroutine(ShowMessage("", 5f, 10f));
 		if(_wasUnmounted)
 		{
@@ -212,6 +217,20 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 				else
 				{
 					BeginTheGame(PenguinGameManager.GameMode.ShowMode);
+				}
+			}
+			else
+			{
+				if(UnityEngine.Time.realtimeSinceStartup - _gamePausedTime > GAME_RESTART_TIME) 
+				{
+					if(_gameWasStarted)
+					{
+						RestartGame();
+					}
+					else
+					{
+						BeginTheGame(PenguinGameManager.GameMode.ShowMode);
+					}
 				}
 			}
 			
@@ -332,15 +351,18 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		PenguinAnalytics.Instance.LogHeadsetOff();
 		
 		_wasUnmounted = true;
-		if(!_demoMode)
+		
+		_gamePausedTime = UnityEngine.Time.realtimeSinceStartup;
+		
+		PenguinPlayer.Instance.StartShowingUI(false, true);
+		/*if(!_demoMode)
 		{
 			PenguinPlayer.Instance.StartShowingUI(false);
 		}
 		else
 		{
 			PenguinPlayer.Instance.StartShowingUI(false, true);
-		}
-		
+		}*/
 		_isGamePaused = true;
 		//PenguinAnalytics.Instance.LogTimerPause();
 	}
