@@ -18,6 +18,9 @@ public class MatingDance : MiniGameController {
     private float m_Duration = 10;
 
     [SerializeField]
+    private float m_LookThreshold = 0.2f;
+
+    [SerializeField]
     private MusicAsset m_Music;
 
     [SerializeField]
@@ -84,9 +87,16 @@ public class MatingDance : MiniGameController {
             return;
         }
 
-        m_MatingDancePenguin.HeartParticles.Play();
-        m_DanceCooldown = 1;
-        m_FeedbackQueued = true;
+        PlayerHeadState head = Game.SharedState.Get<PlayerHeadState>();
+        Vector3 towardsPartner = m_MatingDancePenguin.DesiredPlayerLook.position - head.HeadRoot.position;
+        towardsPartner.Normalize();
+        float looking = Vector3.Dot(head.HeadRoot.forward, towardsPartner);
+        Log.Msg("[MatingDance] Player looking at partner {0}", looking);
+        if (looking >= m_LookThreshold) {
+            m_MatingDancePenguin.HeartParticles.Play();
+            m_DanceCooldown = 1;
+            m_FeedbackQueued = true;
+        }
     }
 
     private void OnBeat() {

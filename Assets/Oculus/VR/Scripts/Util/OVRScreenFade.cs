@@ -175,6 +175,10 @@ public class OVRScreenFade : MonoBehaviour
         m_FadeRoutine.Replace(this, Blink(0, 1, duration, onBlink)).TryManuallyUpdate(0);
     }
 
+    public bool IsFading() {
+        return m_FadeRoutine.Exists();
+    }
+
     /// <summary>
     /// Starts a fade in when a new level is loaded
     /// </summary>

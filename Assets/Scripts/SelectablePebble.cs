@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,13 +6,12 @@ using UnityEngine;
 public class SelectablePebble : MonoBehaviour
 {
     [SerializeField] bool selectable = true;
-    private Renderer rend;
-
-    private Material material;
+    [NonSerialized] private Renderer rend;
+    [NonSerialized] private Material material;
 
     void Start()
     {
-        rend = GetComponent<Renderer>();
+        rend = transform.GetChild(0).GetComponent<Renderer>();
         material = rend.material;
     }
 

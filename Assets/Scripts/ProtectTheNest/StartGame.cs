@@ -1,8 +1,10 @@
 //NSF Penguins VR Experience
 //Ross Tredinnick - WID Virtual Environments Group / Field Day Lab - 2021
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using BeauRoutine;
 using BeauUtil;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -28,10 +30,17 @@ public class StartGame : MonoBehaviour
 
     [SerializeField]
     private MeshRenderer m_HighlightRing;
+
+    [SerializeField]
+    private AudioSource m_ShimmerSound;
+
+    [NonSerialized] private float m_VolumeMultiplier;
+    private Routine m_AudioFadeRoutine;
 	
     // Start is called before the first frame update
     void OnEnable()
     {
+        m_VolumeMultiplier = m_ShimmerSound.volume;
         MiniGameController._endGameDelegate += OnEndGame;
 		//MiniGameController._startGameDelegate += OnStartGame;
 		PenguinGameManager.OnReset += OnResetGame;
@@ -127,6 +136,10 @@ public class StartGame : MonoBehaviour
         if (m_HighlightRing) {
             m_HighlightRing.enabled = true;
         }
+
+        m_AudioFadeRoutine.Stop();
+        m_ShimmerSound.volume = m_VolumeMultiplier;
+        m_ShimmerSound.Play();
 	}
 	
 	void OnTriggerEnter(Collider otherCollider)
@@ -160,12 +173,13 @@ public class StartGame : MonoBehaviour
             m_ParticleRing.Stop();
         }
 
+        m_AudioFadeRoutine.Replace(this, m_ShimmerSound.VolumeTo(0, 0.4f).OnComplete(() => m_ShimmerSound.Stop()));
+
         PenguinGameManager._headMovementActive = false;
 
         if (_loadScene) {
             StartCoroutine(LoadMiniGameAsync(_miniGame.ToString()));
-        }
-        else {
+        } else {
             OVRScreenFade.instance.Blink(BlinkTime, OnBlinkToStart);
         }
     }
@@ -173,14 +187,16 @@ public class StartGame : MonoBehaviour
 	
 	IEnumerator LoadMiniGameAsync(string _miniGameName)
 	{
+        OVRScreenFade.instance.FadeOut(BlinkTime);
 		AsyncOperation asyncLoad = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(_miniGameName, UnityEngine.SceneManagement.LoadSceneMode.Additive);
 		
-		while(!asyncLoad.isDone)
-		{
+		while(!asyncLoad.isDone || OVRScreenFade.instance.IsFading()) {
 			yield return null;
 		}
 
-        OVRScreenFade.instance.Blink(BlinkTime, OnBlinkToStart);
+        OnBlinkToStart();
+        yield return 0.1f;
+        OVRScreenFade.instance.FadeIn(BlinkTime);
 	}
 
     private void OnBlinkToStart() {

@@ -437,8 +437,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd2110bda385fe46baf40668e4ccf6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DesiredPlayerLook: {fileID: 4955979586022129846}
   HeartParticles: {fileID: 5709388530596418359}
   FinalHeartTransform: {fileID: 0}
+  BopFeedback: {fileID: 0}
 --- !u!4 &4461789101712782593 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4558435541182108397, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}

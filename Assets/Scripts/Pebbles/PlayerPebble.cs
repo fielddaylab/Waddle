@@ -10,6 +10,7 @@ namespace Waddle {
         public MeshRenderer Renderer;
         public SelectablePebble Shine;
         public SFXAsset PickUpSFX;
+        public ParticleSystem Particles;
 
         [NonSerialized] public bool PickedUp;
 
@@ -26,6 +27,7 @@ namespace Waddle {
                 Collider.enabled = true;
                 Renderer.enabled = true;
                 Shine.SetEnabled(true);
+                Particles.Play();
             };
         }
 
@@ -40,6 +42,7 @@ namespace Waddle {
             transform.localPosition = default;
             Shine.SetEnabled(false);
             SFXUtility.Play(GetComponent<AudioSource>(), PickUpSFX);
+            Particles.Stop();
 
             state.HoldingPebble = this;
 

@@ -12,7 +12,7 @@ namespace Waddle {
 
         public void ResetEffects() {
             Effect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-            Renderer.enabled = true;
+            Renderer.enabled = false;
             Renderer.sharedMaterial = ShineMaterial;
         }
     }

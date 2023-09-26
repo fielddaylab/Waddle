@@ -254,6 +254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Duration: 10
+  m_LookThreshold: 0.6
   m_Music: {fileID: 11400000, guid: 58db64939bfea7c4fbd8c1c4404886da, type: 2}
   m_GoodFeedback: {fileID: 11400000, guid: 9cc7963a46d62564c8c4ad58a4f0bc0b, type: 2}
   m_Heart: {fileID: 739999896}
@@ -277,6 +278,7 @@ MonoBehaviour:
   _facingThreshold: 0.6
   m_ParticleRing: {fileID: 941339940}
   m_HighlightRing: {fileID: 941339941}
+  m_ShimmerSound: {fileID: 941339939}
 --- !u!65 &496783151
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -487,6 +489,11 @@ PrefabInstance:
 --- !u!4 &941339938 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6167670198666451818, guid: df7463ba80f8e436eaf01fe9da7c8b2a, type: 3}
+  m_PrefabInstance: {fileID: 941339937}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &941339939 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2000075540170901268, guid: df7463ba80f8e436eaf01fe9da7c8b2a, type: 3}
   m_PrefabInstance: {fileID: 941339937}
   m_PrefabAsset: {fileID: 0}
 --- !u!198 &941339940 stripped

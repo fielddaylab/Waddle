@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2137999746708601740, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
+      propertyPath: WanderParameters.WanderRadius
+      value: 1.2
+      objectReference: {fileID: 0}
     - target: {fileID: 5057784926981871767, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
       propertyPath: m_RootOrder
       value: 0
