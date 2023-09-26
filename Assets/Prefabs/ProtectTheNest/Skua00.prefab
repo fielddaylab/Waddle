@@ -61,8 +61,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b64ed9d5779e546a0c705d0708513b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentSpot: {fileID: 0}
-  _moveFrequency: 0.7058824
+  _moveFrequency: 1
+  Renderer: {fileID: 445048359305549845}
+  FlashMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   Sounds: {fileID: 1143767456581023401}
   HitSound: {fileID: 11400000, guid: fbc31ce19336b5f48969e071608c83ba, type: 2}
   MoveSound: {fileID: 11400000, guid: ae4e5c003ec702346ad013c1f007a086, type: 2}
@@ -195,6 +196,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a506c094c127a9499ac48b213d02811, type: 3}
+--- !u!137 &445048359305549845 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -8239140968295908752, guid: 7a506c094c127a9499ac48b213d02811, type: 3}
+  m_PrefabInstance: {fileID: 830230161031799397}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &868957868028642702 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7a506c094c127a9499ac48b213d02811, type: 3}

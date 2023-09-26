@@ -2,8 +2,8 @@
 //Ross Tredinnick - WID Virtual Environments Group / Field Day Lab - 2021
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using BeauRoutine;
 using UnityEngine;
 using Waddle;
 
@@ -42,13 +42,18 @@ public class SkuaController : MonoBehaviour
 	public SkuaWalkState.WalkDirection WalkDir => _walkDir;
 
     public SkinnedMeshRenderer Renderer;
+    public Material FlashMaterial;
 
     public AudioSource Sounds;
     public SFXAsset HitSound;
     public SFXAsset MoveSound;
     public SFXAsset ApproachSound;
 	
-	GameObject _mainCamera;
+	[NonSerialized] GameObject _mainCamera;
+    [NonSerialized] Material _defaultMaterial;
+
+    private Routine m_FlashRoutine;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,9 +70,20 @@ public class SkuaController : MonoBehaviour
 		_skuaStateContext.Transition(_idleState);
 		
 		_mainCamera = Camera.main.gameObject;
+        _defaultMaterial = Renderer.sharedMaterial;
     }
-	
-	public void SetNewSpot(SkuaSpot newSpot)
+
+    public Animator GetAnimController() {
+        if (_animController == null) {
+            _animController = transform.GetChild(0).GetComponent<Animator>();
+        }
+
+        return _animController;
+    }
+
+    #region Setters
+
+    public void SetNewSpot(SkuaSpot newSpot)
 	{
 		
 		if(_currentSpot != null)
@@ -92,23 +108,12 @@ public class SkuaController : MonoBehaviour
 	{
 		_theEgg = theEgg;
 	}
-	
-	public Animator GetAnimController() 
-	{
-		if(_animController == null)
-		{
-			_animController = transform.GetChild(0).GetComponent<Animator>();
-		}
-		
-		return _animController; 
-	}
-	
-	public bool InHitState()
-	{
-		return (_skuaStateContext.CurrentState == _hitState);
-	}
-	
-	public void WalkToSpot(SkuaWalkState.WalkDirection eDir)
+
+    #endregion // Setters
+
+    #region State Transitions
+
+    public void WalkToSpot(SkuaWalkState.WalkDirection eDir)
 	{
 		_walkDir = eDir;
 		
@@ -146,8 +151,16 @@ public class SkuaController : MonoBehaviour
 	{
 		_skuaStateContext.Transition(_removeState);
 	}
-	
-	public SkuaSpot SearchForOuterSpot()
+
+    #endregion // State Transitions
+
+    #region Queries
+
+    public bool InHitState() {
+        return (_skuaStateContext.CurrentState == _hitState);
+    }
+
+    public SkuaSpot SearchForOuterSpot()
 	{
 		//currently assuming this will only be called from a skua on the center after grabbing an egg...
 		SkuaSpot newSpot = null;
@@ -253,15 +266,21 @@ public class SkuaController : MonoBehaviour
 		
 		return newSpot;
 	}
-	
-	void OnCollisionEnter(Collision otherCollision)
+
+    #endregion // Queries
+
+    #region Handlers
+
+    void OnCollisionEnter(Collision otherCollision)
 	{
+        string otherName = otherCollision.collider.gameObject.name;
 		//Debug.Log("Skua collided");
 		//Debug.Log("Impulse: " + otherCollision.impulse);
 		//Debug.Log("Relative Velocity: " + otherCollision.relativeVelocity);
-		if(otherCollision.gameObject.name.StartsWith("Flipper"))
+		if(otherName.StartsWith("Flipper"))
 		{
-            bool isRight = otherCollision.gameObject.name.EndsWith("Right");
+            bool isRight = otherName.EndsWith("Right");
+
 			if(_currentSpot != null && (_currentSpot.IsInner || _theEgg != null))
 			{
 				if(_theEgg != null)
@@ -279,13 +298,17 @@ public class SkuaController : MonoBehaviour
 				//if(Vector3.Dot(toSkua, lookDir) > 0.5f)
 				{
 					SkuaHit();
-                    if (isRight) {
-                        OVRHaptics.RightChannel?.Mix(ProtectTheNest.SlapHaptics);
-                    } else {
-                        OVRHaptics.LeftChannel?.Mix(ProtectTheNest.SlapHaptics);
+                    if (PenguinPlayer.SlapHaptics.Ready) {
+                        if (isRight) {
+                            OVRHaptics.RightChannel?.Mix(PenguinPlayer.SlapHaptics);
+                        } else {
+                            OVRHaptics.LeftChannel?.Mix(PenguinPlayer.SlapHaptics);
+                        }
                     }
 				}
 			}
 		}
 	}
+
+    #endregion // Handlers
 }

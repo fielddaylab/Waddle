@@ -45,6 +45,9 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 
     [SerializeField]
     private MusicAsset _defaultMusic;
+
+    [SerializeField]
+    private AudioClip _slapHaptics;
 	
 	LineRenderer _lineRenderer;
 	
@@ -63,6 +66,8 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 	uint _gazeLogFrameCount = 0;
 	string _currentRegion = "none";
 
+    static public OVRHapticsClip SlapHaptics { get; private set; }
+
 	public string CurrentRegion
 	{
 		get { return _currentRegion; }
@@ -77,6 +82,10 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		ResetGazeLogging();
 
         StartBackgroundMusic();
+
+        if (SlapHaptics == null && _slapHaptics) {
+            SlapHaptics = new OVRHapticsClip(_slapHaptics);
+        }
     }
 	
 	public void ResetGazeLogging()

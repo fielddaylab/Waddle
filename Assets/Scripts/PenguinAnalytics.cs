@@ -8,8 +8,11 @@ using BeauUtil;
 using FieldDay;
 using System;
 using System.Security.Cryptography;
+using Waddle;
+using System.Runtime.InteropServices;
 
 //[System.Serializable]
+[StructLayout(LayoutKind.Sequential)]
 public struct LogGazeData
 {
     public unsafe fixed float pos[3];
@@ -740,7 +743,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
         }
     }
 
-    public void LogMove(Vector3 oldPos, Vector3 pos, Quaternion gaze, int object_id)
+    public void LogMove(Vector3 oldPos, Vector3 pos, Quaternion gaze, int object_id, PlayerMovementSource source)
     {
         if(_loggingEnabled)
 		{
@@ -758,6 +761,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
             _ogdLog.EventParam("rotY", gaze.y);
             _ogdLog.EventParam("rotZ", gaze.z);
             _ogdLog.EventParam("rotW", gaze.w);
+            _ogdLog.EventParam("source", source == PlayerMovementSource.Button ? "button" : "waddle");
             _ogdLog.SubmitEvent();
         }
     }
@@ -824,9 +828,11 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 
     static private unsafe void WriteGazeData(StringBuilder sb, string paramName, LogGazeData[] data, int count) {
         sb.Clear().Append("{\"").Append(paramName).Append("\":\"[");
-        for(int i = 0; i < count; i++) {
-            AppendGazeFrame(sb, data[i]);
-            sb.Append(',');
+        if (count > 0) {
+            for (int i = 0; i < count; i++) {
+                AppendGazeFrame(sb, data[i]);
+                sb.Append(',');
+            }
         }
         sb.Length--; // eliminate last comma
         sb.Append("]\"}");

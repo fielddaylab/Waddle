@@ -42,10 +42,16 @@ public class OVRHapticsClip
 	/// </summary>
 	public byte[] Samples { get; private set; }
 
+    /// <summary>
+    /// If the haptics data is ready to be used.
+    /// </summary>
+    public bool Ready { get; private set; }
+
 	public OVRHapticsClip()
 	{
 		Capacity = OVRHaptics.Config.MaximumBufferSamplesCount;
 		Samples = new byte[Capacity * OVRHaptics.Config.SampleSizeInBytes];
+        Ready = true;
 	}
 
 	/// <summary>
@@ -55,7 +61,8 @@ public class OVRHapticsClip
 	{
 		Capacity = (capacity >= 0) ? capacity : 0;
 		Samples = new byte[Capacity * OVRHaptics.Config.SampleSizeInBytes];
-	}
+        Ready = true;
+    }
 
 	/// <summary>
 	/// Creates a clip with the specified data.
@@ -65,7 +72,8 @@ public class OVRHapticsClip
 		Samples = samples;
 		Capacity = Samples.Length / OVRHaptics.Config.SampleSizeInBytes;
 		Count = (samplesCount >= 0) ? samplesCount : 0;
-	}
+        Ready = true;
+    }
 
 	/// <summary>
 	/// Creates a clip by mixing the specified clips.
@@ -94,7 +102,9 @@ public class OVRHapticsClip
 				WriteSample(sample); // TODO support multi-byte samples
 			}
 		}
-	}
+
+        Ready = true;
+    }
 
 	/// <summary>
 	/// Creates a haptics clip from the specified audio clip.
@@ -142,6 +152,11 @@ public class OVRHapticsClip
 	{
 		double stepSizePrecise = (sourceFrequency + 1e-6) / OVRHaptics.Config.SampleRateHz;
 
+        if (double.IsInfinity(stepSizePrecise)) {
+            Debug.LogWarning("no haptics available");
+            return;
+        }
+
 		if (stepSizePrecise < 1.0)
 			return;
 
@@ -171,5 +186,6 @@ public class OVRHapticsClip
 		}
 
         UnityEngine.Debug.LogFormat("finished decoding haptics clip");
-	}
+        Ready = true;
+    }
 }

@@ -953,6 +953,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2097152
   _defaultMusic: {fileID: 11400000, guid: 0a09f4f02c74d0544b58a2f9ada15ec0, type: 2}
+  _slapHaptics: {fileID: 8300000, guid: 976d620677e3bd645a00f27eb6c623b0, type: 3}
 --- !u!114 &2360715680209839765
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -310,10 +310,10 @@ public class PenguinMenuSystem : Singleton<PenguinMenuSystem>
             _titleText.GetComponent<MeshRenderer>().enabled = true;
 
             if (_lastLanguage == WhichLanguage.ENGLISH) {
-                _titleText.GetComponent<TMPro.TextMeshPro>().text = "Your chick hatched!\nThank you for playing";
+                _titleText.GetComponent<TMPro.TextMeshPro>().text = "You hatched a chick!";
             }
             else if (_lastLanguage == WhichLanguage.SPANISH) {
-                _titleText.GetComponent<TMPro.TextMeshPro>().text = "[Spanish for 'Your chick hatched!\nThank you for playing']";
+                _titleText.GetComponent<TMPro.TextMeshPro>().text = "¡Eclosionaste un bebe pinguino!";
             }
 
             //_closeButton.SetActive(false);

@@ -29,7 +29,7 @@ namespace Waddle
                 Vector3 finalPos = m_StateB.PositionRoot.position;
 
                 if (result == PlayerMoveResult.Allowed) {
-                    PenguinAnalytics.Instance.LogMove(originalPos, finalPos, m_StateB.HeadRotation, m_StateA.FromRight ? 1 : 0);
+                    PenguinAnalytics.Instance.LogMove(originalPos, finalPos, m_StateB.HeadRotation, m_StateA.FromRight ? 1 : 0, m_StateA.QueuedSource);
 
                     SFXUtility.Play(m_StateA.FootAudioSource, m_StateA.StepAudioClips);
 

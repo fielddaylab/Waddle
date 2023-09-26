@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5691439b7ebc8c46a3177416f17daae, type: 3}
   m_Name: MainMusic
   m_EditorClassIdentifier: 
-  Clip: {fileID: 8300000, guid: 684743ae66203e84e85d3246a8d396f6, type: 3}
+  Clip: {fileID: 8300000, guid: 7951be689df347545b750d881a274819, type: 3}
   Volume: 1
   BPM: 0
   Measure: 4
+  MajorOn: 3

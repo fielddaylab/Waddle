@@ -32,9 +32,6 @@ public class ProtectTheNest : MiniGameController
     GameObject _theNest;
 
     [SerializeField]
-    AudioClip _hapticSound;
-
-    [SerializeField]
     MusicAsset _music;
 
     [Header("Ending")]
@@ -70,10 +67,6 @@ public class ProtectTheNest : MiniGameController
         _mainCam = Camera.main.gameObject;
 
         _ptnUnlocker = GameObject.Find("ProtectTheNestUnlocker");
-
-        if (SlapHaptics == null) {
-            SlapHaptics = new OVRHapticsClip(_hapticSound);
-        }
     }
 
     // Update is called once per frame
@@ -420,6 +413,4 @@ public class ProtectTheNest : MiniGameController
 
         EndGame();
 	}
-
-    static public OVRHapticsClip SlapHaptics { get; private set; }
 }
