@@ -5957,6 +5957,7 @@ MonoBehaviour:
   _theEgg: {fileID: 1081659795}
   _theNest: {fileID: 591629438}
   _hapticSound: {fileID: 8300000, guid: dd1f25760f2f73841bb542e8895613fd, type: 3}
+  _music: {fileID: 11400000, guid: fee329e47bf16fb49808da6894fb2f50, type: 2}
   _preHatchParticles:
   - {fileID: 578720800}
   - {fileID: 1586445344}
@@ -8351,7 +8352,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1567735874}
-  m_LocalRotation: {x: -0, y: 0.7603795, z: -0, w: 0.64947903}
+  m_LocalRotation: {x: -0, y: 0.11821519, z: -0, w: -0.992988}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1503, y: 0.1, z: 0.1015}
   m_ConstrainProportionsScale: 0

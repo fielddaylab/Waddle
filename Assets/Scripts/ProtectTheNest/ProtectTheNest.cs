@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BeauRoutine;
+using Waddle;
 
 public class ProtectTheNest : MiniGameController
 {
@@ -33,6 +34,9 @@ public class ProtectTheNest : MiniGameController
     [SerializeField]
     AudioClip _hapticSound;
 
+    [SerializeField]
+    MusicAsset _music;
+
     [Header("Ending")]
 
     [SerializeField]
@@ -58,11 +62,14 @@ public class ProtectTheNest : MiniGameController
 	bool _chickStarting = false;
 	
 	GameObject _mainCam = null;
+    GameObject _ptnUnlocker;
 	
     // Start is called before the first frame update
     void Start()
     {
         _mainCam = Camera.main.gameObject;
+
+        _ptnUnlocker = GameObject.Find("ProtectTheNestUnlocker");
 
         if (SlapHaptics == null) {
             SlapHaptics = new OVRHapticsClip(_hapticSound);
@@ -124,8 +131,9 @@ public class ProtectTheNest : MiniGameController
 			
 			_playingEggSequence = true;
 			_eggTimer.SetActive(false);
-			
-			StartCoroutine(StartChickSequence(2.0f));
+            MusicUtility.Stop();
+
+            StartCoroutine(StartChickSequence(2.0f));
             //EndGame();
             return;
 		}
@@ -197,6 +205,7 @@ public class ProtectTheNest : MiniGameController
         _theNest.SetActive(true);
         _newbornCheeper.SetState(Cheeper.CheepState.None);
 
+        MusicUtility.Play(_music, 1);
 
         PenguinAnalytics.Instance.LogActivityBegin("skuas");
     }
@@ -323,6 +332,7 @@ public class ProtectTheNest : MiniGameController
 
         yield return new WaitForSeconds(delay);
 
+        _ptnUnlocker.transform.GetChild((int) MiniGameUnlocker.MiniGameCommonObjects.SNOW).gameObject.SetActive(false);
 
         // Activate particle fountain
         foreach (var particles in _preHatchParticles) {

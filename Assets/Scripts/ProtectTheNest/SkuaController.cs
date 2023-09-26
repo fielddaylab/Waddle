@@ -1,6 +1,7 @@
 //NSF Penguins VR Experience
 //Ross Tredinnick - WID Virtual Environments Group / Field Day Lab - 2021
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,7 @@ public class SkuaController : MonoBehaviour
 	
 	Animator _animController;
 	
-	[SerializeField]
+	[NonSerialized]
 	SkuaSpot _currentSpot;
 	
 	public SkuaSpot CurrentSpot => _currentSpot;
@@ -39,6 +40,8 @@ public class SkuaController : MonoBehaviour
 	private SkuaWalkState.WalkDirection _walkDir;
 	
 	public SkuaWalkState.WalkDirection WalkDir => _walkDir;
+
+    public SkinnedMeshRenderer Renderer;
 
     public AudioSource Sounds;
     public SFXAsset HitSound;
@@ -197,7 +200,7 @@ public class SkuaController : MonoBehaviour
 		
 		while(newSpot == null)
 		{
-			float r = Random.value;
+			float r = UnityEngine.Random.value;
 			if(r < 0.1)
 			{
 				if(_currentSpot != null)
