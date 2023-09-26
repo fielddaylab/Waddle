@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BranchNamePatterns:
   - main
+  - feature/*
   DevelopmentBuild: 0
   CustomDefines: PRODUCTION
   Order: 0
