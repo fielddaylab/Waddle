@@ -5,5 +5,6 @@ namespace Waddle {
         public Transform FirstWalkNode;
         public Transform SecondWalkNode;
         public Transform ThirdWalkNode;
+        public Collider SensorCollider;
     }
 }

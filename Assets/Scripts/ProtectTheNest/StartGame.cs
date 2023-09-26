@@ -117,6 +117,11 @@ public class StartGame : MonoBehaviour
 	{
 		gameObject.GetComponent<Collider>().enabled = true;
 
+        AudioSource audio = GetComponent<AudioSource>();
+        if (audio != null) {
+            audio.Stop();
+        }
+
         if (m_ParticleRing) {
             m_ParticleRing.Play();
         }

@@ -3,7 +3,9 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using BeauRoutine;
 using UnityEngine;
+using UnityEngine.Rendering.UI;
 
 public class PenguinMenuSystem : Singleton<PenguinMenuSystem>
 {
@@ -73,7 +75,7 @@ public class PenguinMenuSystem : Singleton<PenguinMenuSystem>
 		if(PenguinGameManager._isGamePaused)
 		{
 			//transform.position = PenguinPlayer.Instance.transform.position + PenguinPlayer.Instance.transform.forward * 0.01f + _menuOffset;
-			ForceUpdate();
+			ForceUpdate(true);
 			_wasGamePaused = true;
 		}
 		else
@@ -86,23 +88,31 @@ public class PenguinMenuSystem : Singleton<PenguinMenuSystem>
 		
 		if(_wasGamePaused && _wasNowUnpaused)
 		{
-			ForceUpdate();
+			ForceUpdate(true);
 			_wasNowUnpaused = false;
 			_wasGamePaused = false;
 		}
     }
 	
-	public void ForceUpdate()
+	public void ForceUpdate(bool shouldLerp)
 	{
 		Vector3 p = Vector3.zero;
 		Vector3 f = Vector3.zero;
 		PenguinPlayer.Instance.GetPosForward(out p, out f);
-		f.y = 0.0f;
+		f.y = Mathf.Clamp(f.y, -0.1f, 0.1f);
 		f = Vector3.Normalize(f);
-		transform.position = p + f * 0.01f + _menuOffset;
-		Quaternion q = transform.rotation;
-		q.SetLookRotation(f, Vector3.up);
-		transform.rotation = q;
+        Vector3 targetPos = p + f * 0.01f + _menuOffset;
+        Quaternion targetQ = transform.rotation;
+		targetQ.SetLookRotation(f, Vector3.up);
+
+        if (shouldLerp) {
+            float lerp = TweenUtil.Lerp(6, 1, Time.unscaledDeltaTime);
+
+            transform.GetPositionAndRotation(out Vector3 currentPos, out Quaternion currentRot);
+            transform.SetPositionAndRotation(Vector3.Lerp(currentPos, targetPos, lerp), Quaternion.Slerp(currentRot, targetQ, lerp));
+        } else {
+            transform.SetPositionAndRotation(targetPos, targetQ);
+        }
 	}
 
 	WhichLanguage GetCurrentLanguage() { return _lastLanguage; }
@@ -216,6 +226,7 @@ public class PenguinMenuSystem : Singleton<PenguinMenuSystem>
 	public void ChangeMenuTo(MenuType menu)
 	{
 		_currentType = menu;
+        ForceUpdate(false);
 		/*
 		if(menu == MenuType.MainMenu)
 		{

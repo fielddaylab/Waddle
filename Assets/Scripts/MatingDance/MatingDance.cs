@@ -45,10 +45,14 @@ public class MatingDance : MiniGameController {
     private void Start() {
         m_MatingDancePenguin = GameObject.FindObjectOfType<MatingDancePenguin>();
         m_MatingDancePenguinBrain = m_MatingDancePenguin.GetComponent<PenguinBrain>();
+
+        m_HeartRenderer.gameObject.SetActive(false);
     }
 
     public override void StartGame()
     {
+        base.StartGame();
+
 		Debug.Log("Starting mating dance");
         base.StartGame();
         m_PlayRoutine.Replace(this, Sequence());

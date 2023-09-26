@@ -11,7 +11,7 @@ namespace Waddle {
             PenguinGuideParams guideParms = brain.GetComponent<PenguinGuideParams>();
             brain.Animator.SetBool("BopDance", true);
             brain.ForceToAnimatorState("BopBeat_Action", 0.2f);
-            yield return process.WaitForSignal("player-cross-initial-threshold");
+            yield return WaitForPlayerInRange(brain);
             brain.Animator.SetBool("BopDance", false);
             brain.ForceToAnimatorState("Idle", 0.2f);
             brain.SetWalkState(guideParms.FirstWalkNode);
@@ -21,10 +21,10 @@ namespace Waddle {
             }
             brain.Animator.SetBool("AttackedTwice", true);
             brain.Animator.SetBool("FrontAttack", true);
-            yield return new WaitForSeconds (4);
+            yield return 4;
             brain.Animator.SetBool("AttackedTwice", false);
             brain.Animator.SetBool("FrontAttack", false);
-            yield return process.WaitForSignal("player-cross-second-threshold");
+            yield return WaitForPlayerInRange(brain);
             brain.SetWalkState(guideParms.SecondWalkNode);
             yield return null;
             while (brain.Steering.HasTarget)
@@ -39,9 +39,15 @@ namespace Waddle {
             }
             brain.Animator.SetBool("AttackedTwice", true);
             brain.Animator.SetBool("FrontAttack", true);
-            yield return new WaitForSeconds(4);
+            yield return 4;
             brain.Animator.SetBool("AttackedTwice", false);
             brain.Animator.SetBool("FrontAttack", false);
+        }
+
+        static private IEnumerator WaitForPlayerInRange(PenguinBrain brain) {
+            while (!brain.LookSmoothing.IsLooking) {
+                yield return null;
+            }
         }
     }
 }

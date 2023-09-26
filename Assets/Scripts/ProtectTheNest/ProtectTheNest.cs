@@ -2,8 +2,10 @@
 //Ross Tredinnick - WID Virtual Environments Group / Field Day Lab - 2021
 
 using BeauRoutine;
+using BeauUtil;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class ProtectTheNest : MiniGameController
@@ -24,6 +26,8 @@ public class ProtectTheNest : MiniGameController
 
     [SerializeField]
     GameObject _theNest;
+
+    [Header("Ending")]
 
     [SerializeField]
     ParticleSystem[] _preHatchParticles;
@@ -51,6 +55,8 @@ public class ProtectTheNest : MiniGameController
 	bool _chickStarting = false;
 	
 	GameObject _mainCam = null;
+
+    static StringBuilder sb = new StringBuilder(8); 
 	
     // Start is called before the first frame update
     void Start()
@@ -136,18 +142,7 @@ public class ProtectTheNest : MiniGameController
                     _timeWithoutEgg += Time.deltaTime;
                     float t = _timeWithoutEgg - _startTime;
                     float timeLeft = _gameTimeLimit - t;
-                    if(timeLeft > 0f)
-                    {
-                        System.TimeSpan ts = System.TimeSpan.FromSeconds(timeLeft);
-                        _eggTimer.GetComponent<TMPro.TextMeshPro>().text = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
-						PenguinAnalytics.Instance.LogEggTimer(timeLeft);
-                    }
-                    else
-                    {
-                        System.TimeSpan ts = System.TimeSpan.FromSeconds(0);
-                        _eggTimer.GetComponent<TMPro.TextMeshPro>().text = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
-						PenguinAnalytics.Instance.LogEggTimer(0f);
-                    }					
+                    UpdateTimer(timeLeft);				
                 }
             }
         }
@@ -162,6 +157,18 @@ public class ProtectTheNest : MiniGameController
 
         return false;
 	}
+
+    private void UpdateTimer(float timeLeft) {
+        if (timeLeft > 0) {
+            int rounded = Mathf.CeilToInt(timeLeft);
+            int minutes = rounded / 60;
+            int seconds = rounded - minutes * 60;
+            sb.Clear().AppendNoAlloc(minutes, 2).Append(':').AppendNoAlloc(seconds, 2);
+            _eggTimer.GetComponent<TMPro.TextMeshPro>().SetText(sb);
+        } else {
+            _eggTimer.GetComponent<TMPro.TextMeshPro>().SetText("00:00");
+        }
+    }
 
     public override void StartGame()
     {

@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &143051655
 Transform:
   m_ObjectHideFlags: 0
@@ -233,7 +233,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 496783145}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 22.05, y: 2.5, z: 51.934}
+  m_LocalPosition: {x: 22.691, y: 2.5, z: 51.722}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -274,7 +274,7 @@ MonoBehaviour:
   _miniGame: 1
   _loadScene: 0
   _strictAngle: 1
-  _facingThreshold: 0.5
+  _facingThreshold: 0.6
   m_ParticleRing: {fileID: 941339940}
   m_HighlightRing: {fileID: 941339941}
 --- !u!65 &496783151
@@ -314,15 +314,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 739999895}
-  m_LocalRotation: {x: -0, y: -0.75542504, z: -0, w: 0.6552351}
-  m_LocalPosition: {x: 22.871, y: 3.0295, z: 52.016}
+  m_LocalRotation: {x: -0, y: -0.90371436, z: -0, w: 0.42813602}
+  m_LocalPosition: {x: 23.293, y: 3.0295, z: 52.107}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 143051655}
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: -98.125, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -129.301, z: 0}
 --- !u!82 &739999897
 AudioSource:
   m_ObjectHideFlags: 0

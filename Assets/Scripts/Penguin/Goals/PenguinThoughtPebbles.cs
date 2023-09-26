@@ -9,7 +9,7 @@ namespace Waddle {
             PenguinBrain brain = Brain(process);
             PenguinPebbleData pebbleData = brain.GetComponent<PenguinPebbleData>();
             pebbleData.HeldPebbleRenderer.enabled = false;
-            while (pebbleData.PebblesToGather > 0) {
+            while (true) {
                 yield return RNG.Instance.Next(2, 4);
                 PebbleSource nearbySource = FindRandomSource(pebbleData);
                 brain.SetMainState(PenguinStates.Walk, new PenguinWalkData() { TargetPosition = nearbySource.transform.position });
@@ -20,9 +20,9 @@ namespace Waddle {
                 brain.Animator.SetTrigger("T_PebblePickup");
                 brain.Animator.SetBool("PebbleCarried", true);
                 yield return 1;
-                yield return new WaitForSeconds(1.5f);
+                yield return 1.5f;
                 pebbleData.HeldPebbleRenderer.enabled = true;
-                yield return new WaitForSeconds(0.5f);
+                yield return 0.5f;
                 brain.SetMainState(PenguinStates.Walk, new PenguinWalkData() { TargetPosition = pebbleData.PebbleDropOff.position });
                 yield return null;
                 while(brain.Steering.HasTarget) {
@@ -31,11 +31,11 @@ namespace Waddle {
 
                 brain.Animator.SetTrigger("T_PebbleDropOff");
                 brain.Animator.SetBool("PebbleCarried", false);
-                yield return new WaitForSeconds(1);
+                yield return 1;
                 pebbleData.HeldPebbleRenderer.enabled = false;
-                yield return new WaitForSeconds(2);
+                yield return 2;
 
-                pebbleData.PebblesToGather -= 1;
+                //pebbleData.PebblesToGather -= 1;
             }
         }
 

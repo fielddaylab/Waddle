@@ -11,7 +11,7 @@ using FieldDay.Processes;
 using UnityEngine;
 using Waddle;
 
-public class SkuaBrain : ProcessBehaviour, IPoolAllocHandler {
+public class SkuaBrain : ProcessBehaviour, IPooledObject<SkuaBrain> {
     [Flags]
     public enum AnimId {
         Forward,
@@ -36,17 +36,30 @@ public class SkuaBrain : ProcessBehaviour, IPoolAllocHandler {
     public SFXAsset SpawnSound;
 
     [NonSerialized] public SkuaSpot Spot;
+    [NonSerialized] public IPool<SkuaBrain> Pool;
+
+    private void OnEnable() {
+        
+    }
 
     #region IPoolAllocHandler
 
-    void IPoolAllocHandler.OnAlloc() {
+    void IPooledObject<SkuaBrain>.OnAlloc() {
     }
 
-    void IPoolAllocHandler.OnFree() {
+    void IPooledObject<SkuaBrain>.OnFree() {
         if (Spot != null) {
             Spot.Occupant = null;
             Spot = null;
         }
+    }
+
+    void IPooledObject<SkuaBrain>.OnConstruct(IPool<SkuaBrain> inPool) {
+        Pool = inPool;
+    }
+
+    void IPooledObject<SkuaBrain>.OnDestruct() {
+        Pool = null;
     }
 
     #endregion // IPoolAllocHandler
@@ -137,6 +150,14 @@ namespace Waddle.Skua {
             SetAnimation(brain, SkuaBrain.AnimId.Idle);
             SetRigidbodyPhysics(brain, false);
         }
+    }
+
+    public class SkuaEggState : SkuaState {
+
+    }
+
+    public class SkuaEatingState : SkuaState {
+
     }
 
     static public class SkuaStates {

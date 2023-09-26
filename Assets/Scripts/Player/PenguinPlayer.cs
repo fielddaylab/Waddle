@@ -303,6 +303,7 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 			if(_mainUI != null)
 			{
 				_mainUI.SetActive(true);
+                _mainUI.GetComponent<PenguinMenuSystem>().ForceUpdate(false);
 
 				PenguinAnalytics.Instance.LogOpenMenu();
 			}

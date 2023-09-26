@@ -17,6 +17,9 @@ namespace Waddle {
         [Header("Wandering")]
         public PenguinWanderData WanderParameters = new PenguinWanderData() { IdleWait = 4, IdleWaitRandom = 4, WanderRadius = 4 };
 
+        [Header("Audio")]
+        public SFXAsset DefaultVocalize;
+
         [Header("-- DEBUG -- ")]
         [SerializeField] private Transform m_DEBUGLookAt;
         [SerializeField] private Transform m_DEBUGWalkTo;

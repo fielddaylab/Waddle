@@ -37,6 +37,10 @@ public class SkuaCoordinator : MonoBehaviour
     public void Begin() {
         Game.Events.Register(MusicUtility.Event_Beat, OnBeat)
             .Register(MusicUtility.Event_MajorBeat, OnMajorBeat);
+
+        m_WaveIndex = 0;
+        m_BeatCount = 0;
+        m_MajorBeatCount = 0;
     }
 
     public void End() {
@@ -46,7 +50,7 @@ public class SkuaCoordinator : MonoBehaviour
 
     private void OnMajorBeat() {
         m_MajorBeatCount++;
-        if (m_WaveIndex < m_Waves.Length && m_MajorBeatCount >= m_Waves[m_WaveIndex].MajorBeatLength) {
+        if (m_WaveIndex < m_Waves.Length - 1 && m_MajorBeatCount >= m_Waves[m_WaveIndex].MajorBeatLength) {
             m_WaveIndex++;
             m_BeatCount = 0;
             AdvanceWave();
@@ -58,6 +62,7 @@ public class SkuaCoordinator : MonoBehaviour
 
     private void OnBeat() {
         m_BeatCount++;
+        SpawnSkuaIfNeeded();
     }
 
     private void AdvanceWave() {
