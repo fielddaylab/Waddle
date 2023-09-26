@@ -20,6 +20,7 @@
 
 using UnityEngine;
 using System.Collections;
+using BeauRoutine;
 
 /// <summary>
 /// A PCM buffer of data for a haptics effect.
@@ -103,7 +104,11 @@ public class OVRHapticsClip
 		float[] audioData = new float[audioClip.samples * audioClip.channels];
 		audioClip.GetData(audioData, 0);
 
-		InitializeFromAudioFloatTrack(audioData, audioClip.frequency, audioClip.channels, channel);
+        var frequency = audioClip.frequency;
+        var channels = audioClip.channels;
+        Async.Schedule(() => {
+		    InitializeFromAudioFloatTrack(audioData, frequency,channels, channel);
+        });
 	}
 
 	/// <summary>
@@ -164,5 +169,7 @@ public class OVRHapticsClip
 				accumulatedStepSizeError = accumulatedStepSizeError - (int)accumulatedStepSizeError;
 			}
 		}
+
+        UnityEngine.Debug.LogFormat("finished decoding haptics clip");
 	}
 }

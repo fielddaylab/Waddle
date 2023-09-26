@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 815126360956734224}
   - component: {fileID: 920230099167179938}
+  - component: {fileID: -2421992708147584590}
   - component: {fileID: 5023670208622403576}
-  - component: {fileID: 8711340136464622780}
   m_Layer: 10
   m_Name: Skua00
   m_TagString: Untagged
@@ -49,6 +49,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.6583136, y: 0.25319093, z: 0.52379984}
   m_Center: {x: -0.0010667741, y: 0.11348929, z: -0.041806787}
+--- !u!114 &-2421992708147584590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189361761800618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81b64ed9d5779e546a0c705d0708513b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentSpot: {fileID: 0}
+  _moveFrequency: 0.7058824
+  Sounds: {fileID: 1143767456581023401}
+  HitSound: {fileID: 11400000, guid: fbc31ce19336b5f48969e071608c83ba, type: 2}
+  MoveSound: {fileID: 11400000, guid: ae4e5c003ec702346ad013c1f007a086, type: 2}
+  ApproachSound: {fileID: 11400000, guid: ae4e5c003ec702346ad013c1f007a086, type: 2}
 --- !u!54 &5023670208622403576
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -65,24 +83,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8711340136464622780
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1189361761800618}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 227ff34784d00a04fb232fc3c01457e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Animator: {fileID: 6552460686874451956}
-  Rigidbody: {fileID: 5023670208622403576}
-  Sounds: {fileID: 1056122230391432380}
-  HitSound: {fileID: 0}
-  HopSound: {fileID: 0}
-  SpawnSound: {fileID: 0}
 --- !u!1 &5014360251911416297
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,23 +195,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a506c094c127a9499ac48b213d02811, type: 3}
---- !u!1 &122089761937402482 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -8488108738062841833, guid: 7a506c094c127a9499ac48b213d02811, type: 3}
+--- !u!4 &868957868028642702 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7a506c094c127a9499ac48b213d02811, type: 3}
   m_PrefabInstance: {fileID: 830230161031799397}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &1056122230391432380
+--- !u!1 &8308292743069796407 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -519763516920681902, guid: 7a506c094c127a9499ac48b213d02811, type: 3}
+  m_PrefabInstance: {fileID: 830230161031799397}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &1143767456581023401
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 122089761937402482}
+  m_GameObject: {fileID: 8308292743069796407}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -220,8 +225,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 2
-  MaxDistance: 10
+  MinDistance: 1
+  MaxDistance: 5
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -271,7 +276,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.16666667
+      value: 0.3888889
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -296,13 +301,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!4 &868957868028642702 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7a506c094c127a9499ac48b213d02811, type: 3}
-  m_PrefabInstance: {fileID: 830230161031799397}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &6552460686874451956 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 7a506c094c127a9499ac48b213d02811, type: 3}
-  m_PrefabInstance: {fileID: 830230161031799397}
-  m_PrefabAsset: {fileID: 0}

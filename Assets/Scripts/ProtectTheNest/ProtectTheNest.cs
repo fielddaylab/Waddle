@@ -2,16 +2,19 @@
 //Ross Tredinnick - WID Virtual Environments Group / Field Day Lab - 2021
 
 using BeauRoutine;
-using BeauUtil;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
+using BeauRoutine;
 
 public class ProtectTheNest : MiniGameController
 {
     [SerializeField]
-    SkuaCoordinator m_Coordinator = null;
+    SkuaSpawner _skuaSpawner = null;
+
+	[SerializeField]
+	float _moveFrequency = 2f;
+	public float MoveFrequency => _moveFrequency;
 
     [SerializeField]
     float _gameTimeLimit = 60f;
@@ -26,6 +29,9 @@ public class ProtectTheNest : MiniGameController
 
     [SerializeField]
     GameObject _theNest;
+
+    [SerializeField]
+    AudioClip _hapticSound;
 
     [Header("Ending")]
 
@@ -44,9 +50,6 @@ public class ProtectTheNest : MiniGameController
 	[SerializeField]
 	Transform _isolationPos;
 
-	[SerializeField]
-	CanvasGroup _endTextGroup;
-
     float _skuaMoveTime = 0f;
     float _timeWithoutEgg = 0f;
     
@@ -55,13 +58,15 @@ public class ProtectTheNest : MiniGameController
 	bool _chickStarting = false;
 	
 	GameObject _mainCam = null;
-
-    static StringBuilder sb = new StringBuilder(8); 
 	
     // Start is called before the first frame update
     void Start()
     {
         _mainCam = Camera.main.gameObject;
+
+        if (SlapHaptics == null) {
+            SlapHaptics = new OVRHapticsClip(_hapticSound);
+        }
     }
 
     // Update is called once per frame
@@ -112,9 +117,9 @@ public class ProtectTheNest : MiniGameController
 			_timeWithoutEgg = 0f;
 			_skuaMoveTime = 0f;
 
-			if(m_Coordinator != null)
+			if(_skuaSpawner != null)
 			{
-				m_Coordinator.End();
+				_skuaSpawner.ClearGame();
 			}
 			
 			_playingEggSequence = true;
@@ -125,15 +130,15 @@ public class ProtectTheNest : MiniGameController
             return;
 		}
 
-        if(m_Coordinator != null)
+        if(_skuaSpawner != null)
         {
-            //m_Coordinator.CheckForSpawn(_currentTime - _startTime);
+            _skuaSpawner.CheckForSpawn(_currentTime - _startTime);
 
-            //if(_currentTime - _skuaMoveTime > _moveFrequency)
-            //{
-            //    m_Coordinator.MoveSkuas();
-            //    _skuaMoveTime = _currentTime;
-            //}
+            if(_currentTime - _skuaMoveTime > _moveFrequency)
+            {
+                _skuaSpawner.MoveSkuas();
+                _skuaMoveTime = _currentTime;
+            }
 
             if(_eggTimer != null)
             {
@@ -142,7 +147,18 @@ public class ProtectTheNest : MiniGameController
                     _timeWithoutEgg += Time.deltaTime;
                     float t = _timeWithoutEgg - _startTime;
                     float timeLeft = _gameTimeLimit - t;
-                    UpdateTimer(timeLeft);				
+                    if(timeLeft > 0f)
+                    {
+                        System.TimeSpan ts = System.TimeSpan.FromSeconds(timeLeft);
+                        _eggTimer.GetComponent<TMPro.TextMeshPro>().text = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
+						PenguinAnalytics.Instance.LogEggTimer(timeLeft);
+                    }
+                    else
+                    {
+                        System.TimeSpan ts = System.TimeSpan.FromSeconds(0);
+                        _eggTimer.GetComponent<TMPro.TextMeshPro>().text = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
+						PenguinAnalytics.Instance.LogEggTimer(0f);
+                    }					
                 }
             }
         }
@@ -157,18 +173,6 @@ public class ProtectTheNest : MiniGameController
 
         return false;
 	}
-
-    private void UpdateTimer(float timeLeft) {
-        if (timeLeft > 0) {
-            int rounded = Mathf.CeilToInt(timeLeft);
-            int minutes = rounded / 60;
-            int seconds = rounded - minutes * 60;
-            sb.Clear().AppendNoAlloc(minutes, 2).Append(':').AppendNoAlloc(seconds, 2);
-            _eggTimer.GetComponent<TMPro.TextMeshPro>().SetText(sb);
-        } else {
-            _eggTimer.GetComponent<TMPro.TextMeshPro>().SetText("00:00");
-        }
-    }
 
     public override void StartGame()
     {
@@ -201,9 +205,9 @@ public class ProtectTheNest : MiniGameController
     {
 		PenguinAnalytics.Instance.LogActivityEnd("skuas");
 		
-		if(m_Coordinator != null)
+		if(_skuaSpawner != null)
 		{
-            m_Coordinator.End();
+			_skuaSpawner.ClearGame();
 		}
 		
 		//double check this after addition of chick sequence..
@@ -238,6 +242,16 @@ public class ProtectTheNest : MiniGameController
 				}
 			}
 		}
+    }
+
+    IEnumerator StartNextFrame()
+    {
+        yield return null;
+        
+        if(_skuaSpawner != null)
+        {
+            _skuaSpawner.StartGame();
+        }
     }
 
     public override void EndGame()
@@ -299,7 +313,6 @@ public class ProtectTheNest : MiniGameController
 
         _hatchHeartParticles.Pause();
         _hatchHeartParticles.Clear();
-        _endTextGroup.alpha = 0;
         PenguinPlayer.Instance.transform.position = _isolationPos.transform.position;
 		PenguinPlayer.Instance.transform.LookAt(_theEgg.transform);
 
@@ -318,7 +331,7 @@ public class ProtectTheNest : MiniGameController
 
 		_newbornCheeper.SetRate(30);
 		_newbornCheeper.SetState(Cheeper.CheepState.Muffled);
-		_newbornCheeper.SetFade(0.4f, 0.8f, 3f);
+		_newbornCheeper.SetFade(0, 0.8f, 3f);
 
         if (_theEgg != null)
 		{
@@ -347,7 +360,7 @@ public class ProtectTheNest : MiniGameController
             particles.Pause();
 			particles.Clear();
         }
-        _newbornCheeper.SetRate(30);
+        _newbornCheeper.SetRate(60);
         _newbornCheeper.SetState(Cheeper.CheepState.Open);
         _newbornCheeper.SetFade(0.8f, 1, 3f);
 
@@ -397,4 +410,6 @@ public class ProtectTheNest : MiniGameController
 
         EndGame();
 	}
+
+    static public OVRHapticsClip SlapHaptics { get; private set; }
 }

@@ -4,13 +4,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class MiniGameController : MonoBehaviour
 {
-    protected float _startTime = 0f;
-    protected float _totalGameTime = 0f;
-    protected float _currentTime = 0f;
-    protected bool _isGameActive = false;
+    [NonSerialized] protected float _startTime = 0f;
+    [NonSerialized] protected float _totalGameTime = 0f;
+    [NonSerialized] protected float _currentTime = 0f;
+    [NonSerialized] protected bool _isGameActive = false;
 
 	public delegate void OnEndGameDelegate();
 	public static event OnEndGameDelegate _endGameDelegate;
