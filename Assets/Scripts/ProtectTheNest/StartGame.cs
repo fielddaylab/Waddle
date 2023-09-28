@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using BeauRoutine;
 using BeauUtil;
+using FieldDay;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Waddle;
@@ -202,6 +203,7 @@ public class StartGame : MonoBehaviour
     private void OnBlinkToStart() {
         PenguinGameManager.Instance.LoadMiniGame(_miniGame);
         PenguinPlayer.Instance.transform.position = transform.position;
+        PlayerHeadUtility.ResetHeadToBody(Game.SharedState.Get<PlayerHeadState>());
 
         if (m_ParticleRing) {
             m_ParticleRing.Clear();

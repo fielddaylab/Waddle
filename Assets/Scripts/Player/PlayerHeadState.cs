@@ -1,7 +1,9 @@
 using System;
 using BeauUtil;
+using BeauUtil.Debugger;
 using FieldDay;
 using FieldDay.SharedState;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 namespace Waddle
@@ -14,9 +16,11 @@ namespace Waddle
         public Transform FootRoot;
         public Transform CenterOfMassRoot;
         public OVRCameraRig Rig;
+        public Animator BodyAnimator;
         public int VelocityAveragingFrames = 32;
 
         [NonSerialized] public bool Connected;
+        [NonSerialized] public float ReconnectDelay;
         [NonSerialized] public Vector3 RootPos;
         [NonSerialized] public Quaternion RootRotation;
 
@@ -31,6 +35,8 @@ namespace Waddle
 
         [NonSerialized] public Vector3 CurrentHeadPos;
         [NonSerialized] public Vector3 CurrentHeadVelocity;
+
+        [NonSerialized] public bool IsShiftingBody;
 
         void IRegistrationCallbacks.OnDeregister() {
         }
@@ -52,6 +58,25 @@ namespace Waddle
                 accum /= historyCount;
             }
             return accum;
+        }
+
+        static public Vector3 CalculateHeadBodyVector(PlayerHeadState state) {
+            Vector3 vec = state.HeadRoot.position - state.BodyRoot.position;
+            vec.y = 0;
+            return vec;
+        }
+
+        static public void ResetHeadToBody(PlayerHeadState state) {
+            Vector3 diff = CalculateHeadBodyVector(state);
+            ShiftHeadOrigin(state, diff);
+        }
+
+        static public void ShiftHeadOrigin(PlayerHeadState state, Vector3 worldShift) {
+            Transform trackingSpace = state.Rig.trackingSpace;
+            Vector3 localShift = trackingSpace.InverseTransformVector(worldShift);
+            state.Rig.TrackingPositionOffset -= localShift;
+            trackingSpace.localPosition -= localShift;
+            Log.Msg("[PlayerHeadUtility] Shifted tracking offset by {0}", localShift);
         }
     }
 }

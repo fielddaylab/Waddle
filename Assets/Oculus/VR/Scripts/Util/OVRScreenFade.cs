@@ -241,7 +241,7 @@ public class OVRScreenFade : MonoBehaviour
 		float elapsedTime = 0.0f;
 		while (elapsedTime < duration)
 		{
-			elapsedTime += Time.deltaTime;
+			elapsedTime += Routine.UnscaledDeltaTime;
 			animatedFadeAlpha = Mathf.Lerp(startAlpha, endAlpha, Mathf.Clamp01(elapsedTime / duration));
 			SetMaterialAlpha();
             yield return Routine.WaitForEndOfFrame();
@@ -256,7 +256,7 @@ public class OVRScreenFade : MonoBehaviour
 	IEnumerator Blink(float startAlpha, float endAlpha, float duration, Action onBlink) {
         float elapsedTime = 0.0f;
         while (elapsedTime < duration) {
-            elapsedTime += Routine.DeltaTime;
+            elapsedTime += Routine.UnscaledDeltaTime;
             animatedFadeAlpha = Mathf.Lerp(startAlpha, endAlpha, Mathf.Clamp01(elapsedTime / duration));
             SetMaterialAlpha();
             yield return Routine.WaitForEndOfFrame();
@@ -269,7 +269,7 @@ public class OVRScreenFade : MonoBehaviour
 
         elapsedTime = 0.0f;
         while (elapsedTime < duration) {
-            elapsedTime += Routine.DeltaTime;
+            elapsedTime += Routine.UnscaledDeltaTime;
             animatedFadeAlpha = Mathf.Lerp(endAlpha, startAlpha, Mathf.Clamp01(elapsedTime / duration));
             SetMaterialAlpha();
             yield return Routine.WaitForEndOfFrame();

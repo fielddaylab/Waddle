@@ -11,10 +11,18 @@ public class BeakTrigger : MonoBehaviour
 {		
 	void OnTriggerEnter(Collider otherCollider)
 	{
-        IBeakInteract interact = otherCollider.GetComponent<IBeakInteract>();
+        IBeakInteract interact = FindInteractForCollider(otherCollider);
         if (interact != null) {
-            interact.OnBeakInteract(Game.SharedState.Get<PlayerBeakState>(), this);
+            interact.OnBeakInteract(Game.SharedState.Get<PlayerBeakState>(), this, otherCollider);
         }
 	}
+
+    static public IBeakInteract FindInteractForCollider(Collider collider) {
+        IBeakInteract interact = collider.GetComponent<IBeakInteract>();
+        if (interact == null && collider.attachedRigidbody) {
+            interact = collider.attachedRigidbody.GetComponent<IBeakInteract>();
+        }
+        return interact;
+    }
 
 }

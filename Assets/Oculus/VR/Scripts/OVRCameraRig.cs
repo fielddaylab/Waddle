@@ -107,6 +107,8 @@ public class OVRCameraRig : MonoBehaviour
     /// </summary>
     public bool disableEyeAnchorCameras = false;
 
+    [NonSerialized] public Vector3 TrackingPositionOffset;
+
 
     protected bool _skipUpdate = false;
     protected readonly string trackingSpaceName = "TrackingSpace";
@@ -180,6 +182,7 @@ public class OVRCameraRig : MonoBehaviour
         bool hmdPresent = OVRNodeStateProperties.IsHmdPresent();
 
         OVRPose tracker = OVRManager.tracker.GetPose();
+        tracker.position += TrackingPositionOffset;
 
         trackerAnchor.localRotation = tracker.orientation;
 
@@ -254,8 +257,8 @@ public class OVRCameraRig : MonoBehaviour
             }
             else
             {
-                leftHandAnchor.localPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.LTouch);
-                rightHandAnchor.localPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
+                leftHandAnchor.localPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.LTouch) + TrackingPositionOffset;
+                rightHandAnchor.localPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch) + TrackingPositionOffset;
                 leftHandAnchor.localRotation = OVRInput.GetLocalControllerRotation(OVRInput.Controller.LTouch);
                 rightHandAnchor.localRotation = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch);
             }
@@ -275,9 +278,9 @@ public class OVRCameraRig : MonoBehaviour
                     Quaternion.Inverse(trackingSpace.rotation) * leftControllerAnchor.rotation,
                     Quaternion.Inverse(trackingSpace.rotation) * rightControllerAnchor.rotation);
             }
-            rightControllerAnchor.localPosition = rightOffsetPose.position;
+            rightControllerAnchor.localPosition = rightOffsetPose.position + TrackingPositionOffset;
             rightControllerAnchor.localRotation = rightOffsetPose.orientation;
-            leftControllerAnchor.localPosition = leftOffsetPose.position;
+            leftControllerAnchor.localPosition = leftOffsetPose.position + TrackingPositionOffset;
             leftControllerAnchor.localRotation = leftOffsetPose.orientation;
         }
 

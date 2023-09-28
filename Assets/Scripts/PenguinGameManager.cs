@@ -235,8 +235,9 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 			}
 			
 			PenguinPlayer.Instance.ResetHeight();
-			
-			if(_gameMode == GameMode.ResearchMode)
+            PlayerHeadUtility.ResetHeadToBody(Game.SharedState.Get<PlayerHeadState>());
+
+            if (_gameMode == GameMode.ResearchMode)
 			{
 				//show the menu w/ the key entry panel...	
 				PenguinPlayer.Instance.gameObject.GetComponent<HandRaycast>().SwitchPanel(HandRaycast.MenuPanel.eSURVEY_CODE);
@@ -310,6 +311,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		//AudioListener.pause = false;
 		PenguinPlayer.Instance.StartBackgroundMusic();
 		PenguinPlayer.Instance.transform.position = _playerStartLocation.transform.position;
+        PlayerHeadUtility.ResetHeadToBody(Game.SharedState.Get<PlayerHeadState>());
 
         Game.SharedState.Get<ManualCullingReference>().RegionsDirty = true;
 

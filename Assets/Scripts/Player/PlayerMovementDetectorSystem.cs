@@ -40,7 +40,7 @@ namespace Waddle
                 }
             }
 
-            if (!m_StateB.Connected) {
+            if (!m_StateB.Connected || m_StateB.ReconnectDelay > 0) {
                 return;
             }
 

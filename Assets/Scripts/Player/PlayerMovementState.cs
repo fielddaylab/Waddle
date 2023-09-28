@@ -34,6 +34,7 @@ namespace Waddle
         [NonSerialized] public float WalkCooldown;
         [NonSerialized] public PlayerFoot LastStepSide;
         [NonSerialized] public int ConsecutiveSteps;
+        [NonSerialized] public double LastStepTime;
     }
 
     static public class PlayerMovementUtility {

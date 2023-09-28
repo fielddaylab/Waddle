@@ -16,15 +16,23 @@ namespace Waddle
 
         [Header("Config")]
         [SerializeField] private float m_OffsetLerp;
+        [SerializeField] private float m_ReconnectMovementDelay;
 
         #endregion // Inspector
 
         public override void ProcessWork(float deltaTime) {
             bool connected = !PenguinGameManager._isGamePaused;
-            m_State.Connected = connected;
+            if (m_State.Connected != connected) {
+                m_State.Connected = connected;
+                m_State.ReconnectDelay = m_ReconnectMovementDelay;
+            }
 
             if (!connected) {
                 return;
+            }
+
+            if (m_State.ReconnectDelay > 0) {
+                m_State.ReconnectDelay -= deltaTime;
             }
 
             bool firstFrame = m_State.VelocityBuffer.Count == 0;

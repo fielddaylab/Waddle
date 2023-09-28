@@ -17,8 +17,7 @@ namespace Waddle
 
         #endregion // Inspector
 
-        public override void ProcessWork(float deltaTime)
-        {
+        public override void ProcessWork(float deltaTime) {
             if (!m_StateA.Queued) {
                 return;
             }
@@ -41,6 +40,7 @@ namespace Waddle
                 DebugDraw.AddLine(originalPos, finalPos, Color.green, 1, 1, false);
             }
 
+            m_StateA.LastStepTime = Time.unscaledTimeAsDouble;
             m_StateA.Queued = false;
         }
 

@@ -53,7 +53,7 @@ namespace Waddle {
             m_ShimmerFade.Replace(this, Tween.OneToZero(UpdateShimmerVolume, 0.3f));
         }
 
-        public void OnBeakInteract(PlayerBeakState state, BeakTrigger trigger) {
+        public void OnBeakInteract(PlayerBeakState state, BeakTrigger trigger, Collider beakedCollider) {
             if (m_ChunksFull == Chunks.Length) {
                 return;
             }

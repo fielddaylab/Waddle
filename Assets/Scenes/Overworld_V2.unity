@@ -46542,6 +46542,10 @@ PrefabInstance:
       propertyPath: _mainUI
       value: 
       objectReference: {fileID: 248072219}
+    - target: {fileID: 2360715680209839765, guid: 28ef9dcc018449645b4003abfcd20eec, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2360715680209839766, guid: 28ef9dcc018449645b4003abfcd20eec, type: 3}
       propertyPath: m_Name
       value: PenguinPlayer

@@ -31,7 +31,7 @@ namespace Waddle {
             };
         }
 
-        public void OnBeakInteract(PlayerBeakState state, BeakTrigger trigger) {
+        public void OnBeakInteract(PlayerBeakState state, BeakTrigger trigger, Collider triggeredCollider) {
             if (state.HoldingPebble != null) {
                 return;
             }
