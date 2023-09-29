@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: SkuaHit
   m_EditorClassIdentifier: 
   Clips:
-  - {fileID: 8300000, guid: dd1f25760f2f73841bb542e8895613fd, type: 3}
-  - {fileID: 8300000, guid: 27b2c90141c98154e88c290a33d293c3, type: 3}
+  - {fileID: 8300000, guid: b44816681d6a06d4e83292f657300c45, type: 3}
+  - {fileID: 8300000, guid: 501ddadd4040f7e41b97733d6dd573a2, type: 3}
   Volume:
     Base: 0.8
     ModifierMin: 0
