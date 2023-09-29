@@ -39,7 +39,7 @@ namespace Waddle
 
             Quaternion rotate = Quaternion.Inverse(m_State.BodyRoot.localRotation);
 
-            Vector3 newHeadPos = rotate * m_State.HeadRoot.localPosition;
+            Vector3 newHeadPos = rotate * (m_State.HeadRoot.localPosition + m_State.Rig.TrackingOrigin);
             Vector3 delta;
             if (firstFrame) {
                 delta = default;

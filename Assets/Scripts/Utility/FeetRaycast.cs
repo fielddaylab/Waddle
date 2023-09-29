@@ -3,6 +3,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using BeauRoutine;
 using UnityEngine;
 
 public class FeetRaycast : MonoBehaviour
@@ -12,36 +13,30 @@ public class FeetRaycast : MonoBehaviour
 	
 	[SerializeField]
 	GameObject _rotationTransform;
-	GameObject RotationTransform => _rotationTransform;
 	
 	[SerializeField]
 	Vector3 _rotationToApply;
-	Vector3 RotationToApply => _rotationToApply;
-	
-	Vector3 _lastPosition = Vector3.zero;
-	
-	float _penguinCapsuleHeight = 0.7112f;
-	
-    // Start is called before the first frame update
-  //  void Start()
-  //  {
-  //      if(_eyeObject != null)
-		//{
-		//	//grab height value of capsule...
-		//	_penguinCapsuleHeight = _eyeObject.transform.parent.parent.parent.GetComponent<CharacterController>().height;
-		//	//Debug.Log(_penguinCapsuleHeight);
-		//}
-		
-		////OVRManager.TrackingAcquired += SetHeights;
-  //  }
 
 	void LateUpdate()
 	{
-        Vector3 look = _rotationTransform.transform.localEulerAngles;
-        look.x = look.z = 0;
-        look += _rotationToApply;
+        Vector3 eyeLook = _eyeObject.transform.forward;
+        Vector3 eyeUp = _eyeObject.transform.up;
 
-        transform.localEulerAngles = look;
+        Vector3 absLook = _rotationTransform.transform.localEulerAngles;
+        Vector3 rotationLook = absLook;
+        rotationLook.x = rotationLook.z = 0;
+        rotationLook += _rotationToApply;
+        if (eyeUp.y < 0.05f) {
+            rotationLook.y -= 180;
+        }
+
+        transform.localEulerAngles = rotationLook;
+
+        float zOffset = eyeLook.y < 0 ? -0.15f : -0.1f;
+        Vector3 localEyeForward = transform.parent.InverseTransformVector(eyeLook);
+        localEyeForward.y = 0;
+        localEyeForward.Normalize();
+        transform.localPosition = localEyeForward * zOffset;
 
 		////if(Vector3.Distance(_eyeObject.transform.position, _lastPosition) > 0.1f)
 		//{

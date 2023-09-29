@@ -20410,7 +20410,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 537049238}
-  m_LocalRotation: {x: 0.009804553, y: 0.661994, z: 0.014244161, w: 0.74930966}
+  m_LocalRotation: {x: 0.008591537, y: 0.7217606, z: 0.015007027, w: 0.69192684}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.15274511, y: 0.10162681, z: 0.10315122}
   m_ConstrainProportionsScale: 0
@@ -33137,7 +33137,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1008711001}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.69, y: 2.151, z: 59.055}
+  m_LocalPosition: {x: 12.69, y: 2.151, z: 59.564}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -46469,6 +46469,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1853023645497400138, guid: 07af7d9eb1994d4479a95722acf0c5e6, type: 3}
+      propertyPath: DistanceStopThreshold
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1853023645497400138, guid: 07af7d9eb1994d4479a95722acf0c5e6, type: 3}
+      propertyPath: DistanceStartThreshold
+      value: 0.08
+      objectReference: {fileID: 0}
     - target: {fileID: 2240847203652696269, guid: 07af7d9eb1994d4479a95722acf0c5e6, type: 3}
       propertyPath: m_Name
       value: GameLoop
@@ -46569,6 +46577,22 @@ PrefabInstance:
     - target: {fileID: 2426764619237441764, guid: 28ef9dcc018449645b4003abfcd20eec, type: 3}
       propertyPath: RootYOffset
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3490672641909509764, guid: 28ef9dcc018449645b4003abfcd20eec, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: dc5645cf2320513449dc08ad86b394d0, type: 3}
+    - target: {fileID: 5221459024874183565, guid: 28ef9dcc018449645b4003abfcd20eec, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5221459024874183565, guid: 28ef9dcc018449645b4003abfcd20eec, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 386739923
+      objectReference: {fileID: 0}
+    - target: {fileID: 5933951640521457111, guid: 28ef9dcc018449645b4003abfcd20eec, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28ef9dcc018449645b4003abfcd20eec, type: 3}

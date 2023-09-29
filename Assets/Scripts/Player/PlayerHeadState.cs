@@ -16,7 +16,6 @@ namespace Waddle
         public Transform FootRoot;
         public Transform CenterOfMassRoot;
         public OVRCameraRig Rig;
-        public Animator BodyAnimator;
         public int VelocityAveragingFrames = 32;
 
         [NonSerialized] public bool Connected;
@@ -61,7 +60,7 @@ namespace Waddle
         }
 
         static public Vector3 CalculateHeadBodyVector(PlayerHeadState state) {
-            Vector3 vec = state.HeadRoot.position - state.BodyRoot.position;
+            Vector3 vec = state.HeadRoot.position - state.PositionRoot.position;
             vec.y = 0;
             return vec;
         }
@@ -74,8 +73,8 @@ namespace Waddle
         static public void ShiftHeadOrigin(PlayerHeadState state, Vector3 worldShift) {
             Transform trackingSpace = state.Rig.trackingSpace;
             Vector3 localShift = trackingSpace.InverseTransformVector(worldShift);
-            state.Rig.TrackingPositionOffset -= localShift;
-            trackingSpace.localPosition -= localShift;
+            //localShift.y = 0;
+            state.Rig.TrackingOrigin += localShift;
             Log.Msg("[PlayerHeadUtility] Shifted tracking offset by {0}", localShift);
         }
     }

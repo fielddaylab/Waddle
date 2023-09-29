@@ -47,6 +47,10 @@ namespace Waddle
                     PlayerMovementUtility.QueueMovement(m_StateA, m_StateB.BodyRoot.forward, PlayerFoot.Invalid, 0.5f, PlayerMovementSource.Button);
                 }
             }
+
+            if (OVRInput.GetDown(OVRInput.Button.PrimaryThumbstick | OVRInput.Button.SecondaryThumbstick)) {
+                PlayerHeadUtility.ResetHeadToBody(m_StateB);
+            }
         }
     }
 }

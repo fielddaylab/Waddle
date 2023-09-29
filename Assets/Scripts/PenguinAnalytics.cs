@@ -10,6 +10,7 @@ using System;
 using System.Security.Cryptography;
 using Waddle;
 using System.Runtime.InteropServices;
+using System.Collections;
 
 //[System.Serializable]
 [StructLayout(LayoutKind.Sequential)]
@@ -171,9 +172,13 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
             _numPebblesCollected = 0;
             
 			SetGameState();
+            _ogdLog.ResetSessionId();
+
+            _ogdLog.BeginEvent("device_identifier");
+            _ogdLog.EventParam("hardware_uuid", m_HardwareId);
+            _ogdLog.SubmitEvent();
 			
             _ogdLog.BeginEvent("start");
-            _ogdLog.EventParam("hardware_uuid", m_HardwareId);
             _ogdLog.SubmitEvent();
         }
 		/*if (FirebaseEnabled)
