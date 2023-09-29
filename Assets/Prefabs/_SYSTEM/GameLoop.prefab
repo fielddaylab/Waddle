@@ -513,7 +513,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Playback: {fileID: 7179022476695954108}
   Current: {fileID: 0}
-  GlobalVolumeMultiplier: 0.5
+  GlobalVolumeMultiplier: 0.2
 --- !u!82 &7179022476695954108
 AudioSource:
   m_ObjectHideFlags: 0

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac2e0a050b7da6c4e85dc9949548159d, type: 3}
+  m_Name: ChoppedVocalizations
+  m_EditorClassIdentifier: 
+  Clips:
+  - {fileID: 8300000, guid: 18e27f0e0edd2ed42a0d957a1b5796f3, type: 3}
+  - {fileID: 8300000, guid: c75dfece23cfa0546966c49556447633, type: 3}
+  - {fileID: 8300000, guid: 2dccf5514b4ed7b48ae9a35bdef24a5c, type: 3}
+  - {fileID: 8300000, guid: 70bdfb989b5af974e8998f0b0750ac03, type: 3}
+  - {fileID: 8300000, guid: 1edc10e61da48884f9db22c573a0a9bf, type: 3}
+  - {fileID: 8300000, guid: 6214a4330dface445ba86dff4ddacebd, type: 3}
+  - {fileID: 8300000, guid: cb13f4a77d0ac0b4a88025c486f261f4, type: 3}
+  - {fileID: 8300000, guid: e1b007ffe3be6ec4bb8b309fec867d23, type: 3}
+  - {fileID: 8300000, guid: 03a6d91cfe178b7498a814b983f01a47, type: 3}
+  Volume:
+    Base: 0.4
+    ModifierMin: 0
+    ModifierMax: 0
+  PitchRange:
+    Base: 1
+    ModifierMin: -0.02
+    ModifierMax: 0.02

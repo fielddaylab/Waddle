@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: PlayerWalk
   m_EditorClassIdentifier: 
   Clips:
-  - {fileID: 8300000, guid: 5c72a8786cf7555409e6b4b95451082f, type: 3}
-  - {fileID: 8300000, guid: 5f5860191abc42f4494da8292ddb8532, type: 3}
+  - {fileID: 8300000, guid: 4a60f96920bf9844fab694143f37e95e, type: 3}
+  - {fileID: 8300000, guid: cd8f73ae19cc5c143befdbd4efe255bc, type: 3}
+  - {fileID: 8300000, guid: d6814ae5237534e479b9236ad5666d09, type: 3}
+  - {fileID: 8300000, guid: a2dc66f270cfae1488fccaec3be68cb2, type: 3}
   Volume:
     Base: 1
     ModifierMin: 0

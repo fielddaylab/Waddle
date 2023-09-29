@@ -18,6 +18,7 @@ namespace Waddle {
         public override IEnumerator Sequence(Process process) {
             PenguinBrain brain = Brain(process);
             while(true) {
+                SFXUtility.Play(brain.BeakAudio, brain.Vocalizations);
                 yield return brain.WanderParameters.IdleWait + RNG.Instance.NextFloat(brain.WanderParameters.IdleWaitRandom);
                 Vector3 nearbyPoint = FindNearbyPoint(brain.Feet, brain.WanderParameters.Tether, brain.WanderParameters.WanderRadius);
                 brain.SetMainState(PenguinStates.Walk, new PenguinWalkData() { TargetPosition = nearbyPoint });

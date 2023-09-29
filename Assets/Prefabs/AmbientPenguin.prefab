@@ -313,7 +313,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 5
+  MaxDistance: 10
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -526,6 +526,7 @@ MonoBehaviour:
   Position: {fileID: 5057784926981871767}
   Animator: {fileID: 3291878845233163422}
   BeakAudio: {fileID: 1044158754314342441}
+  Vocalizations: {fileID: 11400000, guid: 78853f7aa4404e04cb6693422667ac05, type: 2}
   LookSmoothing: {fileID: 1058209586620724353}
   Steering: {fileID: 237095941245695212}
   Feet: {fileID: 7782495333627707602}

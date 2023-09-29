@@ -8,6 +8,7 @@ namespace Waddle {
         public Transform Position;
         public Animator Animator;
         public AudioSource BeakAudio;
+        public SFXAsset Vocalizations;
 
         [Header("Control Components")]
         public PenguinLookSmoothing LookSmoothing;
