@@ -11,32 +11,22 @@ using UnityEngine;
 namespace Waddle {
 
     [SysUpdate(GameLoopPhase.UnscaledLateUpdate, 1000)]
-    public class PlayerVignetteSystem : SharedStateSystemBehaviour<PlayerHeadState, PlayerVignetteState, PlayerMovementState> {
+    public class PlayerVignetteSystem : SharedStateSystemBehaviour<PlayerVignetteState, PlayerHeadState, PlayerMovementState> {
         public override void ProcessWork(float deltaTime) {
             if (PenguinGameManager._isGamePaused) {
                 return;
             }
 
-            Vector3 headOffset = PlayerHeadUtility.CalculateHeadBodyVector(m_StateA);
-            Vector3 localHeadOffset = m_StateA.Rig.trackingSpace.InverseTransformVector(headOffset);
-            float lean = Math.Abs(m_StateA.HeadLook.y) * 1 - Mathf.Clamp01(Mathf.Abs(localHeadOffset.x) / 0.5f);
-            lean *= lean;
-            float radius = headOffset.magnitude;
-
-            float radiusOffset = m_StateB.BoundsRadiusLeanOffset * lean;
-            radiusOffset += Mathf.Clamp01(m_StateC.WalkCooldown / 0.2f) * m_StateB.BoundsRadiusWalkOffset;
-            radiusOffset += Mathf.Clamp01(PlayerHeadUtility.CalculateAverageVelocity(m_StateA, 8).magnitude / 3) * m_StateB.BoundsRadiusWalkOffset;
-            float min = m_StateB.BoundsRadiusStart + radiusOffset;
-            float max = m_StateB.BoundsRadiusEnd + radiusOffset;
-
-            float amount = Curve.CubeOut.Evaluate(Mathf.Clamp01(MathUtils.Remap(radius, min, max, 0, 1)));
-            m_StateB.Fader.SetAlpha(amount);
-            AudioListener.volume = 1 - amount;
-            m_StateB.ReturnAudio.volume = amount * m_StateB.ReturnAudioVolume;
-            if (amount > 0 && !m_StateB.ReturnAudio.isPlaying) {
-                m_StateB.ReturnAudio.Play();
-            } else if (amount == 0 && m_StateB.ReturnAudio.isPlaying) {
-                m_StateB.ReturnAudio.Pause();
+            float timeSinceLastSafe = Time.unscaledTime - m_StateC.LastSafeTime;
+            if (timeSinceLastSafe > m_StateA.UnsafeTimeThreshold) {
+                m_StateA.Fade = Math.Min(1, m_StateA.Fade + deltaTime / m_StateA.FadeOutTime);
+                m_StateA.Fader.SetAlpha(m_StateA.FadeCurve.Evaluate(m_StateA.Fade));
+                if (m_StateA.Fade >= 1 && timeSinceLastSafe > m_StateA.UnsafeTimeThreshold + m_StateA.FadeOutTime + m_StateA.FullAlphaTime) {
+                    m_StateB.PositionRoot.position = PlayerMovementUtility.GetBestSafeLocation(m_StateC, m_StateB.PositionRoot.position, m_StateA.TeleportDistance);
+                }
+            } else if (m_StateA.Fade > 0) {
+                m_StateA.Fade = Math.Max(0, m_StateA.Fade - deltaTime / m_StateA.FadeInTime);
+                m_StateA.Fader.SetAlpha(m_StateA.FadeCurve.Evaluate(m_StateA.Fade));
             }
         }
     }

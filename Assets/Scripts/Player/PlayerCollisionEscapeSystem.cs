@@ -14,15 +14,16 @@ namespace Waddle
     public class PlayerCollisionEscapeSystem : SharedStateSystemBehaviour<PlayerHeadState, PlayerMovementState>
     {
         public override void ProcessWork(float deltaTime) {
-            if (!m_StateA.Connected) {
-                return;
-            }
+            //    if (!m_StateA.Connected) {
+            //        return;
+            //    }
 
-            PenguinFeetSnapping snapping = m_StateA.GetComponent<PenguinFeetSnapping>();
-            if (!PenguinFeetUtility.IsSolidGround(snapping, snapping.RootTransform.position)) {
-                // TODO: alarm alarm the player cannot move
-                Log.Warn("[PlayerCollisionEscapeSystem] cannot move from spot!");
-            }
+            //    PenguinFeetSnapping snapping = m_StateA.GetComponent<PenguinFeetSnapping>();
+            //    if (!PenguinFeetUtility.IsSolidGround(snapping, snapping.RootTransform.position)) {
+            //        // TODO: alarm alarm the player cannot move
+            //        Log.Warn("[PlayerCollisionEscapeSystem] cannot move from spot!");
+            //    }
+            //}
         }
     }
 }

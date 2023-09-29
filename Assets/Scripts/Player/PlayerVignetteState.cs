@@ -1,4 +1,5 @@
 using System;
+using BeauRoutine;
 using BeauUtil;
 using BeauUtil.Debugger;
 using FieldDay;
@@ -10,17 +11,13 @@ namespace Waddle
 {
     public class PlayerVignetteState : SharedStateComponent {
         public VRScreenFade Fader;
-        public AudioSource ReturnAudio;
-        public float ReturnAudioVolume;
+        public AnimationCurve FadeCurve;
+        public float UnsafeTimeThreshold = 1;
+        public float FullAlphaTime = 3;
+        public float FadeInTime = 2;
+        public float FadeOutTime = 1;
+        public float TeleportDistance = 1;
 
-        [Header("Bounds")]
-        public float BoundsRadiusStart;
-        public float BoundsRadiusEnd;
-        public float BoundsRadiusLeanOffset;
-        public float BoundsRadiusWalkOffset;
-
-        public void Awake() {
-            ReturnAudio.ignoreListenerVolume = true;
-        }
+        [NonSerialized] public float Fade;
     }
 }

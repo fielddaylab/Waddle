@@ -94,7 +94,7 @@ public class MatingDance : MiniGameController {
         Log.Msg("[MatingDance] Player looking at partner {0}", looking);
         if (looking >= m_LookThreshold) {
             m_MatingDancePenguin.HeartParticles.Play();
-            m_DanceCooldown = 1;
+            m_DanceCooldown = 0.6f;
             m_FeedbackQueued = true;
         }
     }

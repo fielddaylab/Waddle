@@ -902,6 +902,7 @@ GameObject:
   - component: {fileID: 2360715680209839775}
   - component: {fileID: 1000988389372209087}
   - component: {fileID: 2426764619237441764}
+  - component: {fileID: 7418738173237252104}
   m_Layer: 20
   m_Name: PenguinPlayer
   m_TagString: Untagged
@@ -919,7 +920,7 @@ Transform:
   m_LocalRotation: {x: -0, y: 0.6642165, z: -0, w: 0.74754024}
   m_LocalPosition: {x: -2.765, y: 2.076, z: 57.012}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2360715679656597819}
   - {fileID: 2597028372180051920}
@@ -927,6 +928,7 @@ Transform:
   - {fileID: 1863087019246328251}
   - {fileID: 2360715679315891691}
   - {fileID: 2360715680507817004}
+  - {fileID: 1708607730839947692}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 83.244, z: 0}
@@ -1056,13 +1058,13 @@ MonoBehaviour:
   TerrainMask:
     serializedVersion: 2
     m_Bits: 2048
-  TerrainAngleStrictness: 0.5
+  TerrainAngleStrictness: 0.6
   MaxHeightChange: 0.1
   InvisibleColliderMask:
     serializedVersion: 2
     m_Bits: 2097152
-  ColliderCheckRadius: 0.3
-  MinMovePercentage: 0.4
+  ColliderCheckRadius: 0.2
+  MinMovePercentage: 0.3
   FootAudioSource: {fileID: 2827358369434360444}
   StepAudioClips: {fileID: 11400000, guid: f90d368a079bf80478f6912394ebdb83, type: 2}
   CollideAudioClips: {fileID: 11400000, guid: 9cea8025b23d97c4097c9f8cd559cf91, type: 2}
@@ -1100,8 +1102,49 @@ MonoBehaviour:
   WallLayers:
     serializedVersion: 2
     m_Bits: 2097152
-  AngleStrictness: 0.5
-  CheckRadius: 0.25
+  AngleStrictness: 0.6
+  CheckRadius: 0.2
+--- !u!114 &7418738173237252104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2360715680209839766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf62364a6ea74d04e8d7bc4448dee857, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Fader: {fileID: 1120545782786304660}
+  FadeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  UnsafeTimeThreshold: 0.25
+  FullAlphaTime: 0.2
+  FadeInTime: 0.3
+  FadeOutTime: 1.5
 --- !u!1 &2360715680212188582
 GameObject:
   m_ObjectHideFlags: 0
@@ -1509,6 +1552,37 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &3646900456328787684
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1708607730839947692}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1708607730839947692
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3646900456328787684}
+  m_LocalRotation: {x: -0, y: -0.6642165, z: -0, w: 0.74754024}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2360715680209839767}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4628205815615470871
 GameObject:
   m_ObjectHideFlags: 0
