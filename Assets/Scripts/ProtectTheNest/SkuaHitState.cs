@@ -3,6 +3,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using BeauRoutine;
 using UnityEngine;
 using Waddle;
 
@@ -44,17 +45,27 @@ public class SkuaHitState : MonoBehaviour, ISkuaState
 			//a.enabled = false;
 			
             SFXUtility.Play(sc.Sounds, sc.HitSound);
-			GetComponent<Rigidbody>().AddForce((_mainCam.transform.forward*3f + transform.up*1.5f));
+			GetComponent<Rigidbody>().AddForce((_mainCam.transform.forward*3f + transform.up*6), ForceMode.Impulse);
 
-            StartCoroutine(FlashRoutine());
+            Routine.Start(this, FlashRoutine());
 		}
 	}
 
     private IEnumerator FlashRoutine() {
         int count = 4;
-        // SkinnedMeshRenderer meshRenderer = _sc.
-        while(count-- > 0) {
-            yield return null;
+        SkinnedMeshRenderer meshRenderer = _sc.Renderer;
+        Material defaultMaterial = meshRenderer.sharedMaterial;
+        try {
+            while (count-- > 0) {
+                meshRenderer.sharedMaterial = _sc.FlashMaterial;
+                yield return 0.1f;
+                meshRenderer.sharedMaterial = defaultMaterial;
+                yield return 0.1f;
+            }
+        } finally {
+            if (meshRenderer) {
+                meshRenderer.sharedMaterial = defaultMaterial;
+            }
         }
     }
 }

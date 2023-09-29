@@ -314,6 +314,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
         PlayerHeadUtility.ResetHeadToBody(Game.SharedState.Get<PlayerHeadState>());
 
         Game.SharedState.Get<ManualCullingReference>().RegionsDirty = true;
+        Game.SharedState.Get<PlayerVignetteState>().FadeEnabled = true;
 
         PenguinAnalytics.Instance.LogStartGame();
 		

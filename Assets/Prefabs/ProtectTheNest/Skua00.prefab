@@ -61,6 +61,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b64ed9d5779e546a0c705d0708513b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animController: {fileID: 6552460686874451956}
+  _rigidbody: {fileID: 5023670208622403576}
   _moveFrequency: 1
   Renderer: {fileID: 445048359305549845}
   FlashMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
@@ -204,6 +206,11 @@ SkinnedMeshRenderer:
 --- !u!4 &868957868028642702 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7a506c094c127a9499ac48b213d02811, type: 3}
+  m_PrefabInstance: {fileID: 830230161031799397}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &6552460686874451956 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 7a506c094c127a9499ac48b213d02811, type: 3}
   m_PrefabInstance: {fileID: 830230161031799397}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &8308292743069796407 stripped

@@ -21,10 +21,10 @@ namespace Waddle
         private void CheckDebugKeys(float deltaTime) {
 #if UNITY_EDITOR
             if (Input.GetKey(KeyCode.LeftArrow)) {
-                m_StateB.BodyRoot.Rotate(0, -90 * deltaTime, 0);
+                m_StateB.PositionRoot.Rotate(0, -90 * deltaTime, 0);
             }
             if (Input.GetKey(KeyCode.RightArrow)) {
-                m_StateB.BodyRoot.Rotate(0, 90 * deltaTime, 0);
+                m_StateB.PositionRoot.Rotate(0, 90 * deltaTime, 0);
             }
 
             if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.R)) {

@@ -18,7 +18,7 @@ namespace Waddle {
             }
 
             float timeSinceLastSafe = Time.unscaledTime - m_StateC.LastSafeTime;
-            if (timeSinceLastSafe > m_StateA.UnsafeTimeThreshold) {
+            if (m_StateA.FadeEnabled && timeSinceLastSafe > m_StateA.UnsafeTimeThreshold) {
                 m_StateA.Fade = Math.Min(1, m_StateA.Fade + deltaTime / m_StateA.FadeOutTime);
                 m_StateA.Fader.SetAlpha(m_StateA.FadeCurve.Evaluate(m_StateA.Fade));
                 if (m_StateA.Fade >= 1 && timeSinceLastSafe > m_StateA.UnsafeTimeThreshold + m_StateA.FadeOutTime + m_StateA.FullAlphaTime) {

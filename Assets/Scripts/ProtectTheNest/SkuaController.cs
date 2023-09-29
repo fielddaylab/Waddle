@@ -7,15 +7,16 @@ using BeauRoutine;
 using UnityEngine;
 using Waddle;
 
-public class SkuaController : MonoBehaviour
+public class SkuaController : MonoBehaviour, ISlapInteract
 {
 	ISkuaState _walkState, _hitState, _eatState, _idleState, _removeState, _grabState, _flyState;
 	
 	SkuaContext _skuaStateContext;
 	
-	Animator _animController;
-	
-	[NonSerialized]
+	[SerializeField] Animator _animController;
+    [SerializeField] Rigidbody _rigidbody;
+
+    [NonSerialized]
 	SkuaSpot _currentSpot;
 	
 	public SkuaSpot CurrentSpot => _currentSpot;
@@ -79,6 +80,13 @@ public class SkuaController : MonoBehaviour
         }
 
         return _animController;
+    }
+
+    public Rigidbody GetRigidbody() {
+        if (_rigidbody == null) {
+            _rigidbody = GetComponent<Rigidbody>();
+        }
+        return _rigidbody;
     }
 
     #region Setters
@@ -271,44 +279,26 @@ public class SkuaController : MonoBehaviour
 
     #region Handlers
 
-    void OnCollisionEnter(Collision otherCollision)
-	{
-        string otherName = otherCollision.collider.gameObject.name;
-		//Debug.Log("Skua collided");
-		//Debug.Log("Impulse: " + otherCollision.impulse);
-		//Debug.Log("Relative Velocity: " + otherCollision.relativeVelocity);
-		if(otherName.StartsWith("Flipper"))
-		{
-            bool isRight = otherName.EndsWith("Right");
+    public void OnSlapInteract(PlayerHeadState state, SlapTrigger trigger, Collider slappedCollider, Vector3 slapVelocity, Collision collisionInfo) {
+        if (_currentSpot != null && (_currentSpot.IsInner || _theEgg != null)) {
+            if (_theEgg != null) {
+                _theEgg.Reset();
+                _theEgg = null;
+            }
 
-			if(_currentSpot != null && (_currentSpot.IsInner || _theEgg != null))
-			{
-				if(_theEgg != null)
-				{
-					_theEgg.Reset();
-					_theEgg = null;
-				}
+            if (InHitState()) {
+                return;
+            }
 
-                if (InHitState()) {
-                    return;
-                }
-				
-				//Vector3 toSkua = Vector3.Normalize(transform.position - _mainCamera.transform.position);
-				//Vector3 lookDir = _mainCamera.transform.forward;
-				//if(Vector3.Dot(toSkua, lookDir) > 0.5f)
-				{
-					SkuaHit();
-                    if (PenguinPlayer.SlapHaptics.Ready) {
-                        if (isRight) {
-                            OVRHaptics.RightChannel?.Mix(PenguinPlayer.SlapHaptics);
-                        } else {
-                            OVRHaptics.LeftChannel?.Mix(PenguinPlayer.SlapHaptics);
-                        }
-                    }
-				}
-			}
-		}
-	}
+            //Vector3 toSkua = Vector3.Normalize(transform.position - _mainCamera.transform.position);
+            //Vector3 lookDir = _mainCamera.transform.forward;
+            //if(Vector3.Dot(toSkua, lookDir) > 0.5f)
+            {
+                SkuaHit();
+                trigger.PlayHaptics();
+            }
+        }
+    }
 
     #endregion // Handlers
 }

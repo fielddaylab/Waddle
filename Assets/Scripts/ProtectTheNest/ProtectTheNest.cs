@@ -2,6 +2,7 @@
 //Ross Tredinnick - WID Virtual Environments Group / Field Day Lab - 2021
 
 using BeauRoutine;
+using FieldDay;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -316,6 +317,7 @@ public class ProtectTheNest : MiniGameController
         _hatchHeartParticles.Clear();
         PenguinPlayer.Instance.transform.position = _isolationPos.transform.position;
 		PenguinPlayer.Instance.transform.LookAt(_theEgg.transform);
+        Game.SharedState.Get<PlayerVignetteState>().FadeEnabled = false;
 
         // activate isolation void
         _isolationVoid.SetActive(true);

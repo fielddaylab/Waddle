@@ -79,7 +79,9 @@ public class StartGame : MonoBehaviour
 			{
 				audio.Play();
 			}
-		}
+		} else {
+            Game.SharedState.Get<PlayerMovementState>().DetectionType = WaddleDetectionParamsType.Dance;
+        }
 
 		PenguinGameManager._headMovementActive = false;
 		
@@ -113,6 +115,7 @@ public class StartGame : MonoBehaviour
 		}
 
         PenguinGameManager._headMovementActive = true;
+        Game.SharedState.Get<PlayerMovementState>().DetectionType = WaddleDetectionParamsType.Default;
 
         //return the the player to default speed...
         PenguinPlayer.Instance.SpeedUpMovement();
@@ -141,7 +144,9 @@ public class StartGame : MonoBehaviour
         m_AudioFadeRoutine.Stop();
         m_ShimmerSound.volume = m_VolumeMultiplier;
         m_ShimmerSound.Play();
-	}
+
+        Game.SharedState.Get<PlayerMovementState>().DetectionType = WaddleDetectionParamsType.Default;
+    }
 	
 	void OnTriggerEnter(Collider otherCollider)
 	{

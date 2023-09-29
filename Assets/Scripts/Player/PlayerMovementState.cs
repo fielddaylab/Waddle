@@ -26,10 +26,15 @@ namespace Waddle
         public SFXAsset StepAudioClips;
         public SFXAsset CollideAudioClips;
 
+        [Header("Detection")]
+        public WaddleDetectionParams DefaultParams;
+        public WaddleDetectionParams DanceParams;
+
         [NonSerialized] public bool Queued;
         [NonSerialized] public bool FromRight;
         [NonSerialized] public Vector3 MoveDirection;
         [NonSerialized] public PlayerMovementSource QueuedSource;
+        [NonSerialized] public WaddleDetectionParamsType DetectionType;
 
         [NonSerialized] public RingBuffer<SafeLocationRecord> SafeLocationBuffer;
         [NonSerialized] public RingBuffer<SafeLocationRecord> HighQualitySafeLocationBuffer;
@@ -45,6 +50,41 @@ namespace Waddle
             SafeLocationBuffer = new RingBuffer<SafeLocationRecord>(30, RingBufferMode.Overwrite);
             HighQualitySafeLocationBuffer = new RingBuffer<SafeLocationRecord>(16, RingBufferMode.Overwrite);
         }
+
+        public WaddleDetectionParams CurrentDetectionParams() {
+            switch (DetectionType) {
+                case WaddleDetectionParamsType.Dance: {
+                    return DanceParams;
+                }
+                default: {
+                    return DefaultParams;
+                }
+            }
+        }
+    }
+
+    [Serializable]
+    public struct WaddleDetectionParams {
+        [Header("Sensitivities")]
+        public float HorizontalSensitivity;
+        public float LookSensitivity;
+        public float VelocitySensitivity;
+        public float MinVelocitySensitivity;
+        public float HeadTiltSensitivity;
+        public int VelocityAveragingFrames;
+
+        [Header("Horizontal Threshold Easing")]
+        public int ConsecutiveStepEasingThreshold;
+        public float ConsecutiveStepEasingMultiplier;
+
+        [Header("Step Reaction")]
+        public float WalkCooldown;
+        public float HeadReferenceSnap;
+    }
+
+    public enum WaddleDetectionParamsType {
+        Default,
+        Dance
     }
 
     public struct SafeLocationRecord {

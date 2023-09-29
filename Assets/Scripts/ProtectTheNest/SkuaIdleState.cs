@@ -6,24 +6,6 @@ public class SkuaIdleState : MonoBehaviour, ISkuaState
 {
 	private SkuaController _sc;
 	
-	/*IEnumerator CheckForMove(float moveFreq)
-	{
-		yield return new WaitForSeconds(moveFreq);
-		
-		SkuaSpot newSpot = _sc.SearchForNewSpot();
-		if(newSpot != _sc.CurrentSpot)
-		{
-			_sc.SetNewSpot(newSpot);
-			_sc.WalkToSpot();
-		}
-		else
-		{
-			//stay here idle
-			//todo - could play a different animation or something here for some variation..
-			_sc.GoIdle();
-		}
-	}*/
-	
 	public void Handle(SkuaController sc)
 	{
 		if(_sc == null)

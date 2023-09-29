@@ -253,7 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 900619f999705c94c9e732dd51a70a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Duration: 10
+  m_Duration: 15
   m_LookThreshold: 0.6
   m_Music: {fileID: 11400000, guid: 58db64939bfea7c4fbd8c1c4404886da, type: 2}
   m_GoodFeedback: {fileID: 11400000, guid: 9cc7963a46d62564c8c4ad58a4f0bc0b, type: 2}

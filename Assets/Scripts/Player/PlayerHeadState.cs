@@ -75,7 +75,7 @@ namespace Waddle
             Vector3 localShift = trackingSpace.InverseTransformVector(worldShift);
             //localShift.y = 0;
             state.Rig.TrackingOrigin += localShift;
-            Log.Msg("[PlayerHeadUtility] Shifted tracking offset by {0}", localShift);
+            //Log.Msg("[PlayerHeadUtility] Shifted tracking offset by {0}", localShift);
         }
     }
 }

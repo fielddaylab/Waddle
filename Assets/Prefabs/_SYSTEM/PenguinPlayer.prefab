@@ -1068,6 +1068,28 @@ MonoBehaviour:
   FootAudioSource: {fileID: 2827358369434360444}
   StepAudioClips: {fileID: 11400000, guid: f90d368a079bf80478f6912394ebdb83, type: 2}
   CollideAudioClips: {fileID: 11400000, guid: 9cea8025b23d97c4097c9f8cd559cf91, type: 2}
+  DefaultParams:
+    HorizontalSensitivity: 0.05
+    LookSensitivity: 0.8
+    VelocitySensitivity: 0.8
+    MinVelocitySensitivity: 0.3
+    HeadTiltSensitivity: 0.005
+    VelocityAveragingFrames: 8
+    ConsecutiveStepEasingThreshold: 2
+    ConsecutiveStepEasingMultiplier: 0.8
+    WalkCooldown: 1
+    HeadReferenceSnap: 0.65
+  DanceParams:
+    HorizontalSensitivity: 0.04
+    LookSensitivity: 0.4
+    VelocitySensitivity: 0.4
+    MinVelocitySensitivity: 0.2
+    HeadTiltSensitivity: 0.005
+    VelocityAveragingFrames: 8
+    ConsecutiveStepEasingThreshold: 2
+    ConsecutiveStepEasingMultiplier: 0.8
+    WalkCooldown: 0.3
+    HeadReferenceSnap: 0.65
 --- !u!114 &1000988389372209087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1145,6 +1167,7 @@ MonoBehaviour:
   FullAlphaTime: 0.2
   FadeInTime: 0.3
   FadeOutTime: 1.5
+  TeleportDistance: 1
 --- !u!1 &2360715680212188582
 GameObject:
   m_ObjectHideFlags: 0
@@ -3582,6 +3605,31 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &9084614295737228449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1902787986832647701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db0a93a95701d7144b16eecf921c4626, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Flipper: 1
+  RB: {fileID: 2360715681032292437}
+  Collider: {fileID: 2558263348308885569}
+--- !u!65 &2558263348308885569 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 234807930002966551, guid: f91d46b41e320764581654de9e63bf5c, type: 3}
+  m_PrefabInstance: {fileID: 2360715681032292438}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &2558263348308885575 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 234807930002966545, guid: f91d46b41e320764581654de9e63bf5c, type: 3}
+  m_PrefabInstance: {fileID: 2360715681032292438}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2597028372180051920 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 344681416329064326, guid: f91d46b41e320764581654de9e63bf5c, type: 3}
@@ -3618,6 +3666,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &8942701265182150233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4909780909651146464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db0a93a95701d7144b16eecf921c4626, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Flipper: 0
+  RB: {fileID: 2360715681032292434}
+  Collider: {fileID: 2558263348308885575}
 --- !u!1 &8837470438275187946 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6514442486104411324, guid: f91d46b41e320764581654de9e63bf5c, type: 3}

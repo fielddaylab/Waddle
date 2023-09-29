@@ -18,6 +18,7 @@ namespace Waddle
         public float FadeOutTime = 1;
         public float TeleportDistance = 1;
 
+        [NonSerialized] public bool FadeEnabled = true;
         [NonSerialized] public float Fade;
     }
 }
