@@ -10,6 +10,7 @@ using FieldDay;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Waddle;
+using static PenguinGameManager;
 
 public class StartGame : MonoBehaviour
 {
@@ -34,6 +35,9 @@ public class StartGame : MonoBehaviour
 
     [SerializeField]
     private AudioSource m_ShimmerSound;
+
+    [SerializeField]
+    private Transform m_ResetTransform;
 
     [NonSerialized] private float m_VolumeMultiplier;
     private Routine m_AudioFadeRoutine;
@@ -194,6 +198,15 @@ public class StartGame : MonoBehaviour
         }
     }
 	
+    public void FailGame() {
+        PenguinGameManager.Instance.StopMiniGame(_miniGame);
+
+        if (_loadScene) {
+            StartCoroutine(UnloadMinigameAsync(_miniGame.ToString()));
+        } else {
+            OVRScreenFade.instance.Blink(BlinkTime, OnBlinkToReset);
+        }
+    }
 	
 	IEnumerator LoadMiniGameAsync(string _miniGameName)
 	{
@@ -209,6 +222,22 @@ public class StartGame : MonoBehaviour
         OVRScreenFade.instance.FadeIn(BlinkTime);
 	}
 
+    IEnumerator UnloadMinigameAsync(string _miniGameName) {
+        OVRScreenFade.instance.FadeOut(BlinkTime);
+        while(OVRScreenFade.instance.IsFading()) {
+            yield return null;
+        }
+
+        AsyncOperation asyncLoad = UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(_miniGameName);
+        while (!asyncLoad.isDone) {
+            yield return null;
+        }
+
+        OnBlinkToReset();
+        yield return 0.1f;
+        OVRScreenFade.instance.FadeIn(BlinkTime);
+    }
+
     private void OnBlinkToStart() {
         PenguinGameManager.Instance.LoadMiniGame(_miniGame);
         PenguinPlayer.Instance.transform.position = transform.position;
@@ -219,5 +248,13 @@ public class StartGame : MonoBehaviour
         }
 
         OnStartGame();
+    }
+
+    private void OnBlinkToReset() {
+        PenguinPlayer.Instance.transform.position = m_ResetTransform.position;
+        PlayerHeadUtility.ResetHeadToBody(Game.SharedState.Get<PlayerHeadState>());
+
+        OnEndGame();
+        OnResetGame();
     }
 }

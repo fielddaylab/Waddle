@@ -70,6 +70,15 @@ public class SkuaSpawner : MonoBehaviour
 #endif // UNITY_EDITOR
     }
 
+    private void OnDisable() {
+        foreach(var skua in m_CurrentSkuas) {
+            if (skua) {
+                GameObject.Destroy(skua.gameObject);
+            }
+        }
+        m_CurrentSkuas.Clear();
+    }
+
     #endregion // Unity Events
 
     #region Operations

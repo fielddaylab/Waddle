@@ -4,7 +4,7 @@ using FieldDay.Processes;
 using UnityEngine;
 using Waddle;
 
-public class SkuaEatState : SkuaStateBase {
+public class SkuaEatState : SkuaStateBase, IProcessStateSequence {
 	public override void Handle(Process process, SkuaController sc)
 	{
 		Animator a = sc.AnimController;
@@ -15,4 +15,9 @@ public class SkuaEatState : SkuaStateBase {
 			sc.HoldingEgg.transform.SetParent(sc.CachedTransform.GetChild(1).transform, false);
 		}
 	}
+
+    public IEnumerator Sequence(Process process) {
+        yield return 3;
+        GameObject.FindObjectOfType<ProtectTheNest>().Fail();
+    }
 }

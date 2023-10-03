@@ -19973,6 +19973,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2227403103592058397, guid: 848a9e702d609f543a8da5cde35938dd, type: 3}
   m_PrefabInstance: {fileID: 547532344}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &491059270
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 491059271}
+  m_Layer: 14
+  m_Name: WarpBack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &491059271
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491059270}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.04, y: 0, z: 0.74}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 313981427}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &493456445
 GameObject:
   m_ObjectHideFlags: 0
@@ -20522,7 +20553,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 537049238}
-  m_LocalRotation: {x: 0.008750389, y: 0.7143734, z: 0.014914962, w: 0.6995511}
+  m_LocalRotation: {x: 0.016071133, y: 0.13330989, z: 0.0063831094, w: 0.9909236}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.15274511, y: 0.10162681, z: 0.10315122}
   m_ConstrainProportionsScale: 0
@@ -38250,6 +38281,7 @@ MonoBehaviour:
   m_ParticleRing: {fileID: 358708255}
   m_HighlightRing: {fileID: 358708256}
   m_ShimmerSound: {fileID: 1677343877}
+  m_ResetTransform: {fileID: 491059271}
 --- !u!65 &1645056513
 BoxCollider:
   m_ObjectHideFlags: 0

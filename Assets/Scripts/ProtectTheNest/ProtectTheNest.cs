@@ -246,7 +246,7 @@ public class ProtectTheNest : MiniGameController
 
     public override void RestartGame()
     {
-		PenguinAnalytics.Instance.LogActivityEnd("skuas");
+        PenguinAnalytics.Instance.LogActivityEnd("skuas");
 		
 		if(_skuaSpawner != null)
 		{
@@ -320,7 +320,7 @@ public class ProtectTheNest : MiniGameController
 		PenguinGameManager.Instance.ShowEndGameMenu();
 		*/
     }
-	
+
 	IEnumerator StartChickSequence(float delay)
 	{
         _chickStarting = false;
@@ -442,4 +442,14 @@ public class ProtectTheNest : MiniGameController
 
         EndGame();
 	}
+
+    public void Fail() {
+        if (!this._isGameActive) {
+            return;
+        }
+
+        this._isGameActive = false;
+        _ptnUnlocker.GetComponent<StartGame>().FailGame();
+        PenguinAnalytics.Instance.LogActivityEnd("skuas");
+    }
 }

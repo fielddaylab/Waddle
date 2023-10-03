@@ -560,4 +560,8 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 			}
 		}
 	}
+
+    public void StopMiniGame(MiniGame mg) {
+        // TODO: Anything needed?
+    }
 }

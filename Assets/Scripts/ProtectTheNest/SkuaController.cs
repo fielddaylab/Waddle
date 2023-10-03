@@ -41,7 +41,7 @@ public class SkuaController : ProcessBehaviour, ISlapInteract
 
     protected override void Start() {
         MainProcess.Process.OnStateExit += (p, d) => {
-            if (TargetSpot) {
+            if (TargetSpot && Spawner) {
                 Spawner.SetPendingOccupancy(TargetSpot, false);
                 TargetSpot = null;
             }

@@ -34,7 +34,7 @@ public struct LogGazeData
 public class PenguinAnalytics : Singleton<PenguinAnalytics>
 {
 	public static bool FirebaseEnabled { get; set; }
-    public static int logVersion = 8;
+    public static int logVersion = 9;
     
 	static string _DB_NAME = "PENGUINS";
 

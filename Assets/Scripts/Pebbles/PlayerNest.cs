@@ -14,6 +14,7 @@ namespace Waddle {
         [NonSerialized] private int m_ChunksFull;
         [NonSerialized] private float m_OriginalShimmerVolume;
         [NonSerialized] private Routine m_ShimmerFade;
+        [NonSerialized] private bool m_Started;
 
         private void Start() {
             PenguinGameManager.OnReset += () => {
@@ -23,6 +24,7 @@ namespace Waddle {
                 m_ChunksFull = 0;
                 m_ShimmerFade.Stop();
                 ShimmerSound.Pause();
+                m_Started = false;
             };
 
             foreach(var chunk in Chunks) {
@@ -43,6 +45,11 @@ namespace Waddle {
             }
 
             m_ShimmerFade.Replace(this, Tween.ZeroToOne(UpdateShimmerVolume, 0.3f));
+
+            if (!m_Started) {
+                PenguinAnalytics.Instance.LogActivityBegin("nest");
+                m_Started = true;
+            }
         }
 
         private void OnPlayerDropped() {
@@ -78,6 +85,7 @@ namespace Waddle {
                 }
                 CompleteSound.Play();
                 PenguinAnalytics.Instance.LogNestComplete();
+                PenguinAnalytics.Instance.LogActivityEnd("nest");
             } else {
                 chunk.Effect.Play();
             }

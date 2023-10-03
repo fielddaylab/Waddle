@@ -37,5 +37,7 @@ public class SkuaFlyState : SkuaStateBase, IProcessStateSequence {
 
         sc.AssignToSpot(nextSpot);
         a.SetBool("flyegg", false);
+
+        sc.Eat();
     }
 }
