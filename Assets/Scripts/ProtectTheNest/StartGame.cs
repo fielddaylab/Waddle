@@ -42,14 +42,14 @@ public class StartGame : MonoBehaviour
     void OnEnable()
     {
         m_VolumeMultiplier = m_ShimmerSound.volume;
-        MiniGameController._endGameDelegate += OnEndGame;
+        MiniGameController.OnEndGame += OnEndGame;
 		//MiniGameController._startGameDelegate += OnStartGame;
 		PenguinGameManager.OnReset += OnResetGame;
     }
 	
 	void OnDisable()
 	{
-		MiniGameController._endGameDelegate -= OnEndGame;
+		MiniGameController.OnEndGame -= OnEndGame;
 		//MiniGameController._startGameDelegate -= OnStartGame;
 		PenguinGameManager.OnReset -= OnResetGame;
 	}
@@ -115,7 +115,9 @@ public class StartGame : MonoBehaviour
 		}
 
         PenguinGameManager._headMovementActive = true;
-        Game.SharedState.Get<PlayerMovementState>().DetectionType = WaddleDetectionParamsType.Default;
+        if (Game.SharedState.TryGet(out PlayerMovementState moveState)) {
+            moveState.DetectionType = WaddleDetectionParamsType.Default;
+        }
 
         //return the the player to default speed...
         PenguinPlayer.Instance.SpeedUpMovement();
@@ -145,7 +147,9 @@ public class StartGame : MonoBehaviour
         m_ShimmerSound.volume = m_VolumeMultiplier;
         m_ShimmerSound.Play();
 
-        Game.SharedState.Get<PlayerMovementState>().DetectionType = WaddleDetectionParamsType.Default;
+        if (Game.SharedState.TryGet(out PlayerMovementState moveState)) {
+            moveState.DetectionType = WaddleDetectionParamsType.Default;
+        }
     }
 	
 	void OnTriggerEnter(Collider otherCollider)

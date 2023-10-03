@@ -2,62 +2,86 @@
 //Ross Tredinnick - WID Virtual Environments Group / Field Day Lab - 2021
 
 using System.Collections;
-using System.Collections.Generic;
 using BeauRoutine;
+using BeauUtil;
+using FieldDay.Processes;
 using UnityEngine;
 using Waddle;
 
-public class SkuaHitState : MonoBehaviour, ISkuaState
-{
-	private SkuaController _sc;
-	
-	Camera _mainCam = null;
-    // Start is called before the first frame update
-    void Start()
-    {
-        _mainCam = Camera.main;
+public class SkuaHitState : SkuaStateBase, IProcessStateSequence {
+    public struct Args {
+        public Vector3 HitDirection;
+        public Quaternion OriginalRotation;
     }
-	
-	public void Handle(SkuaController sc)
+
+	public override void Handle(Process process, SkuaController sc)
 	{
-		if(_sc == null)
-		{
-			_sc = sc;
-		}
+		PenguinAnalytics.Instance.LogFlipperBash(sc.gameObject.name, false);
 		
-		//adjust position of egg...
-		
-		Animator a = sc.GetAnimController();
-		if(a != null)
-		{
+        Animator a = sc.AnimController;
+		//a.SetBool("walk", false);
+		//a.SetBool("eat", false);
+		a.SetBool("idle", false);
+		a.SetBool("slapped", true);
+		a.SetBool("break", false);
 
-			//a.SetBool("walk", false);
-			//a.SetBool("eat", false);
-			a.SetBool("idle", false);
-			a.SetBool("slapped", true);
-			a.SetBool("break", false);
-			
-			gameObject.GetComponent<Rigidbody>().useGravity = true;
-			gameObject.GetComponent<Rigidbody>().isKinematic = false;
-			
-			PenguinAnalytics.Instance.LogFlipperBash(sc.gameObject.name, false);
+        Rigidbody rb = sc.Rigidbody;
+        sc.SetPhysics(true);
 
-			//a.enabled = false;
+        rb.velocity = default;
+        rb.angularVelocity = default;
 			
-            SFXUtility.Play(sc.Sounds, sc.HitSound);
-			GetComponent<Rigidbody>().AddForce((_mainCam.transform.forward*3f + transform.up*6), ForceMode.Impulse);
+        SFXUtility.Play(sc.Sounds, sc.HitSound);
 
-            Routine.Start(this, FlashRoutine());
-		}
+        ref Args args = ref process.Data<Args>();
+        args.OriginalRotation = rb.rotation;
+		rb.AddForce((args.HitDirection + Vector3.up * 3).normalized * 4, ForceMode.Impulse);
+        sc.AssignToSpot(null);
 	}
 
-    private IEnumerator FlashRoutine() {
-        int count = 4;
-        SkinnedMeshRenderer meshRenderer = _sc.Renderer;
+    public IEnumerator Sequence(Process process) {
+        SkuaController sc = Brain(process);
+
+        yield return FlashRoutine(sc.Renderer, sc.FlashMaterial, 8);
+
+        sc.SetPhysics(false);
+
+        Vector2 randomLook2d = Geom.Rotate(Vector2.zero, RNG.Instance.NextFloat(Mathf.PI * 2));
+        Vector3 randomLook3d = new Vector3(randomLook2d.x, 0, randomLook2d.y);
+        Quaternion safeyRot = Quaternion.Euler(randomLook3d) * SkuaController.RotationAdjust;
+
+        yield return Routine.Combine(
+            sc.CachedTransform.MoveTo(sc.CachedTransform.position.y + 0.15f, 0.2f, Axis.Y, Space.World).Yoyo(true).Ease(Curve.SineIn),
+            sc.CachedTransform.RotateQuaternionTo(safeyRot, 0.4f, Space.World).Ease(Curve.Smooth)
+        );
+
+        yield return 0.5f;
+
+        SkuaSpot safetySpot = sc.Spawner.FindOuterSpot();
+
+        Vector3 targetPos = safetySpot.CachedPosition;
+        Quaternion targetRot = GetRotationToLook(sc, safetySpot);
+
+        sc.TargetSpot = safetySpot;
+        sc.Spawner.SetPendingOccupancy(sc.TargetSpot, true);
+        sc.AssignToSpot(null);
+
+        Animator a = sc.AnimController;
+        a.SetBool("slapped", false);
+        a.SetBool("forward", true);
+
+        yield return HopToPosition(sc, targetPos, new Vector3(0, 1, 0), targetRot, 2, Curve.Smooth);
+
+        sc.AssignToSpot(safetySpot);
+
+        process.TransitionTo(SkuaStates.Idle);
+    }
+
+    private IEnumerator FlashRoutine(SkinnedMeshRenderer meshRenderer, Material flashMaterial, int count) {
         Material defaultMaterial = meshRenderer.sharedMaterial;
         try {
             while (count-- > 0) {
-                meshRenderer.sharedMaterial = _sc.FlashMaterial;
+                meshRenderer.sharedMaterial = flashMaterial;
                 yield return 0.1f;
                 meshRenderer.sharedMaterial = defaultMaterial;
                 yield return 0.1f;

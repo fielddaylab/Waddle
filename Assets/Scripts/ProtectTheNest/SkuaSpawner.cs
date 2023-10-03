@@ -1,374 +1,360 @@
 //NSF Penguins VR Experience
 //Ross Tredinnick - WID Virtual Environments Group / Field Day Lab - 2021
 
-using System.Collections;
 using System.Collections.Generic;
+using BeauUtil;
 using UnityEngine;
+using UnityEngine.Serialization;
+using System;
+using Waddle;
+using FieldDay;
+using FieldDay.Debugging;
+using BeauUtil.Debugger;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif // UNITY_EDITOR
 
 public class SkuaSpawner : MonoBehaviour
 {
-	[SerializeField]
-	GameObject _skuaPrefab;
-	
-	[SerializeField]
-	List<SkuaSpot> _spawnLocations;
-	
-	[SerializeField]
-	List<float> _waveTimes;
+	[SerializeField] private SkuaController m_SkuaPrefab;
+	[SerializeField, FormerlySerializedAs("_spawnLocations")] private SkuaSpot[] m_AllSpots;
+    [SerializeField] private SkuaSpot[] m_SpawnSpots;
+    [SerializeField] private SkuaSpot[] m_OuterSpots;
+    [SerializeField] private Egg m_TheEgg;
 
-	List<float> _originalWaveTimes;
-
-	List<GameObject> _currentSkuas = new List<GameObject>();
+    private RingBuffer<SkuaController> m_CurrentSkuas = new RingBuffer<SkuaController>(8, RingBufferMode.Expand);
+    private BitSet32 m_OccupiedSpotMask;
+    private BitSet32 m_PendingOccupantMask;
+    private WeightedSet<SkuaSpot> m_SpotChooser = new WeightedSet<SkuaSpot>(16);
+    private RingBuffer<SkuaController> m_SkuaWorkList = new RingBuffer<SkuaController>(8, RingBufferMode.Expand);
+    [NonSerialized] private int m_SpotLookUpdateIndex;
 	
-	List<SkuaSpot> _takenSpotList = new List<SkuaSpot>();
-	
-	List<GameObject> _npcPenguins = new List<GameObject>();
-	
-	[SerializeField]
-	GameObject _theEgg;
-	public GameObject TheEgg => _theEgg;
+	public Egg TheEgg { get { return m_TheEgg; } }
 
-	bool _moveOut = false;
+    #region Unity Events
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        _originalWaveTimes = new List<float>(_waveTimes);
-		_npcPenguins.AddRange(GameObject.FindGameObjectsWithTag("PTNPenguin"));
+    private void Awake() {
+        for(int i = 0; i < m_AllSpots.Length; i++) {
+            m_AllSpots[i].Index = i;
+        }
     }
-	
-	public void StartGame()
-	{
-		for(int i = 0; i < _originalWaveTimes.Count; ++i)
-		{
-			_waveTimes.Add(_originalWaveTimes[i]);
-		}
-	}
 
-	public void ClearGame()
-	{
-		_takenSpotList.Clear();
-		
-		for(int i = 0; i < _currentSkuas.Count; ++i)
-		{
-			//DestroyObject(_currentSkuas[i]);
-			SkuaController sc = _currentSkuas[i].GetComponent<SkuaController>();
-			sc.SkuaRemove();
-		}
+    // Update is called once per frame
+    void Update() {
+        if (m_TheEgg != null) {
+            if (m_TheEgg.GetComponent<Egg>().WasReset) {
+                m_TheEgg.GetComponent<Egg>().WasReset = false;
+            }
+        }
 
-		for(int i = 0; i < _spawnLocations.Count; ++i)
-		{
-			_spawnLocations[i].CurrentSkua = null;
-		}
-		
-		for(int i = 0; i < _npcPenguins.Count; ++i)	
-		{
-			StartCoroutine(ResetCall(i, 0.1f));
-		}
-		
-		_currentSkuas.Clear();
-	}
-	
-	bool EggIsTaken()
-	{
-        if(_theEgg != null)
-        {
-		    return _theEgg.GetComponent<Egg>().IsTaken;
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.S)) {
+            foreach(var skua in m_CurrentSkuas) {
+                skua.SkuaHit(Vector3.up * 4);
+            }
+        }
+
+        foreach(var skua in m_CurrentSkuas) {
+            DebugDraw.AddWorldText(skua.CachedTransform.position, skua.MainProcess.CurrentStateId.ToDebugString(), Color.white, Frame.DeltaTime, TextAnchor.MiddleCenter, DebugTextStyle.BackgroundDarkOpaque);
+        }
+        foreach(var spot in m_AllSpots) {
+            if (m_OccupiedSpotMask.IsSet(spot.Index)) {
+                DebugDraw.AddWorldText(spot.CachedPosition, "occupied", Color.red, Frame.DeltaTime);
+            } else if (m_PendingOccupantMask.IsSet(spot.Index)) {
+                DebugDraw.AddWorldText(spot.CachedPosition, "pending", ColorBank.Orange, Frame.DeltaTime);
+            } else {
+                DebugDraw.AddWorldText(spot.CachedPosition, "free", Color.blue, Frame.DeltaTime);
+            }
+        }
+#endif // UNITY_EDITOR
+    }
+
+    #endregion // Unity Events
+
+    #region Operations
+
+    public void UpdateLookScores() {
+        LODReference playerHead = Game.SharedState.Get<LODReference>();
+        UpdateLookScoresPartial(playerHead.CachedTransform.position, playerHead.CachedTransform.forward);
+    }
+
+    [ContextMenu("Spawn Skua")]
+    public void SpawnSkua() {
+        SkuaSpot bestSpawn = FindSpawnSpot(m_OccupiedSpotMask | m_PendingOccupantMask);
+        if (bestSpawn != null) {
+            InstantiateSkua(bestSpawn);
+        }
+    }
+
+    private SkuaController InstantiateSkua(SkuaSpot spot) {
+        Vector3 spawnSpot = spot.CachedTransform.position;
+        SkuaController newSkua = Instantiate(m_SkuaPrefab, spot.CachedTransform.position, Quaternion.identity);
+        newSkua.name = "Skua" + m_CurrentSkuas.Count.ToStringLookup();
+        newSkua.Spawner = this;
+        PenguinAnalytics.Instance.LogSkuaSpawned(newSkua.name, spawnSpot);
+
+        Vector3 spawnRot = spot.CachedRotation.eulerAngles;
+        spawnRot.y += newSkua.CachedTransform.eulerAngles.y; //due to skua model's local rotation.
+
+        newSkua.CachedTransform.SetPositionAndRotation(spawnSpot, Quaternion.Euler(spawnRot));
+        AssignToSpot(newSkua, spot);
+        newSkua.StartMainProcess(SkuaStates.Idle);
+
+        m_CurrentSkuas.PushBack(newSkua);
+        return newSkua;
+    }
+
+    private void UpdateLookScoresPartial(Vector3 pos, Vector3 forward) {
+        forward.y = 0;
+        forward.Normalize();
+        for(int i = 0; i < 8; i++) {
+            SkuaSpot spot = m_AllSpots[m_SpotLookUpdateIndex];
+            Vector3 normal = spot.CachedPosition - pos;
+            pos.y = 0;
+            normal.Normalize();
+            spot.LookScore = (1 + Vector3.Dot(normal, forward)) / 2;
+            m_SpotLookUpdateIndex = (m_SpotLookUpdateIndex + 1) % m_AllSpots.Length;
+
+            //DebugDraw.AddWorldText(spot.CachedPosition, string.Format("lookscore {0}", spot.LookScore), Color.black, 0.2f, TextAnchor.MiddleCenter, DebugTextStyle.BackgroundLightOpaque);
+        }
+    }
+
+    public void MoveSkuas(int attackingCount, bool normalMove) {
+        m_SkuaWorkList.Clear();
+        foreach (SkuaController skua in m_CurrentSkuas) {
+            if (skua.InHitState() || !skua.CurrentSpot || skua.HoldingEgg) {
+                continue;
+            }
+
+            m_SkuaWorkList.PushBack(skua);
+        }
+        RNG.Instance.Shuffle(m_SkuaWorkList);
+        if (attackingCount > 0) {
+            m_SkuaWorkList.Sort((a, b) => {
+                if (a.CurrentSpot.IsInner) {
+                    if (b.CurrentSpot.IsInner) {
+                        return 0;
+                    } else {
+                        return -1;
+                    }
+                } else if (b.CurrentSpot.IsInner) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
+        }
+
+        Log.Msg("[SkuaSpawner] Attacking {0} Normal {1}", attackingCount, normalMove);
+        BitSet32 newLocations = m_OccupiedSpotMask | m_PendingOccupantMask;
+
+        for(int i = 0; i < m_SkuaWorkList.Count; i++) {
+            SkuaController sc = m_SkuaWorkList[i];
+            if (attackingCount > 0) {
+                SkuaSpot attackSpot = sc.CurrentSpot.SpotIn;
+                if (attackSpot && !newLocations.IsSet(attackSpot.Index)) {
+                    newLocations.Unset(sc.CurrentSpot.Index);
+                    newLocations.Set(attackSpot.Index);
+                    if (attackSpot.IsCenter) {
+                        sc.GrabEgg(attackSpot, m_TheEgg);
+                    } else {
+                        sc.WalkToSpot(attackSpot, SkuaMovementDirection.FORWARD, RNG.Instance.NextFloat(0.1f));
+                    }
+                    attackingCount--;
+                    continue;
+                }
+            }
+
+            if (normalMove) {
+                SkuaSpot nextSpot = FindNextSpot(sc.CurrentSpot, 1, 0.5f, 0, 0.2f, 0.2f, newLocations);
+                if (nextSpot != null && nextSpot != sc.CurrentSpot) {
+                    newLocations.Unset(sc.CurrentSpot.Index);
+                    newLocations.Set(nextSpot.Index);
+                    if (nextSpot.IsCenter) {
+                        sc.GrabEgg(nextSpot, m_TheEgg);
+                    } else {
+                        sc.WalkToSpot(nextSpot, sc.CurrentSpot.GetDirection(nextSpot), RNG.Instance.NextFloat(0.2f));
+                    }
+                }
+            }
+        }
+    }
+
+    public void RetreatSkuas() {
+        m_SkuaWorkList.Clear();
+        foreach (SkuaController skua in m_CurrentSkuas) {
+            if (skua.InHitState() || !skua.CurrentSpot || skua.HoldingEgg) {
+                continue;
+            }
+
+            m_SkuaWorkList.PushBack(skua);
+        }
+        RNG.Instance.Shuffle(m_SkuaWorkList);
+
+        BitSet32 newLocations = m_OccupiedSpotMask | m_PendingOccupantMask;
+        
+        for (int i = 0; i < m_SkuaWorkList.Count; i++) {
+            SkuaController sc = m_SkuaWorkList[i];
+            SkuaSpot retreatSpot = sc.CurrentSpot.SpotOut;
+            if (retreatSpot && !newLocations.IsSet(retreatSpot.Index)) {
+                newLocations.Unset(sc.CurrentSpot.Index);
+                newLocations.Set(retreatSpot.Index);
+                sc.WalkToSpot(retreatSpot, SkuaMovementDirection.BACK, RNG.Instance.NextFloat(0.2f));
+            }
+        }
+    }
+
+    public void AssignToSpot(SkuaController skua, SkuaSpot spot) {
+        if (skua.CurrentSpot == spot) {
+            return;
+        }
+
+        if (skua.CurrentSpot != null) {
+            if (skua.CurrentSpot.CurrentSkua == skua) {
+                m_OccupiedSpotMask.Unset(skua.CurrentSpot.Index);
+                skua.CurrentSpot.CurrentSkua = null;
+            }
+        }
+
+        skua.CurrentSpot = spot;
+        if (spot) {
+            spot.CurrentSkua = skua;
+            m_OccupiedSpotMask.Set(spot.Index);
+            m_PendingOccupantMask.Unset(spot.Index);
+        }
+    }
+
+    public void SetPendingOccupancy(SkuaSpot spot, bool set) {
+        m_PendingOccupantMask.Set(spot.Index, set);
+    }
+
+    public void ClearGame() {
+        m_OccupiedSpotMask.Clear();
+        m_PendingOccupantMask.Clear();
+
+        for (int i = 0; i < m_CurrentSkuas.Count; ++i) {
+            m_CurrentSkuas[i].SkuaRemove();
+        }
+
+        for (int i = 0; i < m_AllSpots.Length; ++i) {
+            m_AllSpots[i].CurrentSkua = null;
+        }
+
+        m_CurrentSkuas.Clear();
+    }
+
+    #endregion // Operations
+
+    #region Checks
+
+    /// <summary>
+    /// Finds an open spot near another spot.
+    /// </summary>
+    private SkuaSpot FindNextSpot(SkuaSpot from, float horizontalWeight, float forwardWeight, float forwardGrabWeight, float backWeight, float stayWeight, BitSet32 occupiedMask) {
+        m_SpotChooser.Clear();
+
+        if (horizontalWeight > 0) {
+            if (from.SpotLeft && !occupiedMask.IsSet(from.SpotLeft.Index)) {
+                m_SpotChooser.Add(from.SpotLeft, (1 + from.SpotLeft.LookScore * 3) * horizontalWeight);
+            }
+            if (from.SpotRight && !occupiedMask.IsSet(from.SpotRight.Index)) {
+                m_SpotChooser.Add(from.SpotRight, (1 + from.SpotRight.LookScore * 3) * horizontalWeight);
+            }
+        }
+        if (forwardWeight > 0 || forwardGrabWeight > 0) {
+            if (from.SpotIn && !occupiedMask.IsSet(from.SpotIn.Index)) {
+                if (from.SpotIn.IsCenter) {
+                    m_SpotChooser.Add(from.SpotIn, (1 + from.SpotIn.LookScore * 3) * forwardGrabWeight);
+                } else {
+                    m_SpotChooser.Add(from.SpotIn, (1 + from.SpotIn.LookScore * 3) * forwardWeight);
+                }
+            }
+        }
+        if (backWeight > 0) {
+            if (from.SpotOut && !occupiedMask.IsSet(from.SpotOut.Index)) {
+                m_SpotChooser.Add(from.SpotOut, (1 + from.SpotOut.LookScore * 3) * backWeight);
+            }
+        }
+        if (stayWeight > 0) {
+            m_SpotChooser.Add(from, (1 + from.LookScore) * forwardWeight);
+        }
+
+        return m_SpotChooser.GetItem();
+    }
+
+    /// <summary>
+    /// Finds an open outer location.
+    /// </summary>
+    private SkuaSpot FindOuterSpot(BitSet32 occupiedMask) {
+        m_SpotChooser.Clear();
+
+        foreach(var spot in m_OuterSpots) {
+            if (spot.IsBlocked || occupiedMask.IsSet(spot.Index)) {
+                continue;
+            }
+
+            m_SpotChooser.Add(spot, 1 + spot.LookScore * 3);
+        }
+
+        return m_SpotChooser.GetItem();
+    }
+
+    /// <summary>
+    /// Finds an open outer location.
+    /// </summary>
+    public SkuaSpot FindOuterSpot() {
+        return FindOuterSpot(m_OccupiedSpotMask | m_PendingOccupantMask);
+    }
+
+    /// <summary>
+    /// Finds an open spawn location.
+    /// </summary>
+    private SkuaSpot FindSpawnSpot(BitSet32 occupiedMask) {
+        m_SpotChooser.Clear();
+
+        foreach (var spot in m_SpawnSpots) {
+            if (spot.IsBlocked || occupiedMask.IsSet(spot.Index)) {
+                continue;
+            }
+
+            m_SpotChooser.Add(spot, 1 + spot.LookScore * 3);
+        }
+
+        return m_SpotChooser.GetItem();
+    }
+
+    private bool EggIsTaken() {
+        if (m_TheEgg != null) {
+            return m_TheEgg.IsTaken;
         }
 
         return false;
-	}
-
-	IEnumerator ResetCall(int penguinIdx, float duration)
-	{
-		yield return new WaitForSeconds(duration);
-		if(penguinIdx < _npcPenguins.Count)
-		{
-			_npcPenguins[penguinIdx].GetComponent<Animator>().SetBool("call", false);
-		}
-	}
-	
-	public void CheckForSpawn(float timeSinceStart)
-	{
-		if(_waveTimes.Count > 0)
-		{
-			for(int i = 0; i < _waveTimes.Count; ++i)
-			{
-				if(timeSinceStart > _waveTimes[i])
-				{
-					int spawnLocation = -1;
-
-					while(true)
-					{
-						spawnLocation = Random.Range(0, _spawnLocations.Count-1);
-						if(_spawnLocations[spawnLocation].CurrentSkua == null)
-						{
-							break;
-						}
-					}
-					
-					if(spawnLocation != -1)
-					{
-						//if(_waveTimes.Count == 6)
-						{
-							SpawnSkua(spawnLocation);
-						}
-						_waveTimes.RemoveAt(i);
-						break;
-					}
-				}
-			}
-		}
-	}
-
-    // Update is called once per frame
-    void Update()
-    {
-		if(_theEgg != null)
-		{
-			if(_theEgg.GetComponent<Egg>().WasReset)
-			{
-				_moveOut = true;
-				_theEgg.GetComponent<Egg>().WasReset = false;
-			}
-		}
     }
-	
-	public void MoveSkuas()
-	{
-		_takenSpotList.Clear();
-		
-		
-		foreach(GameObject g in _currentSkuas)
-		{
-			SkuaSpot potentialSpot = null;
-			int numIterations = 0;
-			SkuaController sc = g.GetComponent<SkuaController>();
-			
-			if(_moveOut)
-			{
-				if(sc.CurrentSpot.SpotOut != null)
-				{
-					if(sc.InHitState())
-					{
-						g.GetComponent<Rigidbody>().useGravity = false;
-						g.GetComponent<Rigidbody>().isKinematic = true;
-						sc.GetAnimController().enabled = true;
-					}
 
-					sc.SetNewSpot(sc.CurrentSpot.SpotOut);
-					sc.WalkToSpot(SkuaWalkState.WalkDirection.eBACK);
-				}
-				else
-				{
-					sc.GoIdle();
-				}
-			}
-			else if(sc.GetEgg != null)
-			{
-				//if this skua has the egg, and it hasn't retreated to an outer spot yet, do so...
-				/*if(!sc.CurrentSpot.IsOuter)
-				{
-					while(potentialSpot == null && numIterations < 10)
-					{
-						potentialSpot = sc.SearchForOuterSpot();
-						//if the egg is currently taken, don't allow spot0 to be valid...
-						
-						if(potentialSpot != null)
-						{
-							if(!_takenSpotList.Contains(potentialSpot))
-							{
-								_takenSpotList.Add(potentialSpot);
-								break;
-							}
-							else
-							{
-								potentialSpot = null;
-							}
-						}
-						numIterations++;
-					}
-					
-					sc.SetNewSpot(potentialSpot);
-					
-					//start flying animation here...
-					sc.FlyToSpot(SkuaWalkState.WalkDirection.eBACK);
-					//sc.WalkToSpot(SkuaWalkState.WalkDirection.eBACK);
-				}
-				else
-				{
-					//continue eating...
-					sc.Eat();
-				}*/
-			}
-			else if(sc.InHitState())
-			{
-				while(potentialSpot == null && numIterations < 10)
-				{
-					potentialSpot = sc.SearchForOuterSpot();
-					//if the egg is currently taken, don't allow spot0 to be valid...
-					
-					if(potentialSpot != null)
-					{
-						if(!_takenSpotList.Contains(potentialSpot))
-						{
-							_takenSpotList.Add(potentialSpot);
-							break;
-						}
-						else
-						{
-							potentialSpot = null;
-						}
-					}
-					numIterations++;
-				}
-				
-				//turn physics back off, animation back on
-				g.GetComponent<Rigidbody>().useGravity = false;
-				g.GetComponent<Rigidbody>().isKinematic = true;
-				sc.GetAnimController().enabled = true;
-				sc.GetAnimController().SetBool("slapped", false);
-				
-				sc.SetNewSpot(potentialSpot);
-				sc.WalkToSpot(SkuaWalkState.WalkDirection.eBACK);
-			}
-			else
-			{
-				while(potentialSpot == null && numIterations < 10)
-				{
-					potentialSpot = sc.SearchForNewSpot();
-					//if the egg is currently taken, don't allow spot0 to be valid...
-					
-					if(potentialSpot != null)
-					{
-						//don't have skuas walk into the middle if the egg is gone already...
-						if(EggIsTaken() && potentialSpot.IsCenter)
-						{
-							potentialSpot = null;
-						}
-						else
-						{
-							if(!_takenSpotList.Contains(potentialSpot))
-							{
-								_takenSpotList.Add(potentialSpot);
-								break;
-							}
-							else
-							{
-								potentialSpot = null;
-							}
-						}
-					}
-					numIterations++;
-				}
-				
-				/*if(numIterations == 10)
-				{
-					Debug.Log("Num iters");
-				}*/
-				
-				if(potentialSpot == sc.CurrentSpot)
-				{
-					sc.GoIdle();
-				}
-				else
-				{
-					if(potentialSpot.IsCenter)
-					{
-						_theEgg.GetComponent<Egg>().IsTaken = true;
-						sc.SetEggRef(_theEgg.GetComponent<Egg>());
-						//this is where we need to grab the egg eventually..
-						//sc.GetAnimController().SetBool("grab", true);
-						SkuaWalkState.WalkDirection eDir = sc.WhichDirection(potentialSpot);
-						sc.SetNewSpot(potentialSpot);
-						sc.GrabEgg();
-						PenguinPlayer.Instance.SpeedUpMovement();
-					}
-					else
-					{
-						SkuaWalkState.WalkDirection eDir = sc.WhichDirection(potentialSpot);
-						sc.SetNewSpot(potentialSpot);
-						sc.WalkToSpot(eDir);
-					}
-				}
-			}
-		}
+    #endregion // Checks
 
-		if(_moveOut)
-		{
-			_moveOut = false;
-		}
-	}
-	
-	public void SpawnSkua(int spawnLocation)
-	{
-		GameObject newSkua = Instantiate(_skuaPrefab);
-		
-		//newSkua.GetComponent<Skua>().WalkForward();
-		
-		Vector3 spawnSpot = _spawnLocations[spawnLocation].gameObject.transform.position;
-		
-		newSkua.name = "Skua"+_currentSkuas.Count.ToString();
-		
-		PenguinAnalytics.Instance.LogSkuaSpawned(newSkua.name, spawnSpot);
+#if UNITY_EDITOR
+    [ContextMenu("Find Spawn Points")]
+    private void GatherSpawnPoints() {
+        Undo.RecordObject(this, "gathering spawn points");
+        EditorUtility.SetDirty(this);
 
-		//spawnSpot.y += 0.05f;
-		Vector3 spawnRot = _spawnLocations[spawnLocation].gameObject.transform.rotation.eulerAngles;
-		spawnRot.y += newSkua.transform.rotation.eulerAngles.y;//due to skua model's local rotation.
-		
-		newSkua.transform.position = spawnSpot;
-		newSkua.transform.rotation = Quaternion.Euler(spawnRot);
-		
-		_spawnLocations[spawnLocation].CurrentSkua = newSkua;
-		
-		newSkua.GetComponent<SkuaController>().SetNewSpot(_spawnLocations[spawnLocation]);
-		//newSkua.GetComponent<SkuaState>().CurrentSpot = _spawnLocations[spawnLocation];
-		
-		//find closest NPC penguin - play their sound, and their call animation...
-		if(_npcPenguins.Count > 0)
-		{
-			float fClosestDist = 99999f;
-			int cI = -1;
-			for(int i = 0; i < _npcPenguins.Count; ++i)
-			{
-				float fD = Vector3.Distance(spawnSpot, _npcPenguins[i].transform.position);
-				if(fD < fClosestDist)
-				{
-					cI = i;
-					fClosestDist = fD;
-				}
-			}
-			
-			if(cI != -1)
-			{
-				AudioSource audio = _npcPenguins[cI].GetComponent<AudioSource>();
-				if(audio != null)
-				{
-					audio.Play();
-				}
-				
-				Animator anima = _npcPenguins[cI].GetComponent<Animator>();
-				if(anima != null)
-				{
-					//Debug.Log("Calling");
-					anima.SetBool("call", true);
-					StartCoroutine(ResetCall(cI, 2f));
-				}
-			}
-		}
-		else
-		{
-			AudioSource audio = GetComponent<AudioSource>();
-			if(audio != null)
-			{
-				audio.Play();
-			}
-		}
+        List<SkuaSpot> allSpawnSpots = new List<SkuaSpot>();
+        foreach(var spot in m_AllSpots) {
+            if (spot.IsSpawn) {
+                allSpawnSpots.Add(spot);
+            }
+        }
+        m_SpawnSpots = allSpawnSpots.ToArray();
 
-		//newSkua.GetComponent<SkuaState>().Spawner = this;
-		
-		//newSkua.GetComponent<SkuaState>().GoIdle();
-		
-		_currentSkuas.Add(newSkua);
-	}
+        List<SkuaSpot> allOuterSpots = new List<SkuaSpot>();
+        foreach(var spot in m_AllSpots) {
+            if (spot.IsOuter) {
+                allOuterSpots.Add(spot);
+            }
+        }
+        m_OuterSpots = allOuterSpots.ToArray();
+    }
+#endif // UNITY_EDITOR
 }

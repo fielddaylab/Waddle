@@ -36,18 +36,22 @@ public class Egg : MonoBehaviour
 		_parentObject = transform.parent.gameObject;
     }
 	
-	public void Reset()
+	public void ResetToStart()
 	{
 		if(_isTaken)
 		{
 			PenguinAnalytics.Instance.LogEggReturn();
 		}
-		
-		PenguinPlayer.Instance.SlowDownMovement();
-		gameObject.transform.SetParent(_parentObject.transform, true);
-		//transform.position = _startPosition;
-		StartCoroutine(MoveBackToCenter(3f));
-		transform.rotation = _startRotation;
+
+        gameObject.transform.SetParent(_parentObject.transform, true);
+        transform.rotation = _startRotation;
+        
+        if (!isActiveAndEnabled) {
+            transform.position = _startPosition;
+        } else {
+            StartCoroutine(MoveBackToCenter(3f));
+        }
+
 		_isTaken = false;
 		_wasReset = true;
 	}

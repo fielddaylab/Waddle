@@ -3,12 +3,15 @@ using UnityEngine;
 using BeauUtil;
 using FieldDay.Processes;
 using System;
+using FieldDay;
 
 namespace Waddle {
     public class PenguinThoughtGuide : PenguinThoughtState {
         public override IEnumerator Sequence(Process process) {
             PenguinBrain brain = Brain(process);
             PenguinGuideParams guideParms = brain.GetComponent<PenguinGuideParams>();
+            PlayerProgressState progress = Game.SharedState.Get<PlayerProgressState>();
+
             brain.Animator.SetBool("BopDance", true);
             brain.ForceToAnimatorState("BopBeat_Action", 0.2f);
             yield return WaitForPlayerInRange(brain);
@@ -19,12 +22,19 @@ namespace Waddle {
             while(brain.Steering.HasTarget) {
                 yield return null;
             }
-            brain.Animator.SetBool("AttackedTwice", true);
-            brain.Animator.SetBool("FrontAttack", true);
-            yield return 4;
-            brain.Animator.SetBool("AttackedTwice", false);
-            brain.Animator.SetBool("FrontAttack", false);
-            yield return WaitForPlayerInRange(brain);
+
+            StringHash32 afterSign = "AfterSign";
+            if (!progress.HasFlag(afterSign)) {
+                brain.Animator.SetBool("AttackedTwice", true);
+                brain.Animator.SetBool("FrontAttack", true);
+                yield return 4;
+                brain.Animator.SetBool("AttackedTwice", false);
+                brain.Animator.SetBool("FrontAttack", false);
+                while(!progress.HasFlag(afterSign)) {
+                    yield return null;
+                }
+            }
+
             brain.SetWalkState(guideParms.SecondWalkNode);
             yield return null;
             while (brain.Steering.HasTarget)

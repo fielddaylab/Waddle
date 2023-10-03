@@ -3,6 +3,7 @@
 
 using BeauRoutine;
 using FieldDay;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,12 +11,18 @@ using Waddle;
 
 public class ProtectTheNest : MiniGameController
 {
+    [Serializable]
+    public struct RoundInfo {
+        public int BeatCount;
+        public int SkuaSpawns;
+        public int SpawnFrequency;
+        public int MovementFrequency;
+        public int AttackFrequency;
+        public int AttackerCount;
+    }
+
     [SerializeField]
     SkuaSpawner _skuaSpawner = null;
-
-	[SerializeField]
-	float _moveFrequency = 2f;
-	public float MoveFrequency => _moveFrequency;
 
     [SerializeField]
     float _gameTimeLimit = 60f;
@@ -25,16 +32,21 @@ public class ProtectTheNest : MiniGameController
 	GameObject _eggTimer = null;
 	
 	[SerializeField]
-	GameObject _theEgg;
-	public GameObject TheEgg => _theEgg;
-
-    [SerializeField]
-    GameObject _theNest;
+	Egg _theEgg;
 
     [SerializeField]
     MusicAsset _music;
 
+    [SerializeField]
+    private RoundInfo[] m_Rounds;
+
     [Header("Ending")]
+
+    [SerializeField]
+    GameObject _endingEgg;
+
+    [SerializeField]
+    GameObject _theNest;
 
     [SerializeField]
     ParticleSystem[] _preHatchParticles;
@@ -51,16 +63,22 @@ public class ProtectTheNest : MiniGameController
 	[SerializeField]
 	Transform _isolationPos;
 
-    float _skuaMoveTime = 0f;
-    float _timeWithoutEgg = 0f;
-    
-	bool _playingEggSequence = false;
-	bool _finishingEggSequence = false;
-	bool _chickStarting = false;
-	
-	GameObject _mainCam = null;
-    GameObject _ptnUnlocker;
-	
+    [SerializeField]
+    AudioSource _hatchingFanfare;
+
+    [NonSerialized] float _skuaMoveTime = 0f;
+    [NonSerialized] float _timeWithoutEgg = 0f;
+
+    [NonSerialized] bool _playingEggSequence = false;
+    [NonSerialized] bool _finishingEggSequence = false;
+	[NonSerialized] bool _chickStarting = false;
+
+    [NonSerialized] GameObject _mainCam = null;
+    [NonSerialized] GameObject _ptnUnlocker;
+    [NonSerialized] private RoundInfo m_CurrentRound;
+    [NonSerialized] private int m_CurrentRoundIndex = 0;
+    [NonSerialized] private int m_CurrentRoundBeatIndex;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -81,14 +99,14 @@ public class ProtectTheNest : MiniGameController
 		{
 			if(!_finishingEggSequence && !_chickStarting)
 			{
-				Vector3 toEgg = Vector3.Normalize(_theEgg.transform.position - _mainCam.transform.position);
+				Vector3 toEgg = Vector3.Normalize(_endingEgg.transform.position - _mainCam.transform.position);
 				Vector3 lookDir = _mainCam.transform.forward;
 				// Wait until player is looking at egg
 				if(Vector3.Dot(toEgg, lookDir) > 0.5f)
 				{
 					_finishingEggSequence = true;
 					
-					AudioSource aSource = _theEgg.GetComponent<AudioSource>();
+					AudioSource aSource = _endingEgg.GetComponent<AudioSource>();
 					if(aSource != null)
 					{
 						GameObject ptnUnlocker = GameObject.Find("ProtectTheNestUnlocker");
@@ -111,6 +129,7 @@ public class ProtectTheNest : MiniGameController
 		}
 		
         UpdateTime();
+        _skuaSpawner.UpdateLookScores();
 		
         if(_timeWithoutEgg - _startTime > _gameTimeLimit)
 		{
@@ -133,12 +152,31 @@ public class ProtectTheNest : MiniGameController
 
         if(_skuaSpawner != null)
         {
-            _skuaSpawner.CheckForSpawn(_currentTime - _startTime);
+            MusicState music = Game.SharedState.Get<MusicState>();
 
-            if(_currentTime - _skuaMoveTime > _moveFrequency)
-            {
-                _skuaSpawner.MoveSkuas();
-                _skuaMoveTime = _currentTime;
+            if (music.OnBeat) {
+                m_CurrentRoundBeatIndex++;
+
+                if (m_CurrentRound.BeatCount > 0 && m_CurrentRoundBeatIndex >= m_CurrentRound.BeatCount) {
+                    m_CurrentRound = m_Rounds[m_CurrentRoundIndex++];
+                    m_CurrentRoundBeatIndex = 0;
+                }
+
+                if (m_CurrentRound.SkuaSpawns > 0 && OnBeatInterval(m_CurrentRound.SpawnFrequency, -1)) {
+                    m_CurrentRound.SkuaSpawns--;
+                    _skuaSpawner.SpawnSkua();
+                }
+
+                int attackers = 0;
+                bool normalMove = OnBeatInterval(m_CurrentRound.MovementFrequency, 1);
+                if (!EggIsTaken() && OnBeatInterval(m_CurrentRound.AttackFrequency, 0)) {
+                    attackers = m_CurrentRound.AttackerCount;
+                }
+
+                if (attackers > 0 || normalMove) {
+                    _skuaSpawner.MoveSkuas(attackers, normalMove);
+                    _skuaMoveTime = _currentTime;
+                }
             }
 
             if(_eggTimer != null)
@@ -165,11 +203,15 @@ public class ProtectTheNest : MiniGameController
         }
     }
 
+    private bool OnBeatInterval(int interval, int offset) {
+        return interval <= 0 || ((m_CurrentRoundBeatIndex + offset) % interval) == 0;
+    }
+
 	bool EggIsTaken()
 	{
         if(_theEgg != null)
         {
-		    return _theEgg.GetComponent<Egg>().IsTaken;
+		    return _theEgg.IsTaken;
         }
 
         return false;
@@ -178,11 +220,6 @@ public class ProtectTheNest : MiniGameController
     public override void StartGame()
     {
         base.StartGame();
-		
-		if(_theEgg != null)
-		{
-			_theEgg.transform.GetChild(0).gameObject.SetActive(true);
-		}
 
 		foreach(var particles in _preHatchParticles) {
             particles.Pause();
@@ -194,13 +231,17 @@ public class ProtectTheNest : MiniGameController
         _isolationVoid.SetActive(false);
         _skuaMoveTime = _startTime;
         _timeWithoutEgg = _startTime;
-        _theEgg.SetActive(true);
-        _theNest.SetActive(true);
+        _theEgg.gameObject.SetActive(true);
+        _theNest.SetActive(false);
         _newbornCheeper.SetState(Cheeper.CheepState.None);
 
         MusicUtility.Play(_music, 1);
 
         PenguinAnalytics.Instance.LogActivityBegin("skuas");
+
+        m_CurrentRoundIndex = 0;
+        m_CurrentRound = m_Rounds[0];
+        m_CurrentRoundBeatIndex = 0;
     }
 
     public override void RestartGame()
@@ -211,13 +252,6 @@ public class ProtectTheNest : MiniGameController
 		{
 			_skuaSpawner.ClearGame();
 		}
-		
-		//double check this after addition of chick sequence..
-        if(_theEgg != null)
-        {
-		     _theEgg.GetComponent<Egg>().IsTaken = false;
-             _theEgg.GetComponent<Egg>().Reset();
-        }
 		
         if(_eggTimer != null)
         {
@@ -230,29 +264,10 @@ public class ProtectTheNest : MiniGameController
 		_finishingEggSequence = false;
         _isolationVoid.SetActive(false);
 
-        if (_theEgg != null)
-        {
-			AudioSource aSource = _theEgg.transform.GetChild(2).GetComponent<AudioSource>();
-			if(aSource != null)
-			{
-				aSource.Stop();
-				
-				AudioSource aSource2 = aSource.gameObject.transform.GetChild(0).GetComponent<AudioSource>();
-				if(aSource2 != null)
-				{
-					aSource2.Stop();
-				}
-			}
-		}
-    }
 
-    IEnumerator StartNextFrame()
-    {
-        yield return null;
-        
-        if(_skuaSpawner != null)
-        {
-            _skuaSpawner.StartGame();
+        if (_theEgg != null) {
+            _theEgg.IsTaken = false;
+            _theEgg.ResetToStart();
         }
     }
 
@@ -270,9 +285,9 @@ public class ProtectTheNest : MiniGameController
         _hatchHeartParticles.Clear();
         _newbornCheeper.SetState(Cheeper.CheepState.None);
 
-        if (_theEgg != null)
+        if (_endingEgg != null)
         {
-			AudioSource aSource = _theEgg.transform.GetChild(2).GetComponent<AudioSource>();
+			AudioSource aSource = _endingEgg.transform.GetChild(2).GetComponent<AudioSource>();
 			if(aSource != null)
 			{
 				aSource.Stop();
@@ -286,7 +301,8 @@ public class ProtectTheNest : MiniGameController
 		}
 		
 		PenguinAnalytics.Instance.LogActivityEnd("skuas");
-		
+        Game.SharedState.Get<PlayerProgressState>().CompletedGames.Add(PenguinGameManager.MiniGame.ProtectTheNest);
+
         base.EndGame();
 
 		// Return to starting position
@@ -315,12 +331,24 @@ public class ProtectTheNest : MiniGameController
 
         _hatchHeartParticles.Pause();
         _hatchHeartParticles.Clear();
+        _theNest.SetActive(true);
         PenguinPlayer.Instance.transform.position = _isolationPos.transform.position;
-		PenguinPlayer.Instance.transform.LookAt(_theEgg.transform);
+
+        Vector3 lookVec = _endingEgg.transform.position - PenguinPlayer.Instance.transform.position;
+        lookVec.y = 0;
+
+        Quaternion absFacing = Quaternion.LookRotation(lookVec, Vector3.up);
+        Vector3 headRot = Game.SharedState.Get<PlayerHeadState>().BodyRoot.localEulerAngles;
+        headRot.x = headRot.z = 0;
+
+        PenguinPlayer.Instance.transform.rotation = absFacing * Quaternion.Inverse(Quaternion.Euler(headRot));
         Game.SharedState.Get<PlayerVignetteState>().FadeEnabled = false;
+        Game.SharedState.Get<WeatherState>().Mute = true;
 
         // activate isolation void
         _isolationVoid.SetActive(true);
+
+        _hatchingFanfare.Play();
 
         OVRScreenFade.instance.FadeIn(fadeDuration);
 
@@ -337,9 +365,9 @@ public class ProtectTheNest : MiniGameController
 		_newbornCheeper.SetState(Cheeper.CheepState.Muffled);
 		_newbornCheeper.SetFade(0, 0.8f, 3f);
 
-        if (_theEgg != null)
+        if (_endingEgg != null)
 		{
-			_theEgg.transform.GetChild(0).gameObject.GetComponent<Animator>().SetTrigger("shake");
+            _endingEgg.transform.GetChild(0).gameObject.GetComponent<Animator>().SetTrigger("shake");
 		}
 
 		_chickStarting = false;
@@ -348,11 +376,11 @@ public class ProtectTheNest : MiniGameController
 	IEnumerator FinishChickSequence(float waitTime)
 	{
 		// Breaking egg
-		if(_theEgg != null)
+		if(_endingEgg != null)
 		{
-			_theEgg.transform.GetChild(1).gameObject.GetComponent<Animator>().SetTrigger("break");
-			
-			_theEgg.transform.GetChild(2).gameObject.GetComponent<Animator>().SetTrigger("break");
+            _endingEgg.transform.GetChild(1).gameObject.GetComponent<Animator>().SetTrigger("break");
+
+            _endingEgg.transform.GetChild(2).gameObject.GetComponent<Animator>().SetTrigger("break");
 		}
 		
 		yield return new WaitForSeconds(8f);
@@ -368,8 +396,8 @@ public class ProtectTheNest : MiniGameController
         _newbornCheeper.SetState(Cheeper.CheepState.Open);
         _newbornCheeper.SetFade(0.8f, 1, 3f);
 
-        _theEgg.transform.GetChild(0).gameObject.GetComponent<Animator>().SetTrigger("stop");
-		_theEgg.transform.GetChild(0).gameObject.SetActive(false);
+        _endingEgg.transform.GetChild(0).gameObject.GetComponent<Animator>().SetTrigger("stop");
+        _endingEgg.transform.GetChild(0).gameObject.SetActive(false);
 
         yield return new WaitForSeconds(3f);
 		waitTime -= 3f;
@@ -396,7 +424,7 @@ public class ProtectTheNest : MiniGameController
 
         yield return new WaitForSeconds(fadeDuration + 1);
 
-		_theEgg.SetActive(false);
+		_endingEgg.gameObject.SetActive(false);
 		_theNest.SetActive(false);
 
         PenguinMenuSystem.Instance.ChangeMenuTo(PenguinMenuSystem.MenuType.EndText);

@@ -12,6 +12,7 @@ TagManager:
   - MainMenu
   - MatingDancePenguin
   - WorldCollision
+  - PenguinBeak
   layers:
   - Default
   - TransparentFX

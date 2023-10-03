@@ -5,6 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using FieldDay;
+using Waddle;
 
 public class MiniGameController : MonoBehaviour
 {
@@ -13,14 +15,17 @@ public class MiniGameController : MonoBehaviour
     [NonSerialized] protected float _currentTime = 0f;
     [NonSerialized] protected bool _isGameActive = false;
 
-	public delegate void OnEndGameDelegate();
-	public static event OnEndGameDelegate _endGameDelegate;
+	public delegate void GameEventDelegate();
+	public static event GameEventDelegate OnEndGame;
+    public static event GameEventDelegate OnStartGame;
 
     public virtual void StartGame()
     {
         _isGameActive = true;
         _startTime = UnityEngine.Time.time;
 		_totalGameTime = 0f;
+
+        OnStartGame?.Invoke();
     }
 
     public virtual void EndGame()
@@ -28,7 +33,7 @@ public class MiniGameController : MonoBehaviour
         _isGameActive = false;
         _startTime = 0f;
 		
-		_endGameDelegate();
+		OnEndGame?.Invoke();
     }
 
     public virtual void RestartGame()

@@ -310,7 +310,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		
 		//AudioListener.pause = false;
 		PenguinPlayer.Instance.StartBackgroundMusic();
-		PenguinPlayer.Instance.transform.position = _playerStartLocation.transform.position;
+        PenguinPlayer.Instance.transform.SetPositionAndRotation(_playerStartLocation.transform.position, _playerStartLocation.transform.rotation);
         PlayerHeadUtility.ResetHeadToBody(Game.SharedState.Get<PlayerHeadState>());
 
         Game.SharedState.Get<ManualCullingReference>().RegionsDirty = true;

@@ -1,30 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+using FieldDay.Processes;
 using UnityEngine;
 
-public class SkuaRemoveState : MonoBehaviour, ISkuaState
+public class SkuaRemoveState : SkuaStateBase
 {
-    private SkuaController _sc;
-	
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void Handle(SkuaController sc)
+    public override void Handle(Process process, SkuaController sc)
 	{
-		if(_sc == null)
-		{
-			_sc = sc;
-		}
-
-        Object.Destroy(gameObject);
+		Object.Destroy(sc.gameObject);
     }
 }

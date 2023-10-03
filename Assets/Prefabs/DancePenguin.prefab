@@ -425,6 +425,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2408989911822881228, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}
   m_PrefabInstance: {fileID: 191866383181572076}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &4619360626063336032
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2578265684216886816}
+  serializedVersion: 2
+  m_Mass: 5
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &844094162966719310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,8 +455,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DesiredPlayerLook: {fileID: 4955979586022129846}
   HeartParticles: {fileID: 5709388530596418359}
-  FinalHeartTransform: {fileID: 0}
-  BopFeedback: {fileID: 0}
+  KissSound: {fileID: 11400000, guid: 3fec3cfebddbeab4ea13c4912c7163aa, type: 2}
 --- !u!4 &4461789101712782593 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4558435541182108397, guid: b40698c51d8196740a7a93d7ffd4f624, type: 3}

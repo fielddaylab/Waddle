@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[SharedBetweenAnimators]
 public class PickedUpEgg : StateMachineBehaviour
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
@@ -13,25 +14,22 @@ public class PickedUpEgg : StateMachineBehaviour
         //Debug.Log("Picked up egg");
 		SkuaController sc = animator.gameObject.transform.parent.GetComponent<SkuaController>();
 			
-		if(sc.GetEgg != null)
+		if(sc.HoldingEgg != null)
 		{
-			sc.GetEgg.gameObject.transform.localPosition = Vector3.zero;
-			sc.GetEgg.gameObject.transform.SetParent(sc.gameObject.transform.GetChild(1).transform, true);
+			sc.HoldingEgg.gameObject.transform.localPosition = Vector3.zero;
+			sc.HoldingEgg.gameObject.transform.SetParent(sc.gameObject.transform.GetChild(1).transform, false);
 			
             PenguinAnalytics.Instance.LogEggLost(sc.gameObject.name);
-			/*for(int i = 0; i < sc.GetEgg.gameObject.transform.childCount; ++i)
+            /*for(int i = 0; i < sc.GetEgg.gameObject.transform.childCount; ++i)
 			{
 				sc.GetEgg.gameObject.transform.GetChild(i).transform.localPosition = Vector3.zero;
 			}*/
-		}
-		
-		SkuaSpot potentialSpot = sc.SearchForOuterSpot();
-		sc.SetNewSpot(potentialSpot);
-		
-		//start flying animation here...
-		sc.FlyToSpot(SkuaWalkState.WalkDirection.eBACK);
-		//animator.gameObject.GetComponent<SkuaController>().FlyToSpot();
 
+            SkuaSpot potentialSpot = sc.Spawner.FindOuterSpot();
+
+            //start flying animation here...
+            sc.FlyToSpot(potentialSpot);
+        }
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

@@ -23,12 +23,12 @@ public class EndGame : MonoBehaviour
 	
 	void OnEnable()
 	{
-		MiniGameController._endGameDelegate += OnEnd;
+		MiniGameController.OnEndGame += OnEnd;
 	}
 	
 	void OnDisable()
 	{
-		MiniGameController._endGameDelegate -= OnEnd;
+		MiniGameController.OnEndGame -= OnEnd;
 	}
 	
 	public void OnEnd()

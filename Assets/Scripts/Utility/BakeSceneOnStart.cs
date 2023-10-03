@@ -6,7 +6,7 @@ namespace Waddle {
     public class BakeSceneOnStart : MonoBehaviour {
         private void Start() {
 #if UNITY_EDITOR
-            Baking.BakeCurrentScene(BakeFlags.Verbose);
+            Baking.BakeScene(gameObject.scene, BakeFlags.Verbose);
 #endif // UNITY_EDITOR
         }
     }

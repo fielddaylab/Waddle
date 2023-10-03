@@ -86,6 +86,8 @@ static public class SortingLayers {
     
     // Layer Default
     public const int Default = 0;
+    // Layer Overlay
+    public const int Overlay = 386739923;
 }
 static public class UnityTags {
     
@@ -119,4 +121,6 @@ static public class UnityTags {
     public const string MatingDancePenguin = "MatingDancePenguin";
     // Tag WorldCollision
     public const string WorldCollision = "WorldCollision";
+    // Tag PenguinBeak
+    public const string PenguinBeak = "PenguinBeak";
 }

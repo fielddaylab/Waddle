@@ -1,14 +1,16 @@
 using BeauRoutine;
 using BeauUtil;
+using FieldDay;
 using FieldDay.Processes;
 using UnityEngine;
 
 namespace Waddle {
-    public class PenguinBrain : ProcessBehaviour {
+    public class PenguinBrain : ProcessBehaviour, IBeakInteract {
         public Transform Position;
         public Animator Animator;
         public AudioSource BeakAudio;
         public SFXAsset Vocalizations;
+        public PenguinType Type;
 
         [Header("Control Components")]
         public PenguinLookSmoothing LookSmoothing;
@@ -65,10 +67,13 @@ namespace Waddle {
             m_ThoughtProcess = StartProcess(PenguinThoughts.Wander, "PenguinThought");
             if (GetComponent<PenguinPebbleData>()) {
                 m_ThoughtProcess.TransitionTo(PenguinThoughts.PebbleGather);
+                Type = PenguinType.Pebble;
             } else if (GetComponent<PenguinGuideParams>()) {
                 m_ThoughtProcess.TransitionTo(PenguinThoughts.Guide);
+                Type = PenguinType.Guide;
             } else if (GetComponent<MatingDancePenguin>()) {
                 m_ThoughtProcess.Kill();
+                Type = PenguinType.Dance;
             }
         }
 
@@ -137,5 +142,29 @@ namespace Waddle {
                 Animator.CrossFadeInFixedTime(state, fadeDuration, 0);
             }
         }
+
+        #region Interaction Callbacks
+
+        public void OnBeakInteract(PlayerBeakState state, BeakTrigger trigger, Collider collider) {
+            if (collider.CompareTag(UnityTags.PenguinBeak) && Type == PenguinType.Dance) {
+                var progress = Game.SharedState.Get<PlayerProgressState>();
+                if (!progress.HasCompleted(PenguinGameManager.MiniGame.MatingDance)) {
+                    return;
+                }
+                var ctrl = GetComponent<MatingDancePenguin>();
+                ctrl.HeartParticles.Emit(8);
+                Vocalize(ctrl.KissSound);
+                trigger.SetCooldown(collider, 1);
+            }
+        }
+
+        #endregion // Interaction Callbacks
+    }
+
+    public enum PenguinType {
+        Default,
+        Guide,
+        Pebble,
+        Dance
     }
 }

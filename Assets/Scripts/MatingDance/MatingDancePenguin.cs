@@ -5,5 +5,6 @@ namespace Waddle {
     public class MatingDancePenguin : MonoBehaviour {
         public Transform DesiredPlayerLook;
         public ParticleSystem HeartParticles;
+        public SFXAsset KissSound;
     }
 }

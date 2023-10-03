@@ -78,16 +78,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00da180e921e9b547a4520de1f380724, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalSensitivity: 0.05
-  m_LookSensitivity: 0.8
-  m_VelocitySensitivity: 0.8
-  m_MinVelocitySensitivity: 0.3
-  m_HeadTiltSensitivity: 0.005
-  m_VelocityAveragingFrames: 8
-  m_ConsecutiveStepEasingThreshold: 2
-  m_ConsecutiveStepEasingMultiplier: 0.8
-  m_WalkCooldown: 1
-  m_HeadReferenceSnap: 0.65
 --- !u!114 &9039935642557387418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,6 +321,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54cbbdfbf81b0664c9219e89cbd8d532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MinWindVolume: 0.2
+  WindVolumeIncrease: 0.3
+  WindVolumeEarFacingRatio: 0.65
+  WindPanEarFacing: 0.4
 --- !u!114 &1164387801278835128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,6 +363,7 @@ GameObject:
   - component: {fileID: 7006849980165330245}
   - component: {fileID: 1183455279336455112}
   - component: {fileID: 7456070439548286488}
+  - component: {fileID: 2553379086681624164}
   m_Layer: 0
   m_Name: SFX
   m_TagString: Untagged
@@ -415,6 +410,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3647d7833d393b24caa2935de0478a51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2553379086681624164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4183442931390315376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 762deb3e5b822bf45b3ea20502a728cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InitialCapacity: 2
 --- !u!1 &5671992787077695147
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,7 +521,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Playback: {fileID: 7179022476695954108}
   Current: {fileID: 0}
-  GlobalVolumeMultiplier: 0.2
+  GlobalVolumeMultiplier: 0.8
 --- !u!82 &7179022476695954108
 AudioSource:
   m_ObjectHideFlags: 0
@@ -532,7 +540,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

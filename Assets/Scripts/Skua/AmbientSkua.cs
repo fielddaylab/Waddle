@@ -1,8 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using FieldDay;
 using UnityEngine;
+using Waddle;
 
-public class AmbientSkua : MonoBehaviour
+using Random = UnityEngine.Random;
+
+public class AmbientSkua : MonoBehaviour, ISlapInteract
 {
 	[SerializeField]
 	float _wanderRadius = 5f;
@@ -15,6 +20,12 @@ public class AmbientSkua : MonoBehaviour
 
 	[SerializeField]
 	bool _flier = false;
+
+    [SerializeField]
+    AudioSource _sounds;
+
+    [SerializeField]
+    SFXAsset _hitSound;
 	
 	Vector3 _startingPosition;
 
@@ -36,7 +47,7 @@ public class AmbientSkua : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if (_currentState.Equals(SkuaState.ReadyToMove))
+		if (_currentState == SkuaState.ReadyToMove)
 		{
 			Vector3 newLoc = FindNewLocation();
 			Vector3 toNewSpot = newLoc - transform.position;
@@ -52,7 +63,7 @@ public class AmbientSkua : MonoBehaviour
     }
 	
 	private float NewIdleTime() {
-		return _idleTime + Random.Range(-3, 3);
+		return _idleTime + UnityEngine.Random.Range(-3, 3);
     }
 	IEnumerator StartIdle(float duration)
 	{
@@ -113,4 +124,12 @@ public class AmbientSkua : MonoBehaviour
 		
 		return newLoc;
 	}
+
+    public void OnSlapInteract(PlayerHeadState state, SlapTrigger trigger, Collider slappedCollider, Vector3 slapDirection, Collision collisionInfo) {
+        if (slapDirection.magnitude > 0.5f) {
+            SFXUtility.Play(_sounds, _hitSound);
+            trigger.PlayHaptics();
+            trigger.SetCooldown(slappedCollider, 1);
+        }
+    }
 }

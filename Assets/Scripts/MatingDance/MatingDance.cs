@@ -140,8 +140,9 @@ public class MatingDance : MiniGameController {
 		CleanUpGame();
 		
 		PenguinAnalytics.Instance.LogActivityEnd("mating_dance");
+        Game.SharedState.Get<PlayerProgressState>().CompletedGames.Add(PenguinGameManager.MiniGame.MatingDance);
 
-		base.EndGame();
+        base.EndGame();
 	}
 
     private IEnumerator Sequence() {

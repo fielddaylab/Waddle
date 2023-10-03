@@ -65,10 +65,10 @@ namespace Waddle {
         [VertexAttr(VertexAttribute.Position)]
         public Vector3 Position;
 
-        [VertexAttr(VertexAttribute.TexCoord0)]
-        public Vector2 UV;
-
         [VertexAttr(VertexAttribute.Normal)]
         public Vector3 Normal;
+
+        [VertexAttr(VertexAttribute.TexCoord0)]
+        public Vector2 UV;
     }
 }

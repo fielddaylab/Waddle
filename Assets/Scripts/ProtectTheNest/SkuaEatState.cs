@@ -1,37 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using FieldDay.Processes;
 using UnityEngine;
 using Waddle;
 
-public class SkuaEatState : MonoBehaviour, ISkuaState
-{
-	private SkuaController _sc;
-	
-	public void Handle(SkuaController sc)
+public class SkuaEatState : SkuaStateBase {
+	public override void Handle(Process process, SkuaController sc)
 	{
-		if(_sc == null)
+		Animator a = sc.AnimController;
+		if(!a.GetCurrentAnimatorStateInfo(0).IsName("eat"))
 		{
-			_sc = sc;
-		}
-		
-		//adjust position of egg...
-		
-		Animator a = sc.GetAnimController();
-		if(a != null && !a.GetCurrentAnimatorStateInfo(0).IsName("eat"))
-		{
-			//Debug.Log("Setting fly");
-			//a.SetBool("takeoff", false);
-			//a.SetBool("fly", false);
-			//a.SetBool("walkleft", false);
-			//a.SetBool("walkright", false);
-			//a.SetBool("walk", false);
-			//a.SetBool("idle", false);
-			//a.SetBool("eat", true);
-			transform.rotation = _sc.CurrentSpot.transform.rotation;
-			
-			_sc.GetEgg.gameObject.transform.localPosition = Vector3.zero;
-			
-			_sc.GetEgg.gameObject.transform.SetParent(gameObject.transform.GetChild(1).transform);
+			sc.CachedTransform.rotation = sc.CurrentSpot.CachedTransform.rotation * SkuaController.RotationAdjust;
+            sc.HoldingEgg.transform.localPosition = Vector3.zero;
+			sc.HoldingEgg.transform.SetParent(sc.CachedTransform.GetChild(1).transform, false);
 		}
 	}
 }

@@ -527,6 +527,7 @@ MonoBehaviour:
   Animator: {fileID: 3291878845233163422}
   BeakAudio: {fileID: 1044158754314342441}
   Vocalizations: {fileID: 11400000, guid: 78853f7aa4404e04cb6693422667ac05, type: 2}
+  Type: 0
   LookSmoothing: {fileID: 1058209586620724353}
   Steering: {fileID: 237095941245695212}
   Feet: {fileID: 7782495333627707602}
@@ -534,6 +535,7 @@ MonoBehaviour:
     IdleWait: 4
     IdleWaitRandom: 4
     WanderRadius: 2
+  DefaultVocalize: {fileID: 0}
   m_DEBUGLookAt: {fileID: 0}
   m_DEBUGWalkTo: {fileID: 0}
 --- !u!114 &1058209586620724353
@@ -864,6 +866,51 @@ Transform:
   m_Father: {fileID: 6137605275270504630}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3383598510295288097
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4023654275336097359}
+  - component: {fileID: 5600553261775837459}
+  m_Layer: 6
+  m_Name: BeakTrigger
+  m_TagString: PenguinBeak
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4023654275336097359
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3383598510295288097}
+  m_LocalRotation: {x: 0.20850794, y: -0.3541481, z: -0.1136851, w: 0.9045327}
+  m_LocalPosition: {x: -0.004, y: 0.083, z: -0.003}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8911344866295474085}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5600553261775837459
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3383598510295288097}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 0.1, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3538941956213246112
 GameObject:
   m_ObjectHideFlags: 0
@@ -1241,6 +1288,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6520192207922783717}
+  - {fileID: 4023654275336097359}
   m_Father: {fileID: 5075143748326762330}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 18.908998, y: -43.344418, z: -22.065}

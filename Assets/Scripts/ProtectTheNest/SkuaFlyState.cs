@@ -3,71 +3,39 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using BeauRoutine;
+using FieldDay.Processes;
 using UnityEngine;
 using Waddle;
 
-public class SkuaFlyState : MonoBehaviour, ISkuaState
-{
-	private SkuaController _sc;
+public class SkuaFlyState : SkuaStateBase, IProcessStateSequence {
+    public struct Args {
+        public RuntimeObjectHandle NextSpot;
+    }
 	
-	public enum WalkDirection {
-		eFORWARD=0,
-		eBACK,
-		eLEFT,
-		eRIGHT,
-		eSTAY
-	};
-
-	
-	IEnumerator StartMove(Vector3 newSpot, Quaternion newRot, float duration)
+	public override void Handle(Process process, SkuaController sc)
 	{
-		float t = 0f;
-		Vector3 startPosition = transform.position;
-		Quaternion startRotation = transform.rotation;
-		
-		while(t < duration)
-		{
-			transform.position = Vector3.Lerp(startPosition, newSpot, (t/duration));
-			transform.rotation = Quaternion.Lerp(startRotation, newRot, (t/duration));
-			
-			t += (Time.deltaTime);	
-			yield return null;
-		}
+	}
 
-		transform.rotation = newRot;
-		//_sc.GoIdle();
-		_sc.GetAnimController().SetBool("flyegg", false);
-	}
-	
-	public void Handle(SkuaController sc)
-	{
-		if(_sc == null)
-		{
-			_sc = sc;
-		}
-		
-		//we can assume that the new spot we want to walk to has already been set before reaching this spot...
-		
-		//orient skua in the direction of the new spot
-		Vector3 p =  _sc.CurrentSpot.gameObject.transform.position;
-		//p.y += 0.05f;
-		//gameObject.transform.position = p;
-		
-		Vector3 e = _sc.CurrentSpot.gameObject.transform.rotation.eulerAngles;
-		Quaternion q = Quaternion.LookRotation(Vector3.Normalize(p - transform.position), Vector3.up);
-		//q.SetFromToRotation(gameObject.transform.forward, );
-		//Vector3 e = q.eulerAngles;
-		e.y -= 90.0f;//due to skua model's local rotation.
-		//gameObject.transform.rotation = q;
-		
-		
-		Animator a = sc.GetAnimController();
-		if(a != null)
-		{
-			a.SetBool("grab", false);
-			a.SetBool("flyegg", true);
-		}
-		
-		StartCoroutine(StartMove(_sc.CurrentSpot.transform.position, Quaternion.Euler(e), 5f));
-	}
+    public IEnumerator Sequence(Process process) {
+        SkuaController sc = Brain(process);
+        Args args = process.Data<Args>();
+        SkuaSpot nextSpot = args.NextSpot.Cast<SkuaSpot>();
+
+        Vector3 targetPos = nextSpot.CachedPosition;
+        Quaternion targetRot = GetRotationToLook(sc, nextSpot);
+
+        sc.TargetSpot = nextSpot;
+        sc.Spawner.SetPendingOccupancy(sc.TargetSpot, true);
+        sc.AssignToSpot(null);
+
+        Animator a = sc.AnimController;
+        a.SetBool("grab", false);
+        a.SetBool("flyegg", true);
+
+        yield return MoveRotateToPosition(sc, targetPos, targetRot, 5, Curve.Smooth);
+
+        sc.AssignToSpot(nextSpot);
+        a.SetBool("flyegg", false);
+    }
 }

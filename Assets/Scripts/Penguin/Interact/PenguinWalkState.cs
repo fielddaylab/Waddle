@@ -13,6 +13,7 @@ namespace Waddle {
         public override void OnEnter(Process process, PenguinWalkData param) {
             PenguinBrain brain = Brain(process);
             brain.Animator.SetBool("Waddle", true);
+            //brain.ForceToAnimatorState("Waddle", 0.3f);
             brain.Steering.HasTarget = true;
             brain.Steering.TargetPos = param.TargetPosition;
             brain.Steering.TargetObject = param.TargetObject.Cast<Transform>();
