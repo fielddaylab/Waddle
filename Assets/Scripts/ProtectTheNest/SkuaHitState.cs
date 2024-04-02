@@ -16,7 +16,11 @@ public class SkuaHitState : SkuaStateBase, IProcessStateSequence {
 
 	public override void Handle(Process process, SkuaController sc)
 	{
-		PenguinAnalytics.Instance.LogFlipperBash(sc.gameObject.name, false);
+		Vector3 pos = Vector3.zero;
+        Quaternion view = Quaternion.identity;
+        PenguinPlayer.Instance.GetGaze(out pos, out view);    
+			
+		PenguinAnalytics.Instance.LogFlipperBashSkua(sc.gameObject.name, false, sc.gameObject.transform.position, pos);
 		
         Animator a = sc.AnimController;
 		//a.SetBool("walk", false);

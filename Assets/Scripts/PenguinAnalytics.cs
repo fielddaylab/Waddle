@@ -29,12 +29,37 @@ public struct LogGazeData
             }
         }
     }
+	
+	/*public void WritePos(Vector3 pos) {
+		unsafe {
+            fixed(float* pPos = this.pos) {
+                *(Vector3*) pPos = pos;
+            }
+        }
+	}*/
+}
+
+public static class RunMode {
+  public enum ApplicationRunMode {
+    Device,
+    Editor,
+    Simulator
+  }
+  public static ApplicationRunMode Current {
+    get {
+      #if UNITY_EDITOR
+      return UnityEngine.Device.Application.isEditor && !UnityEngine.Device.Application.isMobilePlatform ? ApplicationRunMode.Editor : ApplicationRunMode.Simulator;
+      #else
+      return ApplicationRunMode.Device;
+      #endif
+    }
+  }
 }
 
 public class PenguinAnalytics : Singleton<PenguinAnalytics>
 {
 	public static bool FirebaseEnabled { get; set; }
-    public static int logVersion = 9;
+    public static int logVersion = 10;
     
 	static string _DB_NAME = "PENGUINS";
 
@@ -56,8 +81,12 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 	LogGazeData[] _rightHandData = new LogGazeData[MAX_VIEWPORT_DATA];
 
     StringBuilder m_GazeBuilder = new StringBuilder(2048);
-
-    [NonSerialized] private string m_HardwareId;
+	StringBuilder m_WaddlePosBuilder = new StringBuilder(128);
+    StringBuilder m_WaddlePosOldBuilder = new StringBuilder(128);
+	StringBuilder m_RotBuilder = new StringBuilder(128);
+	StringBuilder m_PosBuilder = new StringBuilder(128);
+	
+	[NonSerialized] private string m_HardwareId;
 
     public void StartAnalytics()
     {
@@ -72,6 +101,11 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
         CultureInfo.CurrentUICulture = CultureInfo.InvariantCulture;
+		
+		if(RunMode.Current != RunMode.ApplicationRunMode.Device) {
+			_loggingEnabled = false;
+		}
+		
 		//_ogdLog.UseFirebase(_firebase);
         //_ogdLog.SetDebug(true);
     }
@@ -90,13 +124,11 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
         Vector3 pos;
         Quaternion quat;
         PenguinPlayer.Instance.GetGaze(out pos, out quat);
-        _ogdLog.GameStateParam("posX", pos.x);
-        _ogdLog.GameStateParam("posY", pos.y);
-        _ogdLog.GameStateParam("posZ", pos.z);
-        _ogdLog.GameStateParam("rotX", quat.x);
-        _ogdLog.GameStateParam("rotY", quat.y);
-        _ogdLog.GameStateParam("rotZ", quat.z);
-        _ogdLog.GameStateParam("rotW", quat.w);
+		m_PosBuilder.Clear().Append("[").AppendNoAlloc(pos.x, 3).Append(',').AppendNoAlloc(pos.y, 3).Append(',').AppendNoAlloc(pos.z, 3).Append(',').Append("]");
+		m_RotBuilder.Clear().Append("[").AppendNoAlloc(quat.x, 3).Append(',').AppendNoAlloc(quat.y, 3).Append(',').AppendNoAlloc(quat.z, 3).Append(',').AppendNoAlloc(quat.w, 3).Append("]");
+		
+        _ogdLog.GameStateParam("pos", m_PosBuilder.ToString());
+        _ogdLog.GameStateParam("rot", m_RotBuilder.ToString());
 		
 		LogCurrentRegion();
     }
@@ -118,8 +150,19 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 	
 	void SetGameState()
 	{
+		bool hasRock=false;
+		PlayerBeakState pbs = Game.SharedState.Get<PlayerBeakState>();
+		if(pbs != null)
+		{
+			if(pbs.HoldingPebble != null)
+			{
+				hasRock = true;
+			}
+		}
+		
 		_ogdLog.BeginGameState();
 		_ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_at_start);
+		_ogdLog.GameStateParam("has_rock", hasRock);
 		LogGazeGameState();
 		_ogdLog.SubmitGameState();
 	}
@@ -145,16 +188,19 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 			
             _ogdLog.BeginGameState();
             _ogdLog.GameStateParam("seconds_from_launch", UnityEngine.Time.time-seconds_at_start);
-            _ogdLog.GameStateParam("posX", 0f);
-            _ogdLog.GameStateParam("posY", 0f);
-            _ogdLog.GameStateParam("posZ", 0f);
-            _ogdLog.GameStateParam("rotX", 0f);
-            _ogdLog.GameStateParam("rotY", 0f);
-            _ogdLog.GameStateParam("rotZ", 0f);
-            _ogdLog.GameStateParam("rotW", 1f);
+			
+			Vector3 pos = Vector3.zero;
+			Quaternion quat = Quaternion.identity;
+			
+			m_PosBuilder.Clear().Append("[").AppendNoAlloc(pos.x, 3).Append(',').AppendNoAlloc(pos.y, 3).Append(',').AppendNoAlloc(pos.z, 3).Append(',').Append("]");
+			m_RotBuilder.Clear().Append("[").AppendNoAlloc(quat.x, 3).Append(',').AppendNoAlloc(quat.y, 3).Append(',').AppendNoAlloc(quat.z, 3).Append(',').AppendNoAlloc(quat.w, 3).Append("]");
+			
+			_ogdLog.GameStateParam("pos", m_PosBuilder.ToString());
+			_ogdLog.GameStateParam("rot", m_RotBuilder.ToString());
+			
 			_ogdLog.SubmitGameState();
 			
-            _ogdLog.BeginEvent("application_start");
+            _ogdLog.BeginEvent("session_start");
             _ogdLog.SubmitEvent();
         }
 		/*if (FirebaseEnabled)
@@ -173,12 +219,19 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
             
 			SetGameState();
             _ogdLog.ResetSessionId();
-
+			
+			long sessionID = _ogdLog.GetSessionId();
+			UnityEngine.Random.seed = (int)sessionID;
+			RNG.Instance = new System.Random((int)sessionID);
+			
+			//RNG.Instance.
+			
             _ogdLog.BeginEvent("device_identifier");
             _ogdLog.EventParam("hardware_uuid", m_HardwareId);
             _ogdLog.SubmitEvent();
 			
-            _ogdLog.BeginEvent("start");
+            _ogdLog.BeginEvent("session_start");
+			_ogdLog.EventParam("random_seed", (int)sessionID);
             _ogdLog.SubmitEvent();
         }
 		/*if (FirebaseEnabled)
@@ -280,7 +333,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 		{
             SetGameState();
 			
-			_ogdLog.BeginEvent("begin");
+			_ogdLog.BeginEvent("game_start");
             _ogdLog.EventParam("mode", mode);
 			_ogdLog.SubmitEvent();
 		}
@@ -400,13 +453,12 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
             _ogdLog.BeginEvent("new_object_displayed");
             _ogdLog.EventParam("has_the_indicator", hasIndicator);
             _ogdLog.EventParam("object", obj);
-            _ogdLog.EventParam("posX", pos.x);
-            _ogdLog.EventParam("posY", pos.y);
-            _ogdLog.EventParam("posZ", pos.z);
-            _ogdLog.EventParam("rotX", rot.x);
-            _ogdLog.EventParam("rotY", rot.y);
-            _ogdLog.EventParam("rotZ", rot.z);
-            _ogdLog.EventParam("rotW", rot.w);
+
+			m_PosBuilder.Clear().Append("[").AppendNoAlloc(pos.x, 3).Append(',').AppendNoAlloc(pos.y, 3).Append(',').AppendNoAlloc(pos.z, 3).Append(',').Append("]");
+			m_RotBuilder.Clear().Append("[").AppendNoAlloc(rot.x, 3).Append(',').AppendNoAlloc(rot.y, 3).Append(',').AppendNoAlloc(rot.z, 3).Append(',').AppendNoAlloc(rot.w, 3).Append("]");
+			
+			_ogdLog.GameStateParam("pos", m_PosBuilder.ToString());
+			_ogdLog.GameStateParam("rot", m_RotBuilder.ToString());
             _ogdLog.SubmitEvent();
         }
     }
@@ -421,7 +473,107 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
             _ogdLog.SubmitEvent();
         }
     }
+	
+    public void LogPeckRock(string name, Vector3 pos)
+    {
+        if(_loggingEnabled)
+		{
+			SetGameState();
+			
+			StringBuilder s = new StringBuilder(128);
+			s.Clear().Append("[").AppendNoAlloc(pos.x, 3).Append(',').AppendNoAlloc(pos.y, 3).Append(',').AppendNoAlloc(pos.z, 3).Append(',').Append("]");
+			
+            _ogdLog.BeginEvent("peck_rock");
+            _ogdLog.EventParam("rock_id", name);
+			_ogdLog.EventParam("rock_pos", s.ToString());
+            _ogdLog.SubmitEvent();
+        }
+    }
+	
+	public void LogPeckNest(string name, Vector3 pos)
+    {
+        if(_loggingEnabled)
+		{
+			SetGameState();
+			
+			StringBuilder s = new StringBuilder(128);
+			s.Clear().Append("[").AppendNoAlloc(pos.x, 3).Append(',').AppendNoAlloc(pos.y, 3).Append(',').AppendNoAlloc(pos.z, 3).Append(',').Append("]");
+			
+            _ogdLog.BeginEvent("peck_nest");
+            _ogdLog.EventParam("nest_id", name);
+			_ogdLog.EventParam("nest_pos", s.ToString());
+            _ogdLog.SubmitEvent();
+        }
+    }
 
+	public void LogPeckPenguin(string name, Vector3 pos)
+    {
+        if(_loggingEnabled)
+		{
+			SetGameState();
+			
+			StringBuilder s = new StringBuilder(128);
+			s.Clear().Append("[").AppendNoAlloc(pos.x, 3).Append(',').AppendNoAlloc(pos.y, 3).Append(',').AppendNoAlloc(pos.z, 3).Append(',').Append("]");
+			
+            _ogdLog.BeginEvent("peck_penguin");
+            _ogdLog.EventParam("penguin_id", name);
+			_ogdLog.EventParam("penguin_pos", s.ToString());
+            _ogdLog.SubmitEvent();
+        }
+    }
+
+	public void LogPeckSkua(string name, Vector3 pos)
+    {
+        if(_loggingEnabled)
+		{
+			SetGameState();
+			
+			StringBuilder s = new StringBuilder(128);
+			s.Clear().Append("[").AppendNoAlloc(pos.x, 3).Append(',').AppendNoAlloc(pos.y, 3).Append(',').AppendNoAlloc(pos.z, 3).Append(',').Append("]");
+			
+            _ogdLog.BeginEvent("peck_skua");
+            _ogdLog.EventParam("skua_id", name);
+			_ogdLog.EventParam("skua_pos", s.ToString());
+            _ogdLog.SubmitEvent();
+        }
+    }
+	
+	public void LogStandOnRock(string name, Vector3 pos)
+	{
+		if(_loggingEnabled)
+		{
+			//Debug.Log("Standing on rock");
+			
+			SetGameState();
+			
+			StringBuilder s = new StringBuilder(128);
+			s.Clear().Append("[").AppendNoAlloc(pos.x, 3).Append(',').AppendNoAlloc(pos.y, 3).Append(',').AppendNoAlloc(pos.z, 3).Append(',').Append("]");
+			
+            _ogdLog.BeginEvent("stand_on_rock");
+            _ogdLog.EventParam("rock_id", name);
+			_ogdLog.EventParam("rock_pos", s.ToString());
+            _ogdLog.SubmitEvent();
+        }
+	}
+	
+	public void LogStandOnNest(string name, Vector3 pos)
+	{
+		if(_loggingEnabled)
+		{
+			//Debug.Log("Standing on nest");
+			
+			SetGameState();
+			
+			StringBuilder s = new StringBuilder(128);
+			s.Clear().Append("[").AppendNoAlloc(pos.x, 3).Append(',').AppendNoAlloc(pos.y, 3).Append(',').AppendNoAlloc(pos.z, 3).Append(',').Append("]");
+			
+            _ogdLog.BeginEvent("stand_on_nest");
+            _ogdLog.EventParam("nest_id", name);
+			_ogdLog.EventParam("nest_pos", s.ToString());
+            _ogdLog.SubmitEvent();
+        }
+	}
+	
     public void LogPickupRock(Vector3 pos, Quaternion rot)
     {
         if(_loggingEnabled)
@@ -458,6 +610,19 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
             _ogdLog.SubmitEvent();
         }
     }
+	
+	public void LogPlaceRock(int numRocks)
+	{
+		if(_loggingEnabled)
+		{
+			SetGameState();
+			
+			_ogdLog.BeginEvent("place_rock");
+			_ogdLog.EventParam("rock_count", numRocks+1);
+			_ogdLog.EventParam("percent_complete", (float)(numRocks+1f)/4f);
+			_ogdLog.SubmitEvent();
+		}
+	}
 
     public void LogMenuAppeared()
     {
@@ -533,19 +698,98 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
         }
     }
 
-    public void LogFlipperBash(string skuaID, bool right)
+    public void LogFlipperBashSkua(string skuaID, bool right, Vector3 skuaPos, Vector3 penguinPos)
     {
         if(_loggingEnabled)
 		{
 			SetGameState();
 			
-            _ogdLog.BeginEvent("flipper_bash_skua");
-            _ogdLog.EventParam("object_id", skuaID);
+			StringBuilder sPos = new StringBuilder(128);
+			sPos.Clear().Append("[").AppendNoAlloc(skuaPos.x, 3).Append(',').AppendNoAlloc(skuaPos.y, 3).Append(',').AppendNoAlloc(skuaPos.z, 3).Append("]");
+            
+			StringBuilder pPos = new StringBuilder(128);
+			pPos.Clear().Append("[").AppendNoAlloc(penguinPos.x, 3).Append(',').AppendNoAlloc(penguinPos.y, 3).Append(',').AppendNoAlloc(penguinPos.z, 3).Append("]");
+            
+			
+			_ogdLog.BeginEvent("flipper_bash_skua");
+            _ogdLog.EventParam("skua_id", skuaID);
+			_ogdLog.EventParam("skua_pos", sPos.ToString());
+			_ogdLog.EventParam("penguin_pos", pPos.ToString());
+			
 			//_ogdLog.EventParam("rightFlipper", right);
             _ogdLog.SubmitEvent();
         }
     }
 
+	public void LogFlipperBashRock(string rockID, bool right, Vector3 rockPos, Vector3 penguinPos)
+    {
+        if(_loggingEnabled)
+		{
+			SetGameState();
+			
+			StringBuilder sPos = new StringBuilder(128);
+			sPos.Clear().Append("[").AppendNoAlloc(rockPos.x, 3).Append(',').AppendNoAlloc(rockPos.y, 3).Append(',').AppendNoAlloc(rockPos.z, 3).Append("]");
+            
+			//StringBuilder pPos = new StringBuilder(128);
+			//pPos.Clear().Append("[").AppendNoAlloc(penguinPos.x, 3).Append(',').AppendNoAlloc(penguinPos.y, 3).Append(',').AppendNoAlloc(penguinPos.z, 3).Append("]");
+            
+			
+			_ogdLog.BeginEvent("flipper_bash_rock");
+            _ogdLog.EventParam("rock_id", rockID);
+			_ogdLog.EventParam("rock_pos", sPos.ToString());
+			//_ogdLog.EventParam("penguin_pos", pPos.ToString());
+			
+			_ogdLog.EventParam("hand", right ? "RIGHT" : "LEFT");
+            _ogdLog.SubmitEvent();
+        }
+    }
+	
+	public void LogFlipperBashPenguin(string penguinID, bool right, Vector3 penguinPos, Vector3 playerPos)
+    {
+        if(_loggingEnabled)
+		{
+			SetGameState();
+			
+			StringBuilder sPos = new StringBuilder(128);
+			sPos.Clear().Append("[").AppendNoAlloc(penguinPos.x, 3).Append(',').AppendNoAlloc(penguinPos.y, 3).Append(',').AppendNoAlloc(penguinPos.z, 3).Append("]");
+            
+			//StringBuilder pPos = new StringBuilder(128);
+			//pPos.Clear().Append("[").AppendNoAlloc(penguinPos.x, 3).Append(',').AppendNoAlloc(penguinPos.y, 3).Append(',').AppendNoAlloc(penguinPos.z, 3).Append("]");
+            
+			
+			_ogdLog.BeginEvent("flipper_bash_penguin");
+            _ogdLog.EventParam("penguin_id", penguinID);
+			_ogdLog.EventParam("penguin_pos", sPos.ToString());
+			//_ogdLog.EventParam("penguin_pos", pPos.ToString());
+			
+			_ogdLog.EventParam("hand", right ? "RIGHT" : "LEFT");
+            _ogdLog.SubmitEvent();
+        }
+    }
+	
+	public void LogFlipperBashNest(string nestID, bool right, Vector3 nestPos, Vector3 penguinPos)
+    {
+        if(_loggingEnabled)
+		{
+			SetGameState();
+			
+			StringBuilder sPos = new StringBuilder(128);
+			sPos.Clear().Append("[").AppendNoAlloc(nestPos.x, 3).Append(',').AppendNoAlloc(nestPos.y, 3).Append(',').AppendNoAlloc(nestPos.z, 3).Append("]");
+            
+			//StringBuilder pPos = new StringBuilder(128);
+			//pPos.Clear().Append("[").AppendNoAlloc(penguinPos.x, 3).Append(',').AppendNoAlloc(penguinPos.y, 3).Append(',').AppendNoAlloc(penguinPos.z, 3).Append("]");
+            
+			
+			_ogdLog.BeginEvent("flipper_bash_nest");
+            _ogdLog.EventParam("nest_id", nestID);
+			_ogdLog.EventParam("nest_pos", sPos.ToString());
+			//_ogdLog.EventParam("penguin_pos", pPos.ToString());
+			
+			_ogdLog.EventParam("hand", right ? "RIGHT" : "LEFT");
+            _ogdLog.SubmitEvent();
+        }
+    }
+	
     public void LogSkuaSpawned(string skuaID, Vector3 pos)
     {
         if(_loggingEnabled)
@@ -754,18 +998,14 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 		{
             SetGameState();
 			
+			m_WaddlePosBuilder.Clear().Append("[").AppendNoAlloc(pos.x, 3).Append(',').AppendNoAlloc(pos.y, 3).Append(',').AppendNoAlloc(pos.z, 3).Append("]");
+			m_WaddlePosOldBuilder.Clear().Append("[").AppendNoAlloc(oldPos.x, 3).Append(',').AppendNoAlloc(oldPos.y, 3).Append(',').AppendNoAlloc(oldPos.z, 3).Append("]");
+			
             _ogdLog.BeginEvent("player_waddle");
             _ogdLog.EventParam("object_id", object_id);     //left or right waddle (0 or 1)
-            _ogdLog.EventParam("old_posX", oldPos.x);
-            _ogdLog.EventParam("old_posY", oldPos.y);
-            _ogdLog.EventParam("old_posZ", oldPos.z);
-            _ogdLog.EventParam("posX", pos.x);
-            _ogdLog.EventParam("posY", pos.y);
-            _ogdLog.EventParam("posZ", pos.z);
-            _ogdLog.EventParam("rotX", gaze.x);
-            _ogdLog.EventParam("rotY", gaze.y);
-            _ogdLog.EventParam("rotZ", gaze.z);
-            _ogdLog.EventParam("rotW", gaze.w);
+			
+            _ogdLog.EventParam("pos_old", m_WaddlePosOldBuilder.ToString());
+            _ogdLog.EventParam("pos_new", m_WaddlePosBuilder.ToString());
             _ogdLog.EventParam("source", source == PlayerMovementSource.Button ? "button" : "waddle");
             _ogdLog.SubmitEvent();
         }
@@ -852,6 +1092,8 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
     {
         if(_loggingEnabled)
 		{
+			//Debug.Log("Gaze begin: " + object_id);
+			
 			SetGameState();
 				
             _ogdLog.BeginEvent("gaze_object_begin");
@@ -864,6 +1106,8 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
     {
         if(_loggingEnabled)
 		{
+			//Debug.Log("Gaze end: " + object_id);
+			
 			SetGameState();
 			
             _ogdLog.BeginEvent("gaze_object_end");

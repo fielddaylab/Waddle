@@ -5046,6 +5046,19 @@ MonoBehaviour:
   Shine: {fileID: 1265863561364084925}
   PickUpSFX: {fileID: 11400000, guid: 7e617c104b8e22047beaaf0ffab25e46, type: 2}
   Particles: {fileID: 5780395948237462403}
+--- !u!114 &1297048173839254298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887669042693192627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39790b2905c31db47b121c8bd21cda13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 0
 --- !u!4 &2817857519362269821 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 271604002194030204, guid: 2a35ca2fd1eca1c478eaa3ebcee5c109, type: 3}

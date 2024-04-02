@@ -96,6 +96,17 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		_gazeLogFrameCount = 0;
 	}
 	
+	public void GetFootPosition(out Vector3 pos, out Quaternion view)
+	{
+		pos = transform.position;
+		view = Quaternion.identity;
+		
+		if(_centerEye != null)
+		{
+			view = _centerEye.transform.rotation;
+		}
+	}
+	
 	public void GetGaze(out Vector3 pos, out Quaternion view)
 	{
 		pos = _centerEye.transform.position;
@@ -379,7 +390,7 @@ public class PenguinPlayer : Singleton<PenguinPlayer>
 		{
 			if(gazeObject != _lastGazeObject)
 			{
-				if(_lastGazeObject != null)
+				if(_lastGazeObject != null && _gazeBegan)
 				{
 					//end gaze log
 					PenguinAnalytics.Instance.LogGazeEnd(_lastGazeObject.name);

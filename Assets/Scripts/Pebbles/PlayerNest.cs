@@ -87,6 +87,7 @@ namespace Waddle {
                 PenguinAnalytics.Instance.LogNestComplete();
                 PenguinAnalytics.Instance.LogActivityEnd("nest");
             } else {
+				PenguinAnalytics.Instance.LogPlaceRock(m_ChunksFull);
                 chunk.Effect.Play();
             }
         }

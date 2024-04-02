@@ -137,18 +137,18 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		
 		if(_gameMode == GameMode.ShowMode)
 		{
-			PenguinAnalytics.Instance.LogBeginMode("show_mode");
+			PenguinAnalytics.Instance.LogBeginMode("SHOW_MODE");
 			PenguinAnalytics.Instance.LogTimerBegin(_showModeTimeLimit);
 		}
 		else
 		{
 			if(_gameMode == GameMode.ResearchMode)
 			{
-				PenguinAnalytics.Instance.LogBeginMode("research_mode");
+				PenguinAnalytics.Instance.LogBeginMode("RESEARCH_MODE");
 			}
 			else
 			{
-				PenguinAnalytics.Instance.LogBeginMode("home_mode");
+				PenguinAnalytics.Instance.LogBeginMode("HOME_MODE");
 			}
 			PenguinAnalytics.Instance.LogTimerBegin(_homeModeTimeLimit);
 
@@ -292,18 +292,18 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		_totalGameTime = 0f;
 		if(_gameMode == GameMode.ShowMode)
 		{
-			PenguinAnalytics.Instance.LogBeginMode("show_mode");
+			PenguinAnalytics.Instance.LogBeginMode("SHOW_MODE");
 			PenguinAnalytics.Instance.LogTimerBegin(_showModeTimeLimit);
 		}
 		else
 		{
 			if(_gameMode == GameMode.ResearchMode)
 			{
-				PenguinAnalytics.Instance.LogBeginMode("research_mode");
+				PenguinAnalytics.Instance.LogBeginMode("RESEARCH_MODE");
 			}
 			else
 			{
-				PenguinAnalytics.Instance.LogBeginMode("home_mode");
+				PenguinAnalytics.Instance.LogBeginMode("HOME_MODE");
 			}
 			PenguinAnalytics.Instance.LogTimerBegin(_homeModeTimeLimit);
 		}
@@ -450,7 +450,7 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 		
 		if(!_logAppStarted)
 		{
-			PenguinAnalytics.Instance.LogApplicationStart();
+			//PenguinAnalytics.Instance.LogApplicationStart();
 			_logAppStarted = true;
 			
 			OVRManager.HMDUnmounted += HandleHMDUnmounted;

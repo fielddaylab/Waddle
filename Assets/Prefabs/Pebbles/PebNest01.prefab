@@ -11,7 +11,11 @@ GameObject:
   - component: {fileID: 2740313292343509302}
   - component: {fileID: 1272363647148330643}
   - component: {fileID: 3912678884242717273}
-  m_Layer: 0
+  - component: {fileID: 4050306003943251718}
+  - component: {fileID: 7363834139933128154}
+  - component: {fileID: 2618529756015683784}
+  - component: {fileID: 4344499607391974207}
+  m_Layer: 8
   m_Name: PebNest01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,3 +91,55 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4050306003943251718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3264085840541440908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29b64111bab3ad64abb0cf7eba750314, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 2
+--- !u!114 &7363834139933128154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3264085840541440908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45c4445831349154b897fe8ad2ec3c6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 2
+--- !u!65 &2618529756015683784
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3264085840541440908}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6861372, y: 0.6039781, z: 0.07880663}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4344499607391974207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3264085840541440908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39790b2905c31db47b121c8bd21cda13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 1
