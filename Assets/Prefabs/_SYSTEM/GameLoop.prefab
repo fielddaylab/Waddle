@@ -467,6 +467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f3025d098ac10d4f9e14e42100093a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_EnableMode: 1
   m_TextFont: {fileID: 12800000, guid: 6b73f4e904dbcc144b6a706b25fb57bb, type: 3}
   m_SphereMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   m_CubeMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
