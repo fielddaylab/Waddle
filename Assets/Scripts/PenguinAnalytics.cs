@@ -715,7 +715,8 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
             _ogdLog.EventParam("skua_id", skuaID);
 			_ogdLog.EventParam("skua_pos", sPos.ToString());
 			_ogdLog.EventParam("penguin_pos", pPos.ToString());
-			
+
+			_ogdLog.EventParam("hand", right ? "RIGHT" : "LEFT");
 			//_ogdLog.EventParam("rightFlipper", right);
             _ogdLog.SubmitEvent();
         }
