@@ -59,7 +59,7 @@ public static class RunMode {
 public class PenguinAnalytics : Singleton<PenguinAnalytics>
 {
 	public static bool FirebaseEnabled { get; set; }
-    public static int logVersion = 10;
+    public static int logVersion = 11;
     
 	static string _DB_NAME = "PENGUINS";
 
