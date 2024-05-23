@@ -124,7 +124,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
         Vector3 pos;
         Quaternion quat;
         PenguinPlayer.Instance.GetGaze(out pos, out quat);
-		m_PosBuilder.Clear().Append("[").AppendNoAlloc(pos.x, 3).Append(',').AppendNoAlloc(pos.y, 3).Append(',').AppendNoAlloc(pos.z, 3).Append(',').Append("]");
+		m_PosBuilder.Clear().Append("[").AppendNoAlloc(pos.x, 3).Append(',').AppendNoAlloc(pos.y, 3).Append(',').AppendNoAlloc(pos.z, 3).Append("]");
 		m_RotBuilder.Clear().Append("[").AppendNoAlloc(quat.x, 3).Append(',').AppendNoAlloc(quat.y, 3).Append(',').AppendNoAlloc(quat.z, 3).Append(',').AppendNoAlloc(quat.w, 3).Append("]");
 		
         _ogdLog.GameStateParam("pos", m_PosBuilder.ToString());
