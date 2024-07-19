@@ -210,7 +210,16 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
         }	*/
 	}
 	
-
+	public long GetSessionID()
+	{
+		if(_ogdLog != null)
+		{
+			return _ogdLog.GetSessionId();
+		}
+		
+		return 0L;
+	}
+	
 	public void LogStartGame()
 	{
         if(_loggingEnabled)

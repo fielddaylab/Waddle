@@ -73,6 +73,9 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	GameObject _surveyLocation;
 	
 	[SerializeField]
+	GameObject _sessionIDLocation;
+	
+	[SerializeField]
 	bool _demoMode = false;	//demo mode makes it so the game will auto-restart if taking off and putting on the HMD
 
 	static Vector3 _priorLocation = Vector3.zero;
@@ -132,6 +135,11 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
 	{
 		PenguinAnalytics.Instance.StartAnalytics();
 		PenguinAnalytics.Instance.LogStartGame();
+		
+		if(_sessionIDLocation != null)
+		{
+			_sessionIDLocation.GetComponent<TMPro.TextMeshPro>().text = PenguinAnalytics.Instance.GetSessionID().ToString();
+		}
 		
 		PenguinPlayer.Instance.ResetGazeLogging();
 		
@@ -317,6 +325,10 @@ public class PenguinGameManager : Singleton<PenguinGameManager>
         Game.SharedState.Get<PlayerVignetteState>().FadeEnabled = true;
 
         PenguinAnalytics.Instance.LogStartGame();
+		if(_sessionIDLocation != null)
+		{
+			_sessionIDLocation.GetComponent<TMPro.TextMeshPro>().text = PenguinAnalytics.Instance.GetSessionID().ToString();
+		}
 		
 		PenguinPlayer.Instance.ResetGazeLogging();
 		
