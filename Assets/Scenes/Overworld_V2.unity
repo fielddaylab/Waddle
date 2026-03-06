@@ -20370,7 +20370,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 537049238}
-  m_LocalRotation: {x: 0.009804553, y: 0.661994, z: 0.014244161, w: 0.74930966}
+  m_LocalRotation: {x: 0.010021318, y: 0.65045327, z: 0.0140925, w: 0.7593494}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.15274511, y: 0.10162681, z: 0.10315122}
   m_ConstrainProportionsScale: 0
@@ -52396,6 +52396,26 @@ PrefabInstance:
     - target: {fileID: 2240847203652696270, guid: 07af7d9eb1994d4479a95722acf0c5e6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294979804767218309, guid: 07af7d9eb1994d4479a95722acf0c5e6, type: 3}
+      propertyPath: _firebase.AppId
+      value: 1:475789684664:android:35e3fcb39eb01ef612294d
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294979804767218309, guid: 07af7d9eb1994d4479a95722acf0c5e6, type: 3}
+      propertyPath: _firebase.ApiKey
+      value: AIzaSyC1DQLXse7185EFf6Yw43uIc9jKo2i0P9Q
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294979804767218309, guid: 07af7d9eb1994d4479a95722acf0c5e6, type: 3}
+      propertyPath: _firebase.ProjectId
+      value: penguinsvr
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294979804767218309, guid: 07af7d9eb1994d4479a95722acf0c5e6, type: 3}
+      propertyPath: _firebase.StorageBucket
+      value: penguinsvr.appspot.com
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294979804767218309, guid: 07af7d9eb1994d4479a95722acf0c5e6, type: 3}
+      propertyPath: _firebase.MessagingSenderId
+      value: 475789684664
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07af7d9eb1994d4479a95722acf0c5e6, type: 3}

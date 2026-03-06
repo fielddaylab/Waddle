@@ -67,6 +67,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 	
 	FieldDay.OGDLog _ogdLog;
 	
+	[SerializeField]
 	FieldDay.FirebaseConsts _firebase;
 
 	[SerializeField]
@@ -106,7 +107,7 @@ public class PenguinAnalytics : Singleton<PenguinAnalytics>
 			_loggingEnabled = false;
 		}
 		
-		//_ogdLog.UseFirebase(_firebase);
+		_ogdLog.UseFirebase(_firebase);
         //_ogdLog.SetDebug(true);
     }
 	
